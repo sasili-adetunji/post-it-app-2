@@ -1,9 +1,10 @@
-const express = require('express');
+const express = require('express'); 
 const firebase     = require('firebase');
 const db =  require('../../config/db');
 const app = express();
 const fb = firebase.database();
-const usersRef = fb.ref("users");
+const usersRef = fb.ref("groups");
+
 
 
 module.exports = function(app, db) {
