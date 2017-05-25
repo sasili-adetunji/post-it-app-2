@@ -9,14 +9,17 @@ const usersRef = fb.ref("groups");
 
 module.exports = function(app, db) {
 	app.post('/users/group', (req, res) => {
+		// let user = fb.auth().currentUser;
+  //               if(user) {
+  	let group_name = req.body.group_name,
+  		admin_id;
+
 	firebase.auth().onAuthStateChanged(function(user) {
   	if (user) {
-  		let user = {};
-		user.group_admin = req.body.group_admin;
-		user.group_name =req.body.group_name;
+  		admin_id = user.uid
 		usersRef.push({
-			group_admin: req.body.group_admin,
-			group_name: req.body.group_name,
+			admin_id: user.uid,
+			group_name: req.body.group_name
 		})
  		res.json({ message: "Success: You have creared a new Group."})
   } 
@@ -26,3 +29,4 @@ module.exports = function(app, db) {
 	})
 })
 }
+
