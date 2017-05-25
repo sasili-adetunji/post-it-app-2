@@ -3,8 +3,6 @@ import firebase from 'firebase';
 import db from '../../config/db';
 
 const app = express();
-
-
 const login = (app, db) => {
   app.post('/login', (req, res) => {
     const email = req.body.email,
