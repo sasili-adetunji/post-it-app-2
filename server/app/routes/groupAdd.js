@@ -7,7 +7,7 @@ let fire_base = firebase.auth();
 let ref = database.ref('groups');
 let orderRef = database.ref('users');
 
-module.exports = function (app, db) {
+module.exports = (app, db) => {
     app.post('/', (req, res) => {
     let memberId = req.body.memberId,
         group_name;

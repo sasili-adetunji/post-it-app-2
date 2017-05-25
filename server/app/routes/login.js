@@ -1,13 +1,11 @@
-const express = require('express');
-
-const firebase = require('firebase');
-
-const db = require('../../config/db');
+import express from 'express'; 
+import firebase from 'firebase';
+import db from '../../config/db';
 
 const app = express();
 
 
-module.exports = (app, db) => {
+const login = (app, db) => {
   app.post('/login', (req, res) => {
     const email = req.body.email,
       password = req.body.password;
@@ -20,3 +18,4 @@ module.exports = (app, db) => {
     });
   });  
 };
+export default login;

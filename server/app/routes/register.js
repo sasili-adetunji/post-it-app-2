@@ -1,14 +1,13 @@
 
-
-const express = require('express');
-const firebase     = require('firebase');
-const db =  require('../../config/db');
+import express from 'express'; 
+import firebase from 'firebase';
+import db from '../../config/db';
 const app = express();
 const fb = firebase.database();
 const usersRef = fb.ref("users");
 
 
-module.exports = function(app, db) {
+const register = (app, db) => {
     app.post('/register', (req, res) => {
     let userName = req.body.userName,
         email =     req.body.email,
@@ -37,3 +36,4 @@ module.exports = function(app, db) {
     })
 
 }
+export default register;

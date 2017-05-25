@@ -1,24 +1,15 @@
+import firebase from 'firebase';
+import dotenv from 'dotenv';
+dotenv.config();
 
-let db;
 const config = {
-    apiKey: "AIzaSyAPkaQ0wLHWqT_u20dcXLqPENZsmea7mgs",
-    authDomain: "postit-335c1.firebaseapp.com",
-    databaseURL: "https://postit-335c1.firebaseio.com",
-    projectId: "postit-335c1",
-    storageBucket: "postit-335c1.appspot.com",
-    messagingSenderId: "63329792793"
-  };
+  apiKey: process.env.apiKey,
+  authDomain: process.env.authDomain,
+  databaseURL: process.env.databaseURL,
+  projectId: process.env.projectId,
+  storageBucket: process.env.storageBucket,
+  messagingSenderId: process.env.messagingSenderId
+};
 
-//const express = require('express');
-const firebase     = require('firebase');
-//const app = express();
-//const admin = require('firebase-admin');
-//var apiRouter = express.Router()
-
-    
-firebase.initializeApp(config);
-  module.exports = db;
-
-
-
-// url : "https://postit-335c1.firebaseio.com",
+let db = firebase.initializeApp(config);
+export default db;
