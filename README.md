@@ -20,6 +20,5 @@
 - Create a firebase database
 - Create a ```.env``` file and set the variables in the  ```env-sample``` to your specified database connection
 - Start the server by running ```npm start```
-- Run ``` npm test``` to seethe fizzbuzz and car class test
 ## Contributing
 - If you are planning on contributing to PostIt, that will be awesome. We welcome contributions. Just fork the repo and raise a PR.
