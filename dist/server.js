@@ -36,6 +36,10 @@ app.use(_bodyParser2.default.json());
 
 // import the index file which has all the routes
 
+app.get('/*', function (req, res) {
+	res.send({ message: 'Welcome to PostIp Chat App' });
+});
+
 (0, _index2.default)(app, {});
 
 app.listen(port, function () {
