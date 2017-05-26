@@ -1,11 +1,11 @@
 
 
 
-const register = require('./register');
-const login = require('./login');
-const signout = require('./signout');
-const group = require('./group');
-const groupAdd = require('./groupAdd');
+import register from './register';
+import login from './login';
+import signout from './signout';
+import group from './group';
+import groupAdd from './groupAdd';
 
 
 
