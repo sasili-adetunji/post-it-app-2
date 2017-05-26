@@ -8,9 +8,7 @@ import group from './group';
 import groupAdd from './groupAdd';
 
 
-
-
-module.exports = function(app, db) {
+const index = (app, db) => {
   register(app, db);
   login(app, db);
   signout(app, db);
@@ -18,3 +16,4 @@ module.exports = function(app, db) {
   groupAdd(app, db);
 
 };
+export default index;

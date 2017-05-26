@@ -5,7 +5,7 @@ import db from '../../config/db';
 const app = express();
 
 
-module.exports = (app, db) => {
+const login = (app, db) => {
   app.post('/login', (req, res) => {
     const email = req.body.email,
       password = req.body.password;
@@ -18,3 +18,4 @@ module.exports = (app, db) => {
     });
   });  
 };
+export default login;

@@ -7,7 +7,7 @@ const fb = firebase.database();
 const usersRef = fb.ref("users");
 
 
-module.exports = function(app, db) {
+const register = (app, db) => {
     app.post('/register', (req, res) => {
     let userName = req.body.userName,
         email =     req.body.email,
@@ -36,3 +36,4 @@ module.exports = function(app, db) {
     })
 
 }
+export default register;
