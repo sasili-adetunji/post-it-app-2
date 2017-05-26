@@ -1,6 +1,9 @@
- import express from 'express'; 
- import firebase from 'firebase';
- import db from '../../config/db';
+// login route
+//using firebase authentication method
+
+import express from 'express'; 
+import firebase from 'firebase';
+import db from '../../config/db';
 
 const app = express();
 const login = (app, db) => {

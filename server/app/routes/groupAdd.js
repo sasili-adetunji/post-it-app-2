@@ -1,4 +1,4 @@
-
+// add to group route
 
 const groupAdd = (app, db) => {
   app.post('/users/group/userId', (req, res) => {
@@ -6,6 +6,7 @@ const groupAdd = (app, db) => {
       groupName;
     const db = firebase.database();
     firebase.auth().onAuthStateChanged((user) => {
+      // to ensure  user is in session
       if (user) {
         const userId = user.uid;
         const groupRef = db.ref('/users');
