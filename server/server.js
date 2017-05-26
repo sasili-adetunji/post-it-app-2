@@ -7,7 +7,7 @@ import db from './config/db';
 const app         = express();
 
 
-const port = 8000 || process.env.PORT ;
+const port = process.env.PORT || 8000;
 
 // use body parser to allow parsing of incoming request bodies 
 //available under the req.body property.
