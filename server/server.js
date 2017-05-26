@@ -18,6 +18,10 @@ app.use(bodyParser.json());
 
 // import the index file which has all the routes
 import routes from './app/routes/index'
+app.get('/*', (req, res) => {
+	res.send({ message: 'Welcome to PostIp Chat App'})
+});
+
 routes(app, {});
 
 app.listen( port, ()=> {
