@@ -26,7 +26,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var app = (0, _express2.default)();
 
-var port = 8000 || process.env.PORT;
+var port = process.env.PORT || 8000;
 
 // use body parser to allow parsing of incoming request bodies 
 //available under the req.body property.
