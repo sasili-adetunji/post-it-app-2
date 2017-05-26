@@ -25,7 +25,7 @@ var login = function login(app, db) {
   app.post('/login', function (req, res) {
     var email = req.body.email,
         password = req.body.password;
-    _firebase2.default.auth().signInWithEmailAndPassword(email, password).then(res.redirect('/dashboard'));
+    _firebase2.default.auth().signInWithEmailAndPassword(email, password);
     res.json({ message: 'Success: A user has successfuly sign in.' }).catch(function (err) {
       console.log(err);
       res.json({ message: 'Error: The email or password of the user is invalid' });
