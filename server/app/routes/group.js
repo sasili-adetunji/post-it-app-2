@@ -16,7 +16,7 @@ const group = (app, db) =>{
       adminId: user.uid,
       group_name: req.body.group_name,
     });
- 		res.json({ message: 'Success: You have creared a new Group.' });
+ 		res.json({ message: 'Success: You have created a new Group.' });
   }
       else {
   	res.json({ message: 'Error: You have to sign in before adding creating group' });

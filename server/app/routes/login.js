@@ -1,6 +1,6 @@
-import express from 'express'; 
-import firebase from 'firebase';
-import db from '../../config/db';
+ import express from 'express'; 
+ import firebase from 'firebase';
+ import db from '../../config/db';
 
 const app = express();
 const login = (app, db) => {
