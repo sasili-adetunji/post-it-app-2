@@ -6,16 +6,15 @@ import firebase from 'firebase';
 import db from '../../config/db';
 
 const app = express();
-const login = (app, db) => {
-  app.post('/login', (req, res) => {
+const signin = (app, db) => {
+  app.post('/user/signin', (req, res) => {
     const email = req.body.email,
       password = req.body.password;
     firebase.auth().signInWithEmailAndPassword(email, password)
-        res.json({ message: 'Success: A user has successfuly sign in.' })
+        res.json({ message: 'Success: ' + email + ' has successfuly sign in.' })
     .catch((err) => {
-        console.log(err);
-      res.json({ message: 'Error: The email or password of the user is invalid' } );
+        res.json({ message: 'Error: The email or password of the user is invalid' } );
     });
   });  
 };
-export default login;
+export default signin;

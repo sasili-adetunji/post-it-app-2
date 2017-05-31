@@ -21,23 +21,39 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var app = (0, _express2.default)(); // create group routes
 
 var fb = _firebase2.default.database();
-var usersRef = fb.ref('groups');
 
 var group = function group(app, db) {
-  app.post('/users/group', function (req, res) {
+  app.post('/group', function (req, res) {
+    var groupName = req.body.groupName;
+
+    // check that a user is signed in before you try to add group
     _firebase2.default.auth().onAuthStateChanged(function (user) {
-      // to make sure a user is in session
       if (user) {
-        var group_name = void 0,
-            adminId = void 0;
-        // use the uid of the admin which is still the user at the point
-        usersRef.push({
-          adminId: user.uid,
-          group_name: req.body.group_name
+        // This means a user is signed in
+        var userId = user.uid;
+
+        // create a new group and return the unique key
+        var newGroupKey = fb.ref().child('groups').push({
+          groupName: groupName,
+          groupadmin: userId
+        }).key;
+
+        // add user id to list of group members. An admin of a group is an automatic member of the group
+        fb.ref().child('groups/' + newGroupKey + '/users/' + userId).set({
+          Id: userId
         });
-        res.json({ message: 'Success: You have created a new Group.' });
+
+        // add group key to list of a user's/admin group
+        fb.ref('/users/' + userId + '/groups/').child(newGroupKey).set({ id: newGroupKey });
+
+        res.send({
+          message: 'Group ' + groupName + ' was successfully created '
+        });
       } else {
-        res.json({ message: 'Error: You have to sign in before adding creating group' });
+        res.status(403).send({
+          // user is not signed in
+          message: 'You are not signed in right now!'
+        });
       }
     });
   });
