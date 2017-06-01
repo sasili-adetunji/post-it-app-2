@@ -23,22 +23,22 @@ Methods
 	.POST: Create a user
 		parameters:
 			email: string
-			username: string
-			password: string ```
+			userName: string
+			password: string 
 - ``` '/user/signin'
 	.POST: Sign in user
 		parameters:
 			email: string
-			password: string ```
+			password: string 
 - ``` '/group'
 	.POST: Create a group
 		parameters:
-			groupName: string ```
+			groupName: string 
       
 - ``` '/group/groupId/user'   
  	.POST:Add a user a group
-		parameters:
-		userId: ```
+		parameters: 
+		userId: 
 ## Installation
 - Download or clone the app on your local machine
 - Move into local directory ```cd post-it-app-2```
