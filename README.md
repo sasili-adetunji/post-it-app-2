@@ -1,5 +1,5 @@
 ## PostIt application
-- This application allows friends and colleagues to create groups for notifications. This way, one person can post notifications to everyone by sending message once. The app allows people to crete accounts, create groups and add registered users to the groups and send send messages out to these people whenever they want
+This application allows friends and colleagues to create groups for notifications. This way, one person can post notifications to everyone by sending message once. The app allows people to crete accounts, create groups and add registered users to the groups and send send messages out to these people whenever they want
 ## Features
 - Signup up
 - Login
@@ -13,6 +13,32 @@
 - Email notifications of messages
 - SMS notifications of messages 
 - Read messages should be marked
+## Technologies used
+  PostIt-app API is built with <a href="https://nodejs.org/">Node.js</a>, <a href="https://www.javascript.com/">JavaScript(ES6)</a>, <a href="https://expressjs.com/">Express</a> and <a href="https://firebase.google.com/">Firebase</a>
+## API Documentation
+It is a simple RESTful api, which creates users, create group and add memebrs to a group users.
+use x-www-formurlencoded parameters.
+Methods
+`'/user/signup'
+	.POST: Create a user
+		parameters:
+			email: string
+			username: string
+			password: string
+'/user/signin'
+	.POST: Sign in user
+		parameters:
+			email: string
+			password: string
+'/group'
+	.POST: Create a group
+		parameters:
+			groupName: string 
+      
+'/group/groupId/user'  
+ 	.POST:Add a user a group
+		parameters:
+        userId: `
 ## Installation
 - Download or clone the app on your local machine
 - Move into local directory ```cd post-it-app-2```
@@ -20,5 +46,13 @@
 - Create a firebase database
 - Create a ```.env``` file and set the variables in the  ```env-sample``` to your specified database connection
 - Start the server by running ```npm start```
+- Run `npm test ` fof testing 
+## Author
+This is done by Sasiliyu Adetunji
+## Acknowledgement 
+- Andela 
+- Bootcamp Facilitators 
+- Developers community
+- Friends and family 
 ## Contributing
 - If you are planning on contributing to PostIt, that will be awesome. We welcome contributions. Just fork the repo and raise a PR.
