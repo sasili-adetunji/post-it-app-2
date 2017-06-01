@@ -24,24 +24,22 @@ var app = (0, _express2.default)(); // signin route
 var fb = _firebase2.default.database();
 var usersRef = fb.ref("users");
 
-var register = function register(app, db) {
-  app.post('/register', function (req, res) {
+var signup = function signup(app, db) {
+  app.post('/user/signup', function (req, res) {
     var userName = req.body.userName,
         email = req.body.email,
         password = req.body.password;
     _firebase2.default.auth().createUserWithEmailAndPassword(email, password);
     var user = {};
-    user.name = req.body.userName;
-    user.email = req.body.email;
-    // save the information in database
+    user.name = userName, email = email;
     usersRef.push({
-      userName: req.body.userName,
-      email: req.body.email
+      username: userName,
+      email: email
     }).then(function (user) {
-      res.json({ message: "Success: A user has been successfuly registered." });
+      res.send({ message: 'Registration successful. ' + userName + ' have successfully been registered' });
     }).catch(function (err) {
-      res.json({ message: "Error in registration. Check your details again" });
+      res.json({ message: 'Error signing in ' });
     });
   });
 };
-exports.default = register;
+exports.default = signup;

@@ -4,17 +4,13 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _register = require('./register');
+var _signup = require('./signup');
 
-var _register2 = _interopRequireDefault(_register);
+var _signup2 = _interopRequireDefault(_signup);
 
-var _login = require('./login');
+var _signin = require('./signin');
 
-var _login2 = _interopRequireDefault(_login);
-
-var _signout = require('./signout');
-
-var _signout2 = _interopRequireDefault(_signout);
+var _signin2 = _interopRequireDefault(_signin);
 
 var _group = require('./group');
 
@@ -24,13 +20,19 @@ var _groupAdd = require('./groupAdd');
 
 var _groupAdd2 = _interopRequireDefault(_groupAdd);
 
+var _signout = require('./signout');
+
+var _signout2 = _interopRequireDefault(_signout);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var index = function index(app, db) {
-  (0, _register2.default)(app, db);
-  (0, _login2.default)(app, db);
+  (0, _signup2.default)(app, db);
+  (0, _signin2.default)(app, db);
   (0, _signout2.default)(app, db);
   (0, _group2.default)(app, db);
   (0, _groupAdd2.default)(app, db);
-};
+}; // import all the route into a single index file
+
+
 exports.default = index;
