@@ -40,4 +40,8 @@ const groupAdd = (app, db) => {
     });
   });
 };
+<<<<<<< HEAD
 export default groupAdd;
+=======
+export default groupAdd;
+>>>>>>> fb950ca865531320c85b57abb71633b9d726a2e4

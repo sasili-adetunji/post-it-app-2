@@ -3,11 +3,19 @@ const webpack = require('webpack');
 const debug = process.env.NODE_ENV !== 'production';
 
 let config = {
+<<<<<<< HEAD
    entry: './client/index.js',
 	
     output: {
       path: path.join(__dirname, './client/public'),
       publicPath: '/',
+=======
+   entry: './client/index.jsx',
+	
+   output: {
+      path: path.join(__dirname, 'public'),
+      publicPath: '/client',
+>>>>>>> fb950ca865531320c85b57abb71633b9d726a2e4
       filename: 'bundle.js',
    },
   

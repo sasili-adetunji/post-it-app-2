@@ -44,4 +44,8 @@ const group = (app, db) => {
     });
   });
 };
+<<<<<<< HEAD
  export default group;
+=======
+ export default group;
+>>>>>>> fb950ca865531320c85b57abb71633b9d726a2e4

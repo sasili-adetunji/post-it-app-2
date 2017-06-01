@@ -17,4 +17,8 @@ const signin = (app, db) => {
     });
   });  
 };
+<<<<<<< HEAD:server/app/routes/signin.js
 export default signin;
+=======
+export default signin;
+>>>>>>> fb950ca865531320c85b57abb71633b9d726a2e4:server/app/routes/signin.js
