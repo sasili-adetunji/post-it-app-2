@@ -1,29 +1,33 @@
 const path = require('path');
+const webpack = require('webpack');
+const debug = process.env.NODE_ENV !== 'production';
+
 let config = {
-   entry: './index.jsx',
+   entry: './client/index.js',
 	
-   output: {
-      path: path.join(__dirname, 'public'),
+    output: {
+      path: path.join(__dirname, './client/public'),
       publicPath: '/',
       filename: 'bundle.js',
    },
-	
+  
    devServer: {
-      contentBase: './public',
+      contentBase: './client/public',
       inline: true,
       hot: true,
-      port: 8080
+      port: 8000
    },
-	
+  
    module: {
       loaders: [
          {
             test: /\.jsx?$/,
             exclude: /node_modules/,
             loader: 'babel-loader',
-				
+        
             query: {
-               presets: ['es2015', 'react']
+               presets: ['es2015', 'react', 'stage-0'],
+               plugins: ['react-html-attrs', 'transform-class-properties', 'transform-decorators-legacy']
             }
          }
       ]
@@ -31,6 +35,11 @@ let config = {
   resolve: {
     extensions: ['*', '.js', '.jsx']
   },
+  plugins: debug ? [] : [
+  new webpack.optimize.DedupePlugin(),
+  new webpack.optimize.OccurenceOrderPlugin(),
+  new webpack.optimize.UglifyJsPlugin({ mangle: false, sourcemap: false }),
+  ],
 }
 
 module.exports = config;
