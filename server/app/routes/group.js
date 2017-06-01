@@ -44,4 +44,6 @@ const group = (app, db) => {
     });
   });
 };
+
  export default group;
+

@@ -1,5 +1,9 @@
 'use strict';
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
 var _express = require('express');
 
 var _express2 = _interopRequireDefault(_express);
@@ -16,19 +20,21 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var app = (0, _express2.default)(); // signout route
 
-module.exports = function (app, db) {
+var signout = function signout(app, db) {
   app.post('/signout', function (req, res) {
-    var full_name = req.body.full_name,
-        email = req.body.email,
-        password = req.body.password;
 
     // using firebase signout methods
 
     _firebase2.default.auth().signOut().then(function () {
       // redirect to home page after signout
-      res.redirect('/');
+      res.send({
+        message: 'You have signed out f the Appliction'
+      });
     }).catch(function (err) {
-      console.log(err);
+      res.json({
+        message: 'There appear to be ' + err.message + ' with signing out'
+      });
     });
   });
 };
+exports.default = signout;
