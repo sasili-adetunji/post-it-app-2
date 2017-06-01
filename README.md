@@ -16,29 +16,29 @@ This application allows friends and colleagues to create groups for notification
 ## Technologies used
   PostIt-app API is built with <a href="https://nodejs.org/">Node.js</a>, <a href="https://www.javascript.com/">JavaScript(ES6)</a>, <a href="https://expressjs.com/">Express</a> and <a href="https://firebase.google.com/">Firebase</a>
 ## API Documentation
-It is a simple RESTful api, which creates users, create group and add memebrs to a group users.
+It is a simple RESTful api, which creates users,sign in registered users, create group and add memebrs to a groups.
 use x-www-formurlencoded parameters.
 Methods
-`'/user/signup'
+- ```'/user/signup'
 	.POST: Create a user
 		parameters:
 			email: string
 			username: string
 			password: string
-'/user/signin'
+- '/user/signin'
 	.POST: Sign in user
 		parameters:
 			email: string
 			password: string
-'/group'
+- '/group'
 	.POST: Create a group
 		parameters:
 			groupName: string 
-      
-'/group/groupId/user'  
+      
+- '/group/groupId/user'   
  	.POST:Add a user a group
 		parameters:
-        userId: `
+		userId: ```
 ## Installation
 - Download or clone the app on your local machine
 - Move into local directory ```cd post-it-app-2```
