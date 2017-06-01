@@ -6,17 +6,23 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 5a5222c40ad3aa257050eefb27abcf15c6be3595
     "start1": "react-scripts start",
     "start2": "webpack-dev-server --hot",
     "start": "node ./dist/server.js",
     "build": "babel server/ -d dist",
     "build1": "babel client/ -d dist",
     "dev": "webpack-dev-server --hot & npm start"
+<<<<<<< HEAD
 =======
     "start1": "webpack-dev-server --hot",
     "build": "babel server/ -d dist",
     "start": "node ./dist/server.js"
 >>>>>>> fb950ca865531320c85b57abb71633b9d726a2e4
+=======
+>>>>>>> 5a5222c40ad3aa257050eefb27abcf15c6be3595
   },
   "repository": {
     "type": "git",
@@ -54,10 +60,16 @@
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
 <<<<<<< HEAD
+<<<<<<< HEAD
     "react-router": "^4.1.1",
     "react-router-dom": "^4.1.1",
 =======
 >>>>>>> fb950ca865531320c85b57abb71633b9d726a2e4
+=======
+    "react-router": "^4.1.1",
+    "react-router-dom": "^4.1.1",
+
+>>>>>>> 5a5222c40ad3aa257050eefb27abcf15c6be3595
     "rimraf": "^2.6.1",
     "style-loader": "^0.18.1",
     "webpack": "^2.6.1",
