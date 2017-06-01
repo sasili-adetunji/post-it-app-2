@@ -17,6 +17,10 @@ let config = {
       hot: true,
       port: 8000
    },
+   node: {
+    fs: 'empty',
+    net: 'empty'
+   },
   
    module: {
       loaders: [
