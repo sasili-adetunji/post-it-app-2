@@ -13,13 +13,15 @@ const signout = (app, db) => {
   firebase.auth().signOut()
   .then(() => {
             // redirect to home page after signout
-  	res.send({
-  		message: 'You have signed out f the Appliction'
-  	})
+
+    res.send({
+      message: 'You have signed out f the Appliction'
+    })
   })
   .catch((err) => {
     res.json({
-    	message: 'There appear to be ' + err.message + ' with signing out'
+      message: 'There appear to be ' + err.message + ' with signing out'
+
     });
   })
 

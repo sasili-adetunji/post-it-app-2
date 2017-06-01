@@ -40,4 +40,7 @@ const groupAdd = (app, db) => {
     });
   });
 };
+
 export default groupAdd;
+
+

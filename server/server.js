@@ -18,8 +18,9 @@ app.use(bodyParser.json());
 
 // import the index file which has all the routes
 import routes from './app/routes/index'
-app.get('/*', (req, res) => {
-	res.send({ message: 'Welcome to PostIp Chat App'})
+
+app.get("*", function (req, res) {  
+  res.sendFile(path.join(DIST_DIR, "index.html"));
 });
 
 routes(app, {});
