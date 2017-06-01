@@ -24,18 +24,18 @@ Methods
 		parameters:
 			email: string
 			username: string
-			password: string
-- '/user/signin'
+			password: string ```
+- ``` '/user/signin'
 	.POST: Sign in user
 		parameters:
 			email: string
-			password: string
-- '/group'
+			password: string ```
+- ``` '/group'
 	.POST: Create a group
 		parameters:
-			groupName: string 
+			groupName: string ```
       
-- '/group/groupId/user'   
+- ``` '/group/groupId/user'   
  	.POST:Add a user a group
 		parameters:
 		userId: ```
