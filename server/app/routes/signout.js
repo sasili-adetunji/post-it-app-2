@@ -5,23 +5,25 @@ import firebase from 'firebase';
 import db from '../../config/db';
 const app = express();
 
-module.exports = function(app, db) {
+const signout = (app, db) => {
   app.post('/signout', (req, res) => {
-    let full_name = req.body.full_name,
-      email =     req.body.email,
-      password =  req.body.password;
-      
+       
       // using firebase signout methods
 
   firebase.auth().signOut()
   .then(() => {
             // redirect to home page after signout
-  	res.redirect('/')
+    res.send({
+      message: 'You have signed out f the Appliction'
+    })
   })
   .catch((err) => {
-    console.log(err);
+    res.json({
+      message: 'There appear to be ' + err.message + ' with signing out'
+    });
   })
 
 })
 
 }
+export default signout;

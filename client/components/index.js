@@ -56,30 +56,29 @@ export default class App extends Component {
     return this.state.loading === true ? <h1>Loading</h1> : (
       <BrowserRouter>
         <div>
-          <nav className="navbar navbar-default navbar-static-top">
-            <div className="container">
-              <div className="navbar-header">
-                <Link to="/" className="navbar-brand">PostIt Chat Application</Link>
+          <nav>
+            <div>
+              <div>
+                <Link to="/">PostIt Chat Application</Link>
               </div>
-              <ul className="nav navbar-nav pull-right">
+              <ul>
                 <li>
-                  <Link to="/" className="navbar-brand">Home</Link>
+                  <Link to="/">Home</Link>
                 </li>
                 <li>
-                  <Link to="/dashboard" className="navbar-brand">Dashboard</Link>
+                  <Link to="/dashboard">Dashboard</Link>
                 </li>
                 <li>
                   {this.state.authed
                     ? <button
-                        style={{border: 'none', background: 'transparent'}}
                         onClick={() => {
                           logout()
-                        }}
-                        className="navbar-brand">Logout</button>
+                        }}> Logout</button>
                     : <span>
-                        <Link to="/login" className="navbar-brand">Login</Link>
-                        <Link to="/register" className="navbar-brand">Register</Link>
-                      </span>}
+                        <Link to="/login">Login</Link>
+
+                        <Link to="/register">Register</Link>
+                      </span> }
                 </li>
               </ul>
             </div>

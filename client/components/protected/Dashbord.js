@@ -4,8 +4,8 @@ export default class Dashboard extends Component {
   render () {
     return (
       <div>
-        Dashboard. This is a protected route. You can only see this if you're authed.
-      </div>
+        <h1> This is the application Dashboard. It is a protected route. You can only see this if you're authorized.
+ </h1>     </div>
     )
   }
 }
