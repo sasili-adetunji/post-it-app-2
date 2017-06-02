@@ -62,7 +62,8 @@ Methods
 - Create a firebase database
 - Create a ```.env``` file and set the variables in the  ```env-sample``` to your specified database connection
 - Start the server by running ```npm start```
-- Run `npm test ` fof testing 
+- Run `npm test ` for testing 
+- Run ``npm run dev ` and visit `localhost:8000` to view the app locally
 ## Author
 This is done by Sasiliyu Adetunji
 ## Acknowledgement 
