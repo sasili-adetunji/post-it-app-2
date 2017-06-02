@@ -26,9 +26,10 @@ var signin = function signin(app, db) {
     var email = req.body.email,
         password = req.body.password;
     _firebase2.default.auth().signInWithEmailAndPassword(email, password);
-    res.json({ message: 'Success: ' + email + ' has successfuly sign in.' }).catch(function (err) {
-      res.json({ message: 'Error: The email or password of the user is invalid' });
+    res.json({ message: 'Success: you have successfuly signed in.' }).catch(function (err) {
+      res.send({ message: 'Error: The email or password of the user is invalid' });
     });
   });
 };
+
 exports.default = signin;

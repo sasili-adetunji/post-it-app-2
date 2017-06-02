@@ -1,5 +1,9 @@
 'use strict';
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
 var _express = require('express');
 
 var _express2 = _interopRequireDefault(_express);
@@ -36,12 +40,15 @@ app.use(_bodyParser2.default.json());
 
 // import the index file which has all the routes
 
-app.get('/*', function (req, res) {
-	res.send({ message: 'Welcome to PostIp Chat App' });
+
+app.get("*", function (req, res) {
+  res.sendFile(path.join(DIST_DIR, "index.html"));
 });
 
 (0, _index2.default)(app, {});
 
 app.listen(port, function () {
-	console.log('You are listening on ' + port);
+  console.log('You are listening on ' + port);
 });
+
+exports.default = app;
