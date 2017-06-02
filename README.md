@@ -19,26 +19,42 @@ This application allows friends and colleagues to create groups for notification
 It is a simple RESTful api, which creates users,sign in registered users, create group and add memebrs to a groups.
 use x-www-formurlencoded parameters.
 Methods
-- ```'/user/signup'
+
+'/user/signup'
+
 	.POST: Create a user
+
 		parameters:
+
 			email: string
+
 			userName: string
-			password: string 
-- ``` '/user/signin'
+
+			password: string
+
+'/user/signin'
+
 	.POST: Sign in user
+
 		parameters:
+
 			email: string
-			password: string 
-- ``` '/group'
+
+			password: string
+
+'/group'
+
 	.POST: Create a group
-		parameters:
-			groupName: string 
-      
-- ``` '/group/groupId/user'   
+
+		 groupName: string
+        
+'/group/groupId/user'
+      
  	.POST:Add a user a group
-		parameters: 
-		userId: 
+
+		:
+		
+		
 ## Installation
 - Download or clone the app on your local machine
 - Move into local directory ```cd post-it-app-2```
