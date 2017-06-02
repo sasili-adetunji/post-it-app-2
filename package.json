@@ -4,10 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "npm run build:dist && npm run webpack && node dist/server.js",
+    "webpack": "webpack --config ./webpack.config.js",
+    "build:dist": "rimraf dist/ && babel ./ --out-dir dist/ --ignore ./node_modules,./server/test,./client/test --copy-files",
     "test": "mocha --timeout 75000 dist/test/apiTest.js",
     "start1": "react-scripts start",
     "start2": "webpack-dev-server --hot",
-    "start": "node ./dist/server.js",
+    "start3": "node ./dist/server.js",
     "build": "babel server/ -d dist",
     "build1": "babel client/ -d dist",
     "dev": "webpack-dev-server --hot & npm start"
@@ -46,6 +49,7 @@
     "history": "^4.6.1",
     "mocha": "^3.4.2",
     "node-loader": "^0.6.0",
+    "node-sass": "^4.5.3",
     "object-assign": "^4.1.1",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",

@@ -4,7 +4,9 @@ import express from 'express';
 import firebase from 'firebase';
 import bodyParser from 'body-parser';
 import db from './config/db';
+import path from 'path';
 const app         = express();
+
 
 
 const port = process.env.PORT || 8000;
@@ -15,13 +17,14 @@ const port = process.env.PORT || 8000;
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json()); 
 
-
 // import the index file which has all the routes
 import routes from './app/routes/index'
 
-app.get("*", function (req, res) {  
-  res.sendFile(path.join(DIST_DIR, "index.html"));
-});
+// app.get("*", function (req, res) {  
+//   res.sendFile(path.join(__dirname, "../client/public"));
+// });
+
+app.use(express.static(path.join(__dirname, "../client/public")))
 
 routes(app, {});
 
