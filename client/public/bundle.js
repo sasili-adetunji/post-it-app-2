@@ -14639,12 +14639,12 @@ var App = function (_Component) {
                     null,
                     _react2.default.createElement(
                       _reactRouterDom.Link,
-                      { to: '/login' },
+                      { to: '/user/signin' },
                       'Login'
                     ),
                     _react2.default.createElement(
                       _reactRouterDom.Link,
-                      { to: '/register' },
+                      { to: '/user/signup' },
                       'Register'
                     )
                   )
@@ -14662,8 +14662,8 @@ var App = function (_Component) {
                 _reactRouterDom.Switch,
                 null,
                 _react2.default.createElement(_reactRouterDom.Route, { path: '/', exact: true, component: _Home2.default }),
-                _react2.default.createElement(PublicRoute, { authed: this.state.authed, path: '/login', component: _Login2.default }),
-                _react2.default.createElement(PublicRoute, { authed: this.state.authed, path: '/register', component: _Register2.default }),
+                _react2.default.createElement(PublicRoute, { authed: this.state.authed, path: '/user/signin', component: _Login2.default }),
+                _react2.default.createElement(PublicRoute, { authed: this.state.authed, path: '/user/signup', component: _Register2.default }),
                 _react2.default.createElement(PrivateRoute, { authed: this.state.authed, path: '/dashboard', component: _Dashbord2.default }),
                 _react2.default.createElement(_reactRouterDom.Route, { render: function render() {
                     return _react2.default.createElement(

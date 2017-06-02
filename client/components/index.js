@@ -75,9 +75,9 @@ export default class App extends Component {
                           logout()
                         }}> Logout</button>
                     : <span>
-                        <Link to="/login">Login</Link>
+                        <Link to="/user/signin">Login</Link>
 
-                        <Link to="/register">Register</Link>
+                        <Link to="/user/signup">Register</Link>
                       </span> }
                 </li>
               </ul>
@@ -87,8 +87,8 @@ export default class App extends Component {
             <div className="row">
               <Switch>
                 <Route path='/' exact component={Home} />
-                <PublicRoute authed={this.state.authed} path='/login' component={Login} />
-                <PublicRoute authed={this.state.authed} path='/register' component={Register} />
+                <PublicRoute authed={this.state.authed} path='/user/signin' component={Login} />
+                <PublicRoute authed={this.state.authed} path='/user/signup' component={Register} />
                 <PrivateRoute authed={this.state.authed} path='/dashboard' component={Dashboard} />
                 <Route render={() => <h3>No Match</h3>} />
               </Switch>
