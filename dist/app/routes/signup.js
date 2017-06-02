@@ -36,9 +36,10 @@ var signup = function signup(app, db) {
       username: userName,
       email: email
     }).then(function (user) {
-      res.send({ message: 'Registration successful. ' + userName + ' have successfully been registered' });
-    }).catch(function (err) {
-      res.json({ message: 'Error signing in ' });
+      res.send({ message: 'Registration successful. You have successfully been registered' });
+    }).catch(function (error) {
+      var errorMessage = error.message;
+      res.status(400).send({ message: 'Error signing up ' });
     });
   });
 };

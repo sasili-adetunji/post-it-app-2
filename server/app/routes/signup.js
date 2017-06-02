@@ -24,11 +24,13 @@ const signup = (app, db) => {
         email: email
       })
       .then((user) => {
-               res.send({ message: 'Registration successful. ' + userName + ' have successfully been registered'});
+               res.send({ message: 'Registration successful. You have successfully been registered'});
           })
-      .catch((err) => {
-        res.json({ message: 'Error signing in '  });
-      });
+      .catch((error) => {
+         const errorMessage = error.message;
+         res.status(400).send({ message: 'Error signing up ' });
+       });
+
     })
 
   }

@@ -56,4 +56,5 @@ var groupAdd = function groupAdd(app, db) {
     });
   });
 };
+
 exports.default = groupAdd;

@@ -28,3 +28,5 @@ routes(app, {});
 app.listen( port, ()=> {
 	console.log('You are listening on ' + port)
 });
+
+export default app;

@@ -58,4 +58,5 @@ var group = function group(app, db) {
     });
   });
 };
+
 exports.default = group;
