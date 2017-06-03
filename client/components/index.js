@@ -13,7 +13,7 @@ function PrivateRoute ({component: Component, authed, ...rest}) {
       {...rest}
       render={(props) => authed === true
         ? <Component {...props} />
-        : <Redirect to={{pathname: '/login', state: {from: props.location}}} />}
+        : <Redirect to={{pathname: '/user/signin', state: {from: props.location}}} />}
     />
   )
 }
@@ -58,9 +58,6 @@ export default class App extends Component {
         <div>
           <nav>
             <div>
-              <div>
-                <Link to="/">PostIt Chat Application</Link>
-              </div>
               <ul>
                 <li>
                   <Link to="/">Home</Link>
@@ -75,7 +72,8 @@ export default class App extends Component {
                           logout()
                         }}> Logout</button>
                     : <span>
-                        <Link to="/user/signin">Login</Link>
+                        <Link to="/user/signin">Login</Link> 
+                        
 
                         <Link to="/user/signup">Register</Link>
                       </span> }
@@ -83,8 +81,8 @@ export default class App extends Component {
               </ul>
             </div>
           </nav>
-          <div className="container">
-            <div className="row">
+          <div>
+            <div>
               <Switch>
                 <Route path='/' exact component={Home} />
                 <PublicRoute authed={this.state.authed} path='/user/signin' component={Login} />

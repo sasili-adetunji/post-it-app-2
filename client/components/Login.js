@@ -25,13 +25,13 @@ export default class Login extends Component {
     return (
       <div>
         <h1> Login </h1>
-        <form onSubmit={this.handleSubmit}>
+        <form onSubmit={this.handleSubmit} className= "center">
           <div>
-            <label>Email</label>
+            <label><b>Email</b></label>
             <input ref={(email) => this.email = email} placeholder="Email"/>
           </div>
           <div>
-            <label>Password</label>
+            <label><b>Password</b></label>
             <input type="password" placeholder="Password" ref={(pw) => this.pw = pw} />
           </div>
           {

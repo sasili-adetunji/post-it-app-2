@@ -14514,7 +14514,7 @@ function PrivateRoute(_ref) {
 
   return _react2.default.createElement(_reactRouterDom.Route, _extends({}, rest, {
     render: function render(props) {
-      return authed === true ? _react2.default.createElement(Component, props) : _react2.default.createElement(_reactRouterDom.Redirect, { to: { pathname: '/login', state: { from: props.location } } });
+      return authed === true ? _react2.default.createElement(Component, props) : _react2.default.createElement(_reactRouterDom.Redirect, { to: { pathname: '/user/signin', state: { from: props.location } } });
     }
   }));
 }
@@ -14595,15 +14595,6 @@ var App = function (_Component) {
               'div',
               null,
               _react2.default.createElement(
-                'div',
-                null,
-                _react2.default.createElement(
-                  _reactRouterDom.Link,
-                  { to: '/' },
-                  'PostIt Chat Application'
-                )
-              ),
-              _react2.default.createElement(
                 'ul',
                 null,
                 _react2.default.createElement(
@@ -14654,10 +14645,10 @@ var App = function (_Component) {
           ),
           _react2.default.createElement(
             'div',
-            { className: 'container' },
+            null,
             _react2.default.createElement(
               'div',
-              { className: 'row' },
+              null,
               _react2.default.createElement(
                 _reactRouterDom.Switch,
                 null,
@@ -14739,7 +14730,17 @@ var Home = function (_Component) {
         _react2.default.createElement(
           'h2',
           null,
-          ' This is the Home Page. '
+          ' Welcome PostIt chat Application. '
+        ),
+        _react2.default.createElement(
+          'p',
+          null,
+          ' This application allows you to create groups and send messages to all members of the group. '
+        ),
+        _react2.default.createElement(
+          'p',
+          null,
+          'It will also send a notification to all users and you will be notified if you message has been read'
         )
       );
     }
@@ -14827,14 +14828,18 @@ var Login = function (_Component) {
         ),
         _react2.default.createElement(
           'form',
-          { onSubmit: this.handleSubmit },
+          { onSubmit: this.handleSubmit, className: 'center' },
           _react2.default.createElement(
             'div',
             null,
             _react2.default.createElement(
               'label',
               null,
-              'Email'
+              _react2.default.createElement(
+                'b',
+                null,
+                'Email'
+              )
             ),
             _react2.default.createElement('input', { ref: function ref(email) {
                 return _this2.email = email;
@@ -14846,7 +14851,11 @@ var Login = function (_Component) {
             _react2.default.createElement(
               'label',
               null,
-              'Password'
+              _react2.default.createElement(
+                'b',
+                null,
+                'Password'
+              )
             ),
             _react2.default.createElement('input', { type: 'password', placeholder: 'Password', ref: function ref(pw) {
                 return _this2.pw = pw;
@@ -14948,7 +14957,7 @@ var Register = function (_Component) {
 
       return _react2.default.createElement(
         'div',
-        { className: 'col-sm-6 col-sm-offset-3' },
+        null,
         _react2.default.createElement(
           'h1',
           null,
@@ -14956,16 +14965,20 @@ var Register = function (_Component) {
         ),
         _react2.default.createElement(
           'form',
-          { onSubmit: this.handleSubmit },
+          { onSubmit: this.handleSubmit, className: 'center' },
           _react2.default.createElement(
             'div',
             null,
             _react2.default.createElement(
               'label',
               null,
-              'Email'
+              _react2.default.createElement(
+                'b',
+                null,
+                'Email'
+              )
             ),
-            _react2.default.createElement('input', { className: 'form-control', ref: function ref(email) {
+            _react2.default.createElement('input', { ref: function ref(email) {
                 return _this2.email = email;
               }, placeholder: 'Email' })
           ),
@@ -14975,9 +14988,13 @@ var Register = function (_Component) {
             _react2.default.createElement(
               'label',
               null,
-              'Username'
+              _react2.default.createElement(
+                'b',
+                null,
+                'Username'
+              )
             ),
-            _react2.default.createElement('input', { className: 'form-control', ref: function ref(username) {
+            _react2.default.createElement('input', { ref: function ref(username) {
                 return _this2.username = username;
               }, placeholder: 'Username' })
           ),
@@ -14987,9 +15004,13 @@ var Register = function (_Component) {
             _react2.default.createElement(
               'label',
               null,
-              'Password'
+              _react2.default.createElement(
+                'b',
+                null,
+                'Password'
+              )
             ),
-            _react2.default.createElement('input', { type: 'password', className: 'form-control', placeholder: 'Password', ref: function ref(pw) {
+            _react2.default.createElement('input', { type: 'password', placeholder: 'Password', ref: function ref(pw) {
                 return _this2.pw = pw;
               } })
           ),
