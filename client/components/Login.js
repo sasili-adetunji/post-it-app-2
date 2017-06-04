@@ -23,7 +23,7 @@ export default class Login extends Component {
   }
   render () {
     return (
-      <div>
+      <div className= "center">
         <h1> Login </h1>
         <form onSubmit={this.handleSubmit} className= "center">
           <div>
@@ -39,7 +39,7 @@ export default class Login extends Component {
             <div>
               <span></span>
               <span>Error:</span>
-              &nbsp;{this.state.loginMessage} <a href="#" onClick={this.resetPassword} className="alert-link">Forgot Password?</a>
+              &nbsp;{this.state.loginMessage} <a href="#" onClick={this.resetPassword}>Forgot Password?</a>
             </div>
           }
           <button type="submit">Login</button>

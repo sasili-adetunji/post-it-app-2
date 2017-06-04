@@ -14820,7 +14820,7 @@ var Login = function (_Component) {
 
       return _react2.default.createElement(
         'div',
-        null,
+        { className: 'center' },
         _react2.default.createElement(
           'h1',
           null,
@@ -14875,7 +14875,7 @@ var Login = function (_Component) {
             ' ',
             _react2.default.createElement(
               'a',
-              { href: '#', onClick: this.resetPassword, className: 'alert-link' },
+              { href: '#', onClick: this.resetPassword },
               'Forgot Password?'
             )
           ),
@@ -14957,7 +14957,7 @@ var Register = function (_Component) {
 
       return _react2.default.createElement(
         'div',
-        null,
+        { className: 'center' },
         _react2.default.createElement(
           'h1',
           null,
@@ -15127,6 +15127,12 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+function setErrorMsg(error) {
+  return {
+    Error: error
+  };
+}
+
 var Dashboard = function (_Component) {
   _inherits(Dashboard, _Component);
 
@@ -15143,10 +15149,14 @@ var Dashboard = function (_Component) {
 
     return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Dashboard.__proto__ || Object.getPrototypeOf(Dashboard)).call.apply(_ref, [this].concat(args))), _this), _this.state = { loginMessage: null }, _this.createGroup = function (e) {
       e.preventDefault();
-      (0, _auth.addGroup)(_this.groupName.value).catch(function (error) {});
+      (0, _auth.addGroup)(_this.groupName.value).catch(function (error) {
+        _this.setState(setErrorMsg('Error creating the group.'));
+      });
     }, _this.addMembers = function (e) {
       e.preventDefault();
-      groupAdd(_this.newUserId.value).catch(function (error) {});
+      groupAdd(_this.newUserId.value).catch(function (error) {
+        _this.setState(setErrorMsg('Error adding member to group'));
+      });
     }, _temp), _possibleConstructorReturn(_this, _ret);
   }
 
@@ -15157,7 +15167,7 @@ var Dashboard = function (_Component) {
 
       return _react2.default.createElement(
         'div',
-        null,
+        { className: 'center' },
         _react2.default.createElement(
           'h1',
           null,
@@ -15201,6 +15211,18 @@ var Dashboard = function (_Component) {
               null,
               ' '
             )
+          ),
+          this.state.error && _react2.default.createElement(
+            'div',
+            null,
+            _react2.default.createElement('span', null),
+            _react2.default.createElement(
+              'span',
+              null,
+              'Error:'
+            ),
+            '\xA0',
+            this.state.error
           ),
           _react2.default.createElement(
             'div',

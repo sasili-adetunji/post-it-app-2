@@ -16,7 +16,7 @@ export default class Register extends Component {
   }
   render () {
     return (
-      <div>
+      <div className= "center">
         <h1>Signup Page</h1>
         <form onSubmit={this.handleSubmit} className= "center">
           <div>
