@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Logout } from '../helpers/auth';
+import { addGroup } from '../helpers/auth';
 
 
 
@@ -9,7 +10,7 @@ export default class Dashboard extends Component {
 
   createGroup = (e) => {
     e.preventDefault()
-    group(this.groupName.value)
+    addGroup(this.groupName.value)
       .catch((error) => {
                   })
   }
@@ -27,8 +28,10 @@ addMembers = (e) => {
   render () {
     return (
   <div>
-  	 <h1> This is the Dashboard. It is a protected route. You can only see this 
-  if you're authorized.</h1>
+  	 <h1> Welcome to PostIt Dashboard.</h1>
+     <p><b> You can create groups and add other registered members to those groups </b></p>
+          <p><b> In this way, you can send messages to those groups which will be visible to all members of the groups </b></p>
+
   	<form onSubmit={this.createGroup }>
 	<div> <label>Create Group</label>
  		<input ref={(groupName) => this.groupName = groupName} placeholder="Group Name"/>

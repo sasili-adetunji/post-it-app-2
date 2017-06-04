@@ -67,7 +67,7 @@ export default class App extends Component {
                 </li>
                 <li>
                   {this.state.authed
-                    ? <button
+                    ? <button className = "logout"
                         onClick={() => {
                           logout()
                         }}> Logout</button>

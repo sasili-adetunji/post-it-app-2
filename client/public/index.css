@@ -65,9 +65,9 @@ button {
     background-color: #203077;
     color: white;
     cursor: pointer;
-    padding: 14px 20px;
-    margin: 8px 0;
-    width: 50%;
+    padding: 7px 10px;
+    margin: 4px 0;
+    width: 15%;
 }
 input {
     width: 50%;
@@ -92,3 +92,12 @@ nav{
    margin: auto;
     width: 70%;  
     padding: 10px;    
+}
+.logout{
+	width: 10%;
+    padding: 12px 20px;
+    margin: 2px 0;
+    display: inline-block;
+    border: 2px solid #dbd5ef;
+    box-sizing: border-box	
+}

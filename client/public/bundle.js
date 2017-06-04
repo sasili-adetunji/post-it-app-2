@@ -14620,7 +14620,7 @@ var App = function (_Component) {
                   null,
                   this.state.authed ? _react2.default.createElement(
                     'button',
-                    {
+                    { className: 'logout',
                       onClick: function onClick() {
                         (0, _auth.logout)();
                       } },
@@ -15055,6 +15055,7 @@ exports.auth = auth;
 exports.logout = logout;
 exports.login = login;
 exports.resetPassword = resetPassword;
+exports.addGroup = addGroup;
 exports.saveUser = saveUser;
 
 var _db = __webpack_require__(47);
@@ -15073,6 +15074,20 @@ function login(email, pw) {
 
 function resetPassword(email) {
   return (0, _db.firebaseAuth)().sendPasswordResetEmail(email);
+}
+function addGroup(groupName) {
+
+  firebase.auth().onAuthStateChanged(function (user) {
+    var userId = user.uid;
+    var newGroupKey = fb.ref().child('groups').push({
+      groupName: groupName,
+      groupadmin: userId
+    }).key;
+    fb.ref().child('groups/' + newGroupKey + '/users/' + userId).set({
+      Id: userId
+    });
+    fb.ref('/users/' + userId + '/groups/').child(newGroupKey).set({ id: newGroupKey });
+  });
 }
 
 function saveUser(user) {
@@ -15128,7 +15143,7 @@ var Dashboard = function (_Component) {
 
     return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Dashboard.__proto__ || Object.getPrototypeOf(Dashboard)).call.apply(_ref, [this].concat(args))), _this), _this.state = { loginMessage: null }, _this.createGroup = function (e) {
       e.preventDefault();
-      group(_this.groupName.value).catch(function (error) {});
+      (0, _auth.addGroup)(_this.groupName.value).catch(function (error) {});
     }, _this.addMembers = function (e) {
       e.preventDefault();
       groupAdd(_this.newUserId.value).catch(function (error) {});
@@ -15146,7 +15161,25 @@ var Dashboard = function (_Component) {
         _react2.default.createElement(
           'h1',
           null,
-          ' This is the Dashboard. It is a protected route. You can only see this if you\'re authorized.'
+          ' Welcome to PostIt Dashboard.'
+        ),
+        _react2.default.createElement(
+          'p',
+          null,
+          _react2.default.createElement(
+            'b',
+            null,
+            ' You can create groups and add other registered members to those groups '
+          )
+        ),
+        _react2.default.createElement(
+          'p',
+          null,
+          _react2.default.createElement(
+            'b',
+            null,
+            ' In this way, you can send messages to those groups which will be visible to all members of the groups '
+          )
         ),
         _react2.default.createElement(
           'form',
