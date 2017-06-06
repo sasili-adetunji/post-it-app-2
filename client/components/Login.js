@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { login, resetPassword } from '../src/helpers/auth'
+import { login, resetPassword, google } from '../src/helpers/auth'
 
 function setErrorMsg(error) {
   return {
@@ -16,6 +16,10 @@ export default class Login extends Component {
           this.setState(setErrorMsg('Invalid username/password.'))
         })
   }
+  googleLogin = (e) => {
+    e.preventDefault()
+    google()
+        }
   resetPassword = () => {
     resetPassword(this.email.value)
       .then(() => this.setState(setErrorMsg(`Password reset email sent to ${this.email.value}.`)))
@@ -44,6 +48,7 @@ export default class Login extends Component {
           }
           <button type="submit">Login</button>
         </form>
+        <div> <a href="#" onClick={this.googleLogin}>Log in with Google</a> </div>
       </div>
     )
   }

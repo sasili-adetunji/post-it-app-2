@@ -14804,6 +14804,9 @@ var Login = function (_Component) {
       (0, _auth.login)(_this.email.value, _this.pw.value).catch(function (error) {
         _this.setState(setErrorMsg('Invalid username/password.'));
       });
+    }, _this.googleLogin = function (e) {
+      e.preventDefault();
+      (0, _auth.google)();
     }, _this.resetPassword = function () {
       (0, _auth.resetPassword)(_this.email.value).then(function () {
         return _this.setState(setErrorMsg('Password reset email sent to ' + _this.email.value + '.'));
@@ -14884,6 +14887,17 @@ var Login = function (_Component) {
             { type: 'submit' },
             'Login'
           )
+        ),
+        _react2.default.createElement(
+          'div',
+          null,
+          ' ',
+          _react2.default.createElement(
+            'a',
+            { href: '#', onClick: this.googleLogin },
+            'Log in with Google'
+          ),
+          ' '
         )
       );
     }
@@ -15056,6 +15070,7 @@ exports.logout = logout;
 exports.login = login;
 exports.resetPassword = resetPassword;
 exports.addGroup = addGroup;
+exports.google = google;
 exports.saveUser = saveUser;
 
 var _db = __webpack_require__(47);
@@ -15075,19 +15090,20 @@ function login(email, pw) {
 function resetPassword(email) {
   return (0, _db.firebaseAuth)().sendPasswordResetEmail(email);
 }
-function addGroup(groupName) {
 
-  firebase.auth().onAuthStateChanged(function (user) {
-    var userId = user.uid;
-    var newGroupKey = fb.ref().child('groups').push({
+function addGroup(groupName) {
+  return;
+  (0, _db.firebaseAuth)().onAuthStateChanged(function (user) {
+    var groupName = req.body.groupName;
+    var newGroupKey = _db.ref.child('groups/' + groupName + '/info').set({
       groupName: groupName,
-      groupadmin: userId
-    }).key;
-    fb.ref().child('groups/' + newGroupKey + '/users/' + userId).set({
-      Id: userId
+      groupadmin: user.uid
     });
-    fb.ref('/users/' + userId + '/groups/').child(newGroupKey).set({ id: newGroupKey });
   });
+}
+
+function google() {
+  return (0, _db.firebaseAuth)().signInWithPopup(new _db.firebaseAuth().GoogleAuthProvider());
 }
 
 function saveUser(user) {
@@ -15167,7 +15183,7 @@ var Dashboard = function (_Component) {
 
       return _react2.default.createElement(
         'div',
-        { className: 'center' },
+        { className: '' },
         _react2.default.createElement(
           'h1',
           null,

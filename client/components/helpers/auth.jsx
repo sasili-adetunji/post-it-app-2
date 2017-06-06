@@ -16,23 +16,28 @@ export function login (email, pw) {
 export function resetPassword (email) {
   return firebaseAuth().sendPasswordResetEmail(email)
 }
+
 export function addGroup (groupName) {
-  
-   firebase.auth().onAuthStateChanged((user) => {
-      const userId = user.uid;
-       const newGroupKey = fb.ref().child('groups').push({
+return  
+   firebaseAuth().onAuthStateChanged((user) => {
+      const groupName = req.body.groupName;
+       const newGroupKey = ref.child(`groups/${groupName}/info`).set({
           groupName: groupName,
-          groupadmin: userId,
-        }).key;
-        fb.ref().child(`groups/${newGroupKey}/users/${userId}`).set({
-          Id: userId,
-        });
-        fb.ref(`/users/${userId}/groups/`).child(newGroupKey).set(
-          { id: newGroupKey }
-        )
+          groupadmin:user.uid
+        })
+        
+        
       });
 
 }
+
+export function google () {
+  return firebaseAuth().signInWithPopup(new firebaseAuth().GoogleAuthProvider());
+}
+
+
+
+
 
 export function saveUser (user) {
   return ref.child(`users/${user.uid}/info`)
