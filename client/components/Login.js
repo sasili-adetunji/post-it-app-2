@@ -1,5 +1,8 @@
 import React, { Component } from 'react'
-import { login, resetPassword, google } from '../src/helpers/auth'
+import Router from 'react-router';
+import { login, resetPassword, google } from '../components/helpers/auth'
+// import AuthStore from '../../stores/postit-auth.js';
+// import AuthAction from '../../actions/postit-auth.js';
 
 function setErrorMsg(error) {
   return {
@@ -8,7 +11,14 @@ function setErrorMsg(error) {
 }
 
 export default class Login extends Component {
-  state = { loginMessage: null }
+  constructor(props){
+    super(props);
+  
+  this.state = { 
+    loginMessage: null,
+    email: '',
+    pw: '' 
+  }}
   handleSubmit = (e) => {
     e.preventDefault()
     login(this.email.value, this.pw.value)

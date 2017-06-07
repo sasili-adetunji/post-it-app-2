@@ -1,5 +1,7 @@
 import { ref, firebaseAuth } from '../../../server/config/db'
 
+import firebase from 'firebase';
+
 export function auth (email, pw) {
   return firebaseAuth().createUserWithEmailAndPassword(email, pw)
     .then(saveUser)
@@ -31,8 +33,12 @@ return
 
 }
 
-export function google () {
-  return firebaseAuth().signInWithPopup(new firebaseAuth().GoogleAuthProvider());
+export function google () { 
+  let provider = new firebase.auth.GoogleAuthProvider();
+    provider.addScope('profile');
+    provider.addScope('email');
+    return firebaseAuth().signInWithPopup(provider)
+        .then(saveUser);
 }
 
 
