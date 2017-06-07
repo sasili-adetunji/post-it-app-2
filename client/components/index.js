@@ -2,9 +2,10 @@ import React, { Component } from 'react'
 import { Route, BrowserRouter, Link, Redirect, Switch } from 'react-router-dom'
 import Login from './Login'
 import Register from './Register'
+import Group from './Group'
 import Home from './Home'
 import Dashboard from './protected/Dashbord'
-import { logout } from '../src/helpers/auth'
+import { logout } from './helpers/auth'
 import { firebaseAuth } from '../../server/config/db'
 
 function PrivateRoute ({component: Component, authed, ...rest}) {
@@ -66,6 +67,9 @@ export default class App extends Component {
                   <Link to="/dashboard">Dashboard</Link>
                 </li>
                 <li>
+                  <Link to="/group">Groups</Link>
+                </li>
+                <li>
                   {this.state.authed
                     ? <button className = "logout"
                         onClick={() => {
@@ -88,6 +92,8 @@ export default class App extends Component {
                 <PublicRoute authed={this.state.authed} path='/user/signin' component={Login} />
                 <PublicRoute authed={this.state.authed} path='/user/signup' component={Register} />
                 <PrivateRoute authed={this.state.authed} path='/dashboard' component={Dashboard} />
+                <PrivateRoute authed={this.state.authed} path='/group' component={Group} />
+
                 <Route render={() => <h3>No Match</h3>} />
               </Switch>
             </div>

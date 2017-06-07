@@ -1,6 +1,8 @@
 import { ref, firebaseAuth } from '../../../server/config/db'
 
 import firebase from 'firebase';
+const fb = firebase.database();
+
 
 export function auth (email, pw) {
   return firebaseAuth().createUserWithEmailAndPassword(email, pw)
@@ -22,14 +24,19 @@ export function resetPassword (email) {
 export function addGroup (groupName) {
 return  
    firebaseAuth().onAuthStateChanged((user) => {
-      const groupName = req.body.groupName;
-       const newGroupKey = ref.child(`groups/${groupName}/info`).set({
+      if (user) {
+        const newGroupKey = fb.ref().child('groups').push({
           groupName: groupName,
-          groupadmin:user.uid
-        })
-        
-        
-      });
+          groupadmin: user.uid,
+        }).key;
+        fb.ref().child(`groups/${newGroupKey}/users/${userId}`).set({
+          Id: userId,
+        });
+        fb.ref(`/users/${userId}/groups/`).child(newGroupKey).set(
+          { id: newGroupKey }
+          );
+         } 
+    });
 
 }
 

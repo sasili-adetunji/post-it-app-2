@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import Router from 'react-router';
-import { login, resetPassword, google } from '../components/helpers/auth'
-// import AuthStore from '../../stores/postit-auth.js';
-// import AuthAction from '../../actions/postit-auth.js';
+import { login, resetPassword, google } from './helpers/auth'
+// import AuthStore from '../stores/postit-auth.js';
+// import AuthAction from '../actions/postit-auth.js';
 
 function setErrorMsg(error) {
   return {

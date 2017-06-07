@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { auth } from '../src/helpers/auth'
+import { auth } from './helpers/auth'
 
 function setErrorMsg(error) {
   return {
