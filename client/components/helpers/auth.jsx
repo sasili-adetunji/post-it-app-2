@@ -22,23 +22,28 @@ export function resetPassword (email) {
 }
 
 export function addGroup (groupName) {
-return  
-   firebaseAuth().onAuthStateChanged((user) => {
-      if (user) {
-        const newGroupKey = fb.ref().child('groups').push({
+  return firebaseAuth().onAuthStateChanged((user) => {
+        const groupKey = fb.ref('groups/').push({
           groupName: groupName,
-          groupadmin: user.uid,
+          groupadmin: user.email,
         }).key;
-        fb.ref().child(`groups/${newGroupKey}/users/${userId}`).set({
-          Id: userId,
-        });
-        fb.ref(`/users/${userId}/groups/`).child(newGroupKey).set(
-          { id: newGroupKey }
-          );
-         } 
+        const groupRef = fb.ref(`groups/${groupKey}/users/`)
+        groupRef.child(user.uid).set({
+          Id: user.uid,
+        })
+        const userRef = fb.ref(`users/${user.uid}/groups/`).child(groupKey).set(
+          { id: groupKey }
+          )
+        .then(() => {
+      alert("Group Successfully created")
+    })
+    .catch((error) => {
     });
-
+  
+});
 }
+
+
 
 export function google () { 
   let provider = new firebase.auth.GoogleAuthProvider();
@@ -47,10 +52,6 @@ export function google () {
     return firebaseAuth().signInWithPopup(provider)
         .then(saveUser);
 }
-
-
-
-
 
 export function saveUser (user) {
   return ref.child(`users/${user.uid}/info`)

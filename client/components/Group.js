@@ -1,20 +1,31 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+// import Router from 'react-router';
 import { Logout, addGroup } from './helpers/auth';
 
+function setErrorMsg(error) {
+  return {
+    groupMessage: error
+  }
+}
 
 
 export default class Group extends Component {
-   state = { loginMessage: null }
+   state = { groupMessage: null }
 
-  createGroup = (e) => {
+  handleSubmit = (e) => {
     e.preventDefault()
     addGroup(this.groupName.value)
+    .catch((error) => {
+          this.setState(setErrorMsg('Error creating Group.'))
+        })
+ 
+    
 }
 
   render () {
     return (
     	<div className  = "center">
-        <form onSubmit={ this.createGroup }>
+        <form onSubmit={ this.handleSubmit }>
 	         <div> <label>Create Group</label>
  		       <input ref={(groupName) => this.groupName = groupName} placeholder="Group Name"/>
             <div> </div>
