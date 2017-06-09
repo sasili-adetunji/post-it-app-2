@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 // import Router from 'react-router';
-import { Logout, addGroup } from './helpers/auth';
+import { Route, BrowserRouter, Link, Redirect, Switch } from 'react-router-dom'
+
+import { Logout, addGroup, addMember } from './helpers/auth';
 
 function setErrorMsg(error) {
   return {
@@ -9,23 +11,24 @@ function setErrorMsg(error) {
 }
 
 
-export default class Group extends Component {
+export default class addMembers extends Component {
    state = { groupMessage: null }
 
   handleSubmit = (e) => {
     e.preventDefault()
-    addGroup(this.groupName.value)
-    
- 
-    
-}
+    addMember(this.userId.value)
+    .catch((error) => {
+          this.setState(setErrorMsg('Error creating Group.'))
+        })
+    }
+   
 
   render () {
-    return (
-    	<div className  = "center">
+        return (
+      <div className  = "center">
         <form onSubmit={ this.handleSubmit }>
-	         <div> <label>Create Group</label>
- 		       <input ref={(groupName) => this.groupName = groupName} placeholder="Group Name"/>
+	         <div> <label>Add Members</label>
+ 		       <input ref={(userId) => this.userId = userId} placeholder="User Id"/>
             <div> </div>
  	        </div>
         {
@@ -36,8 +39,9 @@ export default class Group extends Component {
               &nbsp;{this.state.error}
             </div>
           }
-        <div> <button type="submit" >Create Group </button> </div>
+        <div> <button type="submit" >Add Members </button> </div>
       </form>
+
     <div> </div>
   </div>
  )

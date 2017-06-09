@@ -19,7 +19,9 @@ let config = {
    },
    node: {
     fs: 'empty',
-    net: 'empty'
+    net: 'empty',
+    dns: 'empty',
+    tls: 'empty'
    },
   
    module: {

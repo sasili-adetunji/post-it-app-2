@@ -4,7 +4,7 @@ import firebase from 'firebase';
 const fb = firebase.database();
 
 
-export function auth (email, pw) {
+export function auth (email, pw)  {
   return firebaseAuth().createUserWithEmailAndPassword(email, pw)
     .then(saveUser)
 }
@@ -28,11 +28,12 @@ export function addGroup (groupName) {
           groupadmin: user.email,
         }).key;
         const groupRef = fb.ref(`groups/${groupKey}/users/`)
-        groupRef.child(user.uid).set({
+        .set({
           Id: user.uid,
         })
-        const userRef = fb.ref(`users/${user.uid}/groups/`).child(groupKey).set(
-          { id: groupKey }
+        const userRef = fb.ref(`users/${user.uid}/groups/`).set(
+          { groupid: groupKey,
+            groupname: groupName}
           )
         .then(() => {
       alert("Group Successfully created")
@@ -53,11 +54,28 @@ export function google () {
         .then(saveUser);
 }
 
+export function message (messageBody, groupId) {
+  return firebaseAuth().onAuthStateChanged((user) => {
+        const groupRef = fb.ref(`groups/${groupId}`).child('message')
+        .set({
+          message: messageBody,
+          postedby: user.email
+        })
+        fb.ref(`users/${user.uid}/groups/${groupId}`).set(
+          { messages: messageBody }
+          )
+        .then(() => {
+      alert("Message Sent successfully to Group")
+    })
+    .catch((error) => {
+    });
+  
+});
+}
 export function saveUser (user) {
   return ref.child(`users/${user.uid}/info`)
     .set({
-      email: user.email,
-      uid: user.uid
+      email: user.email
     })
     .then(() => user)
 }

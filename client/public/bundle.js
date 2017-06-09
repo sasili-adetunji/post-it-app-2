@@ -3522,6 +3522,7 @@ exports.login = login;
 exports.resetPassword = resetPassword;
 exports.addGroup = addGroup;
 exports.google = google;
+exports.message = message;
 exports.saveUser = saveUser;
 
 var _db = __webpack_require__(78);
@@ -3556,11 +3557,11 @@ function addGroup(groupName) {
       groupName: groupName,
       groupadmin: user.email
     }).key;
-    var groupRef = fb.ref('groups/' + groupKey + '/users/');
-    groupRef.child(user.uid).set({
+    var groupRef = fb.ref('groups/' + groupKey + '/users/').set({
       Id: user.uid
     });
-    var userRef = fb.ref('users/' + user.uid + '/groups/').child(groupKey).set({ id: groupKey }).then(function () {
+    var userRef = fb.ref('users/' + user.uid + '/groups/').set({ groupid: groupKey,
+      groupname: groupName }).then(function () {
       alert("Group Successfully created");
     }).catch(function (error) {});
   });
@@ -3573,10 +3574,20 @@ function google() {
   return (0, _db.firebaseAuth)().signInWithPopup(provider).then(saveUser);
 }
 
+function message(messageBody, groupId) {
+  return (0, _db.firebaseAuth)().onAuthStateChanged(function (user) {
+    var groupRef = fb.ref('groups/' + groupId).child('message').set({
+      message: messageBody,
+      postedby: user.email
+    });
+    fb.ref('users/' + user.uid + '/groups/' + groupId).set({ messages: messageBody }).then(function () {
+      alert("Message Sent successfully to Group");
+    }).catch(function (error) {});
+  });
+}
 function saveUser(user) {
   return _db.ref.child('users/' + user.uid + '/info').set({
-    email: user.email,
-    uid: user.uid
+    email: user.email
   }).then(function () {
     return user;
   });
@@ -14822,9 +14833,7 @@ var Group = function (_Component) {
 
     return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Group.__proto__ || Object.getPrototypeOf(Group)).call.apply(_ref, [this].concat(args))), _this), _this.state = { groupMessage: null }, _this.handleSubmit = function (e) {
       e.preventDefault();
-      (0, _auth.addGroup)(_this.groupName.value).catch(function (error) {
-        _this.setState(setErrorMsg('Error creating Group.'));
-      });
+      (0, _auth.addGroup)(_this.groupName.value);
     }, _temp), _possibleConstructorReturn(_this, _ret);
   }
 
@@ -14987,8 +14996,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-// import Router from 'react-router';
-
 
 // import AuthStore from '../stores/postit-auth.js';
 // import AuthAction from '../actions/postit-auth.js';
@@ -15043,13 +15050,13 @@ var Login = function (_Component) {
         'div',
         { className: 'center' },
         _react2.default.createElement(
-          'h1',
-          null,
-          ' Login '
-        ),
-        _react2.default.createElement(
           'form',
           { onSubmit: this.handleSubmit, className: 'center' },
+          _react2.default.createElement(
+            'h1',
+            null,
+            ' Login '
+          ),
           _react2.default.createElement(
             'div',
             null,
@@ -15062,9 +15069,9 @@ var Login = function (_Component) {
                 'Email'
               )
             ),
-            _react2.default.createElement('input', { ref: function ref(email) {
+            _react2.default.createElement('input', { type: 'text', ref: function ref(email) {
                 return _this2.email = email;
-              }, placeholder: 'Email' })
+              }, placeholder: 'Enter your email...', required: true })
           ),
           _react2.default.createElement(
             'div',
@@ -15078,9 +15085,9 @@ var Login = function (_Component) {
                 'Password'
               )
             ),
-            _react2.default.createElement('input', { type: 'password', placeholder: 'Password', ref: function ref(pw) {
+            _react2.default.createElement('input', { type: 'password', placeholder: 'Enter your password...', ref: function ref(pw) {
                 return _this2.pw = pw;
-              } })
+              }, required: true })
           ),
           this.state.loginMessage && _react2.default.createElement(
             'div',
@@ -15170,7 +15177,7 @@ var Register = function (_Component) {
 
     _this.handleSubmit = function (e) {
       e.preventDefault();
-      (0, _auth.auth)(_this.email.value, _this.pw.value).catch(function (e) {
+      (0, _auth.auth)(_this.email.value, _this.pw.value, _this.username.value).catch(function (e) {
         return _this.setState(setErrorMsg(e));
       });
     };
@@ -15316,15 +15323,22 @@ var Dashboard = function (_Component) {
 
     var _this = _possibleConstructorReturn(this, (Dashboard.__proto__ || Object.getPrototypeOf(Dashboard)).call(this, props));
 
-    _this.state = {
-      loginMessage: null,
-      groupName: ''
-    };return _this;
+    _this.handleSubmit = function (e) {
+      e.preventDefault();
+      (0, _auth.message)(_this.messageBody.value, _this.groupId.value);
+    };
+
+    _this.state = { MessageInput: '' };
+
+    _this.handleSubmit = _this.handleSubmit.bind(_this);
+    return _this;
   }
 
   _createClass(Dashboard, [{
     key: 'render',
     value: function render() {
+      var _this2 = this;
+
       return _react2.default.createElement(
         'div',
         { className: 'center' },
@@ -15349,6 +15363,39 @@ var Dashboard = function (_Component) {
             'b',
             null,
             ' In this way, you can send messages to those groups which will be visible to all members of the groups '
+          )
+        ),
+        _react2.default.createElement(
+          'div',
+          null,
+          _react2.default.createElement(
+            'h3',
+            null,
+            ' Send Message to Group '
+          ),
+          ' '
+        ),
+        _react2.default.createElement(
+          'form',
+          { className: 'message', onSubmit: this.handleSubmit },
+          _react2.default.createElement('input', { type: 'text', ref: function ref(messageBody) {
+              return _this2.messageBody = messageBody;
+            },
+            placeholder: 'Write a message...' }),
+          _react2.default.createElement('input', { type: 'text', ref: function ref(groupId) {
+              return _this2.groupId = groupId;
+            },
+            placeholder: 'Enter the group Id... ' }),
+          _react2.default.createElement(
+            'div',
+            null,
+            ' ',
+            _react2.default.createElement(
+              'button',
+              { type: 'submit' },
+              'Send'
+            ),
+            ' '
           )
         )
       );

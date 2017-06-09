@@ -102,3 +102,21 @@ nav{
     border: 2px solid #dbd5ef;
     box-sizing: border-box	
 }
+form{
+	max-width: 400px;
+	margin: 0 auto;
+	text-align: center;
+	margin-top: 10%
+}
+.message{
+	position: relative;
+	overflow: hidden;
+	padding: 0 40px;
+	flex-shrink: 0;
+
+}
+.message input[type = 'text']{
+	width: 100%;
+	margin-left: -20px;
+	margin-right: -20px;
+}

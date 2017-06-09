@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-// import Router from 'react-router';
 import { login, resetPassword, google } from './helpers/auth'
 // import AuthStore from '../stores/postit-auth.js';
 // import AuthAction from '../actions/postit-auth.js';
@@ -38,15 +37,16 @@ export default class Login extends Component {
   render () {
     return (
       <div className= "center">
-        <h1> Login </h1>
+        
         <form onSubmit={this.handleSubmit} className= "center">
+        <h1> Login </h1>
           <div>
             <label><b>Email</b></label>
-            <input ref={(email) => this.email = email} placeholder="Email"/>
+            <input type="text"  ref={(email) => this.email = email} placeholder="Enter your email..." required/>
           </div>
           <div>
             <label><b>Password</b></label>
-            <input type="password" placeholder="Password" ref={(pw) => this.pw = pw} />
+            <input type="password" placeholder="Enter your password..." ref={(pw) => this.pw = pw} required />
           </div>
           {
             this.state.loginMessage &&
