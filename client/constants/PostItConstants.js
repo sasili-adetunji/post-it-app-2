@@ -9,7 +9,10 @@ const PostItConstants = {
   SEND_MESSAGE: 'SEND_MESSAGE',
   VIEW_MESSAGE: 'VIEW_MESSAGE',
   RESET_PASSWORD: 'RESET_PASSWORD',
-  ERROR: 'ERROR'
+  LOGIN_ERROR: 'LOGIN_ERROR',
+  REGISTER_ERROR: 'REGISTER_ERROR'
+
+
 };
 
 export default PostItConstants;
