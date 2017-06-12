@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-// import Router from 'react-router';
-import { Logout, addGroup } from './helpers/auth';
+import { signOut, addGroup }from '../actions/PostItAuth.js';
 
 function setErrorMsg(error) {
   return {

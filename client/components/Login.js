@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
-import { login, resetPassword, google } from './helpers/auth'
-// import AuthStore from '../stores/postit-auth.js';
-// import AuthAction from '../actions/postit-auth.js';
+import LoginStore from '../stores/LoginStore.js';
+import { signIn, resetPassword, google, signOut  }from '../actions/PostItAuth.js';
 
 function setErrorMsg(error) {
   return {
@@ -20,19 +19,21 @@ export default class Login extends Component {
   }}
   handleSubmit = (e) => {
     e.preventDefault()
-    login(this.email.value, this.pw.value)
-      .catch((error) => {
+    signIn(this.email.value, this.pw.value)
+    .catch((error) => {
           this.setState(setErrorMsg('Invalid username/password.'))
         })
   }
   googleLogin = (e) => {
     e.preventDefault()
     google()
-        }
-  resetPassword = () => {
-    resetPassword(this.email.value)
-      .then(() => this.setState(setErrorMsg(`Password reset email sent to ${this.email.value}.`)))
-      .catch((error) => this.setState(setErrorMsg(`Email address not found.`)))
+    .catch((error) => {
+          this.setState(setErrorMsg('Error signining with google.'))
+        })
+  }
+  reset = (e) => {
+    e.preventDefault()
+    resetPassword()
   }
   render () {
     return (
@@ -53,7 +54,7 @@ export default class Login extends Component {
             <div>
               <span></span>
               <span>Error:</span>
-              &nbsp;{this.state.loginMessage} <a href="#" onClick={this.resetPassword}>Forgot Password?</a>
+              &nbsp;{this.state.loginMessage} <a href="#" onClick={this.reset}>Forgot Password?</a>
             </div>
           }
           <button type="submit">Login</button>

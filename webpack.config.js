@@ -35,7 +35,12 @@ let config = {
                presets: ['es2015', 'react', 'stage-0'],
                plugins: ['react-html-attrs', 'transform-class-properties', 'transform-decorators-legacy']
             }
-         }
+         },
+        {
+         test: /\.scss$/,
+         include: path.join(__dirname, './client/public'),
+         loader: 'style!css!sss'
+       }
       ]
    },
   resolve: {

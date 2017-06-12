@@ -5,7 +5,8 @@ import Register from './Register'
 import Group from './Group'
 import Home from './Home'
 import Dashboard from './protected/Dashbord'
-import { logout } from './helpers/auth'
+
+import { signOut }from '../actions/PostItAuth.js';
 import { firebaseAuth } from '../../server/config/db'
 
 function PrivateRoute ({component: Component, authed, ...rest}) {
@@ -73,7 +74,7 @@ export default class App extends Component {
                   {this.state.authed
                     ? <button className = "logout"
                         onClick={() => {
-                          logout()
+                          signOut()
                         }}> Logout</button>
                     : <span>
                         <Link to="/user/signin">Login</Link> 

@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import { Logout, message } from '../helpers/auth';
+import { signOut, message }from '../../actions/PostItAuth.js';
+
 
 function setErrorMsg(error) {
   return {
