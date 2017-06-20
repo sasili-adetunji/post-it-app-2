@@ -4,7 +4,7 @@ import Login from './Login'
 import Register from './Register'
 import Home from './Home'
 import Dashboard from './protected/Dashbord';
-import { Navbar } from './Navbar';
+import Navbar from './Navbar';
 import {Routehandler} from 'react-router';
 
 
@@ -57,7 +57,7 @@ export default class App extends Component {
     return (
       <BrowserRouter>
         <div>
-          <nav>
+       <nav>
             <ul>
              <li>
               <Link to="/">Home</Link>

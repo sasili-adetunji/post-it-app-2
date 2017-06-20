@@ -22,6 +22,6 @@ var config = {
 
 var db = _firebase2.default.initializeApp(config);
 
-var ref = exports.ref = _firebase2.default.database().ref();
+var ref = exports.ref = _firebase2.default.database().ref;
 var firebaseAuth = exports.firebaseAuth = _firebase2.default.auth;
 exports.default = db;

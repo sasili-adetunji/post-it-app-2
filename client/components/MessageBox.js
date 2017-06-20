@@ -1,13 +1,20 @@
 import React from 'react';
 import trim from 'trim';
+import MessageStore from '../stores/MessageStore.js';
+import { message } from '../actions/PostItAuth.js';
 
 
+function setErrorMsg(error) {
+  return {
+    messageError: error
+  }
+}
 
 class MessageBox extends React.Component {
 	constructor(props){
 	super(props);
 	this.state = {
-		message: '',
+		messageBody: '',
     groupId: ''
 	};
 	
@@ -15,7 +22,7 @@ class MessageBox extends React.Component {
 
 onChangeMessage(e){
 	this.setState({
-		message: e.target.value,
+		messageBody: e.target.value,
 	});
 }
 
@@ -27,11 +34,12 @@ onChangeGroup(e){
 
 handleSubmit(e){
 		e.preventDefault();
-		this.setState({
-			message: '',
+    this.setState({
+			messageBody: '',
       groupId: ''
-		});
-		console.log('A new Message: ', this.state.message, 'has been sent to the group', this.state.groupId);
+		})
+    message(this.messageBody.value, this.groupId.value)
+    console.log('A new Message: ', this.state.messageBody, 'has been sent to the group', this.state.groupId);
 	}
 
 
@@ -53,18 +61,22 @@ handleSubmit(e){
           outline: 'auto 0px'
         }}>
         <form onSubmit={this.handleSubmit.bind(this)}>
-        <div> 
-          <input type="text" placeholder="Write a message..." required 
-          ref={(message) => this.message = message} onChange= {this.onChangeMessage.bind(this)} /> 
+        <div className="form-group">
+          <label for="message">Message</label>
+          <textarea className="form-control" rows="5" id="message" 
+          type="text" placeholder="Write a message..." required 
+          ref={(messageBody) => this.messageBody = messageBody} onChange= {this.onChangeMessage.bind(this)}>
+          </textarea> 
         </div>
-       <div> 
-          <input type="text" placeholder="Enter the group Id... required "  
+
+        <div className="form-group">
+          <label for="groupId">Group ID</label>
+          <input type="text" className="form-control" id="groupId" 
+          placeholder="Enter the group Id... required "  
           ref={(groupId) => this.groupId = groupId} 
-          onChange= {this.onChangeGroup.bind(this)} /> 
-       </div>
-       <div> 
-          <button type="submit">Send</button> 
+          onChange= {this.onChangeGroup.bind(this)} />
         </div>
+      <button type="button" className="btn btn-primary btn-sm">Send </button>      
       </form>
      </div>
      </div>

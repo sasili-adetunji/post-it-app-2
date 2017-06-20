@@ -4,49 +4,42 @@ import _ from 'lodash';
 import Firebase from 'firebase'
 import { firebaseRef } from '../../server/config/db'
 
-
-
-class GroupList extends React.Component {
-   constructor(){
-   super()
+export default class GroupList extends React.Component {
+   constructor(props){
+   super(props)
    this.state = {
     groups: {}
    }
    const fb = Firebase.database()
    this.fb = Firebase.database()
-   this.fb.ref('groups').child(groupId).on('child_added', (msg) => {
-   
-       if (this.state.groups[msg.key]){
-         return
-      }
-      let msgVal = msg.val();
-      msgVal.key = msg.key;
-      this.state.groups[msgVal.key] = msgVal;
-      this.setState({groups: this.state.groups});
-      
-      let res = msg.val()
-      console.log(res);
-        
+   this.fb.ref('groups').on('child_added', (msg) => {
+          
+      let res = msg.key,
+         re = msg.val();
 
-   });
-  
-};
-   render() {
-   var groupNodes = _.values(this.state.groups).map((group) => {
-   return (
-      <div>
-   <Group group= {group} />
-   <GroupAdd />
-   </div>
-   );
-   });
+         this.state.groups[res] = re
 
-   return (
-   <div> {groupNodes} 
+      this.setState({
+         groups: this.state.groups
+      });
 
-   </div>
-   );
-}
+
+      console.log(' GroupID: '+ res+ ', Group Name: '+ re.groupName+ ', Group Admin: '+ re.groupadmin);
+   })
 }
 
-export default GroupList;
+  render() {
+    return (
+      <ul className="list-group">
+      {
+        this.props.groups.map(function(item) {
+          return   
+          <li className="list-group-item" key={item}> {item} 
+          </li>
+        })
+       }
+      </ul>
+    )  
+  }
+}
+

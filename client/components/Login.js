@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import LoginStore from '../stores/LoginStore.js';
 import { signIn, resetPassword, google, signOut  }from '../actions/PostItAuth.js';
+import axios from 'axios';
 
 function setErrorMsg(error) {
   return {
@@ -16,13 +17,16 @@ export default class Login extends Component {
     loginMessage: null,
     email: '',
     pw: '' 
-  }}
+  }
+}
+
   handleSubmit = (e) => {
     e.preventDefault()
     signIn(this.email.value, this.pw.value)
     .catch((error) => {
-          this.setState(setErrorMsg('Invalid username/password.'))
+          this.setState(setErrorMsg('Error signing in.'))
         })
+    // axios.post('http://localhost:8000/user/signin', {email: this.state.email, password: this.state.pw})
   }
   googleLogin = (e) => {
     e.preventDefault()

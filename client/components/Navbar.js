@@ -1,28 +1,43 @@
 import React from 'react';
-import { Navlink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
-class Navbar extends React.Component {
-	render() {
-		return (
-			<div>
-        <ul>
-          <li>
-            <Navlink to="/">Home</Navlink>
-          </li>
-          <li>
-             <Navlink to="/dashboard">Dashboard</Navlink>
-           </li> 
-            <li>
-              <Navlink to="/user/signin">Login</Navlink> 
-            </li>  
-            <li>
-              <Navlink to="/user/signup">Register</Navlink>
-            </li>
-           </ul>
-        </div>
-        )
-	}
+
+
+function Navbar() {
+  return (
+    <ul className = 'nav'>
+     <li>
+       <NavLink exact activeClassName='active' to='/user/signin'>
+         Sign In
+       </NavLink>
+     </li>
+
+      <li>
+        <NavLink activeClassName='active' to='/user/signup'>
+          Signup
+        </NavLink>
+      </li>
+      <li>
+        <NavLink activeClassName='active' to='/dashboard'>
+          Dashboard
+        </NavLink>
+      </li>
+      <li>
+                  {this.state.authed
+                    ? <button className = "logout"
+                        onClick={() => {
+                          signOut()
+                        }}> Logout</button>
+                    : <span>
+                        <NavLink to="/user/signin">Login</NavLink> 
+                        
+
+                        <NavLink to="/user/signup">Register</NavLink>
+                      </span> }
+                </li>
+    </ul>
+    );
 }
+module.exports = Navbar;
 
-export default Navbar;
 

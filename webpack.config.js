@@ -36,16 +36,18 @@ let config = {
                plugins: ['react-html-attrs', 'transform-class-properties', 'transform-decorators-legacy']
             }
          },
-        {
-         test: /\.scss$/,
-         include: path.join(__dirname, './client/public'),
-         loader: 'style!css!sss'
-       }
+         {
+
+            test: /\.scss$/,
+            exclude: /node_modules/,
+            loader: 'style-loader',
+          }
       ]
    },
   resolve: {
     extensions: ['*', '.js', '.jsx']
   },
+ 
   plugins: debug ? [] : [
   new webpack.optimize.DedupePlugin(),
   new webpack.optimize.OccurenceOrderPlugin(),

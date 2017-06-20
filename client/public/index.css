@@ -61,14 +61,14 @@ div #root {
 	font-size: 12px;
 
 }
-button {
+/*button {
     background-color: #203077;
     color: white;
     cursor: pointer;
     padding: 7px 10px;
     margin: 4px 0;
     width: 15%;
-}
+}*/
 input {
     width: 50%;
     padding: 12px 20px;
@@ -119,4 +119,37 @@ form{
 	width: 100%;
 	margin-left: -20px;
 	margin-right: -20px;
+}
+
+.filter-list {
+  margin: auto;
+  width: 300px;
+  background: #3498db;
+  border-radius: 5px;
+  border: 1px solid darken(#3498db, 20%);
+  input {
+    width: 100%;
+    display: block;
+    padding: 10px;
+    border-radius: 5px 5px 0px 0px;
+    border: 0;
+    font-size: 24px;
+    &:focus {
+      outline: none;
+    }
+  }
+  ul {
+    margin: 0;
+    padding: 0;
+    li {
+      list-style-type: none;
+      margin: 0;
+      color: white;
+      padding: 10px 20px;
+      border-top: 1px solid darken(#3498db, 20%);
+      &:hover {
+        background: #2980b9;
+      }
+    }
+  }
 }
