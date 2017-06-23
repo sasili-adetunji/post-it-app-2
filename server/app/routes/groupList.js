@@ -7,7 +7,7 @@ const fb = firebase.database();
 
 const groupList = (app, db) => {
 
-	app.get('/groups', (req, res) => {
+	app.get('/group', (req, res) => {
         const userRef = fb.ref().child('groups').once('child_added', msg =>{
         	const data = msg.val()
         	res.send(data)
