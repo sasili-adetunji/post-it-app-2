@@ -1,0 +1,26 @@
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var PostItConstants = {
+  REGISTER: 'REGISTER',
+  LOGIN: 'LOGIN',
+  GOOGLE_LOGIN: 'GOOGLE_LOGIN',
+  SIGN_OUT: 'SIGN_OUT',
+  CREATE_GROUP: 'CREATE_GROUP',
+  ADD_MEMBERS: 'ADD_MEMBERS',
+  SEND_MESSAGE: 'SEND_MESSAGE',
+  VIEW_MESSAGE: 'VIEW_MESSAGE',
+  RESET_PASSWORD: 'RESET_PASSWORD',
+  LOGIN_ERROR: 'LOGIN_ERROR',
+  REGISTER_ERROR: 'REGISTER_ERROR',
+  MESSAGE_ERROR: 'MESSAGE_ERROR',
+  GROUP_ERROR: 'GROUP_ERROR',
+  GET_USERS: 'GET_USERS',
+  GET_USERS_ERROR: 'GET_USERS_ERROR'
+
+};
+
+exports.default = PostItConstants;
