@@ -23,7 +23,6 @@ var app = (0, _express2.default)(); // signin route
 // using firebase authentication method
 
 var fb = _firebase2.default.database();
-var usersRef = fb.ref('users');
 
 var signup = function signup(app, db) {
   app.post('/user/signup', function (req, res) {
