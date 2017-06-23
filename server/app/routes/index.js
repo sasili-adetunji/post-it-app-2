@@ -7,29 +7,23 @@ import signin from './signin';
 import group from './group';
 import groupAdd from './groupAdd';
 import signout from './signout';
-
-// const router = express.Router()
-
-// router.post('/user/signup', signup)
-
-// router.post('/user/signin', signin);
-
-// router.post('/user/signout', signout);
-
-// router.post('/group', group);
-
-// router.post('/group/:groupId', groupAdd)
-
-// router.get(z
-// 	express.static(path.join(__dirname, "../client/public")))
-
+import message from './message';
+import groupList from './groupList';
+import usersList from './usersList';
+import userGroup from './userGroup';
+import userMessage from './userMessage';
 
 const index = (app, db) => {
   signup(app, db);
   signin(app, db);
   signout(app, db);
   group (app, db);
+  message (app, db);
   groupAdd(app, db);
+  usersList(app, db);
+  groupList(app, db);
+  userMessage(app, db);
+  userGroup(app, db);
 
 };
 export default index;

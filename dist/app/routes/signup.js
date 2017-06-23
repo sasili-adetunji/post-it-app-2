@@ -3,6 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.saveUser = saveUser;
 
 var _express = require('express');
 
@@ -22,25 +23,28 @@ var app = (0, _express2.default)(); // signin route
 // using firebase authentication method
 
 var fb = _firebase2.default.database();
-var usersRef = fb.ref("users");
+var usersRef = fb.ref('users');
 
 var signup = function signup(app, db) {
   app.post('/user/signup', function (req, res) {
-    var userName = req.body.userName,
+    var username = req.body.username,
         email = req.body.email,
         password = req.body.password;
-    _firebase2.default.auth().createUserWithEmailAndPassword(email, password);
-    var user = {};
-    user.name = userName, email = email;
-    usersRef.push({
-      username: userName,
-      email: email
-    }).then(function (user) {
+    _firebase2.default.auth().createUserWithEmailAndPassword(email, password).then(saveUser).then(function () {
       res.send({ message: 'Registration successful. You have successfully been registered' });
     }).catch(function (error) {
       var errorMessage = error.message;
-      res.status(400).send({ message: 'Error signing up ' });
+      res.status(400).send({ message: 'Error signing up: ', errorMessage: errorMessage });
     });
   });
 };
+
+function saveUser(user) {
+  return fb.child('users/' + user.uid + '/info').set({
+    email: user.email
+  }).then(function () {
+    return user;
+  });
+}
+
 exports.default = signup;

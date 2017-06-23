@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import LoginStore from '../stores/LoginStore.js';
-import { signIn, resetPassword, google, signOut  }from '../actions/PostItAuth.js';
-import axios from 'axios';
+import { signIn, resetPassword, google }from '../actions/PostItAuth.js';
 
 function setErrorMsg(error) {
   return {
@@ -16,29 +15,34 @@ export default class Login extends Component {
   this.state = { 
     loginMessage: null,
     email: '',
-    pw: '' 
+    password: '' 
   }
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.redirect = this.redirect.bind(this);
+    this.googleLogin = this.googleLogin.bind(this);
+    this.reset = this.reset.bind(this);
 }
 
-  handleSubmit = (e) => {
-    e.preventDefault()
-    signIn(this.email.value, this.pw.value)
-    .catch((error) => {
-          this.setState(setErrorMsg('Error signing in.'))
-        })
-    // axios.post('http://localhost:8000/user/signin', {email: this.state.email, password: this.state.pw})
+handleChange (e) {
+    this.setState({ 
+      [e.target.name]: e.target.value 
+    });
   }
-  googleLogin = (e) => {
+
+  handleSubmit(e) {
     e.preventDefault()
-    google()
-    .catch((error) => {
-          this.setState(setErrorMsg('Error signining with google.'))
-        })
-  }
-  reset = (e) => {
+    signIn(this.state)
+}
+  googleLogin (e) {
+    e.preventDefault()
+    google(this.state)
+}
+  reset (e) {
     e.preventDefault()
     resetPassword()
   }
+
   render () {
     return (
       <div className= "center">
@@ -47,11 +51,13 @@ export default class Login extends Component {
         <h1> Login </h1>
           <div>
             <label><b>Email</b></label>
-            <input type="text"  ref={(email) => this.email = email} placeholder="Enter your email..." required/>
+            <input type="text"  ref={(email) => this.email = email} placeholder="Enter your email..." 
+              onChange={this.handleChange} />
           </div>
           <div>
             <label><b>Password</b></label>
-            <input type="password" placeholder="Enter your password..." ref={(pw) => this.pw = pw} required />
+            <input type="password" placeholder="Enter your password..." ref={(password) => this.password = password}
+              onChange={this.handleChange} />
           </div>
           {
             this.state.loginMessage &&

@@ -32,29 +32,39 @@ var _signout = require('./signout');
 
 var _signout2 = _interopRequireDefault(_signout);
 
+var _message = require('./message');
+
+var _message2 = _interopRequireDefault(_message);
+
+var _groupList = require('./groupList');
+
+var _groupList2 = _interopRequireDefault(_groupList);
+
+var _usersList = require('./usersList');
+
+var _usersList2 = _interopRequireDefault(_usersList);
+
+var _userGroup = require('./userGroup');
+
+var _userGroup2 = _interopRequireDefault(_userGroup);
+
+var _userMessage = require('./userMessage');
+
+var _userMessage2 = _interopRequireDefault(_userMessage);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-// const router = express.Router()
-
-// router.post('/user/signup', signup)
-
-// router.post('/user/signin', signin);
-
-// router.post('/user/signout', signout);
-
-// router.post('/group', group);
-
-// router.post('/group/:groupId', groupAdd)
-
-// router.get(z
-// 	express.static(path.join(__dirname, "../client/public")))
-
-
+// import all the route into a single index file
 var index = function index(app, db) {
   (0, _signup2.default)(app, db);
   (0, _signin2.default)(app, db);
   (0, _signout2.default)(app, db);
   (0, _group2.default)(app, db);
+  (0, _message2.default)(app, db);
   (0, _groupAdd2.default)(app, db);
-}; // import all the route into a single index file
+  (0, _usersList2.default)(app, db);
+  (0, _groupList2.default)(app, db);
+  (0, _userMessage2.default)(app, db);
+  (0, _userGroup2.default)(app, db);
+};
 exports.default = index;

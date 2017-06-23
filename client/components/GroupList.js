@@ -11,34 +11,36 @@ export default class GroupList extends React.Component {
     groups: {}
    }
    const fb = Firebase.database()
-   this.fb = Firebase.database()
-   this.fb.ref('groups').on('child_added', (msg) => {
+   this.fb = Firebase.database();
+   let uid, res, groupKey,
+   grou;
+  
+   this.fb.ref('users').child('jRN2zNHHDvTzs7muOnb5nnjbmwX2')
+   .child('groups').on('child_added', (msg) => {
           
-      let res = msg.key,
-         re = msg.val();
-
-         this.state.groups[res] = re
-
-      this.setState({
-         groups: this.state.groups
-      });
-
-
-      console.log(' GroupID: '+ res+ ', Group Name: '+ re.groupName+ ', Group Admin: '+ re.groupadmin);
-   })
+      res = msg.key
+    
+    .then(fb.ref('groups').on('child_added', (snap) => {
+       groupKey = snap.key;
+           if (groupKey == res)
+          return 
+          grou = snap.val().groupName;
+ 
+      //    this.state.groups[res] = re
+      // this.setState({
+      //    groups: this.state.groups
+      // });
+      console.log(res)
+      // console.log(' GroupID: '+ res+ ', Group Name: '+ re.groupName+ ', Group Admin: '+ re.groupadmin);
+      // console.log(resi, resil, resili);
+ }) 
+ )
+ })  
 }
 
   render() {
     return (
-      <ul className="list-group">
-      {
-        this.props.groups.map(function(item) {
-          return   
-          <li className="list-group-item" key={item}> {item} 
-          </li>
-        })
-       }
-      </ul>
+      <div> </div>
     )  
   }
 }

@@ -6,32 +6,32 @@ import firebase from 'firebase';
 import db from '../../config/db';
 const app = express();
 const fb = firebase.database();
-const usersRef = fb.ref("users");
 
 
 const signup = (app, db) => {
     app.post('/user/signup', (req, res) => {
-    let userName = req.body.userName,
+    const username = req.body.username,
         email =     req.body.email,
         password = req.body.password;
     firebase.auth().createUserWithEmailAndPassword(email, password)
-      let user = {};
-      user.name = userName,
-      email = email;
-      usersRef.push(
-      {
-        username: userName,
-        email: email
+    .then(saveUser)
+    .then(() => {
+          res.send({ message: 'Registration successful. You have successfully been registered'});
       })
-      .then((user) => {
-               res.send({ message: 'Registration successful. You have successfully been registered'});
-          })
       .catch((error) => {
          const errorMessage = error.message;
-         res.status(400).send({ message: 'Error signing up ' });
+         res.status(400).send({ message: 'Error signing up: ', errorMessage });
        });
-
-    })
+})
 
   }
+
+  export function saveUser (user) {
+  return fb.child(`users/${user.uid}/info`)
+    .set({
+      email: user.email
+    })
+    .then(() => user)
+}
+
 export default signup;

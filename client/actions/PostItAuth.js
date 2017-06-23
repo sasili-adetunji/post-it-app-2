@@ -7,15 +7,17 @@ const fb = firebase.database();
 
 
 
-
-
-
-export function signIn (email, pw) {
-  return firebaseAuth().signInWithEmailAndPassword(email, pw)
+export function signIn (loginDetails) {
+   return (dispatch) => {
+  return axios.post('user/signin', {
+      email: loginDetails.email,
+      password: loginDetails.password
+    })
   firebaseAuth().currentUser.getToken(true)
   .then((idToken) => {
   		PostItDispatcher({
   			type: PostItConstants.LOGIN_USER,
+        email
   		});
   		let jwt = idToken.uid;
  	 		localStorage.setItem('jwt', jwt);
@@ -29,14 +31,20 @@ export function signIn (email, pw) {
 
  	 	});
 }
+}
 
-export function signUp(email, pw, usernanme) {
-	return firebaseAuth().createUserWithEmailAndPassword(email, pw)
-    	.then(saveUser)
+export function signUp(signupDetails) {
+   return (dispatch) => {
+	return axios.post('user/signup', {
+      email: signupDetails.email,
+      password: signupDetails.password,
+      username: signupDetails.username
+    })
  		firebaseAuth().currentUser.getToken(true)
   		.then((idToken) => {
 				PostItDispatcher({
  				type: PostItConstants.REGISTER_USER,
+        email
  			});
  			let jwt = idToken.uid;
  			localStorage.setItem('jwt', jwt);
@@ -50,6 +58,7 @@ export function signUp(email, pw, usernanme) {
 
  		});
  	}
+}
 
 export function google() {
 	let provider = new firebase.auth.GoogleAuthProvider();
@@ -73,8 +82,9 @@ export function signOut() {
  			type: PostItConstants.SIGN_OUT
  		});
  	}
+
 export function saveUser (user) {
-  return ref.child(`users/${user.uid}/info`)
+  return fb.child(`users/${user.uid}/info`)
     .set({
       email: user.email
     })
@@ -85,58 +95,79 @@ export function resetPassword (email) {
   return firebaseAuth().sendPasswordResetEmail(email)
 }
 
-export function addGroup (groupName) {
-  return firebaseAuth().onAuthStateChanged((user) => {
-        const groupKey = fb.ref('groups/').push({
-          groupName: groupName,
-          groupadmin: user.email,
-        }).key;
-        const groupRef = fb.ref(`groups/${groupKey}/users/`)
-        .set({
-          Id: user.uid,
-        })
-        const userRef = fb.ref(`users/${user.uid}/groups/groupInfo`).set(
-          { groupid: groupKey,
-            groupname: groupName}
-          )
-        .then(() => {
-      alert("Group Successfully created")
+export function addGroup(groupName) {
+   return (dispatch) => {
+  return axios.post('/group', {
+      groupName: groupName,
     })
-    .catch((error) => {
-    });
-  
-});
-}
+    PostItDispatcher({
+        type: PostItConstants.CREATE_GROUP,
+        groupName
+      })
+      .catch((error) =>{
+      PostItDispatcher({
+        type: PostItConstants.REGISTER_ERROR,
+        error: error.message,
+        status: 'Unable to create group'
+      });
 
+    });
+  }
+}
 
 export function message (messageBody, groupId) {
-  return firebaseAuth().onAuthStateChanged((user) => {
-        const groupRef = fb.ref(`groups/${groupId}`).child('messages')
-        .push({
-          message: messageBody,
-          postedby: user.email
-        })
-        fb.ref(`users/${user.uid}/groups/${groupId}`).set(
-          { messages: messageBody }
-          )
-        .then(() => {
-      alert("Message Sent successfully to Group")
+   return (dispatch) => {
+  return axios.post('/message', {
+      messageBody: messageBody,
+      groupId: groupId
     })
-    .catch((error) => {
+    PostItDispatcher({
+        type: PostItConstants.SEND_MESSAGE,
+        messageBody
+      })
+      .catch((error) =>{
+      PostItDispatcher({
+        type: PostItConstants.MESSAGE_ERROR,
+        error: error.message,
+        status: 'Unable to send message to group'
+      });
+
     });
-  });
+  }
+
 }
+// export function readMessage () {
+//   return firebaseAuth().onAuthStateChanged((user) => {
+//     fb.ref('users').child(user.uid)
+//    .child('groups').child('-KmfaBc5knfnVibo1hBf')
+//    .on('child_added', (msg) => { 
+//     let messageValue = msg.val();
+//     console.log("New message", messageValue)
+//   })
+// })
+// }
 
+export function readMessage() {
+   return (dispatch) => {
+    return firebaseAuth().onAuthStateChanged((user) => {
+      fb.ref('users').child(user.uid).child('groups')
+      .child(groupId).once('value', snap => {
+      const message = snap.val().info;
+      PostItDispatcher({
+        type: PostItConstants.VIEW_MESSAGE,
+        message
+      })
+    .catch((error) =>{
+      PostItDispatcher({
+        type: PostItConstants.VIEW_MESSAGE_ERROR,
+        error: error.message,
+        status: 'Unable to send Message'
+      });
 
-export function readMessage () {
-  return firebaseAuth().onAuthStateChanged((user) => {
-    fb.ref('users').child(user.uid)
-   .child('groups').child('-KmfaBc5knfnVibo1hBf')
-   .on('child_added', (msg) => { 
-    let messageValue = msg.val();
-    console.log("New message", messageValue)
-  })
+    });
 })
+    })
+  }
 }
 
 
@@ -158,8 +189,11 @@ export function readMessage () {
 //   })
 // }
 
+
+
 export function showGroups () {
-  firebase.auth().onAuthStateChanged((user) => {
+   return (dispatch) => {
+    return firebase.auth().onAuthStateChanged((user) => {
         const groups = [];
         const groupsReference = fb.ref('users').child(user.uid)
             .child('groups').on('child_added', (msg) => { 
@@ -184,4 +218,24 @@ export function showGroups () {
 
   });
 }
+}
 
+export function getUsers() {
+   return (dispatch) => {
+    return fb.ref('users').once('value', snap => {
+      const users = snap.val().info;
+      PostItDispatcher({
+        type: PostItConstants.GET_USERS,
+        users
+      })
+    .catch((error) =>{
+      PostItDispatcher({
+        type: PostItConstants.GET_USERS_ERROR,
+        error: error.message,
+        status: 'Unable to login'
+      });
+
+    });
+})
+  }
+}

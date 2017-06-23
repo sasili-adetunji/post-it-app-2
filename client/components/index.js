@@ -4,7 +4,7 @@ import Login from './Login'
 import Register from './Register'
 import Home from './Home'
 import Dashboard from './protected/Dashbord';
-import Navbar from './Navbar';
+import { Navbar } from './Navbar';
 import {Routehandler} from 'react-router';
 
 
@@ -17,7 +17,7 @@ function PrivateRoute ({component: Component, authed, ...rest}) {
       {...rest}
       render={(props) => authed === true
         ? <Component {...props} />
-        : <Redirect to={{pathname: '/user/signin', state: {from: props.location}}} />}
+        : <Redirect to={{pathname: '/signin', state: {from: props.location}}} />}
     />
   )
 }
@@ -57,7 +57,7 @@ export default class App extends Component {
     return (
       <BrowserRouter>
         <div>
-       <nav>
+          <nav>
             <ul>
              <li>
               <Link to="/">Home</Link>
@@ -67,15 +67,15 @@ export default class App extends Component {
                 </li>         
                 <li>
                   {this.state.authed
-                    ? <button className = "logout"
+                    ? <button
                         onClick={() => {
                           signOut()
                         }}> Logout</button>
                     : <span>
-                        <Link to="/user/signin">Login</Link> 
+                        <Link to="/signin">Login</Link> 
                         
 
-                        <Link to="/user/signup">Register</Link>
+                        <Link to="/signup">Register</Link>
                       </span> }
                 </li>
               </ul>
@@ -85,8 +85,8 @@ export default class App extends Component {
             <div>
               <Switch>
                 <Route path='/' exact component={Home} />
-                <PublicRoute authed={this.state.authed} path='/user/signin' component={Login} />
-                <PublicRoute authed={this.state.authed} path='/user/signup' component={Register} />
+                <PublicRoute authed={this.state.authed} path='/signin' component={Login} />
+                <PublicRoute authed={this.state.authed} path='/signup' component={Register} />
                 <PrivateRoute authed={this.state.authed} path='/dashboard' component={Dashboard} />
 
                 <Route render={() => <h3>No Match</h3>} />

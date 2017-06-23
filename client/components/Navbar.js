@@ -5,15 +5,19 @@ import { NavLink } from 'react-router-dom';
 
 function Navbar() {
   return (
-    <ul className = 'nav'>
+  <div className="container-fluid navbar navbar-default">
+    <div className="navbar-header">
+
+    <ul className='nav navbar-nav'>
+    <div className='container-fluid'>
+    <div className='navbar-header'>
      <li>
-       <NavLink exact activeClassName='active' to='/user/signin'>
+       <NavLink exact activeClassName='active' to='/signin'>
          Sign In
        </NavLink>
      </li>
-
       <li>
-        <NavLink activeClassName='active' to='/user/signup'>
+        <NavLink activeClassName='active' to='/signup'>
           Signup
         </NavLink>
       </li>
@@ -22,20 +26,11 @@ function Navbar() {
           Dashboard
         </NavLink>
       </li>
-      <li>
-                  {this.state.authed
-                    ? <button className = "logout"
-                        onClick={() => {
-                          signOut()
-                        }}> Logout</button>
-                    : <span>
-                        <NavLink to="/user/signin">Login</NavLink> 
-                        
-
-                        <NavLink to="/user/signup">Register</NavLink>
-                      </span> }
-                </li>
-    </ul>
+      </div>
+      </div>
+      </ul>
+      </div>
+      </div>
     );
 }
 module.exports = Navbar;

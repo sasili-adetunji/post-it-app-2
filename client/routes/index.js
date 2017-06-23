@@ -1,7 +1,6 @@
 import React from 'react';
-import Router from 'react-router';
+import { Route, IndexRoute } from 'react-router';
 import App from '../components';
-import BrowserRouter from 'react-router-dom';
 import Home from '../components/Home';
 import Dashboard from '../components/protected/Dashbord';
 import Login from '../components/Login';
@@ -11,23 +10,13 @@ import Group from '../components/Group';
 
 
 
-let Route= Router.Route;
-let DefaultRoute= Router.DefaultRoute;
 
+export default(
+   <div>
+    <Route path="/" component={App} />
+    <Route path="/signin" component={Login} />
+    <Route path="/signup" component={Register} />
+    <Route path="/dashboard" component={Dashboard} />
 
-let routes = (
-
-<Route path='/' handler ={App}> 
- 	<DefaultRoute handler={Home} />
- 	<Route path='/user/signup' handler={Register} />
- 	<Route path='/user/signin' handler={Login} />
- 	<Route path='/dashboard' handler={Dashboard} />
- 	<Route path='/group' handler={Group} />
- 	<Route path='/group:groupId' handler= {Group} />
-</Route>
-
+  </div>
 );
-
-Router.run(routes, Router.HashLocation, (Root) =>{
-	React.render(<Root />, document.getElementById('root'));
-});

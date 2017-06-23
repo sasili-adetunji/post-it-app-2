@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { signOut, readMessage, showGroups }from '../../actions/PostItAuth.js';
+import { signOut, readMessage, showGroups, users }from '../../actions/PostItAuth.js';
 import MessageBox from '../MessageBox';
 import GroupList from '../GroupList';
 import MessageList from '../MessageList';
@@ -20,6 +20,10 @@ export default class Dashboard extends Component {
     e.preventDefault()
     showGroups()
   }
+    Showusers = (e) => {
+    e.preventDefault()
+    users()
+  }
   render () {
     return (
   
@@ -30,6 +34,8 @@ export default class Dashboard extends Component {
      <ul className="nav navbar-nav">
       <li><a href="#" onClick={this.messages}>Read messages </a></li>
       <li><a href="#" onClick={this.groups}>Show Groups </a></li>
+            <li><a href="#" onClick={this.Showusers}>Show users </a></li>
+
     </ul>
     </div>
   </div>
