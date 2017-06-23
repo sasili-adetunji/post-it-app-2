@@ -19,7 +19,9 @@ let config = {
    },
    node: {
     fs: 'empty',
-    net: 'empty'
+    net: 'empty',
+    dns: 'empty',
+    tls: 'empty'
    },
   
    module: {
@@ -33,12 +35,19 @@ let config = {
                presets: ['es2015', 'react', 'stage-0'],
                plugins: ['react-html-attrs', 'transform-class-properties', 'transform-decorators-legacy']
             }
-         }
+         },
+         {
+
+            test: /\.scss$/,
+            exclude: /node_modules/,
+            loader: 'style-loader',
+          }
       ]
    },
   resolve: {
     extensions: ['*', '.js', '.jsx']
   },
+ 
   plugins: debug ? [] : [
   new webpack.optimize.DedupePlugin(),
   new webpack.optimize.OccurenceOrderPlugin(),

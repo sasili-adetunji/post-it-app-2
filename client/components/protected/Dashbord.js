@@ -1,30 +1,60 @@
 import React, { Component } from 'react'
-import { Logout, addGroup } from '../helpers/auth';
+import { signOut, readMessage, showGroups, users }from '../../actions/PostItAuth.js';
+import MessageBox from '../MessageBox';
+import GroupList from '../GroupList';
+import MessageList from '../MessageList';
+import GroupAdd from '../GroupAdd';
+import FilteredList from '../FilteredList';
 
-function setErrorMsg(error) {
-  return {
-    Error: error
-  }
-}
+
 
 export default class Dashboard extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
-  
-  this.state = { 
-    loginMessage: null,
-    groupName: ''
-  }}
-
+  }
+  messages = (e) => {
+    e.preventDefault()
+    readMessage()
+  }
+  groups = (e) => {
+    e.preventDefault()
+    showGroups()
+  }
+    Showusers = (e) => {
+    e.preventDefault()
+    users()
+  }
   render () {
     return (
-  <div className= "center">
-  	 <h1> Welcome to PostIt Dashboard.</h1>
-     <p><b> You can create groups and add other registered members to those groups </b></p>
-          <p><b> In this way, you can send messages to those groups which will be visible to all members of the groups </b></p>
+  
+  <div className="row">
+  <nav className="navbar navbar-default">
+  <div className="container-fluid">
+    <div className="navbar-header">
+     <ul className="nav navbar-nav">
+      <li><a href="#" onClick={this.messages}>Read messages </a></li>
+      <li><a href="#" onClick={this.groups}>Show Groups </a></li>
+            <li><a href="#" onClick={this.Showusers}>Show users </a></li>
 
+    </ul>
+    </div>
   </div>
-
+</nav>
+   <div className= "row"> </div>
+    <div className="col-sm-3 col-sm-offset-1" >
+      <h4> Search Groups </h4> 
+      
+      </div>
+    <div className="col-sm-4"> 
+      <h4> Send Message to group.</h4> 
+      <MessageBox />
+      </div>
+    <div className="col-sm-4"> 
+      <h4> Create Groups</h4> 
+      <GroupAdd />
+    </div>
+    
+  </div>
  )
  }
 }

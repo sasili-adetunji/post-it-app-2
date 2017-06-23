@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import { auth } from './helpers/auth'
+import { signUp }from '../actions/PostItAuth.js';
+
 
 function setErrorMsg(error) {
   return {
@@ -15,29 +16,38 @@ export default class Register extends Component {
     registerError: null,
     username: '',
     email: '',
-    pw: '' 
-  }}
-  handleSubmit = (e) => {
+    password: '' 
+  }
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+}
+
+ handleChange(e) {
+    this.setState({ 
+      [e.target.name]: e.target.value 
+    });
+  }
+
+  handleSubmit(e) {
     e.preventDefault()
-    auth(this.email.value, this.pw.value)
-      .catch(e => this.setState(setErrorMsg(e)))
+    signUp(this.state)
   }
   render () {
     return (
-      <div className= "center">
+     <div className= "form-group center">
         <h1>Signup Page</h1>
-        <form onSubmit={this.handleSubmit} className= "center">
-          <div>
-            <label><b>Email</b></label>
-            <input ref={(email) => this.email = email} placeholder="Email"/>
+        <form onSubmit={this.handleSubmit} className= "form-horizontal">
+          <div className= "form-group">
+           <label for="email" className='control-label'>Email address:</label>
+           <input onChange={this.handleChange} ref={(email) => this.email = email} placeholder='Email' className ='form-control'/>
           </div>
           <div>
-          <label><b>Username</b></label>
-            <input ref={(username) => this.username = username} placeholder="Username"/>
+           <label for="username" className='control-label'>User Name:</label>
+            <input onChange={this.handleChange} className ='form-control' ref={(username) => this.username = username} placeholder="Username"/>
           </div>
           <div>
-            <label><b>Password</b></label>
-            <input type="password" placeholder="Password" ref={(pw) => this.pw = pw} />
+           <label for="password" className='control-label'>Password: </label>
+            <input onChange={this.handleChange} className ='form-control' type="password" placeholder="Password" ref={(password) => this.password = password} />
           </div>
           {
             this.state.registerError &&
@@ -47,7 +57,7 @@ export default class Register extends Component {
               &nbsp;{this.state.registerError}
             </div>
           }
-          <button type="submit">Signup</button>
+          <button type="submit" className='btn btn-default'>Signup</button>
         </form>
       </div>
     )

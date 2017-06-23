@@ -23,10 +23,11 @@ var app = (0, _express2.default)(); // login route
 
 var signin = function signin(app, db) {
   app.post('/user/signin', function (req, res) {
-    var email = req.body.email,
-        password = req.body.password;
+    var email = req.body.email;
+    var password = req.body.password;
     _firebase2.default.auth().signInWithEmailAndPassword(email, password);
-    res.json({ message: 'Success: you have successfuly signed in.' }).catch(function (err) {
+    res.json({ message: 'Success: you have successfuly signed in.' });
+    res.redirect('/dashboard').catch(function (err) {
       res.send({ message: 'Error: The email or password of the user is invalid' });
     });
   });

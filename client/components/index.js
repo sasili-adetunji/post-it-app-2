@@ -2,10 +2,13 @@ import React, { Component } from 'react'
 import { Route, BrowserRouter, Link, Redirect, Switch } from 'react-router-dom'
 import Login from './Login'
 import Register from './Register'
-import Group from './Group'
 import Home from './Home'
-import Dashboard from './protected/Dashbord'
-import { logout } from './helpers/auth'
+import Dashboard from './protected/Dashbord';
+import { Navbar } from './Navbar';
+import {Routehandler} from 'react-router';
+
+
+import { signOut }from '../actions/PostItAuth.js';
 import { firebaseAuth } from '../../server/config/db'
 
 function PrivateRoute ({component: Component, authed, ...rest}) {
@@ -14,7 +17,7 @@ function PrivateRoute ({component: Component, authed, ...rest}) {
       {...rest}
       render={(props) => authed === true
         ? <Component {...props} />
-        : <Redirect to={{pathname: '/user/signin', state: {from: props.location}}} />}
+        : <Redirect to={{pathname: '/signin', state: {from: props.location}}} />}
     />
   )
 }
@@ -32,20 +35,17 @@ function PublicRoute ({component: Component, authed, ...rest}) {
 
 export default class App extends Component {
   state = {
-    authed: false,
-    loading: true,
+    authed: false
   }
   componentDidMount () {
     this.removeListener = firebaseAuth().onAuthStateChanged((user) => {
       if (user) {
         this.setState({
-          authed: true,
-          loading: false,
+          authed: true
         })
       } else {
         this.setState({
-          authed: false,
-          loading: false
+          authed: false
         })
       }
     })
@@ -54,45 +54,40 @@ export default class App extends Component {
     this.removeListener()
   }
   render() {
-    return this.state.loading === true ? <h1>Loading</h1> : (
+    return (
       <BrowserRouter>
         <div>
           <nav>
-            <div>
-              <ul>
+            <ul>
+             <li>
+              <Link to="/">Home</Link>
+              </li>
                 <li>
-                  <Link to="/">Home</Link>
-                </li>
-                <li>
-                  <Link to="/dashboard">Dashboard</Link>
-                </li>
-                <li>
-                  <Link to="/group">Groups</Link>
-                </li>
+                <Link to="/dashboard">Dashboard</Link>
+                </li>         
                 <li>
                   {this.state.authed
-                    ? <button className = "logout"
+                    ? <button
                         onClick={() => {
-                          logout()
+                          signOut()
                         }}> Logout</button>
                     : <span>
-                        <Link to="/user/signin">Login</Link> 
+                        <Link to="/signin">Login</Link> 
                         
 
-                        <Link to="/user/signup">Register</Link>
+                        <Link to="/signup">Register</Link>
                       </span> }
                 </li>
               </ul>
-            </div>
+            
           </nav>
           <div>
             <div>
               <Switch>
                 <Route path='/' exact component={Home} />
-                <PublicRoute authed={this.state.authed} path='/user/signin' component={Login} />
-                <PublicRoute authed={this.state.authed} path='/user/signup' component={Register} />
+                <PublicRoute authed={this.state.authed} path='/signin' component={Login} />
+                <PublicRoute authed={this.state.authed} path='/signup' component={Register} />
                 <PrivateRoute authed={this.state.authed} path='/dashboard' component={Dashboard} />
-                <PrivateRoute authed={this.state.authed} path='/group' component={Group} />
 
                 <Route render={() => <h3>No Match</h3>} />
               </Switch>
