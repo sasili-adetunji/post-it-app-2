@@ -19,9 +19,7 @@ export default class Login extends Component {
   }
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.redirect = this.redirect.bind(this);
     this.googleLogin = this.googleLogin.bind(this);
-    this.reset = this.reset.bind(this);
 }
 
 handleChange (e) {
@@ -45,20 +43,19 @@ handleChange (e) {
 
   render () {
     return (
-      <div className= "center">
-        
-        <form onSubmit={this.handleSubmit} className= "center">
-        <h1> Login </h1>
-          <div>
-            <label><b>Email</b></label>
-            <input type="text"  ref={(email) => this.email = email} placeholder="Enter your email..." 
-              onChange={this.handleChange} />
+      <div className= "form-group center">
+        <h1>Login Page</h1>
+      
+       <form onSubmit={this.handleSubmit} className= "form-horizontal">
+          <div className= "form-group">
+           <label htmlFor="email" className='control-label'>Email address:</label>
+         <input onChange={this.handleChange} ref={(email) => this.email = email} placeholder='Email' className ='form-control'/>
           </div>
-          <div>
-            <label><b>Password</b></label>
-            <input type="password" placeholder="Enter your password..." ref={(password) => this.password = password}
-              onChange={this.handleChange} />
-          </div>
+      <div>
+           <label htmlFor="password" className='control-label'>Password: </label>
+            <input onChange={this.handleChange} className ='form-control' type="password" placeholder="Password" ref={(password) => this.password = password} />
+          </div>          
+
           {
             this.state.loginMessage &&
             <div>
@@ -67,7 +64,7 @@ handleChange (e) {
               &nbsp;{this.state.loginMessage} <a href="#" onClick={this.reset}>Forgot Password?</a>
             </div>
           }
-          <button type="submit">Login</button>
+          <button type="submit" className='btn btn-default'>Login</button>
         </form>
         <div> <a href="#" onClick={this.googleLogin}>Log in with Google</a> </div>
       </div>

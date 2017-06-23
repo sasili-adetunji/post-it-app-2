@@ -38,7 +38,7 @@ export default class Register extends Component {
         <h1>Signup Page</h1>
         <form onSubmit={this.handleSubmit} className= "form-horizontal">
           <div className= "form-group">
-           <label for="email" className='control-label'>Email address:</label>
+           <label htmlFor="email" className='control-label'>Email address:</label>
            <input onChange={this.handleChange} ref={(email) => this.email = email} placeholder='Email' className ='form-control'/>
           </div>
           <div>
@@ -46,7 +46,7 @@ export default class Register extends Component {
             <input onChange={this.handleChange} className ='form-control' ref={(username) => this.username = username} placeholder="Username"/>
           </div>
           <div>
-           <label for="password" className='control-label'>Password: </label>
+           <label htmlFor="password" className='control-label'>Password: </label>
             <input onChange={this.handleChange} className ='form-control' type="password" placeholder="Password" ref={(password) => this.password = password} />
           </div>
           {
