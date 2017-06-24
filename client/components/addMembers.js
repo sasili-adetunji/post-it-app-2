@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 // import Router from 'react-router';
-import { Route, BrowserRouter, Link, Redirect, Switch } from 'react-router-dom'
+import { Route, BrowserRouter, Link, Redirect, Switch } from 'react-router'
 
 import { Logout, addGroup, addMember } from './helpers/auth';
 
