@@ -12,8 +12,26 @@ var {
 
 class Signup extends React.Component {
 
+  constructor(props){
+    super(props);
+    this.state = {
+      username: '',
+      email: '',
+      password: ''
+    }
+    this.onChange = this.onChange.bind(this);
+    this.onClick = this.onClick.bind(this);
+  }
+
+  onChange(e){
+    this.setState({
+      [e.target.name]: e.target.value
+    });
+  }
+
+
     onClick(){
-      Actions.signin(this.context.router);
+      Actions.signup(this.context.router);
     }
 
     static contextTypes = {
@@ -35,15 +53,18 @@ class Signup extends React.Component {
                 To start chatting away, please Signup below.
               </CardText>
             
-            <TextField errorText="This field is required" hintText="Username Field" floatingLabelText="Choose Username"/><br />
-            <TextField errorText="This field is required" hintText="Email Field" floatingLabelText="Your Email"/><br />
-            <TextField errorText="This field is required" hintText="Password Field" floatingLabelText="Choose Password" type="password" /><br />
+            <TextField name= 'username' onChange={this.onChange} value = {this.state.username}
+              errorText="This field is required" hintText="Username Field" floatingLabelText="Choose Username"/><br />
+            <TextField name= 'email' onChange={this.onChange} value = {this.state.email}
+              errorText="This field is required" hintText="Email Field" floatingLabelText="Your Email"/><br />
+            <TextField name= 'password' onChange={this.onChange} value = {this.state.password}
+          errorText="This field is required" hintText="Password Field" floatingLabelText="Choose Password" type="password" /><br />
 
            <br />
 
           <RaisedButton style={{
                 display: 'block',
-              }} onClick={this.onClick.bind(this)}
+              }} onClick={this.onClick}
               label="Sign Up" primary={true} />
 
             </Card>

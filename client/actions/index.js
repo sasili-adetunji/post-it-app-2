@@ -25,6 +25,22 @@ class Actions {
     let provider = new firebase.auth.GoogleAuthProvider();
     provider.addScope('profile');
     provider.addScope('email');
+    return firebase.auth().signInWithEmailAndPassword(email, password).then((error,user )=> {
+      if(error){
+          return;
+        }
+
+       dispatch(user);
+ })
+        router.transitionTo('/chat');
+    }
+  }
+
+    signup(router){
+    return (dispatch) => {
+    let provider = new firebase.auth.GoogleAuthProvider();
+    provider.addScope('profile');
+    provider.addScope('email');
     return firebaseAuth().signInWithPopup(provider).then((error,user )=> {
       if(error){
           return;
