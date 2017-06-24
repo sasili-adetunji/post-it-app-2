@@ -26,9 +26,9 @@ var fb = _firebase2.default.database();
 
 var signup = function signup(app, db) {
   app.post('/user/signup', function (req, res) {
-    var username = req.body.username,
-        email = req.body.email,
-        password = req.body.password;
+    var email = req.body.email,
+        password = req.body.password,
+        username = req.body.username;
     _firebase2.default.auth().createUserWithEmailAndPassword(email, password).then(saveUser).then(function () {
       res.send({ message: 'Registration successful. You have successfully been registered' });
     }).catch(function (error) {

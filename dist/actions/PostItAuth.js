@@ -19,6 +19,10 @@ var _axios = require('axios');
 
 var _axios2 = _interopRequireDefault(_axios);
 
+var _superagent = require('superagent');
+
+var _superagent2 = _interopRequireDefault(_superagent);
+
 var _PostItConstants = require('../constants/PostItConstants.js');
 
 var _PostItConstants2 = _interopRequireDefault(_PostItConstants);
@@ -39,10 +43,8 @@ var fb = _firebase2.default.database();
 
 function signIn(loginDetails) {
   return function (dispatch) {
-    return _axios2.default.post('user/signin', {
-      email: loginDetails.email,
-      password: loginDetails.password
-    });
+    return _firebase2.default.auth().signInWithEmailAndPassword(email, password);
+
     (0, _db.firebaseAuth)().currentUser.getToken(true).then(function (idToken) {
       (0, _PostItDispatcher2.default)({
         type: _PostItConstants2.default.LOGIN_USER,
@@ -60,35 +62,49 @@ function signIn(loginDetails) {
   };
 }
 
-function signUp(signupDetails) {
-  return function (dispatch) {
-    return _axios2.default.post('user/signup', {
-      email: signupDetails.email,
-      password: signupDetails.password,
-      username: signupDetails.username
+// export function signUp(signupDetails) {
+//   console.log('reaches register action');
+//   request
+//   .post('user/signup')
+//   .send(signupDetails)
+//   .end((error, result) => {
+//     if (error) {
+//       console.log(error);
+//     } else {
+//       const userData = result.body.userData;
+//       console.log(userData);
+//       PostItDispatcher.handleServerAction({
+//         type: PostItActionTypes.LOGIN_USER,
+//         user: userData
+//       });
+//     }
+//   });
+// };
+
+
+function signUp(email, password, username) {
+  console.log('reaches register action');
+
+  return _firebase2.default.auth().createUserWithEmailAndPassword(email, password);
+
+  (0, _db.firebaseAuth)().currentUser.getToken(true).then(function (idToken) {
+    (0, _PostItDispatcher2.default)({
+      type: _PostItConstants2.default.REGISTER_USER,
+      email: email
     });
-    (0, _db.firebaseAuth)().currentUser.getToken(true).then(function (idToken) {
-      (0, _PostItDispatcher2.default)({
-        type: _PostItConstants2.default.REGISTER_USER,
-        email: email
-      });
-      var jwt = idToken.uid;
-      localStorage.setItem('jwt', jwt);
-    }).catch(function (error) {
-      (0, _PostItDispatcher2.default)({
-        type: _PostItConstants2.default.REGISTER_ERROR,
-        error: error.message,
-        status: 'Unable to register'
-      });
+    var jwt = idToken.uid;
+    localStorage.setItem('jwt', jwt);
+  }).catch(function (error) {
+    (0, _PostItDispatcher2.default)({
+      type: _PostItConstants2.default.REGISTER_ERROR,
+      error: error.message,
+      status: 'Unable to register'
     });
-  };
+  });
 }
 
 function google() {
-  var provider = new _firebase2.default.auth.GoogleAuthProvider();
-  provider.addScope('profile');
-  provider.addScope('email');
-  return (0, _db.firebaseAuth)().signInWithPopup(provider).then(saveUser);
+  return _axios2.default.post('user/google', {}).then(saveUser);
   (0, _db.firebaseAuth)().currentUser.getToken(true).then(function (idToken) {
     (0, _PostItDispatcher2.default)({
       type: _PostItConstants2.default.GOOGLE_LOGIN
@@ -99,10 +115,12 @@ function google() {
 }
 
 function signOut() {
-  return (0, _db.firebaseAuth)().signOut();
-  (0, _PostItDispatcher2.default)({
-    type: _PostItConstants2.default.SIGN_OUT
-  });
+  return function (dispatch) {
+    return (0, _db.firebaseAuth)().signOut();
+    (0, _PostItDispatcher2.default)({
+      type: _PostItConstants2.default.SIGN_OUT
+    });
+  };
 }
 
 function saveUser(user) {

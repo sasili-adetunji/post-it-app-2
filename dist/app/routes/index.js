@@ -52,9 +52,12 @@ var _userMessage = require('./userMessage');
 
 var _userMessage2 = _interopRequireDefault(_userMessage);
 
+var _googleLogin = require('./googleLogin');
+
+var _googleLogin2 = _interopRequireDefault(_googleLogin);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-// import all the route into a single index file
 var index = function index(app, db) {
   (0, _signup2.default)(app, db);
   (0, _signin2.default)(app, db);
@@ -66,5 +69,6 @@ var index = function index(app, db) {
   (0, _groupList2.default)(app, db);
   (0, _userMessage2.default)(app, db);
   (0, _userGroup2.default)(app, db);
-};
+  (0, _googleLogin2.default)(app, db);
+}; // import all the route into a single index file
 exports.default = index;

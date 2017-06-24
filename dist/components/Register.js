@@ -12,6 +12,10 @@ var _react2 = _interopRequireDefault(_react);
 
 var _PostItAuth = require('../actions/PostItAuth.js');
 
+var _axios = require('axios');
+
+var _axios2 = _interopRequireDefault(_axios);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -36,6 +40,16 @@ var Register = function (_Component) {
 
     var _this = _possibleConstructorReturn(this, (Register.__proto__ || Object.getPrototypeOf(Register)).call(this, props));
 
+    _this.handleSubmit = function (e) {
+      e.preventDefault();
+      var userDetails = {
+        email: _this.email.value,
+        password: _this.password.value,
+        username: _this.username.value
+      };
+      _axios2.default.post('/user/signup', userDetails);
+    };
+
     _this.state = {
       registerError: null,
       username: '',
@@ -51,12 +65,6 @@ var Register = function (_Component) {
     key: 'handleChange',
     value: function handleChange(e) {
       this.setState(_defineProperty({}, e.target.name, e.target.value));
-    }
-  }, {
-    key: 'handleSubmit',
-    value: function handleSubmit(e) {
-      e.preventDefault();
-      (0, _PostItAuth.signUp)(this.state);
     }
   }, {
     key: 'render',
@@ -79,12 +87,12 @@ var Register = function (_Component) {
             { className: 'form-group' },
             _react2.default.createElement(
               'label',
-              { 'for': 'email', className: 'control-label' },
+              { htmlFor: 'email', className: 'control-label' },
               'Email address:'
             ),
-            _react2.default.createElement('input', { onChange: this.handleChange, ref: function ref(email) {
+            _react2.default.createElement('input', { ref: function ref(email) {
                 return _this2.email = email;
-              }, placeholder: 'Email', className: 'form-control' })
+              }, onChange: this.handleChange, placeholder: 'Email', className: 'form-control' })
           ),
           _react2.default.createElement(
             'div',
@@ -94,21 +102,21 @@ var Register = function (_Component) {
               { 'for': 'username', className: 'control-label' },
               'User Name:'
             ),
-            _react2.default.createElement('input', { onChange: this.handleChange, className: 'form-control', ref: function ref(username) {
+            _react2.default.createElement('input', { ref: function ref(username) {
                 return _this2.username = username;
-              }, placeholder: 'Username' })
+              }, onChange: this.handleChange, className: 'form-control', placeholder: 'Username' })
           ),
           _react2.default.createElement(
             'div',
             null,
             _react2.default.createElement(
               'label',
-              { 'for': 'password', className: 'control-label' },
+              { htmlFor: 'password', className: 'control-label' },
               'Password: '
             ),
-            _react2.default.createElement('input', { onChange: this.handleChange, className: 'form-control', type: 'password', placeholder: 'Password', ref: function ref(password) {
+            _react2.default.createElement('input', { ref: function ref(password) {
                 return _this2.password = password;
-              } })
+              }, onChange: this.handleChange, className: 'form-control', type: 'password', placeholder: 'Password' })
           ),
           this.state.registerError && _react2.default.createElement(
             'div',

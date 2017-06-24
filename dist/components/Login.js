@@ -47,9 +47,9 @@ var Login = function (_Component) {
     };
     _this.handleChange = _this.handleChange.bind(_this);
     _this.handleSubmit = _this.handleSubmit.bind(_this);
-    _this.redirect = _this.redirect.bind(_this);
     _this.googleLogin = _this.googleLogin.bind(_this);
     _this.reset = _this.reset.bind(_this);
+
     return _this;
   }
 
@@ -62,7 +62,8 @@ var Login = function (_Component) {
     key: 'handleSubmit',
     value: function handleSubmit(e) {
       e.preventDefault();
-      (0, _PostItAuth.signIn)(this.state);
+      (0, _PostItAuth.signIn)(this.state.email, this.state.password);
+      console.log(this.state.email, this.state.password);
     }
   }, {
     key: 'googleLogin',
@@ -74,57 +75,41 @@ var Login = function (_Component) {
     key: 'reset',
     value: function reset(e) {
       e.preventDefault();
-      (0, _PostItAuth.resetPassword)();
+      (0, _PostItAuth.resetPassword)(this.state);
     }
   }, {
     key: 'render',
     value: function render() {
-      var _this2 = this;
-
       return _react2.default.createElement(
         'div',
-        { className: 'center' },
+        { className: 'form-group center' },
+        _react2.default.createElement(
+          'h1',
+          null,
+          'Login Page'
+        ),
         _react2.default.createElement(
           'form',
-          { onSubmit: this.handleSubmit, className: 'center' },
+          { onSubmit: this.handleSubmit, className: 'form-horizontal' },
           _react2.default.createElement(
-            'h1',
-            null,
-            ' Login '
+            'div',
+            { className: 'form-group' },
+            _react2.default.createElement(
+              'label',
+              { htmlFor: 'email', className: 'control-label' },
+              'Email address:'
+            ),
+            _react2.default.createElement('input', { onChange: this.handleChange, placeholder: 'Email', className: 'form-control' })
           ),
           _react2.default.createElement(
             'div',
             null,
             _react2.default.createElement(
               'label',
-              null,
-              _react2.default.createElement(
-                'b',
-                null,
-                'Email'
-              )
+              { htmlFor: 'password', className: 'control-label' },
+              'Password: '
             ),
-            _react2.default.createElement('input', { type: 'text', ref: function ref(email) {
-                return _this2.email = email;
-              }, placeholder: 'Enter your email...',
-              onChange: this.handleChange })
-          ),
-          _react2.default.createElement(
-            'div',
-            null,
-            _react2.default.createElement(
-              'label',
-              null,
-              _react2.default.createElement(
-                'b',
-                null,
-                'Password'
-              )
-            ),
-            _react2.default.createElement('input', { type: 'password', placeholder: 'Enter your password...', ref: function ref(password) {
-                return _this2.password = password;
-              },
-              onChange: this.handleChange })
+            _react2.default.createElement('input', { onChange: this.handleChange, className: 'form-control', type: 'password', placeholder: 'Password' })
           ),
           this.state.loginMessage && _react2.default.createElement(
             'div',
@@ -146,7 +131,7 @@ var Login = function (_Component) {
           ),
           _react2.default.createElement(
             'button',
-            { type: 'submit' },
+            { type: 'submit', className: 'btn btn-default' },
             'Login'
           )
         ),

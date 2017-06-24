@@ -28,9 +28,10 @@ export default class Register extends Component {
     });
   }
 
-  handleSubmit(e) {
+  handleSubmit = (e) => {
     e.preventDefault()
-    signUp(this.state)
+    signUp(this.email.value, this.password.value, this.username.value)
+      .catch(e => this.setState(setErrorMsg(e)))
   }
   render () {
     return (
@@ -39,15 +40,15 @@ export default class Register extends Component {
         <form onSubmit={this.handleSubmit} className= "form-horizontal">
           <div className= "form-group">
            <label htmlFor="email" className='control-label'>Email address:</label>
-           <input onChange={this.handleChange} ref={(email) => this.email = email} placeholder='Email' className ='form-control'/>
+           <input ref={(email) => this.email = email} onChange={this.handleChange} placeholder='Email' className ='form-control'/>
           </div>
           <div>
            <label for="username" className='control-label'>User Name:</label>
-            <input onChange={this.handleChange} className ='form-control' ref={(username) => this.username = username} placeholder="Username"/>
+            <input ref={(username) => this.username = username} onChange={this.handleChange} className ='form-control' placeholder="Username"/>
           </div>
           <div>
            <label htmlFor="password" className='control-label'>Password: </label>
-            <input onChange={this.handleChange} className ='form-control' type="password" placeholder="Password" ref={(password) => this.password = password} />
+            <input ref={(password) => this.password = password} onChange={this.handleChange} className ='form-control' type="password" placeholder="Password" />
           </div>
           {
             this.state.registerError &&

@@ -1,4 +1,5 @@
 import axios from 'axios';
+import request from 'superagent';
 import PostItConstants from '../constants/PostItConstants.js';
 import PostItDispatcher from '../dispatchers/PostItDispatcher.js';
 import { ref, firebaseAuth } from '../../server/config/db'
@@ -7,12 +8,9 @@ const fb = firebase.database();
 
 
 
-export function signIn (loginDetails) {
-   return (dispatch) => {
-  return axios.post('user/signin', {
-      email: loginDetails.email,
-      password: loginDetails.password
-    })
+export function signIn (email, password) {
+  return firebase.auth().signInWithEmailAndPassword(email, password)
+
   firebaseAuth().currentUser.getToken(true)
   .then((idToken) => {
   		PostItDispatcher({
@@ -31,15 +29,33 @@ export function signIn (loginDetails) {
 
  	 	});
 }
-}
 
-export function signUp(signupDetails) {
-   return (dispatch) => {
-	return axios.post('user/signup', {
-      email: signupDetails.email,
-      password: signupDetails.password,
-      username: signupDetails.username
-    })
+
+// export function signUp(signupDetails) {
+//   console.log('reaches register action');
+//   request
+//   .post('user/signup')
+//   .send(signupDetails)
+//   .end((error, result) => {
+//     if (error) {
+//       console.log(error);
+//     } else {
+//       const userData = result.body.userData;
+//       console.log(userData);
+//       PostItDispatcher.handleServerAction({
+//         type: PostItActionTypes.LOGIN_USER,
+//         user: userData
+//       });
+//     }
+//   });
+// };
+
+
+export function signUp(email, password, username) {
+   console.log('reaches register action');
+  
+	return firebase.auth().createUserWithEmailAndPassword(email, password)
+
  		firebaseAuth().currentUser.getToken(true)
   		.then((idToken) => {
 				PostItDispatcher({
@@ -58,13 +74,12 @@ export function signUp(signupDetails) {
 
  		});
  	}
-}
+
 
 export function google() {
-	let provider = new firebase.auth.GoogleAuthProvider();
-    provider.addScope('profile');
-    provider.addScope('email');
-    return firebaseAuth().signInWithPopup(provider)
+  return axios.post('user/google', {
+  
+    })
         .then(saveUser)
         firebaseAuth().currentUser.getToken(true)
   		.then((idToken) => {
@@ -82,6 +97,7 @@ export function signOut() {
  			type: PostItConstants.SIGN_OUT
  		});
  	}
+
 
 export function saveUser (user) {
   return fb.child(`users/${user.uid}/info`)

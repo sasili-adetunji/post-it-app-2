@@ -20,6 +20,8 @@ export default class Login extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.googleLogin = this.googleLogin.bind(this);
+   this.reset = this.reset.bind(this);
+
 }
 
 handleChange (e) {
@@ -28,17 +30,18 @@ handleChange (e) {
     });
   }
 
-  handleSubmit(e) {
+  handleSubmit = (e) => {
     e.preventDefault()
-    signIn(this.state)
-}
+    signIn(this.email.value, this.password.value)
+      .catch(e => this.setState(setErrorMsg(e)))
+  }
   googleLogin (e) {
     e.preventDefault()
     google(this.state)
 }
   reset (e) {
     e.preventDefault()
-    resetPassword()
+    resetPassword(this.state)
   }
 
   render () {
@@ -49,11 +52,11 @@ handleChange (e) {
        <form onSubmit={this.handleSubmit} className= "form-horizontal">
           <div className= "form-group">
            <label htmlFor="email" className='control-label'>Email address:</label>
-         <input onChange={this.handleChange} ref={(email) => this.email = email} placeholder='Email' className ='form-control'/>
+         <input ref={(email) => this.email = email} onChange={this.handleChange} placeholder='Email' className ='form-control'/>
           </div>
       <div>
            <label htmlFor="password" className='control-label'>Password: </label>
-            <input onChange={this.handleChange} className ='form-control' type="password" placeholder="Password" ref={(password) => this.password = password} />
+            <input ref={(password) => this.password = password} onChange={this.handleChange} className ='form-control' type="password" placeholder="Password" />
           </div>          
 
           {
