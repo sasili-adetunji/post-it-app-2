@@ -32,10 +32,9 @@ class Login extends React.Component {
               <CardText style={{
                 'textAlign': 'center'
               }}>
-                To start chatting away, please Signup below.
+                To start chatting away, please login below.
               </CardText>
             
-            <TextField errorText="This field is required" hintText="Username Field" floatingLabelText="Choose Username"/><br />
             <TextField errorText="This field is required" hintText="Email Field" floatingLabelText="Your Email"/><br />
             <TextField errorText="This field is required" hintText="Password Field" floatingLabelText="Choose Password" type="password" /><br />
 
@@ -44,7 +43,7 @@ class Login extends React.Component {
           <RaisedButton style={{
                 display: 'block',
               }} onClick={this.onClick.bind(this)}
-              label="Sign Up" primary={true} />
+              label="Login" primary={true} />
 
             </Card>
 
