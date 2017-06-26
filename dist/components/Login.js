@@ -29,7 +29,8 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var Card = _materialUi2.default.Card,
     CardText = _materialUi2.default.CardText,
     TextField = _materialUi2.default.TextField,
-    RaisedButton = _materialUi2.default.RaisedButton;
+    RaisedButton = _materialUi2.default.RaisedButton,
+    FlatButton = _materialUi2.default.FlatButton;
 var Login = (_temp = _class = function (_React$Component) {
   _inherits(Login, _React$Component);
 
@@ -55,7 +56,11 @@ var Login = (_temp = _class = function (_React$Component) {
   }, {
     key: 'onClick',
     value: function onClick() {
-      _actions2.default.login(this.state.email, this.state.password);
+
+      _actions2.default.signin({
+        email: this.state.email,
+        password: this.state.password
+      });
     }
   }, {
     key: 'render',
@@ -83,10 +88,28 @@ var Login = (_temp = _class = function (_React$Component) {
           errorText: 'This field is required', hintText: 'Password Field', floatingLabelText: 'Choose Password', type: 'password' }),
         _react2.default.createElement('br', null),
         _react2.default.createElement('br', null),
+        _react2.default.createElement(
+          'p',
+          null,
+          ' Dont Have an account,',
+          _react2.default.createElement(
+            'a',
+            { href: '/#/signup' },
+            ' Register here '
+          ),
+          ' '
+        ),
         _react2.default.createElement(RaisedButton, { style: {
             display: 'block'
           }, onClick: this.onClick.bind(this),
-          label: 'Login', primary: true })
+          label: 'Login', primary: true }),
+        _react2.default.createElement('div', null),
+        _react2.default.createElement(FlatButton, { style: {
+            width: '50%',
+            margin: '0 auto',
+            border: '2px solid',
+            backgroundColor: '#ffd699'
+          }, label: 'Sign in with Google', primary: true })
       );
     }
   }]);

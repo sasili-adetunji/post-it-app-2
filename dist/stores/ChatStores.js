@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _dec, _dec2, _dec3, _dec4, _dec5, _dec6, _dec7, _dec8, _dec9, _class, _desc, _value, _class2;
+var _dec, _dec2, _dec3, _dec4, _dec5, _dec6, _dec7, _dec8, _dec9, _dec10, _class, _desc, _value, _class2;
 
 var _alt = require('../alt');
 
@@ -18,9 +18,9 @@ var _actions2 = _interopRequireDefault(_actions);
 
 var _decorators = require('alt/utils/decorators');
 
-var _ChannelSource = require('../sources/ChannelSource');
+var _GroupSource = require('../sources/GroupSource');
 
-var _ChannelSource2 = _interopRequireDefault(_ChannelSource);
+var _GroupSource2 = _interopRequireDefault(_GroupSource);
 
 var _MessageSource = require('../sources/MessageSource');
 
@@ -63,7 +63,7 @@ function _applyDecoratedDescriptor(target, property, decorators, descriptor, con
   return desc;
 }
 
-var ChatStore = (_dec = (0, _decorators.datasource)(_ChannelSource2.default, _MessageSource2.default), _dec2 = (0, _decorators.decorate)(_alt2.default), _dec3 = (0, _decorators.bind)(_actions2.default.messagesLoading), _dec4 = (0, _decorators.bind)(_actions2.default.messagesReceived), _dec5 = (0, _decorators.bind)(_actions2.default.sendMessage), _dec6 = (0, _decorators.bind)(_actions2.default.messageReceived), _dec7 = (0, _decorators.bind)(_actions2.default.channelOpened), _dec8 = (0, _decorators.bind)(_actions2.default.channelsReceived), _dec9 = (0, _decorators.bind)(_actions2.default.login), _dec(_class = _dec2(_class = (_class2 = function () {
+var ChatStore = (_dec = (0, _decorators.datasource)(_GroupSource2.default, _MessageSource2.default), _dec2 = (0, _decorators.decorate)(_alt2.default), _dec3 = (0, _decorators.bind)(_actions2.default.messagesLoading), _dec4 = (0, _decorators.bind)(_actions2.default.messagesReceived), _dec5 = (0, _decorators.bind)(_actions2.default.sendMessage), _dec6 = (0, _decorators.bind)(_actions2.default.messageReceived), _dec7 = (0, _decorators.bind)(_actions2.default.groupOpened), _dec8 = (0, _decorators.bind)(_actions2.default.groupsReceived), _dec9 = (0, _decorators.bind)(_actions2.default.signin), _dec10 = (0, _decorators.bind)(_actions2.default.signup), _dec(_class = _dec2(_class = (_class2 = function () {
   function ChatStore() {
     _classCallCheck(this, ChatStore);
 
@@ -113,48 +113,50 @@ var ChatStore = (_dec = (0, _decorators.datasource)(_ChannelSource2.default, _Me
       });
     }
   }, {
-    key: 'channelOpened',
-    value: function channelOpened(selectedChannel) {
-      (0, _lodash2.default)(this.state.channels).values().each(function (channel) {
-        channel.selected = false;
+    key: 'groupOpened',
+    value: function groupOpened(selectedGroup) {
+      (0, _lodash2.default)(this.state.groups).values().each(function (group) {
+        group.selected = false;
       }).value();
 
-      selectedChannel.selected = true;
+      selectedGroup.selected = true;
 
       this.setState({
-        selectedChannel: selectedChannel,
-        channels: this.state.channels,
+        selectedGroup: selectedGroup,
+        groups: this.state.groups,
         messagesDirty: true
       });
 
       setTimeout(this.getInstance().getMessages, 100);
     }
   }, {
-    key: 'receivedChannels',
-    value: function receivedChannels(channels) {
-      var selectedChannel = void 0;
-      (0, _lodash2.default)(channels).keys().each(function (key, index) {
-        channels[key].key = key;
-        if (channels[key].selected) {
-          selectedChannel = channels[key];
+    key: 'receivedGroups',
+    value: function receivedGroups(groups) {
+      var selectedGroup = void 0;
+      (0, _lodash2.default)(groups).keys().each(function (key, index) {
+        groups[key].key = key;
+        if (groups[key].selected) {
+          selectedGroup = groups[key];
         }
-      }).value();
-
+      });
       this.setState({
-        channels: channels,
-        selectedChannel: selectedChannel,
+        groups: groups,
+        selectedGroup: selectedGroup,
         messagesDirty: true
       });
-
-      setTimeout(this.getInstance().getMessages, 100);
     }
   }, {
-    key: 'login',
-    value: function login(user) {
+    key: 'signin',
+    value: function signin(user) {
+      this.setState({ user: user });
+    }
+  }, {
+    key: 'signup',
+    value: function signup(user) {
       this.setState({ user: user });
     }
   }]);
 
   return ChatStore;
-}(), (_applyDecoratedDescriptor(_class2.prototype, 'messagesLoading', [_dec3], Object.getOwnPropertyDescriptor(_class2.prototype, 'messagesLoading'), _class2.prototype), _applyDecoratedDescriptor(_class2.prototype, 'receivedMessages', [_dec4], Object.getOwnPropertyDescriptor(_class2.prototype, 'receivedMessages'), _class2.prototype), _applyDecoratedDescriptor(_class2.prototype, 'sendMessage', [_dec5], Object.getOwnPropertyDescriptor(_class2.prototype, 'sendMessage'), _class2.prototype), _applyDecoratedDescriptor(_class2.prototype, 'messageReceived', [_dec6], Object.getOwnPropertyDescriptor(_class2.prototype, 'messageReceived'), _class2.prototype), _applyDecoratedDescriptor(_class2.prototype, 'channelOpened', [_dec7], Object.getOwnPropertyDescriptor(_class2.prototype, 'channelOpened'), _class2.prototype), _applyDecoratedDescriptor(_class2.prototype, 'receivedChannels', [_dec8], Object.getOwnPropertyDescriptor(_class2.prototype, 'receivedChannels'), _class2.prototype), _applyDecoratedDescriptor(_class2.prototype, 'login', [_dec9], Object.getOwnPropertyDescriptor(_class2.prototype, 'login'), _class2.prototype)), _class2)) || _class) || _class);
+}(), (_applyDecoratedDescriptor(_class2.prototype, 'messagesLoading', [_dec3], Object.getOwnPropertyDescriptor(_class2.prototype, 'messagesLoading'), _class2.prototype), _applyDecoratedDescriptor(_class2.prototype, 'receivedMessages', [_dec4], Object.getOwnPropertyDescriptor(_class2.prototype, 'receivedMessages'), _class2.prototype), _applyDecoratedDescriptor(_class2.prototype, 'sendMessage', [_dec5], Object.getOwnPropertyDescriptor(_class2.prototype, 'sendMessage'), _class2.prototype), _applyDecoratedDescriptor(_class2.prototype, 'messageReceived', [_dec6], Object.getOwnPropertyDescriptor(_class2.prototype, 'messageReceived'), _class2.prototype), _applyDecoratedDescriptor(_class2.prototype, 'groupOpened', [_dec7], Object.getOwnPropertyDescriptor(_class2.prototype, 'groupOpened'), _class2.prototype), _applyDecoratedDescriptor(_class2.prototype, 'receivedGroups', [_dec8], Object.getOwnPropertyDescriptor(_class2.prototype, 'receivedGroups'), _class2.prototype), _applyDecoratedDescriptor(_class2.prototype, 'signin', [_dec9], Object.getOwnPropertyDescriptor(_class2.prototype, 'signin'), _class2.prototype), _applyDecoratedDescriptor(_class2.prototype, 'signup', [_dec10], Object.getOwnPropertyDescriptor(_class2.prototype, 'signup'), _class2.prototype)), _class2)) || _class) || _class);
 exports.default = _alt2.default.createStore(ChatStore);

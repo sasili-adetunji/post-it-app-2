@@ -40,12 +40,12 @@ var DefaultRoute = _reactRouter2.default.DefaultRoute;
 var routes = _react2.default.createElement(
   Route,
   { path: '/', handler: _components2.default },
-  _react2.default.createElement(DefaultRoute, { handler: _Home2.default }),
-  _react2.default.createElement(Route, { path: 'group', handler: _Group2.default }),
+  _react2.default.createElement(DefaultRoute, { handler: _Login2.default }),
+  _react2.default.createElement(Route, { path: 'dashboard', handler: _Dashbord2.default }),
+  _react2.default.createElement(Route, { path: 'dashboard/:group', handler: _Dashbord2.default }),
   _react2.default.createElement(Route, { path: 'group/:groupId', handler: _Group2.default }),
   _react2.default.createElement(Route, { path: 'signin', handler: _Login2.default }),
-  _react2.default.createElement(Route, { path: 'signup', handler: _Register2.default }),
-  _react2.default.createElement(Route, { path: 'dashboard', handler: _Dashbord2.default })
+  _react2.default.createElement(Route, { path: 'signup', handler: _Register2.default })
 );
 
 _reactRouter2.default.run(routes, _reactRouter2.default.HashLocation, function (Root) {

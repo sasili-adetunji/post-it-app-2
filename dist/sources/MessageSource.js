@@ -16,19 +16,24 @@ var _db = require('../../server/config/db');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+var fb = _firebase2.default.database();
+var firebaseRef = null;
 var MessageSource = {
   getMessages: {
     remote: function remote(state) {
 
-      var refer = _db.ref.child('users').child(state.selectedChannel.key);
+      if (firebaseRef) {
+        firebaseRef.off();
+      }
+      firebaseRef = fb.ref('messages').child(state.selectedGroup.key);
 
       return new Promise(function (resolve, reject) {
-        _db.ref.once("value", function (dataSnapshot) {
+        firebaseRef.once("value", function (dataSnapshot) {
           var messages = dataSnapshot.val();
           resolve(messages);
 
           setTimeout(function () {
-            refer.on("child_added", function (msg) {
+            firebaseRef.on('child_added', function (msg) {
               var msgVal = msg.val();
               msgVal.key = msg.key();
               _actions2.default.messageReceived(msgVal);
@@ -48,8 +53,7 @@ var MessageSource = {
         if (!firebaseRef) {
           return resolve();
         }
-
-        _db.ref.push({
+        firebaseRef.push({
           "message": state.message,
           "date": new Date().toUTCString(),
           "author": state.user.google.displayName,

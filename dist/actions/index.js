@@ -30,13 +30,25 @@ var Actions = function () {
   function Actions() {
     _classCallCheck(this, Actions);
 
-    this.generateActions('channelsReceived', 'channelsFailed', 'messagesReceived', 'messagesFailed', 'channelOpened', 'messagesLoading', 'sendMessage', 'messageSendSuccess', 'messageSendError', 'messageReceived');
+    this.generateActions('groupsReceived', 'groupsFailed', 'memberAdded', 'messagesReceived', 'groupOpened', 'messagesLoading', 'sendMessage', 'messageSendSuccess', 'messageSendError', 'messageReceived');
   }
 
   _createClass(Actions, [{
     key: 'signup',
     value: function signup(details) {
       return _axios2.default.post('/user/signup', details).then(function (error, user) {
+        if (error) {
+          return;
+        }
+
+        dispatch(user);
+      });
+      router.transitionTo('/dashboard');
+    }
+  }, {
+    key: 'signin',
+    value: function signin(details) {
+      return _axios2.default.post('/user/signin', details).then(function (error, user) {
         if (error) {
           return;
         }
