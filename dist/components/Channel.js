@@ -3,7 +3,6 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -15,9 +14,9 @@ var _materialUi = require('material-ui');
 
 var _materialUi2 = _interopRequireDefault(_materialUi);
 
-var _Navbar = require('./Navbar');
+var _actions = require('../actions');
 
-var _Navbar2 = _interopRequireDefault(_Navbar);
+var _actions2 = _interopRequireDefault(_actions);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -27,67 +26,44 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var Menu = _materialUi2.default.Menu,
-    MenuItem = _materialUi2.default.MenuItem,
-    Paper = _materialUi2.default.Paper;
+var ListItem = _materialUi2.default.ListItem;
 
+var Channel = function (_React$Component) {
+  _inherits(Channel, _React$Component);
 
-var style = {
-  display: 'inline-block',
-  margin: '16px 32px 16px 0'
-};
+  function Channel(props) {
+    _classCallCheck(this, Channel);
 
-var Home = function (_Component) {
-  _inherits(Home, _Component);
-
-  function Home() {
-    _classCallCheck(this, Home);
-
-    return _possibleConstructorReturn(this, (Home.__proto__ || Object.getPrototypeOf(Home)).apply(this, arguments));
+    return _possibleConstructorReturn(this, (Channel.__proto__ || Object.getPrototypeOf(Channel)).call(this, props));
   }
 
-  _createClass(Home, [{
+  _createClass(Channel, [{
+    key: 'onClick',
+    value: function onClick() {
+      _actions2.default.channelOpened(this.props.channel);
+    }
+  }, {
     key: 'render',
     value: function render() {
+      var style = {};
+
+      if (this.props.channel.selected) {
+        style.backgroundColor = '#f0f0f0';
+      }
+
       return _react2.default.createElement(
-        'div',
-        null,
-        _react2.default.createElement(
-          Paper,
-          null,
-          _react2.default.createElement(
-            Menu,
-            null,
-            _react2.default.createElement(MenuItem, { primaryText: 'Maps' }),
-            _react2.default.createElement(MenuItem, { primaryText: 'Books' }),
-            _react2.default.createElement(MenuItem, { primaryText: 'Flights' }),
-            _react2.default.createElement(MenuItem, { primaryText: 'Apps' })
-          ),
-          _react2.default.createElement(
-            'div',
-            { className: 'center' },
-            _react2.default.createElement(
-              'h2',
-              null,
-              ' Welcome PostIt chat Application. '
-            ),
-            _react2.default.createElement(
-              'p',
-              null,
-              ' This application allows you to create groups and send messages to all members of the group. '
-            ),
-            _react2.default.createElement(
-              'p',
-              null,
-              'It will also send a notification to all users and you will be notified if you message has been read'
-            )
-          )
-        )
+        ListItem,
+        {
+          href: '/#/chat/' + this.props.channel.key,
+          style: style,
+          key: this.props.channel.key
+        },
+        this.props.channel.name
       );
     }
   }]);
 
-  return Home;
-}(_react.Component);
+  return Channel;
+}(_react2.default.Component);
 
-exports.default = Home;
+exports.default = Channel;

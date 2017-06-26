@@ -1,52 +1,55 @@
 import React from 'react';
-import Message from './Message';
+import Message from './Message.js';
+import mui from 'material-ui';
+import firebase from 'firebase';
 import _ from 'lodash';
-import Firebase from 'firebase'
-import { firebaseRef } from '../../server/config/db'
+import connectToStores from 'alt/utils/connectToStores';
+import ChatStore from '../stores/ChatStores';
 
+var {Card, List, CircularProgress} = mui;
+
+@connectToStores
 class MessageList extends React.Component {
-   constructor(){
-   super()
-   this.state = {
-    messages: {}
-   }
-   const fb = Firebase.database()
-   this.fb = Firebase.database()
-   firebaseAuth().onAuthStateChanged((user) => {
-      uid = user.uid;
-   })
-   this.fb.ref('users').child(uid)
-   .child('groups').child(groupId)
-   .on('child_added', (msg) => {
-   
-       if (this.state.groups[msg.key]){
-         return;
-      }
-      let msgVal = msg.val();
-      msgVal.key = msg.key;
-      this.state.groups[msgVal.key] = msgVal;
-      this.setState({groups: this.state.groups});
-        
-      let res = msg.val()
-         console.log(res);
+  constructor(props){
+    super(props);
+  }
+
+  static getStores(){
+    return [ChatStore];
+  }
+
+  static getPropsFromStores(){
+    return  ChatStore.getState();
+  }
+render(){
+    let messageNodes = null;
+    if(!this.props.messagesLoading){
+      messageNodes = _.values(this.props.messages).map((message, i)=> {
+        return (
+          <Message message={message} key={i} />
+        );
       });
-};
-   render() {
-   var groupNodes = _.values(this.state.groups).map((group) => {
-   return (
-      <div>
-   <Group group= {group} />
-   <GroupAdd />
-   </div>
-   );
-   });
-
-   return (
-   <div> {groupNodes} 
-
-   </div>
-   );
-}
+    }else{
+      messageNodes = <CircularProgress mode="indeterminate"
+        style={{
+          paddingTop: 20,
+          paddingBottom: 20,
+          margin: '0 auto',
+          display: 'block',
+          width: '50%'
+        }} />;
+    }
+    return (
+      <Card style={{
+        flexGrow: 2,
+        marginLeft: 30
+      }}>
+        <List>
+          {messageNodes}
+        </List>
+      </Card>
+    );
+  }
 }
 
 export default MessageList;

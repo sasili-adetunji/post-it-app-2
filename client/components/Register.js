@@ -1,7 +1,7 @@
 import React from 'react';
 import mui from 'material-ui';
 import Actions from '../actions';
-
+import axios from 'axios';
 var {
     Card,
     CardText,
@@ -31,8 +31,13 @@ class Signup extends React.Component {
 
 
     onClick(){
-      Actions.signup(this.context.router);
-    }
+
+      Actions.signup({
+        email: this.state.email,
+        password: this.state.password,
+        username: this.state.username
+      })
+    }    
 
     static contextTypes = {
       router: React.PropTypes.func.isRequired

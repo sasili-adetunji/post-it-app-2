@@ -41,25 +41,23 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var fb = _firebase2.default.database();
 
-function signIn(loginDetails) {
-  return function (dispatch) {
-    return _firebase2.default.auth().signInWithEmailAndPassword(email, password);
+function signIn(email, password) {
+  return _firebase2.default.auth().signInWithEmailAndPassword(email, password);
 
-    (0, _db.firebaseAuth)().currentUser.getToken(true).then(function (idToken) {
-      (0, _PostItDispatcher2.default)({
-        type: _PostItConstants2.default.LOGIN_USER,
-        email: email
-      });
-      var jwt = idToken.uid;
-      localStorage.setItem('jwt', jwt);
-    }).catch(function (error) {
-      (0, _PostItDispatcher2.default)({
-        type: _PostItConstants2.default.LOGIN_ERROR,
-        error: error.message,
-        status: 'Unable to login'
-      });
+  (0, _db.firebaseAuth)().currentUser.getToken(true).then(function (idToken) {
+    (0, _PostItDispatcher2.default)({
+      type: _PostItConstants2.default.LOGIN_USER,
+      email: email
     });
-  };
+    var jwt = idToken.uid;
+    localStorage.setItem('jwt', jwt);
+  }).catch(function (error) {
+    (0, _PostItDispatcher2.default)({
+      type: _PostItConstants2.default.LOGIN_ERROR,
+      error: error.message,
+      status: 'Unable to login'
+    });
+  });
 }
 
 // export function signUp(signupDetails) {
@@ -115,12 +113,10 @@ function google() {
 }
 
 function signOut() {
-  return function (dispatch) {
-    return (0, _db.firebaseAuth)().signOut();
-    (0, _PostItDispatcher2.default)({
-      type: _PostItConstants2.default.SIGN_OUT
-    });
-  };
+  return (0, _db.firebaseAuth)().signOut();
+  (0, _PostItDispatcher2.default)({
+    type: _PostItConstants2.default.SIGN_OUT
+  });
 }
 
 function saveUser(user) {

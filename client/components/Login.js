@@ -6,7 +6,8 @@ var {
     Card,
     CardText,
     TextField,
-    RaisedButton
+    RaisedButton,
+    FlatButton
 } = mui;
 
 
@@ -29,8 +30,12 @@ class Login extends React.Component {
 
 
     onClick(){
-      Actions.login(this.context.router);
-    }
+
+      Actions.signin({
+        email: this.state.email,
+        password: this.state.password
+      })
+    } 
 
     static contextTypes = {
       router: React.PropTypes.func.isRequired
@@ -55,13 +60,22 @@ class Login extends React.Component {
               errorText="This field is required" hintText="Email Field" floatingLabelText="Your Email"/><br />
             <TextField name= 'password' onChange={this.onChange} value = {this.state.password}
           errorText="This field is required" hintText="Password Field" floatingLabelText="Choose Password" type="password" /><br />
-
+          
            <br />
+           <p> Dont Have an account,<a href='/#/signup'> Register here </a> </p>
 
           <RaisedButton style={{
                 display: 'block',
               }} onClick={this.onClick.bind(this)}
               label="Login" primary={true} />
+              <div>
+              </div>
+        <FlatButton style={{
+      width: '50%',
+      margin: '0 auto',
+      border: '2px solid',
+      backgroundColor: '#ffd699',
+    }} label="Sign in with Google" primary={true} />
 
             </Card>
 

@@ -1,17 +1,18 @@
 import alt from '../alt';
 import * as firebase from 'firebase';
 import { ref, firebaseAuth } from '../../server/config/db';
+import axios from 'axios';
 
 
 
 class Actions {
   constructor(){
     this.generateActions(
-      'channelsReceived',
-      'channelsFailed',
+      'groupsReceived',
+      'groupsFailed',
+      'memberAdded',
       'messagesReceived',
-      'messagesFailed',
-      'channelOpened',
+      'groupOpened',
       'messagesLoading',
       'sendMessage',
       'messageSendSuccess',
@@ -20,37 +21,29 @@ class Actions {
     );
   }
 
-  login(router){
-    return (dispatch) => {
-    let provider = new firebase.auth.GoogleAuthProvider();
-    provider.addScope('profile');
-    provider.addScope('email');
-    return firebase.auth().signInWithEmailAndPassword(email, password).then((error,user )=> {
+  signup(details){
+  return axios.post('/user/signup', details)
+    .then((error,user )=> {
       if(error){
           return;
         }
 
        dispatch(user);
  })
-        router.transitionTo('/chat');
+        router.transitionTo('/dashboard');
     }
-  }
-
-    signup(router){
-    return (dispatch) => {
-    let provider = new firebase.auth.GoogleAuthProvider();
-    provider.addScope('profile');
-    provider.addScope('email');
-    return firebaseAuth().signInWithPopup(provider).then((error,user )=> {
+    
+     signin(details){
+  return axios.post('/user/signin', details)
+    .then((error,user )=> {
       if(error){
           return;
         }
 
        dispatch(user);
  })
-        router.transitionTo('/chat');
+        router.transitionTo('/dashboard');
     }
-  }
 }
 
 export default alt.createActions(Actions);
