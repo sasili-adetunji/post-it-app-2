@@ -1,76 +1,88 @@
-import React, { Component } from 'react'
-import LoginStore from '../stores/LoginStore.js';
-import { signIn, resetPassword, google }from '../actions/PostItAuth.js';
+import React from 'react';
+import mui from 'material-ui';
+import Actions from '../actions';
 
-function setErrorMsg(error) {
-  return {
-    loginMessage: error
-  }
-}
+var {
+    Card,
+    CardText,
+    TextField,
+    RaisedButton,
+    FlatButton
+} = mui;
 
-export default class Login extends Component {
+
+class Login extends React.Component {
   constructor(props){
     super(props);
-  
-  this.state = { 
-    loginMessage: null,
-    email: '',
-    password: '' 
+    this.state = {
+      email: '',
+      password: ''
+    }
+    this.onChange = this.onChange.bind(this);
+    this.onClick = this.onClick.bind(this);
   }
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.redirect = this.redirect.bind(this);
-    this.googleLogin = this.googleLogin.bind(this);
-    this.reset = this.reset.bind(this);
-}
 
-handleChange (e) {
-    this.setState({ 
-      [e.target.name]: e.target.value 
+  onChange(e){
+    this.setState({
+      [e.target.name]: e.target.value
     });
   }
 
-  handleSubmit(e) {
-    e.preventDefault()
-    signIn(this.state)
-}
-  googleLogin (e) {
-    e.preventDefault()
-    google(this.state)
-}
-  reset (e) {
-    e.preventDefault()
-    resetPassword()
-  }
 
-  render () {
-    return (
-      <div className= "center">
-        
-        <form onSubmit={this.handleSubmit} className= "center">
-        <h1> Login </h1>
-          <div>
-            <label><b>Email</b></label>
-            <input type="text"  ref={(email) => this.email = email} placeholder="Enter your email..." 
-              onChange={this.handleChange} />
-          </div>
-          <div>
-            <label><b>Password</b></label>
-            <input type="password" placeholder="Enter your password..." ref={(password) => this.password = password}
-              onChange={this.handleChange} />
-          </div>
-          {
-            this.state.loginMessage &&
-            <div>
-              <span></span>
-              <span>Error:</span>
-              &nbsp;{this.state.loginMessage} <a href="#" onClick={this.reset}>Forgot Password?</a>
-            </div>
-          }
-          <button type="submit">Login</button>
-        </form>
-        <div> <a href="#" onClick={this.googleLogin}>Log in with Google</a> </div>
-      </div>
-    )
-  }
+    onClick(){
+
+      Actions.signin({
+        email: this.state.email,
+        password: this.state.password
+      })
+    } 
+
+    static contextTypes = {
+      router: React.PropTypes.func.isRequired
+    }
+
+    render(){
+
+        return (
+            <Card style={{
+              'maxWidth': '800px',
+              'margin': '30px auto',
+              'padding': '50px',
+              'textAlign': 'center'
+            }}>
+              <CardText style={{
+                'textAlign': 'center'
+              }}>
+                To start chatting away, please login below.
+              </CardText>
+            
+            <TextField name= 'email' onChange={this.onChange} value = {this.state.email}
+              errorText="This field is required" hintText="Email Field" floatingLabelText="Your Email"/><br />
+            <TextField name= 'password' onChange={this.onChange} value = {this.state.password}
+          errorText="This field is required" hintText="Password Field" floatingLabelText="Choose Password" type="password" /><br />
+          
+           <br />
+           <p> Dont Have an account,<a href='/#/signup'> Register here </a> </p>
+
+          <RaisedButton style={{
+                display: 'block',
+              }} onClick={this.onClick.bind(this)}
+              label="Login" primary={true} />
+              <div>
+              </div>
+        <FlatButton style={{
+      width: '50%',
+      margin: '0 auto',
+      border: '2px solid',
+      backgroundColor: '#ffd699',
+    }} label="Sign in with Google" primary={true} />
+
+            </Card>
+
+        );
+    }
 }
+
+
+module.exports = Login;
+

@@ -14,15 +14,28 @@ var _trim = require('trim');
 
 var _trim2 = _interopRequireDefault(_trim);
 
-var _PostItAuth = require('../actions/PostItAuth.js');
+var _materialUi = require('material-ui');
+
+var _materialUi2 = _interopRequireDefault(_materialUi);
+
+var _actions = require('../actions');
+
+var _actions2 = _interopRequireDefault(_actions);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Card = _materialUi2.default.Card,
+    CardText = _materialUi2.default.CardText,
+    TextField = _materialUi2.default.TextField,
+    RaisedButton = _materialUi2.default.RaisedButton;
 
 var GroupAdd = function (_React$Component) {
   _inherits(GroupAdd, _React$Component);
@@ -35,66 +48,60 @@ var GroupAdd = function (_React$Component) {
     _this.state = {
       groupName: ''
     };
-
+    _this.onChange = _this.onChange.bind(_this);
+    _this.onClick = _this.onClick.bind(_this);
     return _this;
   }
 
   _createClass(GroupAdd, [{
     key: 'onChange',
     value: function onChange(e) {
-      this.setState({
-        groupName: e.target.value
-      });
+      this.setState(_defineProperty({}, e.target.name, e.target.value));
     }
   }, {
     key: 'onClick',
     value: function onClick(e) {
       e.preventDefault();
+
+      _actions2.default.groupAdd({
+        groupName: this.state.groupName
+      });
+      console.log('A new Group: ', this.state.groupName, 'has been created');
       this.setState({
         groupName: ''
       });
-      (0, _PostItAuth.addGroup)(this.state.groupName);
-
-      console.log('A new group has been created:', this.state.groupName);
     }
   }, {
     key: 'render',
     value: function render() {
       return _react2.default.createElement(
-        'div',
+        Card,
         { style: {
-            width: '100%',
-            borderColor: '#D0D0D0',
-            resize: 'none',
-            borderRadius: 3,
-            minHeight: 50,
-            color: '#555',
-            fontSize: 14,
-            outline: 'auto 0px' } },
+            flexGrow: 1,
+            marginLeft: 15,
+            paddingTop: 20,
+            paddingBottom: 20,
+            display: 'block',
+            width: '20%'
+          } },
         _react2.default.createElement(
           'div',
-          { className: 'form-group' },
+          null,
           _react2.default.createElement(
-            'label',
-            { 'for': 'groupId' },
-            'Group ID'
-          ),
-          _react2.default.createElement(
-            'div',
+            'h4',
             null,
-            _react2.default.createElement('input', { type: 'text', placeholder: 'Enter a group Name...', required: true,
-              onChange: this.onChange.bind(this), value: this.state.groupName })
+            ' Create Group '
           ),
-          _react2.default.createElement(
-            'div',
-            null,
-            _react2.default.createElement(
-              'button',
-              { type: 'button', className: 'btn btn-primary btn-sm', onClick: this.onClick.bind(this) },
-              'Create Group '
-            )
-          )
-        )
+          ' '
+        ),
+        _react2.default.createElement(TextField, { name: 'groupName', onChange: this.onChange, value: this.state.groupName,
+          floatingLabelText: 'Group Name' }),
+        _react2.default.createElement('br', null),
+        _react2.default.createElement(RaisedButton, { style: {
+            display: 'block',
+            width: '20px'
+          }, onClick: this.onClick,
+          label: 'Create Group ', primary: true })
       );
     }
   }]);

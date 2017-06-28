@@ -1,100 +1,43 @@
-import React, { Component } from 'react'
-import { Route, BrowserRouter, Link, Redirect, Switch } from 'react-router-dom'
-import Login from './Login'
-import Register from './Register'
-import Home from './Home'
-import Dashboard from './protected/Dashbord';
-import { Navbar } from './Navbar';
-import {Routehandler} from 'react-router';
+import React from 'react';
+import mui from 'material-ui';
+import {RouteHandler} from 'react-router';
 
+var ThemeManager = new mui.Styles.ThemeManager();
+var Colors = mui.Styles.Colors;
+var AppBar = mui.AppBar;
 
-import { signOut }from '../actions/PostItAuth.js';
-import { firebaseAuth } from '../../server/config/db'
+class App extends React.Component {
+  constructor(){
+    super();
 
-function PrivateRoute ({component: Component, authed, ...rest}) {
-  return (
-    <Route
-      {...rest}
-      render={(props) => authed === true
-        ? <Component {...props} />
-        : <Redirect to={{pathname: '/signin', state: {from: props.location}}} />}
-    />
-  )
-}
-
-function PublicRoute ({component: Component, authed, ...rest}) {
-  return (
-    <Route
-      {...rest}
-      render={(props) => authed === false
-        ? <Component {...props} />
-        : <Redirect to='/dashboard' />}
-    />
-  )
-}
-
-export default class App extends Component {
-  state = {
-    authed: false
+    ThemeManager.setPalette({
+      primary1Color: Colors.blue500,
+      primary2Color: Colors.blue700,
+      primary3Color: Colors.blue100,
+      accent1Color: Colors.pink400
+    });
   }
-  componentDidMount () {
-    this.removeListener = firebaseAuth().onAuthStateChanged((user) => {
-      if (user) {
-        this.setState({
-          authed: true
-        })
-      } else {
-        this.setState({
-          authed: false
-        })
-      }
-    })
+
+
+  static childContextTypes = {
+    muiTheme: React.PropTypes.object
   }
-  componentWillUnmount () {
-    this.removeListener()
+
+  getChildContext(){
+    return {
+      muiTheme: ThemeManager.getCurrentTheme()
+    };
   }
-  render() {
+
+  render(){
+
     return (
-      <BrowserRouter>
-        <div>
-          <nav>
-            <ul>
-             <li>
-              <Link to="/">Home</Link>
-              </li>
-                <li>
-                <Link to="/dashboard">Dashboard</Link>
-                </li>         
-                <li>
-                  {this.state.authed
-                    ? <button
-                        onClick={() => {
-                          signOut()
-                        }}> Logout</button>
-                    : <span>
-                        <Link to="/signin">Login</Link> 
-                        
-
-                        <Link to="/signup">Register</Link>
-                      </span> }
-                </li>
-              </ul>
-            
-          </nav>
-          <div>
-            <div>
-              <Switch>
-                <Route path='/' exact component={Home} />
-                <PublicRoute authed={this.state.authed} path='/signin' component={Login} />
-                <PublicRoute authed={this.state.authed} path='/signup' component={Register} />
-                <PrivateRoute authed={this.state.authed} path='/dashboard' component={Dashboard} />
-
-                <Route render={() => <h3>No Match</h3>} />
-              </Switch>
-            </div>
-          </div>
-        </div>
-      </BrowserRouter>
+      <div>
+        <AppBar title="PostIt Chat App" />
+        <RouteHandler />
+      </div>
     );
   }
 }
+
+export default App;

@@ -12,9 +12,9 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var _Group = require('./Group.js');
+var _Channel = require('./Channel.js');
 
-var _Group2 = _interopRequireDefault(_Group);
+var _Channel2 = _interopRequireDefault(_Channel);
 
 var _materialUi = require('material-ui');
 
@@ -24,13 +24,9 @@ var _connectToStores = require('alt/utils/connectToStores');
 
 var _connectToStores2 = _interopRequireDefault(_connectToStores);
 
-var _ChatStores = require('../stores/ChatStores');
+var _ChatStores = require('../stores/ChatStores.js');
 
 var _ChatStores2 = _interopRequireDefault(_ChatStores);
-
-var _GroupSource = require('../sources/GroupSource');
-
-var _GroupSource2 = _interopRequireDefault(_GroupSource);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -42,33 +38,32 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 var Card = _materialUi2.default.Card,
     List = _materialUi2.default.List,
-    CircularProgress = _materialUi2.default.CircularProgress,
-    Subheader = _materialUi2.default.Subheader;
+    CircularProgress = _materialUi2.default.CircularProgress;
 
-var GroupList = (0, _connectToStores2.default)(_class = function (_React$Component) {
-  _inherits(GroupList, _React$Component);
+var ChannelList = (0, _connectToStores2.default)(_class = function (_React$Component) {
+  _inherits(ChannelList, _React$Component);
 
-  function GroupList(props) {
-    _classCallCheck(this, GroupList);
+  function ChannelList(props) {
+    _classCallCheck(this, ChannelList);
 
-    var _this = _possibleConstructorReturn(this, (GroupList.__proto__ || Object.getPrototypeOf(GroupList)).call(this, props));
+    var _this = _possibleConstructorReturn(this, (ChannelList.__proto__ || Object.getPrototypeOf(ChannelList)).call(this, props));
 
-    _this.state = { groups: null };
+    _this.state = { channels: null };
     return _this;
   }
 
-  _createClass(GroupList, [{
+  _createClass(ChannelList, [{
     key: 'componentDidMount',
     value: function componentDidMount() {
-      this.state.selectedGroup = this.props.params.group;
-      _ChatStores2.default.getGroups(this.state.selectedGroup);
+      this.state.selectedChannel = this.props.params.channel;
+      _ChatStores2.default.getChannels(this.state.selectedChannel);
     }
   }, {
     key: 'componentWillReceiveProps',
     value: function componentWillReceiveProps(nextProps) {
-      if (this.state.selectedGroup != nextProps.params.group) {
-        this.state.selectedGroup = nextProps.params.group;
-        _ChatStores2.default.getGroups(this.state.selectedGroup);
+      if (this.state.selectedChannel != nextProps.params.channel) {
+        this.state.selectedChannel = nextProps.params.channel;
+        _ChatStores2.default.getChannels(this.state.selectedChannel);
       }
     }
   }, {
@@ -76,7 +71,7 @@ var GroupList = (0, _connectToStores2.default)(_class = function (_React$Compone
     value: function render() {
       var _this2 = this;
 
-      if (!this.props.groups) {
+      if (!this.props.channels) {
         return _react2.default.createElement(
           Card,
           { style: {
@@ -89,14 +84,15 @@ var GroupList = (0, _connectToStores2.default)(_class = function (_React$Compone
               paddingBottom: '20px',
               margin: '0 auto',
               display: 'block',
-              width: '30%'
-            } })
+              width: '60px'
+            }
+          })
         );
       }
 
-      var groupNodes = _(this.props.groups).keys().map(function (k, i) {
-        var group = _this2.props.groups[k];
-        return _react2.default.createElement(_Group2.default, { group: group, key: i });
+      var channelNodes = _(this.props.channels).keys().map(function (k, i) {
+        var channel = _this2.props.channels[k];
+        return _react2.default.createElement(_Channel2.default, { channel: channel, key: i });
       }).value();
 
       return _react2.default.createElement(
@@ -107,12 +103,7 @@ var GroupList = (0, _connectToStores2.default)(_class = function (_React$Compone
         _react2.default.createElement(
           List,
           null,
-          _react2.default.createElement(
-            'h4',
-            null,
-            ' My Groups '
-          ),
-          groupNodes
+          channelNodes
         )
       );
     }
@@ -128,7 +119,7 @@ var GroupList = (0, _connectToStores2.default)(_class = function (_React$Compone
     }
   }]);
 
-  return GroupList;
+  return ChannelList;
 }(_react2.default.Component)) || _class;
 
-exports.default = GroupList;
+exports.default = ChannelList;

@@ -10,6 +10,14 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _materialUi = require('material-ui');
+
+var _materialUi2 = _interopRequireDefault(_materialUi);
+
+var _actions = require('../actions');
+
+var _actions2 = _interopRequireDefault(_actions);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -17,6 +25,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var ListItem = _materialUi2.default.ListItem;
 
 var Group = function (_React$Component) {
   _inherits(Group, _React$Component);
@@ -28,14 +38,27 @@ var Group = function (_React$Component) {
   }
 
   _createClass(Group, [{
+    key: 'onClick',
+    value: function onClick() {
+      _actions2.default.groupOpened(this.props.group);
+    }
+  }, {
     key: 'render',
     value: function render() {
+      var style = {};
+
+      if (this.props.group.selected) {
+        style.backgroundColor = '#f0f0f0';
+      }
+
       return _react2.default.createElement(
-        'div',
-        null,
-        ' ',
-        this.props.group,
-        ' '
+        ListItem,
+        {
+          href: '/#/dashboard/' + this.props.group.key,
+          style: style,
+          key: this.props.group.key
+        },
+        this.props.group.name
       );
     }
   }]);

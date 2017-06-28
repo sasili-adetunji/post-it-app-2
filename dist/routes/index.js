@@ -1,14 +1,8 @@
 'use strict';
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
 var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
-
-var _reactRouter = require('react-router');
 
 var _components = require('../components');
 
@@ -34,13 +28,26 @@ var _Group = require('../components/Group');
 
 var _Group2 = _interopRequireDefault(_Group);
 
+var _reactRouter = require('react-router');
+
+var _reactRouter2 = _interopRequireDefault(_reactRouter);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-exports.default = _react2.default.createElement(
-  'div',
-  null,
-  _react2.default.createElement(_reactRouter.Route, { path: '/', component: _components2.default }),
-  _react2.default.createElement(_reactRouter.Route, { path: '/signin', component: _Login2.default }),
-  _react2.default.createElement(_reactRouter.Route, { path: '/signup', component: _Register2.default }),
-  _react2.default.createElement(_reactRouter.Route, { path: '/dashboard', component: _Dashbord2.default })
+var Route = _reactRouter2.default.Route;
+var DefaultRoute = _reactRouter2.default.DefaultRoute;
+
+var routes = _react2.default.createElement(
+  Route,
+  { path: '/', handler: _components2.default },
+  _react2.default.createElement(DefaultRoute, { handler: _Login2.default }),
+  _react2.default.createElement(Route, { path: 'dashboard', handler: _Dashbord2.default }),
+  _react2.default.createElement(Route, { path: 'dashboard/:group', handler: _Dashbord2.default }),
+  _react2.default.createElement(Route, { path: 'group/:groupId', handler: _Group2.default }),
+  _react2.default.createElement(Route, { path: 'signin', handler: _Login2.default }),
+  _react2.default.createElement(Route, { path: 'signup', handler: _Register2.default })
 );
+
+_reactRouter2.default.run(routes, _reactRouter2.default.HashLocation, function (Root) {
+  _react2.default.render(_react2.default.createElement(Root, null), document.getElementById('root'));
+});

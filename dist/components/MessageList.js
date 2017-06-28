@@ -1,28 +1,40 @@
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
-   value: true
+  value: true
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _class;
 
 var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var _Message = require('./Message');
+var _Message = require('./Message.js');
 
 var _Message2 = _interopRequireDefault(_Message);
 
-var _lodash = require('lodash');
+var _materialUi = require('material-ui');
 
-var _lodash2 = _interopRequireDefault(_lodash);
+var _materialUi2 = _interopRequireDefault(_materialUi);
 
 var _firebase = require('firebase');
 
 var _firebase2 = _interopRequireDefault(_firebase);
 
-var _db = require('../../server/config/db');
+var _lodash = require('lodash');
+
+var _lodash2 = _interopRequireDefault(_lodash);
+
+var _connectToStores = require('alt/utils/connectToStores');
+
+var _connectToStores2 = _interopRequireDefault(_connectToStores);
+
+var _ChatStores = require('../stores/ChatStores');
+
+var _ChatStores2 = _interopRequireDefault(_ChatStores);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -32,60 +44,63 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var MessageList = function (_React$Component) {
-   _inherits(MessageList, _React$Component);
+var Card = _materialUi2.default.Card,
+    List = _materialUi2.default.List,
+    CircularProgress = _materialUi2.default.CircularProgress;
 
-   function MessageList() {
-      _classCallCheck(this, MessageList);
+var MessageList = (0, _connectToStores2.default)(_class = function (_React$Component) {
+  _inherits(MessageList, _React$Component);
 
-      var _this = _possibleConstructorReturn(this, (MessageList.__proto__ || Object.getPrototypeOf(MessageList)).call(this));
+  function MessageList(props) {
+    _classCallCheck(this, MessageList);
 
-      _this.state = {
-         messages: {}
-      };
-      var fb = _firebase2.default.database();
-      _this.fb = _firebase2.default.database();
-      firebaseAuth().onAuthStateChanged(function (user) {
-         uid = user.uid;
-      });
-      _this.fb.ref('users').child(uid).child('groups').child(groupId).on('child_added', function (msg) {
+    return _possibleConstructorReturn(this, (MessageList.__proto__ || Object.getPrototypeOf(MessageList)).call(this, props));
+  }
 
-         if (_this.state.groups[msg.key]) {
-            return;
-         }
-         var msgVal = msg.val();
-         msgVal.key = msg.key;
-         _this.state.groups[msgVal.key] = msgVal;
-         _this.setState({ groups: _this.state.groups });
-
-         var res = msg.val();
-         console.log(res);
-      });
-      return _this;
-   }
-
-   _createClass(MessageList, [{
-      key: 'render',
-      value: function render() {
-         var groupNodes = _lodash2.default.values(this.state.groups).map(function (group) {
-            return _react2.default.createElement(
-               'div',
-               null,
-               _react2.default.createElement(Group, { group: group }),
-               _react2.default.createElement(GroupAdd, null)
-            );
-         });
-
-         return _react2.default.createElement(
-            'div',
-            null,
-            ' ',
-            groupNodes
-         );
+  _createClass(MessageList, [{
+    key: 'render',
+    value: function render() {
+      var messageNodes = null;
+      if (!this.props.messagesLoading) {
+        messageNodes = _lodash2.default.values(this.props.messages).map(function (message, i) {
+          return _react2.default.createElement(_Message2.default, { message: message, key: i });
+        });
+      } else {
+        messageNodes = _react2.default.createElement(CircularProgress, { mode: 'indeterminate',
+          style: {
+            paddingTop: 20,
+            paddingBottom: 20,
+            margin: '0 auto',
+            display: 'block',
+            width: '50%'
+          } });
       }
-   }]);
+      return _react2.default.createElement(
+        Card,
+        { style: {
+            flexGrow: 2,
+            marginLeft: 30
+          } },
+        _react2.default.createElement(
+          List,
+          null,
+          messageNodes
+        )
+      );
+    }
+  }], [{
+    key: 'getStores',
+    value: function getStores() {
+      return [_ChatStores2.default];
+    }
+  }, {
+    key: 'getPropsFromStores',
+    value: function getPropsFromStores() {
+      return _ChatStores2.default.getState();
+    }
+  }]);
 
-   return MessageList;
-}(_react2.default.Component);
+  return MessageList;
+}(_react2.default.Component)) || _class;
 
 exports.default = MessageList;
