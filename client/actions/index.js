@@ -22,6 +22,7 @@ class Actions {
   }
 
   signup(details){
+    return (dispatch) => {
   return axios.post('/user/signup', details)
     .then((error,user )=> {
       if(error){
@@ -32,8 +33,10 @@ class Actions {
  })
         router.transitionTo('/dashboard');
     }
+}
     
      signin(details){
+      return (dispatch) => {
   return axios.post('/user/signin', details)
     .then((error,user )=> {
       if(error){
@@ -44,6 +47,7 @@ class Actions {
  })
         router.transitionTo('/dashboard');
     }
+  }
 }
 
 export default alt.createActions(Actions);

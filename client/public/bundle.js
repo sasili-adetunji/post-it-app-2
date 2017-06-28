@@ -5057,26 +5057,30 @@ var Actions = function () {
   _createClass(Actions, [{
     key: 'signup',
     value: function signup(details) {
-      return _axios2.default.post('/user/signup', details).then(function (error, user) {
-        if (error) {
-          return;
-        }
+      return function (dispatch) {
+        return _axios2.default.post('/user/signup', details).then(function (error, user) {
+          if (error) {
+            return;
+          }
 
-        dispatch(user);
-      });
-      router.transitionTo('/dashboard');
+          dispatch(user);
+        });
+        router.transitionTo('/dashboard');
+      };
     }
   }, {
     key: 'signin',
     value: function signin(details) {
-      return _axios2.default.post('/user/signin', details).then(function (error, user) {
-        if (error) {
-          return;
-        }
+      return function (dispatch) {
+        return _axios2.default.post('/user/signin', details).then(function (error, user) {
+          if (error) {
+            return;
+          }
 
-        dispatch(user);
-      });
-      router.transitionTo('/dashboard');
+          dispatch(user);
+        });
+        router.transitionTo('/dashboard');
+      };
     }
   }]);
 
