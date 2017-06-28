@@ -1,16 +1,24 @@
 'use strict';
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _class, _temp;
 
 var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var _PostItAuth = require('../actions/PostItAuth.js');
+var _materialUi = require('material-ui');
+
+var _materialUi2 = _interopRequireDefault(_materialUi);
+
+var _actions = require('../actions');
+
+var _actions2 = _interopRequireDefault(_actions);
+
+var _axios = require('axios');
+
+var _axios2 = _interopRequireDefault(_axios);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -22,117 +30,84 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-function setErrorMsg(error) {
-  return {
-    registerError: error.message
-  };
-}
+var Card = _materialUi2.default.Card,
+    CardText = _materialUi2.default.CardText,
+    TextField = _materialUi2.default.TextField,
+    RaisedButton = _materialUi2.default.RaisedButton;
+var Signup = (_temp = _class = function (_React$Component) {
+  _inherits(Signup, _React$Component);
 
-var Register = function (_Component) {
-  _inherits(Register, _Component);
+  function Signup(props) {
+    _classCallCheck(this, Signup);
 
-  function Register(props) {
-    _classCallCheck(this, Register);
-
-    var _this = _possibleConstructorReturn(this, (Register.__proto__ || Object.getPrototypeOf(Register)).call(this, props));
+    var _this = _possibleConstructorReturn(this, (Signup.__proto__ || Object.getPrototypeOf(Signup)).call(this, props));
 
     _this.state = {
-      registerError: null,
       username: '',
       email: '',
       password: ''
     };
-    _this.handleChange = _this.handleChange.bind(_this);
-    _this.handleSubmit = _this.handleSubmit.bind(_this);
+    _this.onChange = _this.onChange.bind(_this);
+    _this.onClick = _this.onClick.bind(_this);
     return _this;
   }
 
-  _createClass(Register, [{
-    key: 'handleChange',
-    value: function handleChange(e) {
+  _createClass(Signup, [{
+    key: 'onChange',
+    value: function onChange(e) {
       this.setState(_defineProperty({}, e.target.name, e.target.value));
     }
   }, {
-    key: 'handleSubmit',
-    value: function handleSubmit(e) {
-      e.preventDefault();
-      (0, _PostItAuth.signUp)(this.state);
+    key: 'onClick',
+    value: function onClick() {
+
+      _actions2.default.signup({
+        email: this.state.email,
+        password: this.state.password,
+        username: this.state.username
+      });
     }
   }, {
     key: 'render',
     value: function render() {
-      var _this2 = this;
 
       return _react2.default.createElement(
-        'div',
-        { className: 'form-group center' },
+        Card,
+        { style: {
+            'maxWidth': '800px',
+            'margin': '30px auto',
+            'padding': '50px',
+            'textAlign': 'center'
+          } },
         _react2.default.createElement(
-          'h1',
-          null,
-          'Signup Page'
+          CardText,
+          { style: {
+              'textAlign': 'center'
+            } },
+          'To start chatting away, please Signup below.'
         ),
-        _react2.default.createElement(
-          'form',
-          { onSubmit: this.handleSubmit, className: 'form-horizontal' },
-          _react2.default.createElement(
-            'div',
-            { className: 'form-group' },
-            _react2.default.createElement(
-              'label',
-              { 'for': 'email', className: 'control-label' },
-              'Email address:'
-            ),
-            _react2.default.createElement('input', { onChange: this.handleChange, ref: function ref(email) {
-                return _this2.email = email;
-              }, placeholder: 'Email', className: 'form-control' })
-          ),
-          _react2.default.createElement(
-            'div',
-            null,
-            _react2.default.createElement(
-              'label',
-              { 'for': 'username', className: 'control-label' },
-              'User Name:'
-            ),
-            _react2.default.createElement('input', { onChange: this.handleChange, className: 'form-control', ref: function ref(username) {
-                return _this2.username = username;
-              }, placeholder: 'Username' })
-          ),
-          _react2.default.createElement(
-            'div',
-            null,
-            _react2.default.createElement(
-              'label',
-              { 'for': 'password', className: 'control-label' },
-              'Password: '
-            ),
-            _react2.default.createElement('input', { onChange: this.handleChange, className: 'form-control', type: 'password', placeholder: 'Password', ref: function ref(password) {
-                return _this2.password = password;
-              } })
-          ),
-          this.state.registerError && _react2.default.createElement(
-            'div',
-            null,
-            _react2.default.createElement('span', null),
-            _react2.default.createElement(
-              'span',
-              null,
-              'Error:'
-            ),
-            '\xA0',
-            this.state.registerError
-          ),
-          _react2.default.createElement(
-            'button',
-            { type: 'submit', className: 'btn btn-default' },
-            'Signup'
-          )
-        )
+        _react2.default.createElement(TextField, { name: 'username', onChange: this.onChange, value: this.state.username,
+          errorText: 'This field is required', hintText: 'Username Field', floatingLabelText: 'Choose Username' }),
+        _react2.default.createElement('br', null),
+        _react2.default.createElement(TextField, { name: 'email', onChange: this.onChange, value: this.state.email,
+          errorText: 'This field is required', hintText: 'Email Field', floatingLabelText: 'Your Email' }),
+        _react2.default.createElement('br', null),
+        _react2.default.createElement(TextField, { name: 'password', onChange: this.onChange, value: this.state.password,
+          errorText: 'This field is required', hintText: 'Password Field', floatingLabelText: 'Choose Password', type: 'password' }),
+        _react2.default.createElement('br', null),
+        _react2.default.createElement('br', null),
+        _react2.default.createElement(RaisedButton, { style: {
+            display: 'block'
+          }, onClick: this.onClick,
+          label: 'Sign Up', primary: true })
       );
     }
   }]);
 
-  return Register;
-}(_react.Component);
+  return Signup;
+}(_react2.default.Component), _class.contextTypes = {
+  router: _react2.default.PropTypes.func.isRequired
+}, _temp);
 
-exports.default = Register;
+
+module.exports = Signup;

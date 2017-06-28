@@ -4,7 +4,7 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouterDom = require('react-router-dom');
+var _reactRouter = require('react-router');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -28,7 +28,7 @@ function Navbar() {
               'li',
               null,
               _react2.default.createElement(
-                _reactRouterDom.NavLink,
+                _reactRouter.NavLink,
                 { exact: true, activeClassName: 'active', to: '/signin' },
                 'Sign In'
               )
@@ -37,7 +37,7 @@ function Navbar() {
               'li',
               null,
               _react2.default.createElement(
-                _reactRouterDom.NavLink,
+                _reactRouter.NavLink,
                 { activeClassName: 'active', to: '/signup' },
                 'Signup'
               )
@@ -46,7 +46,7 @@ function Navbar() {
               'li',
               null,
               _react2.default.createElement(
-                _reactRouterDom.NavLink,
+                _reactRouter.NavLink,
                 { activeClassName: 'active', to: '/dashboard' },
                 'Dashboard'
               )

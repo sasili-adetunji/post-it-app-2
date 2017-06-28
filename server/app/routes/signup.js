@@ -10,9 +10,9 @@ const fb = firebase.database();
 
 const signup = (app, db) => {
     app.post('/user/signup', (req, res) => {
-    const username = req.body.username,
-        email =     req.body.email,
-        password = req.body.password;
+    const email =     req.body.email,
+        password = req.body.password,
+        username = req.body.username;
     firebase.auth().createUserWithEmailAndPassword(email, password)
     .then(saveUser)
     .then(() => {

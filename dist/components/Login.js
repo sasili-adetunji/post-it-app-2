@@ -1,20 +1,20 @@
 'use strict';
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _class, _temp;
 
 var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var _LoginStore = require('../stores/LoginStore.js');
+var _materialUi = require('material-ui');
 
-var _LoginStore2 = _interopRequireDefault(_LoginStore);
+var _materialUi2 = _interopRequireDefault(_materialUi);
 
-var _PostItAuth = require('../actions/PostItAuth.js');
+var _actions = require('../actions');
+
+var _actions2 = _interopRequireDefault(_actions);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -26,14 +26,13 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-function setErrorMsg(error) {
-  return {
-    loginMessage: error
-  };
-}
-
-var Login = function (_Component) {
-  _inherits(Login, _Component);
+var Card = _materialUi2.default.Card,
+    CardText = _materialUi2.default.CardText,
+    TextField = _materialUi2.default.TextField,
+    RaisedButton = _materialUi2.default.RaisedButton,
+    FlatButton = _materialUi2.default.FlatButton;
+var Login = (_temp = _class = function (_React$Component) {
+  _inherits(Login, _React$Component);
 
   function Login(props) {
     _classCallCheck(this, Login);
@@ -41,131 +40,84 @@ var Login = function (_Component) {
     var _this = _possibleConstructorReturn(this, (Login.__proto__ || Object.getPrototypeOf(Login)).call(this, props));
 
     _this.state = {
-      loginMessage: null,
       email: '',
       password: ''
     };
-    _this.handleChange = _this.handleChange.bind(_this);
-    _this.handleSubmit = _this.handleSubmit.bind(_this);
-    _this.redirect = _this.redirect.bind(_this);
-    _this.googleLogin = _this.googleLogin.bind(_this);
-    _this.reset = _this.reset.bind(_this);
+    _this.onChange = _this.onChange.bind(_this);
+    _this.onClick = _this.onClick.bind(_this);
     return _this;
   }
 
   _createClass(Login, [{
-    key: 'handleChange',
-    value: function handleChange(e) {
+    key: 'onChange',
+    value: function onChange(e) {
       this.setState(_defineProperty({}, e.target.name, e.target.value));
     }
   }, {
-    key: 'handleSubmit',
-    value: function handleSubmit(e) {
-      e.preventDefault();
-      (0, _PostItAuth.signIn)(this.state);
-    }
-  }, {
-    key: 'googleLogin',
-    value: function googleLogin(e) {
-      e.preventDefault();
-      (0, _PostItAuth.google)(this.state);
-    }
-  }, {
-    key: 'reset',
-    value: function reset(e) {
-      e.preventDefault();
-      (0, _PostItAuth.resetPassword)();
+    key: 'onClick',
+    value: function onClick() {
+
+      _actions2.default.signin({
+        email: this.state.email,
+        password: this.state.password
+      });
     }
   }, {
     key: 'render',
     value: function render() {
-      var _this2 = this;
 
       return _react2.default.createElement(
-        'div',
-        { className: 'center' },
+        Card,
+        { style: {
+            'maxWidth': '800px',
+            'margin': '30px auto',
+            'padding': '50px',
+            'textAlign': 'center'
+          } },
         _react2.default.createElement(
-          'form',
-          { onSubmit: this.handleSubmit, className: 'center' },
-          _react2.default.createElement(
-            'h1',
-            null,
-            ' Login '
-          ),
-          _react2.default.createElement(
-            'div',
-            null,
-            _react2.default.createElement(
-              'label',
-              null,
-              _react2.default.createElement(
-                'b',
-                null,
-                'Email'
-              )
-            ),
-            _react2.default.createElement('input', { type: 'text', ref: function ref(email) {
-                return _this2.email = email;
-              }, placeholder: 'Enter your email...',
-              onChange: this.handleChange })
-          ),
-          _react2.default.createElement(
-            'div',
-            null,
-            _react2.default.createElement(
-              'label',
-              null,
-              _react2.default.createElement(
-                'b',
-                null,
-                'Password'
-              )
-            ),
-            _react2.default.createElement('input', { type: 'password', placeholder: 'Enter your password...', ref: function ref(password) {
-                return _this2.password = password;
-              },
-              onChange: this.handleChange })
-          ),
-          this.state.loginMessage && _react2.default.createElement(
-            'div',
-            null,
-            _react2.default.createElement('span', null),
-            _react2.default.createElement(
-              'span',
-              null,
-              'Error:'
-            ),
-            '\xA0',
-            this.state.loginMessage,
-            ' ',
-            _react2.default.createElement(
-              'a',
-              { href: '#', onClick: this.reset },
-              'Forgot Password?'
-            )
-          ),
-          _react2.default.createElement(
-            'button',
-            { type: 'submit' },
-            'Login'
-          )
+          CardText,
+          { style: {
+              'textAlign': 'center'
+            } },
+          'To start chatting away, please login below.'
         ),
+        _react2.default.createElement(TextField, { name: 'email', onChange: this.onChange, value: this.state.email,
+          errorText: 'This field is required', hintText: 'Email Field', floatingLabelText: 'Your Email' }),
+        _react2.default.createElement('br', null),
+        _react2.default.createElement(TextField, { name: 'password', onChange: this.onChange, value: this.state.password,
+          errorText: 'This field is required', hintText: 'Password Field', floatingLabelText: 'Choose Password', type: 'password' }),
+        _react2.default.createElement('br', null),
+        _react2.default.createElement('br', null),
         _react2.default.createElement(
-          'div',
+          'p',
           null,
-          ' ',
+          ' Dont Have an account,',
           _react2.default.createElement(
             'a',
-            { href: '#', onClick: this.googleLogin },
-            'Log in with Google'
+            { href: '/#/signup' },
+            ' Register here '
           ),
           ' '
-        )
+        ),
+        _react2.default.createElement(RaisedButton, { style: {
+            display: 'block'
+          }, onClick: this.onClick.bind(this),
+          label: 'Login', primary: true }),
+        _react2.default.createElement('div', null),
+        _react2.default.createElement(FlatButton, { style: {
+            width: '50%',
+            margin: '0 auto',
+            border: '2px solid',
+            backgroundColor: '#ffd699'
+          }, label: 'Sign in with Google', primary: true })
       );
     }
   }]);
 
   return Login;
-}(_react.Component);
+}(_react2.default.Component), _class.contextTypes = {
+  router: _react2.default.PropTypes.func.isRequired
+}, _temp);
 
-exports.default = Login;
+
+module.exports = Login;

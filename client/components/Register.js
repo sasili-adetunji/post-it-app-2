@@ -1,65 +1,83 @@
-import React, { Component } from 'react'
-import { signUp }from '../actions/PostItAuth.js';
+import React from 'react';
+import mui from 'material-ui';
+import Actions from '../actions';
+import axios from 'axios';
+var {
+    Card,
+    CardText,
+    TextField,
+    RaisedButton
+} = mui;
 
 
-function setErrorMsg(error) {
-  return {
-    registerError: error.message
-  }
-}
+class Signup extends React.Component {
 
-export default class Register extends Component {
   constructor(props){
     super(props);
-  
-  this.state = { 
-    registerError: null,
-    username: '',
-    email: '',
-    password: '' 
+    this.state = {
+      username: '',
+      email: '',
+      password: ''
+    }
+    this.onChange = this.onChange.bind(this);
+    this.onClick = this.onClick.bind(this);
   }
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-}
 
- handleChange(e) {
-    this.setState({ 
-      [e.target.name]: e.target.value 
+  onChange(e){
+    this.setState({
+      [e.target.name]: e.target.value
     });
   }
 
-  handleSubmit(e) {
-    e.preventDefault()
-    signUp(this.state)
-  }
-  render () {
-    return (
-     <div className= "form-group center">
-        <h1>Signup Page</h1>
-        <form onSubmit={this.handleSubmit} className= "form-horizontal">
-          <div className= "form-group">
-           <label for="email" className='control-label'>Email address:</label>
-           <input onChange={this.handleChange} ref={(email) => this.email = email} placeholder='Email' className ='form-control'/>
-          </div>
-          <div>
-           <label for="username" className='control-label'>User Name:</label>
-            <input onChange={this.handleChange} className ='form-control' ref={(username) => this.username = username} placeholder="Username"/>
-          </div>
-          <div>
-           <label for="password" className='control-label'>Password: </label>
-            <input onChange={this.handleChange} className ='form-control' type="password" placeholder="Password" ref={(password) => this.password = password} />
-          </div>
-          {
-            this.state.registerError &&
-            <div>
-              <span></span>
-              <span>Error:</span>
-              &nbsp;{this.state.registerError}
-            </div>
-          }
-          <button type="submit" className='btn btn-default'>Signup</button>
-        </form>
-      </div>
-    )
-  }
+
+    onClick(){
+
+      Actions.signup({
+        email: this.state.email,
+        password: this.state.password,
+        username: this.state.username
+      })
+    }    
+
+    static contextTypes = {
+      router: React.PropTypes.func.isRequired
+    }
+
+    render(){
+
+        return (
+            <Card style={{
+              'maxWidth': '800px',
+              'margin': '30px auto',
+              'padding': '50px',
+              'textAlign': 'center'
+            }}>
+              <CardText style={{
+                'textAlign': 'center'
+              }}>
+                To start chatting away, please Signup below.
+              </CardText>
+            
+            <TextField name= 'username' onChange={this.onChange} value = {this.state.username}
+              errorText="This field is required" hintText="Username Field" floatingLabelText="Choose Username"/><br />
+            <TextField name= 'email' onChange={this.onChange} value = {this.state.email}
+              errorText="This field is required" hintText="Email Field" floatingLabelText="Your Email"/><br />
+            <TextField name= 'password' onChange={this.onChange} value = {this.state.password}
+          errorText="This field is required" hintText="Password Field" floatingLabelText="Choose Password" type="password" /><br />
+
+           <br />
+
+          <RaisedButton style={{
+                display: 'block',
+              }} onClick={this.onClick}
+              label="Sign Up" primary={true} />
+
+            </Card>
+
+        );
+    }
 }
+
+
+module.exports = Signup;
+

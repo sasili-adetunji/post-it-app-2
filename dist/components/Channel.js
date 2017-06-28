@@ -14,6 +14,10 @@ var _materialUi = require('material-ui');
 
 var _materialUi2 = _interopRequireDefault(_materialUi);
 
+var _actions = require('../actions');
+
+var _actions2 = _interopRequireDefault(_actions);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -22,32 +26,44 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var ListItem = _materialUi2.default.ListItem,
-    Avatar = _materialUi2.default.Avatar;
+var ListItem = _materialUi2.default.ListItem;
 
-var Message = function (_React$Component) {
-  _inherits(Message, _React$Component);
+var Channel = function (_React$Component) {
+  _inherits(Channel, _React$Component);
 
-  function Message(props) {
-    _classCallCheck(this, Message);
+  function Channel(props) {
+    _classCallCheck(this, Channel);
 
-    return _possibleConstructorReturn(this, (Message.__proto__ || Object.getPrototypeOf(Message)).call(this, props));
+    return _possibleConstructorReturn(this, (Channel.__proto__ || Object.getPrototypeOf(Channel)).call(this, props));
   }
 
-  _createClass(Message, [{
+  _createClass(Channel, [{
+    key: 'onClick',
+    value: function onClick() {
+      _actions2.default.channelOpened(this.props.channel);
+    }
+  }, {
     key: 'render',
     value: function render() {
+      var style = {};
+
+      if (this.props.channel.selected) {
+        style.backgroundColor = '#f0f0f0';
+      }
+
       return _react2.default.createElement(
         ListItem,
         {
-          leftAvatar: _react2.default.createElement(Avatar, { src: this.props.message.profilePic })
+          href: '/#/chat/' + this.props.channel.key,
+          style: style,
+          key: this.props.channel.key
         },
-        this.props.message.message
+        this.props.channel.name
       );
     }
   }]);
 
-  return Message;
+  return Channel;
 }(_react2.default.Component);
 
-exports.default = Message;
+exports.default = Channel;

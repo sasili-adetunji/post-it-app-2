@@ -8,13 +8,11 @@
     "webpack": "webpack --config ./webpack.config.js",
     "build:dist": "rimraf dist/ && babel ./ --out-dir dist/ --ignore ./node_modules,./server/test,./client/test --copy-files",
     "test": "mocha --timeout 75000 dist/test/apiTest.js",
-    "start1": "react-scripts start",
-    "start2": "webpack-dev-server --hot",
     "start": "node ./dist/server.js",
-    "build": "babel server/ -d dist",
-    "build1": "babel client/ -d dist",
+    "build": "babel server/ -d dist && babel client/ -d dist",
     "dev": "webpack-dev-server --hot & npm start",
-    "nodemon": "nodemon ./dist/server.js"
+    "dev1": "babel-watch server/server.js",
+    "nodemon": "nodemon server/server.js"
   },
   "repository": {
     "type": "git",
@@ -56,6 +54,7 @@
     "node-sass": "^4.5.3",
     "nodemon": "^1.11.0",
     "object-assign": "^4.1.1",
+    "prop-types": "^15.5.10",
     "react": "^0.13.3",
     "react-addons": "^0.9.1-deprecated",
     "react-dom": "^15.5.4",
@@ -70,6 +69,7 @@
     "webpack-dev-server": "^2.4.5"
   },
   "devDependencies": {
+    "babel-plugin-transform-decorators-legacy": "^1.3.4",
     "babel-preset-es2015": "^6.24.1",
     "eslint": "^3.19.0",
     "eslint-config-airbnb": "^15.0.1",
