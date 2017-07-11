@@ -30,7 +30,7 @@ var Actions = function () {
   function Actions() {
     _classCallCheck(this, Actions);
 
-    this.generateActions('groupsReceived', 'groupsFailed', 'memberAdded', 'messagesReceived', 'groupOpened', 'messagesLoading', 'sendMessage', 'messageSendSuccess', 'messageSendError', 'messageReceived');
+    this.generateActions('groupsReceived', 'groupsFailed', 'memberAdded', 'messagesReceived', 'groupOpened', 'messagesLoading', 'sendMessage', 'messageSendSuccess', 'messageSendError', 'messageReceived', 'groupAdd', 'groupAddedSuccess', 'groupAddedFailed', 'memberAddedSuccess', 'memberAddedFailed', 'userRecieved', 'userFailed');
   }
 
   _createClass(Actions, [{
@@ -61,6 +61,23 @@ var Actions = function () {
         router.transitionTo('/dashboard');
       };
     }
+  }, {
+    key: 'googleLogin',
+    value: function googleLogin(router) {
+      return function (dispatch) {
+        return (0, _db.firebaseAuth)().signInWithPopup(new _db.firebaseAuth().GoogleAuthProvider()).then(function (error, user) {
+          if (error) {
+            return;
+          }
+
+          dispatch(user);
+        });
+        router.transitionTo('/dashboard');
+      };
+    }
+  }, {
+    key: 'reset',
+    value: function reset() {}
   }]);
 
   return Actions;

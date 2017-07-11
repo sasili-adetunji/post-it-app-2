@@ -1,24 +1,42 @@
 import React from 'react';
 import mui from 'material-ui';
-import Actions from '../actions';
-import axios from 'axios';
-var {
-    Card,
-    CardText,
-    TextField,
-    RaisedButton
-} = mui;
+import {Card, CardActions, CardHeader, CardTitle, CardText} from 'material-ui/Card';
+import TextField  from 'material-ui/TextField';
+import RaisedButton from 'material-ui/RaisedButton';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
+import PostItActions from '../actions/PostItActions';
+import {browserHistory} from 'react-router-dom';
+import PostItStore from '../stores/PostItStore'
+import { Redirect } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 
-class Signup extends React.Component {
+
+
+
+function setErrorMsg(error) {
+  return {
+    loginMessage: error
+  }
+}
+
+class Register extends React.Component {
+  static contextTypes = {
+    router: PropTypes.object
+  }
+
 
   constructor(props){
     super(props);
+
     this.state = {
       username: '',
       email: '',
-      password: ''
+      password: '',
+      loginMessage: null,
+      isAuthenticated: PostItStore.getIsAuthenticated()  
     }
+    
     this.onChange = this.onChange.bind(this);
     this.onClick = this.onClick.bind(this);
   }
@@ -30,54 +48,66 @@ class Signup extends React.Component {
   }
 
 
-    onClick(){
+   onClick(e){
+    e.preventDefault();
+    let user = {
+    email: this.state.email,
+    password: this.state.password,
+    username: this.state.username,
+    isAuthenticated: false
 
-      Actions.signup({
-        email: this.state.email,
-        password: this.state.password,
-        username: this.state.username
-      })
+  }
+    PostItActions.registerUser(user)
+    PostItActions.receiveAuthenticatedUser(user)
+    this.context.router.history.push('/dashboard')
     }    
-
-    static contextTypes = {
-      router: React.PropTypes.func.isRequired
-    }
+  
 
     render(){
+      if (this.state.isAuthenticated == true) {
+            return (
+                <Redirect to="/dashboard"/>
+            )
+        }
+        else {
 
-        return (
+      return (
+        <div>
+  <MuiThemeProvider >
+      
+
             <Card style={{
               'maxWidth': '800px',
               'margin': '30px auto',
               'padding': '50px',
               'textAlign': 'center'
             }}>
-              <CardText style={{
-                'textAlign': 'center'
-              }}>
-                To start chatting away, please Signup below.
-              </CardText>
-            
-            <TextField name= 'username' onChange={this.onChange} value = {this.state.username}
+             <CardTitle style={{'textAlign': 'center'}}
+                        title="Signup Form" 
+                        subtitle="To continue using PostIt, you need to register below" />
+       <TextField name= 'username' onChange={this.onChange} value = {this.state.username}
               errorText="This field is required" hintText="Username Field" floatingLabelText="Choose Username"/><br />
-            <TextField name= 'email' onChange={this.onChange} value = {this.state.email}
+        <TextField name= 'email' onChange={this.onChange} value = {this.state.email}
               errorText="This field is required" hintText="Email Field" floatingLabelText="Your Email"/><br />
-            <TextField name= 'password' onChange={this.onChange} value = {this.state.password}
+        <TextField name= 'password' onChange={this.onChange} value = {this.state.password}
           errorText="This field is required" hintText="Password Field" floatingLabelText="Choose Password" type="password" /><br />
 
            <br />
-
-          <RaisedButton style={{
+          <p> Already Have an account,<a href='/#/signin'> Login here </a> </p>
+        <RaisedButton style={{
                 display: 'block',
               }} onClick={this.onClick}
               label="Sign Up" primary={true} />
-
+     
             </Card>
 
+</MuiThemeProvider>
+                </div>        
+
         );
-    }
+    
+  }
 }
-
-
-module.exports = Signup;
+}
+module.exports = Register;
 

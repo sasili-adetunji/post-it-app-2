@@ -24,14 +24,15 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var app = (0, _express2.default)();
 var googleLogin = function googleLogin(app, db) {
   app.post('/user/google', function (req, res) {
-
-    var provider = new _firebase2.default.auth.GoogleAuthProvider();
-    provider.addScope('profile');
-    provider.addScope('email');
-    return (0, _db.firebaseAuth)().signInWithPopup(provider);
-    res.json({ message: 'Success: you have successfuly signed in with google.' });
-    res.redirect('/dashboard').catch(function (err) {
-      res.send({ message: 'Error: Can not login using Google' });
+    var provider = new _db.firebaseAuth().GoogleAuthProvider();
+    return _firebase2.default.auth().signInWithPopup(provider);
+    res.send({
+      message: 'Success: you have successfuly signed in with google.'
+    }).catch(function (err) {
+      var errorMessage = error.message;
+      res.status(400).send({
+        message: 'Error signing up with Google: ', errorMessage: errorMessage
+      });
     });
   });
 };

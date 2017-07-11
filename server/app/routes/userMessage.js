@@ -2,24 +2,48 @@ import express from 'express';
 import firebase from 'firebase';
 const app = express();
 const fb = firebase.database();
-import { ref, firebaseAuth } from '../../config/db'
 
 
 
-
-const userMessage = (app, db) => {
-	firebaseAuth().onAuthStateChanged((user) => {
-
+const groupList = (app, db) => {
 	app.get('/user/message', (req, res) => {
-        const userRef = fb.ref(`users/${user.uid}/groups/${groupId}`)
-        .once('child_added', msg =>{
-        	const data = msg.val()
-        	res.send(data)
-        });
-    })
-    })
-}
+	firebase.auth().onAuthStateChanged((user) => {
+    if (user) {
+    	const messageRef = fb.ref(`users/${user.uid}/groups/${request.params.groupId}/messages/`);
+      	const messages = [];
 
-export default userMessage;
+ 		messageRef.orderByKey().once('value', (snapshot) => {
+        snapshot.forEach((childSnapShot) => {
+          const message = {
+            id: childSnapShot.key,
+            message: childSnapShot.val().message,
+            author: childSnapShot.val().author,
+            date: childSnapShot.val().date,
+            priority: childSnapShot.val().priority,
+          };
+          });
+          messages.push(message);
+        })
+ 		.then(() => {
+        res.send({
+          messages,
+        });
+      }) 
+ 		.catch((error) => {
+          res.status(500).send({
+            message: `Error occurred ${error.message}`,
+          });
+        });
+ 	}
+    else {
+      res.status(403).send({
+        message: 'Please log in to see a list of your groups'
+      });
+    }
+})
+})
+}
+ 
+export default groupList;
 
         

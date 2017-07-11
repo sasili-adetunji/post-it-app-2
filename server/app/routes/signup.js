@@ -14,24 +14,25 @@ const signup = (app, db) => {
         password = req.body.password,
         username = req.body.username;
     firebase.auth().createUserWithEmailAndPassword(email, password)
-    .then(saveUser)
+    .then((user) => {
+    user.updateProfile({
+      displayName: username,
+    })
     .then(() => {
-          res.send({ message: 'Registration successful. You have successfully been registered'});
+      const userRef = firebase.database().ref(`users/`);
+      userRef.child(user.uid).set({
+        username,
+        email
       })
-      .catch((error) => {
+      res.send({ message: `Welcome ${user.email}. You have successfully registered`});
+      })
+  })
+    .catch((error) => {
          const errorMessage = error.message;
          res.status(400).send({ message: 'Error signing up: ', errorMessage });
-       });
-})
-
-  }
-
-  export function saveUser (user) {
-  return fb.child(`users/${user.uid}/info`)
-    .set({
-      email: user.email
-    })
-    .then(() => user)
+      });
+  })
 }
+
 
 export default signup;

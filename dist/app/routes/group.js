@@ -25,16 +25,16 @@ var fb = _firebase2.default.database();
 var group = function group(app, db) {
   app.post('/group', function (req, res) {
     var groupname = req.body.groupname;
-    firebaseAuth().onAuthStateChanged(function (user) {
+    _firebase2.default.auth().onAuthStateChanged(function (user) {
       var groupKey = fb.ref('groups/').push({
-        groupName: groupName,
+        groupname: groupname,
         groupadmin: user.email
       }).key;
       var groupRef = fb.ref('groups/' + groupKey + '/users/').set({
         Id: user.uid
       });
       var userRef = fb.ref('users/' + user.uid + '/groups/groupInfo').set({ groupid: groupKey,
-        groupname: groupName
+        groupname: groupname
       }).then(function () {
         alert("Group Successfully created");
       }).catch(function (error) {});

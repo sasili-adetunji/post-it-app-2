@@ -1,7 +1,7 @@
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
-       value: true
+  value: true
 });
 
 var _express = require('express');
@@ -18,13 +18,27 @@ var app = (0, _express2.default)();
 var fb = _firebase2.default.database();
 
 var usersList = function usersList(app, db) {
+  app.get('/user/users', function (req, res) {
 
-       app.get('/user/users', function (req, res) {
-              var userRef = fb.ref().child('users').once('child_added', function (msg) {
-                     var data = msg.val();
-                     res.send(data);
-              });
-       });
+    _firebase2.default.auth().onAuthStateChanged(function (user) {
+      if (user) {
+        var users = new Map();
+
+        var userRef = fb.ref('users').once('value', function (msg) {
+          msg.forEach(function (snapshot) {
+            users.set(snapshot.key, snapshot.val());
+          });
+          res.send({
+            users: users
+          });
+        });
+      } else {
+        res.status(403).send({
+          message: 'You are not signed in right now! '
+        });
+      }
+    });
+  });
 };
 
 exports.default = usersList;

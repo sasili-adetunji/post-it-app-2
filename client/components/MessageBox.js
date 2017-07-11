@@ -1,14 +1,22 @@
 import React from 'react';
 import trim from 'trim';
-import mui from 'material-ui';
-import Actions from '../actions'
-var {
-    Card,
-    CardText,
-    TextField,
-    RaisedButton
-} = mui;
+import {CardHeader, CardTitle} from 'material-ui/Card';
+import  TextField  from 'material-ui/TextField';
+import RaisedButton from 'material-ui/RaisedButton';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
+import Paper from 'material-ui/Paper';
+import Snackbar from 'material-ui/Snackbar';
+import PostItActions from '../actions/PostItActions';
 
+
+const style = {
+  height: 100,
+  width: 100,
+  margin: '30px auto',
+  padding: 30,
+  textAlign: 'center',
+  display: 'inline-block',
+};
 
 class MessageBox extends React.Component {
   constructor(props){
@@ -27,41 +35,34 @@ onChange(e){
     });
   }
 
-
-   onClick(e){
+onClick(e){
       e.preventDefault();
-
-      Actions.sendMessage({
+      let message = {
         message: this.state.message,
         groupId: this.state.groupId
-      });
-    console.log('A new Message: ', this.state.message, 'has been sent to the group', this.state.groupId);
-      this.setState({
-        message: '',
-        groupId: ''
-      });
+      }
+    PostItActions.addMessage(message);
     }
 
  render(){
 
         return (
+
     
-      <Card style={{
-        maxWidth: 1200,
-        margin: '30px auto',
-        padding: 30
-      }}> 
-      <div>
-      <h4> Send Message to Group </h4> </div>
+      <div style={style}> 
+
+       <CardTitle title="Message" />
+      
+            
         <textarea name= 'message'
           value={this.state.message}
           onChange={this.onChange}
           style={{
-            width: '30%',
+            width: '100px',
             borderColor: '#D0D0D0',
             resize: 'none',
             borderRadius: 3,
-            minHeight: 50,
+            minHeight: '50px',
             color: '#555',
             fontSize: 14,
             outline: 'auto 0px'
@@ -74,8 +75,10 @@ onChange(e){
                 display: 'block',
                 width: '20px'
               }} onClick={this.onClick}
-              label="Send " primary={true} />
-      </Card>
+              label="Send " primary={true}
+             />
+             
+      </div>
     );
 }
 

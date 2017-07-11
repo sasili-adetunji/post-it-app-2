@@ -2,24 +2,47 @@ import express from 'express';
 import firebase from 'firebase';
 const app = express();
 const fb = firebase.database();
-import { ref, firebaseAuth } from '../../config/db'
-
 
 
 
 const userGroup = (app, db) => {
-	firebaseAuth().onAuthStateChanged((user) => {
-
 	app.get('/user/groups', (req, res) => {
-        const userRef = fb.ref(`users/${user.uid}/groups/groupInfo`)
-        .once('child_added', msg =>{
-        	const data = msg.val()
-        	res.send(data)
-        });
-    })
-    })
-}
+	firebase.auth().onAuthStateChanged((user) => {
+    if(user) {
+    	const groupRef = firebase.database().ref(`users/${user.uid}/groups/`);
+      const groups = [];
 
+ 		groupRef.orderByKey().once('value', (snapshot) => {
+        snapshot.forEach((childSnapShot) => {
+          const group = {
+            groupId: childSnapShot.key,
+            groupname: childSnapShot.val().groupname
+          }
+          groups.push(group)
+        })
+      })
+ 		.then(() => {
+        res.send({
+          groups
+        })
+      }) 
+ 		.catch((error) => {
+        res.status(500).send({
+          message: `Error occurred ${error.message}`,
+        })
+      })
+  }
+  else{
+    res.status(403).send({
+          message: 'You are not signed in right now! '
+        });
+  }
+ 	})
+})
+}
+    
+
+ 
 export default userGroup;
 
         

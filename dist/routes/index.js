@@ -24,10 +24,6 @@ var _Register = require('../components/Register');
 
 var _Register2 = _interopRequireDefault(_Register);
 
-var _Group = require('../components/Group');
-
-var _Group2 = _interopRequireDefault(_Group);
-
 var _reactRouter = require('react-router');
 
 var _reactRouter2 = _interopRequireDefault(_reactRouter);
@@ -40,10 +36,9 @@ var DefaultRoute = _reactRouter2.default.DefaultRoute;
 var routes = _react2.default.createElement(
   Route,
   { path: '/', handler: _components2.default },
-  _react2.default.createElement(DefaultRoute, { handler: _Login2.default }),
+  _react2.default.createElement(DefaultRoute, { handler: _Dashbord2.default }),
   _react2.default.createElement(Route, { path: 'dashboard', handler: _Dashbord2.default }),
   _react2.default.createElement(Route, { path: 'dashboard/:group', handler: _Dashbord2.default }),
-  _react2.default.createElement(Route, { path: 'group/:groupId', handler: _Group2.default }),
   _react2.default.createElement(Route, { path: 'signin', handler: _Login2.default }),
   _react2.default.createElement(Route, { path: 'signup', handler: _Register2.default })
 );

@@ -1,31 +1,35 @@
 import React from 'react';
 import mui from 'material-ui';
-import Actions from '../actions';
+import API from '../Api';
+import { ListItem } from 'material-ui/List';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 
-var {ListItem} = mui;
+
 
 class Group extends React.Component {
   constructor(props){
     super(props);
   }
 
+ 
+
   onClick(){
-    Actions.groupOpened(this.props.group);
+    API.getUserGroups(this.props);
   }
 
   render(){
-    let style = {};
+  console.log('group-------',this.props.group)
 
-    if(this.props.group.selected){
-      style.backgroundColor = '#f0f0f0';
-    }
-
-    return (
-      <ListItem
-        href={'/#/dashboard/' + this.props.group.key}
-        style={style}
-        key={this.props.group.key}
-      >{this.props.group.name}</ListItem>
+      return (
+           <div>
+      <MuiThemeProvider >
+      <ListItem 
+        href={'/#/dashboard/' + this.props.group}
+        >
+        {this.props.group}
+      </ListItem>
+  </MuiThemeProvider >
+  </div>
     );
   }
 }

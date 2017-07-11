@@ -23,16 +23,30 @@ var fb = _firebase2.default.database();
 
 var message = function message(app, db) {
   app.post('/message', function (req, res) {
-    var messageBody = req.body.messageBody;
+    var message = req.body.message;
     var groupId = req.body.groupId;
-    firebaseAuth().onAuthStateChanged(function (user) {
-      var groupRef = fb.ref('groups/' + groupId).child('messages').push({
-        message: messageBody,
-        postedby: user.email
+    _firebase2.default.auth().onAuthStateChanged(function (user) {
+      var groupRef = _firebase2.default.database().ref('groups/' + groupId + '/messages').push().set({
+        message: message
+      }).then(function () {
+        var userRef = _firebase2.default.database().ref('groups/' + groupId + '/users/');
+        userRef.orderByKey().once('value', function (snapshot) {
+          snapshot.forEach(function (childSnapShot) {
+            var userRef2 = _firebase2.default.database().ref('users/' + childSnapShot.val() + '/groups/' + groupId + '/messages');
+            userRef2.push().set({
+              message: message
+            });
+          });
+        });
+
+        res.send({ message: 'Message Sent successfully to Group' });
+      }).catch(function (error) {
+        result.status(500).send({
+          message: 'Error occurred ' + error.message
+        });
       });
-      fb.ref('users/' + user.uid + '/groups/' + groupId).set({ messages: messageBody });
-      res.send({ message: 'Message Sent successfully to Group' }).then(function () {}).catch(function (error) {});
     });
   });
 };
+
 exports.default = message;

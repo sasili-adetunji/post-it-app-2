@@ -12,13 +12,33 @@ var _materialUi = require('material-ui');
 
 var _materialUi2 = _interopRequireDefault(_materialUi);
 
-var _actions = require('../actions');
+var _Card = require('material-ui/Card');
 
-var _actions2 = _interopRequireDefault(_actions);
+var _TextField = require('material-ui/TextField');
 
-var _axios = require('axios');
+var _TextField2 = _interopRequireDefault(_TextField);
 
-var _axios2 = _interopRequireDefault(_axios);
+var _RaisedButton = require('material-ui/RaisedButton');
+
+var _RaisedButton2 = _interopRequireDefault(_RaisedButton);
+
+var _MuiThemeProvider = require('material-ui/styles/MuiThemeProvider');
+
+var _MuiThemeProvider2 = _interopRequireDefault(_MuiThemeProvider);
+
+var _PostItActions = require('../actions/PostItActions');
+
+var _PostItActions2 = _interopRequireDefault(_PostItActions);
+
+var _reactRouterDom = require('react-router-dom');
+
+var _PostItStore = require('../stores/PostItStore');
+
+var _PostItStore2 = _interopRequireDefault(_PostItStore);
+
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -30,84 +50,112 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var Card = _materialUi2.default.Card,
-    CardText = _materialUi2.default.CardText,
-    TextField = _materialUi2.default.TextField,
-    RaisedButton = _materialUi2.default.RaisedButton;
-var Signup = (_temp = _class = function (_React$Component) {
-  _inherits(Signup, _React$Component);
+function setErrorMsg(error) {
+  return {
+    loginMessage: error
+  };
+}
 
-  function Signup(props) {
-    _classCallCheck(this, Signup);
+var Register = (_temp = _class = function (_React$Component) {
+  _inherits(Register, _React$Component);
 
-    var _this = _possibleConstructorReturn(this, (Signup.__proto__ || Object.getPrototypeOf(Signup)).call(this, props));
+  function Register(props) {
+    _classCallCheck(this, Register);
+
+    var _this = _possibleConstructorReturn(this, (Register.__proto__ || Object.getPrototypeOf(Register)).call(this, props));
 
     _this.state = {
       username: '',
       email: '',
-      password: ''
+      password: '',
+      loginMessage: null,
+      isAuthenticated: _PostItStore2.default.getIsAuthenticated()
     };
+
     _this.onChange = _this.onChange.bind(_this);
     _this.onClick = _this.onClick.bind(_this);
     return _this;
   }
 
-  _createClass(Signup, [{
+  _createClass(Register, [{
     key: 'onChange',
     value: function onChange(e) {
       this.setState(_defineProperty({}, e.target.name, e.target.value));
     }
   }, {
     key: 'onClick',
-    value: function onClick() {
-
-      _actions2.default.signup({
+    value: function onClick(e) {
+      e.preventDefault();
+      var user = {
         email: this.state.email,
         password: this.state.password,
-        username: this.state.username
-      });
+        username: this.state.username,
+        isAuthenticated: false
+
+      };
+      _PostItActions2.default.registerUser(user);
+      _PostItActions2.default.receiveAuthenticatedUser(user);
+      this.context.router.history.push('/dashboard');
     }
   }, {
     key: 'render',
     value: function render() {
+      if (this.state.isAuthenticated == true) {
+        return _react2.default.createElement(_reactRouterDom.Redirect, { to: '/dashboard' });
+      } else {
 
-      return _react2.default.createElement(
-        Card,
-        { style: {
-            'maxWidth': '800px',
-            'margin': '30px auto',
-            'padding': '50px',
-            'textAlign': 'center'
-          } },
-        _react2.default.createElement(
-          CardText,
-          { style: {
-              'textAlign': 'center'
-            } },
-          'To start chatting away, please Signup below.'
-        ),
-        _react2.default.createElement(TextField, { name: 'username', onChange: this.onChange, value: this.state.username,
-          errorText: 'This field is required', hintText: 'Username Field', floatingLabelText: 'Choose Username' }),
-        _react2.default.createElement('br', null),
-        _react2.default.createElement(TextField, { name: 'email', onChange: this.onChange, value: this.state.email,
-          errorText: 'This field is required', hintText: 'Email Field', floatingLabelText: 'Your Email' }),
-        _react2.default.createElement('br', null),
-        _react2.default.createElement(TextField, { name: 'password', onChange: this.onChange, value: this.state.password,
-          errorText: 'This field is required', hintText: 'Password Field', floatingLabelText: 'Choose Password', type: 'password' }),
-        _react2.default.createElement('br', null),
-        _react2.default.createElement('br', null),
-        _react2.default.createElement(RaisedButton, { style: {
-            display: 'block'
-          }, onClick: this.onClick,
-          label: 'Sign Up', primary: true })
-      );
+        return _react2.default.createElement(
+          'div',
+          null,
+          _react2.default.createElement(
+            _MuiThemeProvider2.default,
+            null,
+            _react2.default.createElement(
+              _Card.Card,
+              { style: {
+                  'maxWidth': '800px',
+                  'margin': '30px auto',
+                  'padding': '50px',
+                  'textAlign': 'center'
+                } },
+              _react2.default.createElement(_Card.CardTitle, { style: { 'textAlign': 'center' },
+                title: 'Signup Form',
+                subtitle: 'To continue using PostIt, you need to register below' }),
+              _react2.default.createElement(_TextField2.default, { name: 'username', onChange: this.onChange, value: this.state.username,
+                errorText: 'This field is required', hintText: 'Username Field', floatingLabelText: 'Choose Username' }),
+              _react2.default.createElement('br', null),
+              _react2.default.createElement(_TextField2.default, { name: 'email', onChange: this.onChange, value: this.state.email,
+                errorText: 'This field is required', hintText: 'Email Field', floatingLabelText: 'Your Email' }),
+              _react2.default.createElement('br', null),
+              _react2.default.createElement(_TextField2.default, { name: 'password', onChange: this.onChange, value: this.state.password,
+                errorText: 'This field is required', hintText: 'Password Field', floatingLabelText: 'Choose Password', type: 'password' }),
+              _react2.default.createElement('br', null),
+              _react2.default.createElement('br', null),
+              _react2.default.createElement(
+                'p',
+                null,
+                ' Already Have an account,',
+                _react2.default.createElement(
+                  'a',
+                  { href: '/#/signin' },
+                  ' Login here '
+                ),
+                ' '
+              ),
+              _react2.default.createElement(_RaisedButton2.default, { style: {
+                  display: 'block'
+                }, onClick: this.onClick,
+                label: 'Sign Up', primary: true })
+            )
+          )
+        );
+      }
     }
   }]);
 
-  return Signup;
+  return Register;
 }(_react2.default.Component), _class.contextTypes = {
-  router: _react2.default.PropTypes.func.isRequired
+  router: _propTypes2.default.object
 }, _temp);
 
-
-module.exports = Signup;
+module.exports = Register;

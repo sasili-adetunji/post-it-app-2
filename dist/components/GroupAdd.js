@@ -64,12 +64,9 @@ var GroupAdd = function (_React$Component) {
       e.preventDefault();
 
       _actions2.default.groupAdd({
-        groupName: this.state.groupName
+        groupname: this.state.groupname
       });
-      console.log('A new Group: ', this.state.groupName, 'has been created');
-      this.setState({
-        groupName: ''
-      });
+      console.log('A new Group: ', this.state.groupname, 'has been created');
     }
   }, {
     key: 'render',
@@ -94,7 +91,7 @@ var GroupAdd = function (_React$Component) {
           ),
           ' '
         ),
-        _react2.default.createElement(TextField, { name: 'groupName', onChange: this.onChange, value: this.state.groupName,
+        _react2.default.createElement(TextField, { name: 'groupname', onChange: this.onChange, value: this.state.groupname,
           floatingLabelText: 'Group Name' }),
         _react2.default.createElement('br', null),
         _react2.default.createElement(RaisedButton, { style: {

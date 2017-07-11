@@ -26,31 +26,28 @@ var groupAdd = function groupAdd(app, db) {
   app.post('/group/:groupId/user', function (req, res) {
 
     var groupId = req.params.groupId;
-
-    var newUserId = req.body.userId;
-
-    // check if this is a signed in user
+    var newUser = req.body.userId;
     _firebase2.default.auth().onAuthStateChanged(function (user) {
       if (user) {
-        // get a reference to the groups users
-        var groupRef = db.ref('/groups/' + groupId + '/users');
-
-        // add new user to the group
-        groupRef.child(newUserId).set({
-          Id: newUserId
-        });
-
-        // add group to user's list of groups
-        db.ref('/users/' + newUserId + '/groups').child(groupId).set({
-          id: groupId
-        });
-
-        res.send({
-          message: 'User added to group'
+        var groupRef = fb.ref('groups/' + groupId + '/users/');
+        groupRef.child(newUser).set({
+          userId: userId
+        }).then(function () {
+          var userRef = fb.ref('users/' + userId + '/groups/');
+          userRef.child(groupId).set({
+            groupId: groupId
+          });
+          res.send({
+            message: 'User successfully added'
+          });
+        }).catch(function (error) {
+          res.status(500).send({
+            message: 'Error occurred ' + error.message
+          });
         });
       } else {
-        res.send({
-          message: 'You are not signed in right now!'
+        res.status(403).send({
+          message: 'Only logged users can add users to groups'
         });
       }
     });

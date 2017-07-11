@@ -10,6 +10,7 @@
     "test": "mocha --timeout 75000 dist/test/apiTest.js",
     "start": "node ./dist/server.js",
     "build": "babel server/ -d dist && babel client/ -d dist",
+    "build1": "babel server/ -d dist",
     "dev": "webpack-dev-server --hot & npm start",
     "dev1": "babel-watch server/server.js",
     "nodemon": "nodemon server/server.js"
@@ -55,8 +56,9 @@
     "nodemon": "^1.11.0",
     "object-assign": "^4.1.1",
     "prop-types": "^15.5.10",
-    "react": "^15.5.4",
+    "react": "^0.13.3",
     "react-addons": "^0.9.1-deprecated",
+    "react-addons-test-utils": "~15.6.0",
     "react-dom": "^15.5.4",
     "react-router": "^0.13.3",
     "react-router-dom": "^4.1.1",

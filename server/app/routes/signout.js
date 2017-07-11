@@ -6,7 +6,7 @@ import db from '../../config/db';
 const app = express();
 
 const signout = (app, db) => {
-  app.post('/signout', (req, res) => {
+  app.post('/user/signout', (req, res) => {
        
       // using firebase signout methods
 

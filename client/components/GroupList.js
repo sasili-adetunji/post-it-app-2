@@ -1,46 +1,41 @@
 import React from 'react';
-import Group from './Group.js';
-import mui from 'material-ui';
-import connectToStores from 'alt/utils/connectToStores';
-import ChatStore from '../stores/ChatStores';
-import GroupSource from '../sources/GroupSource';
+import trim from 'trim';
+import {CardHeader, CardTitle, Card} from 'material-ui/Card';
+import  TextField  from 'material-ui/TextField';
+import  { CircularProgress }  from 'material-ui/CircularProgress';
+import _ from 'lodash'
+import RaisedButton from 'material-ui/RaisedButton';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
+import Paper from 'material-ui/Paper';
+import PostItActions from '../actions/PostItActions';
+import PostItStore from '../stores/PostItStore';
 
-var {Card, List, CircularProgress, Subheader} = mui;
+import Group from './Group';
+import { List } from 'material-ui/List';
 
-@connectToStores
+
+
+
+
+
+
 class GroupList extends React.Component {
   constructor(props){
     super(props);
-    this.state = {groups: null};
-  }
+   
+}
 
-  componentDidMount(){
-    this.state.selectedGroup = this.props.params.group;
-    ChatStore.getGroups(this.state.selectedGroup);
-  }
 
-  componentWillReceiveProps(nextProps){
-    if(this.state.selectedGroup != nextProps.params.group){
-      this.state.selectedGroup = nextProps.params.group;
-      ChatStore.getGroups(this.state.selectedGroup);
-    }
-  }
-
-  static getStores(){
-    return [ChatStore];
-  }
-
-  static getPropsFromStores(){
-    return ChatStore.getState();
-  }
-
-  render(){
+render(){
+  console.log(this.props.groups)
     if(!this.props.groups){
       return (
+        <div>
+  <MuiThemeProvider >
+
         <Card style={{
           flexGrow: 1
         }}>
-        
           <CircularProgress
             mode="indeterminate"
             style={{
@@ -48,35 +43,40 @@ class GroupList extends React.Component {
               paddingBottom: '20px',
               margin: '0 auto',
               display: 'block',
-              width: '30%'
-            }}/>
+              width: '60px'
+            }}
+          />
         </Card>
+        </MuiThemeProvider>
+
+        </div>
       );
     }
 
-
-    var groupNodes = _(this.props.groups)
-      .keys()
-      .map((k, i)=> {
-        let group = this.props.groups[k];
+    
+    var groupNodes = this.props.groups.map((group, i)=> {
         return (
-          <Group group={group} key={i}/>
+          <Group group={group} key={i} />
         );
       })
-      .value();
+              console.log('GroupList------', this.props.groups)
 
-    return (
-      <Card style={{
-        flexGrow: 1
-      }}> 
-        <List>
-        <h4> My Groups </h4>
+
+
+    return ( 
+      <div> 
+      <MuiThemeProvider>
+
+       <List >
+       <CardTitle title="Group List" />
           {groupNodes}
-
         </List>
-      </Card>
-    );
-  }
-}
+                </MuiThemeProvider>
+
+        </div>
+        )
+      }
+    }
+
 
 export default GroupList;

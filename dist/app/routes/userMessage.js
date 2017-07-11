@@ -12,24 +12,45 @@ var _firebase = require('firebase');
 
 var _firebase2 = _interopRequireDefault(_firebase);
 
-var _db = require('../../config/db');
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var app = (0, _express2.default)();
 var fb = _firebase2.default.database();
 
+var groupList = function groupList(app, db) {
+  app.get('/user/message', function (req, res) {
+    _firebase2.default.auth().onAuthStateChanged(function (user) {
+      if (user) {
+        var messageRef = fb.ref('users/' + user.uid + '/groups/' + request.params.groupId + '/messages/');
+        var messages = [];
 
-var userMessage = function userMessage(app, db) {
-  (0, _db.firebaseAuth)().onAuthStateChanged(function (user) {
-
-    app.get('/user/message', function (req, res) {
-      var userRef = fb.ref('users/' + user.uid + '/groups/' + groupId).once('child_added', function (msg) {
-        var data = msg.val();
-        res.send(data);
-      });
+        messageRef.orderByKey().once('value', function (snapshot) {
+          snapshot.forEach(function (childSnapShot) {
+            var message = {
+              id: childSnapShot.key,
+              message: childSnapShot.val().message,
+              author: childSnapShot.val().author,
+              date: childSnapShot.val().date,
+              priority: childSnapShot.val().priority
+            };
+          });
+          messages.push(message);
+        }).then(function () {
+          res.send({
+            messages: messages
+          });
+        }).catch(function (error) {
+          res.status(500).send({
+            message: 'Error occurred ' + error.message
+          });
+        });
+      } else {
+        res.status(403).send({
+          message: 'Please log in to see a list of your groups'
+        });
+      }
     });
   });
 };
 
-exports.default = userMessage;
+exports.default = groupList;

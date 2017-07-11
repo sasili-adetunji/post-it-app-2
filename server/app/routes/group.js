@@ -9,9 +9,9 @@ const fb = firebase.database();
 const group = (app, db) => {
   app.post('/group', (req, res) => {
     const groupname = req.body.groupname;
-    firebaseAuth().onAuthStateChanged((user) => {
+    firebase.auth().onAuthStateChanged((user) => {
         const groupKey = fb.ref('groups/').push({
-          groupName: groupName,
+          groupname: groupname,
           groupadmin: user.email,
         }).key;
         const groupRef = fb.ref(`groups/${groupKey}/users/`)
@@ -20,7 +20,7 @@ const group = (app, db) => {
       })
         const userRef = fb.ref(`users/${user.uid}/groups/groupInfo`).set(
           { groupid: groupKey,
-            groupname: groupName
+            groupname: groupname
         })
         .then(() => {
       alert("Group Successfully created")

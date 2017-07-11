@@ -1,50 +1,87 @@
 import React from 'react';
 import mui from 'material-ui';
-import ChatStore from '../../stores/ChatStores'
-import MessageBox from '../MessageBox.js';
-import GroupList from '../GroupList';
-import MessageList from '../MessageList';
-import GroupAdd from '../GroupAdd';
+import  Paper  from 'material-ui/Paper';
+import * as PropTypes from "react/lib/ReactPropTypes";
+import PostItStore from '../../stores/PostItStore'
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
+import DashContainer from '../DashContainer.js';
+import Drawer from 'material-ui/Drawer';
+import MenuItem from 'material-ui/MenuItem';
+import RaisedButton from 'material-ui/RaisedButton';
+import { Redirect } from 'react-router-dom'
 
 
-var { Menu, MenuItem, Paper, Tab, Tabs } = mui;
-
+const styles = {
+    main: {
+        display: 'flex',
+        flexDirection: 'column',
+        minHeight: '100vh',
+    },
+    body: {
+        backgroundColor: '#edecec',
+        display: 'flex',
+        flex: 1,
+        overflow: 'hidden',
+    },
+    content: {
+        flex: 1,
+        padding: '2em',
+    },
+};
 
 class Dashboard extends React.Component {
-  render(){
-    return (
-      <div>
-    <Tabs>
-          <Tab label="&nbsp;Item 1&nbsp;" />
-          <Tab label="&nbsp;Item 2&nbsp;" />
-          
-    </Tabs>
-        <div style={{
+	constructor(props){
+    super(props);
+    this.state = {
+      isAuthenticated: PostItStore.getIsAuthenticated()
+    }
+  }
+
+  componentWillMount ()  {
+     PostItStore.addChangeListener(this._onChange);
+  }
+
+
+  componentWillUnmount () {
+    PostItStore.removeChangeListener(this._onChange);
+  }
+
+  
+    
+    render() {
+      if (this.state.isAuthenticated == false) {
+            return (
+                <Redirect to="/signin"/>
+            )
+        }
+        else {
+
+            return (
+                  <div style={{
           display: 'flex',
           flexFlow: 'row wrap',
           maxWidth: 1200,
           width: '100%',
           margin: '30px auto 30px'
         }}>
-          <GroupList {...this.props} />
-          <MessageList />
-          <GroupAdd />
-        </div>
-        <MessageBox />
-        
+      <MuiThemeProvider>
+        <DashContainer />
+      </MuiThemeProvider>
       </div>
     );
   }
- 
 
-
-static willTransitionTo(transition){
-    var state = ChatStore.getState();
-    if(!state.user){
-      transition.redirect('/signin');
-    }
-  }
 }
+_onChange(){
+        this.setState({
+          isAuthenticated: PostItStore.getIsAuthenticated()
+        });
+      
+    } 
+ 
+  
+}
+Dashboard.propTypes = {
+    isAuthenticated: PropTypes.bool
+};
 export default Dashboard;
-
-

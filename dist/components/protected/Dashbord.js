@@ -14,25 +14,41 @@ var _materialUi = require('material-ui');
 
 var _materialUi2 = _interopRequireDefault(_materialUi);
 
-var _ChatStores = require('../../stores/ChatStores');
+var _Paper = require('material-ui/Paper');
 
-var _ChatStores2 = _interopRequireDefault(_ChatStores);
+var _Paper2 = _interopRequireDefault(_Paper);
 
-var _MessageBox = require('../MessageBox.js');
+var _ReactPropTypes = require('react/lib/ReactPropTypes');
 
-var _MessageBox2 = _interopRequireDefault(_MessageBox);
+var PropTypes = _interopRequireWildcard(_ReactPropTypes);
 
-var _GroupList = require('../GroupList');
+var _PostItStore = require('../../stores/PostItStore');
 
-var _GroupList2 = _interopRequireDefault(_GroupList);
+var _PostItStore2 = _interopRequireDefault(_PostItStore);
 
-var _MessageList = require('../MessageList');
+var _MuiThemeProvider = require('material-ui/styles/MuiThemeProvider');
 
-var _MessageList2 = _interopRequireDefault(_MessageList);
+var _MuiThemeProvider2 = _interopRequireDefault(_MuiThemeProvider);
 
-var _GroupAdd = require('../GroupAdd');
+var _DashContainer = require('../DashContainer.js');
 
-var _GroupAdd2 = _interopRequireDefault(_GroupAdd);
+var _DashContainer2 = _interopRequireDefault(_DashContainer);
+
+var _Drawer = require('material-ui/Drawer');
+
+var _Drawer2 = _interopRequireDefault(_Drawer);
+
+var _MenuItem = require('material-ui/MenuItem');
+
+var _MenuItem2 = _interopRequireDefault(_MenuItem);
+
+var _RaisedButton = require('material-ui/RaisedButton');
+
+var _RaisedButton2 = _interopRequireDefault(_RaisedButton);
+
+var _reactRouterDom = require('react-router-dom');
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -42,34 +58,56 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var Menu = _materialUi2.default.Menu,
-    MenuItem = _materialUi2.default.MenuItem,
-    Paper = _materialUi2.default.Paper,
-    Tab = _materialUi2.default.Tab,
-    Tabs = _materialUi2.default.Tabs;
+var styles = {
+  main: {
+    display: 'flex',
+    flexDirection: 'column',
+    minHeight: '100vh'
+  },
+  body: {
+    backgroundColor: '#edecec',
+    display: 'flex',
+    flex: 1,
+    overflow: 'hidden'
+  },
+  content: {
+    flex: 1,
+    padding: '2em'
+  }
+};
 
 var Dashboard = function (_React$Component) {
   _inherits(Dashboard, _React$Component);
 
-  function Dashboard() {
+  function Dashboard(props) {
     _classCallCheck(this, Dashboard);
 
-    return _possibleConstructorReturn(this, (Dashboard.__proto__ || Object.getPrototypeOf(Dashboard)).apply(this, arguments));
+    var _this = _possibleConstructorReturn(this, (Dashboard.__proto__ || Object.getPrototypeOf(Dashboard)).call(this, props));
+
+    _this.state = {
+      isAuthenticated: _PostItStore2.default.getIsAuthenticated()
+    };
+    return _this;
   }
 
   _createClass(Dashboard, [{
+    key: 'componentWillMount',
+    value: function componentWillMount() {
+      _PostItStore2.default.addChangeListener(this._onChange);
+    }
+  }, {
+    key: 'componentWillUnmount',
+    value: function componentWillUnmount() {
+      _PostItStore2.default.removeChangeListener(this._onChange);
+    }
+  }, {
     key: 'render',
     value: function render() {
-      return _react2.default.createElement(
-        'div',
-        null,
-        _react2.default.createElement(
-          Tabs,
-          null,
-          _react2.default.createElement(Tab, { label: '\xA0Item 1\xA0' }),
-          _react2.default.createElement(Tab, { label: '\xA0Item 2\xA0' })
-        ),
-        _react2.default.createElement(
+      if (this.state.isAuthenticated == false) {
+        return _react2.default.createElement(_reactRouterDom.Redirect, { to: '/signin' });
+      } else {
+
+        return _react2.default.createElement(
           'div',
           { style: {
               display: 'flex',
@@ -78,24 +116,27 @@ var Dashboard = function (_React$Component) {
               width: '100%',
               margin: '30px auto 30px'
             } },
-          _react2.default.createElement(_GroupList2.default, this.props),
-          _react2.default.createElement(_MessageList2.default, null),
-          _react2.default.createElement(_GroupAdd2.default, null)
-        ),
-        _react2.default.createElement(_MessageBox2.default, null)
-      );
-    }
-  }], [{
-    key: 'willTransitionTo',
-    value: function willTransitionTo(transition) {
-      var state = _ChatStores2.default.getState();
-      if (!state.user) {
-        transition.redirect('/signin');
+          _react2.default.createElement(
+            _MuiThemeProvider2.default,
+            null,
+            _react2.default.createElement(_DashContainer2.default, null)
+          )
+        );
       }
+    }
+  }, {
+    key: '_onChange',
+    value: function _onChange() {
+      this.setState({
+        isAuthenticated: _PostItStore2.default.getIsAuthenticated()
+      });
     }
   }]);
 
   return Dashboard;
 }(_react2.default.Component);
 
+Dashboard.propTypes = {
+  isAuthenticated: PropTypes.bool
+};
 exports.default = Dashboard;

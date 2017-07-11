@@ -14,13 +14,31 @@ var _trim = require('trim');
 
 var _trim2 = _interopRequireDefault(_trim);
 
-var _materialUi = require('material-ui');
+var _Card = require('material-ui/Card');
 
-var _materialUi2 = _interopRequireDefault(_materialUi);
+var _TextField = require('material-ui/TextField');
 
-var _actions = require('../actions');
+var _TextField2 = _interopRequireDefault(_TextField);
 
-var _actions2 = _interopRequireDefault(_actions);
+var _RaisedButton = require('material-ui/RaisedButton');
+
+var _RaisedButton2 = _interopRequireDefault(_RaisedButton);
+
+var _MuiThemeProvider = require('material-ui/styles/MuiThemeProvider');
+
+var _MuiThemeProvider2 = _interopRequireDefault(_MuiThemeProvider);
+
+var _Paper = require('material-ui/Paper');
+
+var _Paper2 = _interopRequireDefault(_Paper);
+
+var _Snackbar = require('material-ui/Snackbar');
+
+var _Snackbar2 = _interopRequireDefault(_Snackbar);
+
+var _PostItActions = require('../actions/PostItActions');
+
+var _PostItActions2 = _interopRequireDefault(_PostItActions);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -32,10 +50,14 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var Card = _materialUi2.default.Card,
-    CardText = _materialUi2.default.CardText,
-    TextField = _materialUi2.default.TextField,
-    RaisedButton = _materialUi2.default.RaisedButton;
+var style = {
+  height: 100,
+  width: 100,
+  margin: '30px auto',
+  padding: 30,
+  textAlign: 'center',
+  display: 'inline-block'
+};
 
 var MessageBox = function (_React$Component) {
   _inherits(MessageBox, _React$Component);
@@ -63,47 +85,29 @@ var MessageBox = function (_React$Component) {
     key: 'onClick',
     value: function onClick(e) {
       e.preventDefault();
-
-      _actions2.default.sendMessage({
+      var message = {
         message: this.state.message,
         groupId: this.state.groupId
-      });
-      console.log('A new Message: ', this.state.message, 'has been sent to the group', this.state.groupId);
-      this.setState({
-        message: '',
-        groupId: ''
-      });
+      };
+      _PostItActions2.default.addMessage(message);
     }
   }, {
     key: 'render',
     value: function render() {
 
       return _react2.default.createElement(
-        Card,
-        { style: {
-            maxWidth: 1200,
-            margin: '30px auto',
-            padding: 30
-          } },
-        _react2.default.createElement(
-          'div',
-          null,
-          _react2.default.createElement(
-            'h4',
-            null,
-            ' Send Message to Group '
-          ),
-          ' '
-        ),
+        'div',
+        { style: style },
+        _react2.default.createElement(_Card.CardTitle, { title: 'Message' }),
         _react2.default.createElement('textarea', { name: 'message',
           value: this.state.message,
           onChange: this.onChange,
           style: {
-            width: '30%',
+            width: '100px',
             borderColor: '#D0D0D0',
             resize: 'none',
             borderRadius: 3,
-            minHeight: 50,
+            minHeight: '50px',
             color: '#555',
             fontSize: 14,
             outline: 'auto 0px'
@@ -111,15 +115,16 @@ var MessageBox = function (_React$Component) {
         _react2.default.createElement(
           'div',
           null,
-          _react2.default.createElement(TextField, { name: 'groupId', onChange: this.onChange, value: this.state.groupId,
+          _react2.default.createElement(_TextField2.default, { name: 'groupId', onChange: this.onChange, value: this.state.groupId,
             floatingLabelText: 'Group ID' }),
           _react2.default.createElement('br', null)
         ),
-        _react2.default.createElement(RaisedButton, { style: {
+        _react2.default.createElement(_RaisedButton2.default, { style: {
             display: 'block',
             width: '20px'
           }, onClick: this.onClick,
-          label: 'Send ', primary: true })
+          label: 'Send ', primary: true
+        })
       );
     }
   }]);

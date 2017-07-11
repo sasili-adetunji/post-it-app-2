@@ -6,31 +6,51 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _class;
-
 var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var _Group = require('./Group.js');
+var _trim = require('trim');
+
+var _trim2 = _interopRequireDefault(_trim);
+
+var _Card = require('material-ui/Card');
+
+var _TextField = require('material-ui/TextField');
+
+var _TextField2 = _interopRequireDefault(_TextField);
+
+var _CircularProgress = require('material-ui/CircularProgress');
+
+var _lodash = require('lodash');
+
+var _lodash2 = _interopRequireDefault(_lodash);
+
+var _RaisedButton = require('material-ui/RaisedButton');
+
+var _RaisedButton2 = _interopRequireDefault(_RaisedButton);
+
+var _MuiThemeProvider = require('material-ui/styles/MuiThemeProvider');
+
+var _MuiThemeProvider2 = _interopRequireDefault(_MuiThemeProvider);
+
+var _Paper = require('material-ui/Paper');
+
+var _Paper2 = _interopRequireDefault(_Paper);
+
+var _PostItActions = require('../actions/PostItActions');
+
+var _PostItActions2 = _interopRequireDefault(_PostItActions);
+
+var _PostItStore = require('../stores/PostItStore');
+
+var _PostItStore2 = _interopRequireDefault(_PostItStore);
+
+var _Group = require('./Group');
 
 var _Group2 = _interopRequireDefault(_Group);
 
-var _materialUi = require('material-ui');
-
-var _materialUi2 = _interopRequireDefault(_materialUi);
-
-var _connectToStores = require('alt/utils/connectToStores');
-
-var _connectToStores2 = _interopRequireDefault(_connectToStores);
-
-var _ChatStores = require('../stores/ChatStores');
-
-var _ChatStores2 = _interopRequireDefault(_ChatStores);
-
-var _GroupSource = require('../sources/GroupSource');
-
-var _GroupSource2 = _interopRequireDefault(_GroupSource);
+var _List = require('material-ui/List');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -40,95 +60,69 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var Card = _materialUi2.default.Card,
-    List = _materialUi2.default.List,
-    CircularProgress = _materialUi2.default.CircularProgress,
-    Subheader = _materialUi2.default.Subheader;
-
-var GroupList = (0, _connectToStores2.default)(_class = function (_React$Component) {
+var GroupList = function (_React$Component) {
   _inherits(GroupList, _React$Component);
 
   function GroupList(props) {
     _classCallCheck(this, GroupList);
 
-    var _this = _possibleConstructorReturn(this, (GroupList.__proto__ || Object.getPrototypeOf(GroupList)).call(this, props));
-
-    _this.state = { groups: null };
-    return _this;
+    return _possibleConstructorReturn(this, (GroupList.__proto__ || Object.getPrototypeOf(GroupList)).call(this, props));
   }
 
   _createClass(GroupList, [{
-    key: 'componentDidMount',
-    value: function componentDidMount() {
-      this.state.selectedGroup = this.props.params.group;
-      _ChatStores2.default.getGroups(this.state.selectedGroup);
-    }
-  }, {
-    key: 'componentWillReceiveProps',
-    value: function componentWillReceiveProps(nextProps) {
-      if (this.state.selectedGroup != nextProps.params.group) {
-        this.state.selectedGroup = nextProps.params.group;
-        _ChatStores2.default.getGroups(this.state.selectedGroup);
-      }
-    }
-  }, {
     key: 'render',
     value: function render() {
-      var _this2 = this;
-
+      console.log(this.props.groups);
       if (!this.props.groups) {
         return _react2.default.createElement(
-          Card,
-          { style: {
-              flexGrow: 1
-            } },
-          _react2.default.createElement(CircularProgress, {
-            mode: 'indeterminate',
-            style: {
-              paddingTop: '20px',
-              paddingBottom: '20px',
-              margin: '0 auto',
-              display: 'block',
-              width: '30%'
-            } })
+          'div',
+          null,
+          _react2.default.createElement(
+            _MuiThemeProvider2.default,
+            null,
+            _react2.default.createElement(
+              _Card.Card,
+              { style: {
+                  flexGrow: 1
+                } },
+              _react2.default.createElement(_CircularProgress.CircularProgress, {
+                mode: 'indeterminate',
+                style: {
+                  paddingTop: '20px',
+                  paddingBottom: '20px',
+                  margin: '0 auto',
+                  display: 'block',
+                  width: '60px'
+                }
+              })
+            )
+          )
         );
       }
 
-      var groupNodes = _(this.props.groups).keys().map(function (k, i) {
-        var group = _this2.props.groups[k];
+      var groupNodes = this.props.groups.map(function (group, i) {
         return _react2.default.createElement(_Group2.default, { group: group, key: i });
-      }).value();
+      });
+      console.log('GroupList------', this.props.groups);
 
       return _react2.default.createElement(
-        Card,
-        { style: {
-            flexGrow: 1
-          } },
+        'div',
+        null,
         _react2.default.createElement(
-          List,
+          _MuiThemeProvider2.default,
           null,
           _react2.default.createElement(
-            'h4',
+            _List.List,
             null,
-            ' My Groups '
-          ),
-          groupNodes
+            _react2.default.createElement(_Card.CardTitle, { title: 'Group List' }),
+            groupNodes
+          )
         )
       );
-    }
-  }], [{
-    key: 'getStores',
-    value: function getStores() {
-      return [_ChatStores2.default];
-    }
-  }, {
-    key: 'getPropsFromStores',
-    value: function getPropsFromStores() {
-      return _ChatStores2.default.getState();
     }
   }]);
 
   return GroupList;
-}(_react2.default.Component)) || _class;
+}(_react2.default.Component);
 
 exports.default = GroupList;

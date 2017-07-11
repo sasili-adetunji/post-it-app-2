@@ -8,37 +8,37 @@ const fb = firebase.database();
 
 const groupAdd = (app, db) => {
    app.post('/group/:groupId/user', (req, res) => {
-    
+
     const groupId = req.params.groupId;
-
-    const newUserId = req.body.userId;
-
-    // check if this is a signed in user
+     const newUser = req.body.userId;
     firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
-        // get a reference to the groups users
-        const groupRef = db.ref(`/groups/${groupId}/users`);
-
-        // add new user to the group
-        groupRef.child(newUserId).set({
-          Id: newUserId,
-        });
-
-        // add group to user's list of groups
-        db.ref(`/users/${newUserId}/groups`).child(groupId).set({
-          id: groupId,
-        });
-
-        res.send({
-          message: 'User added to group',
-        });
-      } else {
-        res.send({
-          message: 'You are not signed in right now!'
+    if (user) {
+      const groupRef = fb.ref(`groups/${groupId}/users/`);
+      groupRef.child(newUser).set({
+        userId: userId,
+      })
+     .then(() => {
+       const userRef = fb.ref(`users/${userId}/groups/`);
+       userRef.child(groupId).set({
+         groupId: groupId,
+       });
+       res.send({
+         message: 'User successfully added',
+       });
+     })
+     .catch((error) => {
+       res.status(500).send({
+         message: `Error occurred ${error.message}`,
+       });
+     });
+    } 
+    else {
+      res.status(403).send({
+        message: 'Only logged users can add users to groups'
         });
       }
-    });
-  });
+    })
+  })
 };
 
 export default groupAdd;

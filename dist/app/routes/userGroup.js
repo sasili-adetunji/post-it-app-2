@@ -12,22 +12,40 @@ var _firebase = require('firebase');
 
 var _firebase2 = _interopRequireDefault(_firebase);
 
-var _db = require('../../config/db');
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var app = (0, _express2.default)();
 var fb = _firebase2.default.database();
 
-
 var userGroup = function userGroup(app, db) {
-  (0, _db.firebaseAuth)().onAuthStateChanged(function (user) {
+  app.get('/user/groups', function (req, res) {
+    _firebase2.default.auth().onAuthStateChanged(function (user) {
+      if (user) {
+        var groupRef = _firebase2.default.database().ref('users/' + user.uid + '/groups/');
+        var groups = [];
 
-    app.get('/user/groups', function (req, res) {
-      var userRef = fb.ref('users/' + user.uid + '/groups/groupInfo').once('child_added', function (msg) {
-        var data = msg.val();
-        res.send(data);
-      });
+        groupRef.orderByKey().once('value', function (snapshot) {
+          snapshot.forEach(function (childSnapShot) {
+            var group = {
+              groupId: childSnapShot.key,
+              groupname: childSnapShot.val().groupname
+            };
+            groups.push(group);
+          });
+        }).then(function () {
+          res.send({
+            groups: groups
+          });
+        }).catch(function (error) {
+          res.status(500).send({
+            message: 'Error occurred ' + error.message
+          });
+        });
+      } else {
+        res.status(403).send({
+          message: 'You are not signed in right now! '
+        });
+      }
     });
   });
 };

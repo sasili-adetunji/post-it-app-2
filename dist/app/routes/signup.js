@@ -3,7 +3,6 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.saveUser = saveUser;
 
 var _express = require('express');
 
@@ -29,21 +28,22 @@ var signup = function signup(app, db) {
     var email = req.body.email,
         password = req.body.password,
         username = req.body.username;
-    _firebase2.default.auth().createUserWithEmailAndPassword(email, password).then(saveUser).then(function () {
-      res.send({ message: 'Registration successful. You have successfully been registered' });
+    _firebase2.default.auth().createUserWithEmailAndPassword(email, password).then(function (user) {
+      user.updateProfile({
+        displayName: username
+      }).then(function () {
+        var userRef = _firebase2.default.database().ref('users/');
+        userRef.child(user.uid).set({
+          username: username,
+          email: email
+        });
+        res.send({ message: 'Welcome ' + user.email + '. You have successfully registered' });
+      });
     }).catch(function (error) {
       var errorMessage = error.message;
       res.status(400).send({ message: 'Error signing up: ', errorMessage: errorMessage });
     });
   });
 };
-
-function saveUser(user) {
-  return fb.child('users/' + user.uid + '/info').set({
-    email: user.email
-  }).then(function () {
-    return user;
-  });
-}
 
 exports.default = signup;

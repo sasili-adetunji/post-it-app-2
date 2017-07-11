@@ -14,9 +14,15 @@ var _materialUi = require('material-ui');
 
 var _materialUi2 = _interopRequireDefault(_materialUi);
 
-var _actions = require('../actions');
+var _Api = require('../Api');
 
-var _actions2 = _interopRequireDefault(_actions);
+var _Api2 = _interopRequireDefault(_Api);
+
+var _List = require('material-ui/List');
+
+var _MuiThemeProvider = require('material-ui/styles/MuiThemeProvider');
+
+var _MuiThemeProvider2 = _interopRequireDefault(_MuiThemeProvider);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -25,8 +31,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var ListItem = _materialUi2.default.ListItem;
 
 var Group = function (_React$Component) {
   _inherits(Group, _React$Component);
@@ -40,25 +44,27 @@ var Group = function (_React$Component) {
   _createClass(Group, [{
     key: 'onClick',
     value: function onClick() {
-      _actions2.default.groupOpened(this.props.group);
+      _Api2.default.getUserGroups(this.props);
     }
   }, {
     key: 'render',
     value: function render() {
-      var style = {};
-
-      if (this.props.group.selected) {
-        style.backgroundColor = '#f0f0f0';
-      }
+      console.log('group-------', this.props.group);
 
       return _react2.default.createElement(
-        ListItem,
-        {
-          href: '/#/dashboard/' + this.props.group.key,
-          style: style,
-          key: this.props.group.key
-        },
-        this.props.group.name
+        'div',
+        null,
+        _react2.default.createElement(
+          _MuiThemeProvider2.default,
+          null,
+          _react2.default.createElement(
+            _List.ListItem,
+            {
+              href: '/#/dashboard/' + this.props.group
+            },
+            this.props.group
+          )
+        )
       );
     }
   }]);

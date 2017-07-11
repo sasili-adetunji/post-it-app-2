@@ -21,7 +21,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var app = (0, _express2.default)(); // signout route
 
 var signout = function signout(app, db) {
-  app.post('/signout', function (req, res) {
+  app.post('/user/signout', function (req, res) {
 
     // using firebase signout methods
 
