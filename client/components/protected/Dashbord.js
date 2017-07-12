@@ -30,58 +30,29 @@ const styles = {
 };
 
 class Dashboard extends React.Component {
-	constructor(props){
-    super(props);
-    this.state = {
-      isAuthenticated: PostItStore.getIsAuthenticated()
-    }
-  }
-
-  componentWillMount ()  {
-     PostItStore.addChangeListener(this._onChange);
-  }
-
-
-  componentWillUnmount () {
-    PostItStore.removeChangeListener(this._onChange);
-  }
-
-  
+	 
     
     render() {
-      if (this.state.isAuthenticated == false) {
-            return (
-                <Redirect to="/signin"/>
-            )
-        }
-        else {
+      return (
 
-            return (
-                  <div style={{
-          display: 'flex',
-          flexFlow: 'row wrap',
-          maxWidth: 1200,
-          width: '100%',
-          margin: '30px auto 30px'
-        }}>
+          <div style={{
+            display: 'flex',
+            flexFlow: 'row wrap',
+            maxWidth: 1200,
+            width: '100%',
+            margin: '30px auto 30px'
+      
+      }}>
       <MuiThemeProvider>
         <DashContainer />
       </MuiThemeProvider>
       </div>
     );
-  }
+  
 
 }
-_onChange(){
-        this.setState({
-          isAuthenticated: PostItStore.getIsAuthenticated()
-        });
-      
-    } 
+
  
   
 }
-Dashboard.propTypes = {
-    isAuthenticated: PropTypes.bool
-};
 export default Dashboard;

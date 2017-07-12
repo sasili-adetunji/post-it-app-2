@@ -4,8 +4,7 @@ import PropTypes from 'prop-types';
 
 import PostItActions from '../actions/PostItActions';
 
-
-module.exports = {
+ module.exports = {
 
   registerNewUser(user) {
     console.log(user);
@@ -17,6 +16,7 @@ module.exports = {
     .then((response) => {
       console.log(response.data.message);
       PostItActions.receiveSuccess(response.data.message);
+
     })
   .catch((error) => {
     PostItActions.receiveErrors(error.message);
@@ -34,6 +34,7 @@ module.exports = {
       };
       PostItActions.receiveSuccess(response.message);
       PostItActions.receiveAuthenticatedUser(authuser);
+
     })
   .catch((error) => {
     PostItActions.receiveErrors(error.message);
@@ -44,6 +45,18 @@ module.exports = {
   signoutUser() {
     axios.post('/user/signout').then((response) => {
       PostItActions.receiveSuccess(response.message);
+    })
+    .catch((error) => {
+      PostItActions.receiveErrors(error.message);
+    });
+  },
+  googleLogin(token) {
+    axios.post('/user/google')
+    .then((response) => {
+      console.log(response.data.message);
+      PostItActions.receiveSuccess(response.user);
+      PostItActions.receiveAuthenticatedUser(response.user);
+
     })
     .catch((error) => {
       PostItActions.receiveErrors(error.message);
@@ -105,6 +118,15 @@ module.exports = {
     .then((response) => {
       PostItActions.receiveSuccess(response.message);
       PostItActions.receiveGroupMessages(response.data.groupMessages);
+    })
+   .catch((error) => {
+     PostItActions.receiveErrors(error.message);
+   });
+  },
+  resetPassword(email) {
+    axios.get('/user/reset')
+    .then((response) => {
+      PostItActions.receiveSuccess(response.message);
     })
    .catch((error) => {
      PostItActions.receiveErrors(error.message);

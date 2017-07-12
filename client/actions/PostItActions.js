@@ -10,7 +10,17 @@ const PostItActions = {
       user
 
     });
-         console.log('dispatcher signin....');
+      console.log('dispatcher signin....');
+
+  },
+  googleLogin() {
+     console.log('Google user....');
+    PostItDispatcher.dispatch({
+      actionType: PostItConstants.GOOGLE_LOGIN
+      
+
+    });
+      console.log('dispatcher signin....');
 
   },
 
@@ -65,8 +75,18 @@ const PostItActions = {
         console.log(message);
 
   },
+resetPassword(email) {
+    // console.log(email);
+    PostItDispatcher.dispatch({
+      actionType: PostItConstants.RESET_PASSWORD,
+      email
 
-  signOutUser() {
+    });
+        console.log(email);
+
+  },
+
+signOutUser() {
     PostItDispatcher.dispatch({
       actionType: PostItConstants.SIGNOUT_USER
 

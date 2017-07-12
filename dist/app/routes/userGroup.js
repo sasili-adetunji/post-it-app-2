@@ -28,7 +28,7 @@ var userGroup = function userGroup(app, db) {
           snapshot.forEach(function (childSnapShot) {
             var group = {
               groupId: childSnapShot.key,
-              groupname: childSnapShot.val().groupname
+              groupname: childSnapShot.val().groupInfo.groupname
             };
             groups.push(group);
           });

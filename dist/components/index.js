@@ -8,19 +8,33 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _class, _temp;
 
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
 var _reactRouterDom = require('react-router-dom');
 
+var _Login = require('./Login');
+
+var _Login2 = _interopRequireDefault(_Login);
+
+var _Register = require('./Register');
+
+var _Register2 = _interopRequireDefault(_Register);
+
+var _Group = require('./Group');
+
+var _Group2 = _interopRequireDefault(_Group);
+
+var _Home = require('./Home');
+
+var _Home2 = _interopRequireDefault(_Home);
+
 var _Nav = require('./Nav');
 
 var _Nav2 = _interopRequireDefault(_Nav);
-
-var _Routes = require('./Routes');
-
-var _Routes2 = _interopRequireDefault(_Routes);
 
 var _darkBaseTheme = require('material-ui/styles/baseThemes/darkBaseTheme');
 
@@ -42,22 +56,6 @@ var _FlatButton = require('material-ui/FlatButton');
 
 var _FlatButton2 = _interopRequireDefault(_FlatButton);
 
-var _Dashbord = require('./protected/Dashbord');
-
-var _Dashbord2 = _interopRequireDefault(_Dashbord);
-
-var _Login = require('./Login');
-
-var _Login2 = _interopRequireDefault(_Login);
-
-var _Register = require('./Register');
-
-var _Register2 = _interopRequireDefault(_Register);
-
-var _reactTapEventPlugin = require('react-tap-event-plugin');
-
-var _reactTapEventPlugin2 = _interopRequireDefault(_reactTapEventPlugin);
-
 var _PostItStore = require('../stores/PostItStore');
 
 var _PostItStore2 = _interopRequireDefault(_PostItStore);
@@ -70,6 +68,16 @@ var _propTypes = require('prop-types');
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
+var _Dashbord = require('./protected/Dashbord');
+
+var _Dashbord2 = _interopRequireDefault(_Dashbord);
+
+var _db = require('../../server/config/db');
+
+var _reactTapEventPlugin = require('react-tap-event-plugin');
+
+var _reactTapEventPlugin2 = _interopRequireDefault(_reactTapEventPlugin);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -77,6 +85,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
 
 (0, _reactTapEventPlugin2.default)();
 
@@ -90,74 +100,102 @@ function getAppState() {
   };
 }
 
+function PrivateRoute(_ref) {
+  var Component = _ref.component,
+      isAuthenticated = _ref.isAuthenticated,
+      rest = _objectWithoutProperties(_ref, ['component', 'isAuthenticated']);
+
+  return _react2.default.createElement(_reactRouterDom.Route, _extends({}, rest, {
+    render: function render(props) {
+      return isAuthenticated === true ? _react2.default.createElement(Component, props) : _react2.default.createElement(_reactRouterDom.Redirect, { to: { pathname: '/signin', state: { from: props.location } } });
+    }
+  }));
+}
+
+function PublicRoute(_ref2) {
+  var Component = _ref2.component,
+      isAuthenticated = _ref2.isAuthenticated,
+      rest = _objectWithoutProperties(_ref2, ['component', 'isAuthenticated']);
+
+  return _react2.default.createElement(_reactRouterDom.Route, _extends({}, rest, {
+    render: function render(props) {
+      return isAuthenticated === false ? _react2.default.createElement(Component, props) : _react2.default.createElement(_reactRouterDom.Redirect, { to: '/dashboard' });
+    }
+  }));
+}
+
 var App = (_temp = _class = function (_Component) {
   _inherits(App, _Component);
-
-  _createClass(App, [{
-    key: 'getInitialState',
-    value: function getInitialState() {
-      return getAppState();
-    }
-  }]);
 
   function App(props) {
     _classCallCheck(this, App);
 
     var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
 
-    _this.state = getAppState();
-    _this.handleClick = _this.handleClick.bind(_this);
+    _this.state = {
+      isAuthenticated: _PostItStore2.default.getIsAuthenticated(),
+      user: _PostItStore2.default.getLoggedInUser()
+    };
     _this._onChange = _this._onChange.bind(_this);
+    _this.handleClick = _this.handleClick.bind(_this);
     return _this;
   }
 
   _createClass(App, [{
-    key: '_onChange',
-    value: function _onChange() {
-      this.setState(getAppState());
-    }
-  }, {
     key: 'componentDidMount',
     value: function componentDidMount() {
       _PostItStore2.default.addChangeListener(this._onChange);
     }
   }, {
-    key: 'componentUnmount',
-    value: function componentUnmount() {
+    key: 'componentWillUnmount',
+    value: function componentWillUnmount() {
       _PostItStore2.default.removeChangeListener(this._onChange);
     }
   }, {
     key: 'handleClick',
     value: function handleClick(e) {
       e.preventDefault();
-
-      var signout = _PostItActions2.default.signOutUser();
-      if (signout) {
-        this.context.router.history.push('/signin');
-      }
+      _PostItActions2.default.signOutUser();
     }
   }, {
     key: 'render',
     value: function render() {
-
       console.log('Ret render auth:', this.state.isAuthenticated);
-
-      var rightButtons = _react2.default.createElement(
-        'div',
-        null,
-        _react2.default.createElement(_FlatButton2.default, { label: 'Sign Out', onClick: this.handleClick })
-      );
+      {
+        !this.state.isAuthenticated ? _react2.default.createElement(_Nav2.default, null) : '';
+      }
       return _react2.default.createElement(
         'div',
         null,
         _react2.default.createElement(
           _MuiThemeProvider2.default,
           { muiTheme: (0, _getMuiTheme2.default)(_darkBaseTheme2.default) },
-          _react2.default.createElement(_AppBar2.default, { title: 'Post It App', iconElementRight: rightButtons })
+          _react2.default.createElement(_AppBar2.default, { title: 'Post It App', iconElementRight: _react2.default.createElement(_FlatButton2.default, { label: 'Sign Out', onClick: this.handleClick }) })
         ),
-        this.state.isAuthenticated ? _react2.default.createElement(_reactRouterDom.Redirect, { to: '/dashboard' }) : _react2.default.createElement(_reactRouterDom.Redirect, { to: '/signin' }),
-        _react2.default.createElement(_Routes2.default, { auth: this.state.isAuthenticated })
+        _react2.default.createElement(
+          _reactRouterDom.Switch,
+          null,
+          _react2.default.createElement(_reactRouterDom.Route, { path: '/', exact: true, component: _Login2.default }),
+          _react2.default.createElement(PublicRoute, { isAuthenticated: this.state.isAuthenticated, path: '/signin', component: _Login2.default }),
+          _react2.default.createElement(PublicRoute, { isAuthenticated: this.state.isAuthenticated, path: '/signup', component: _Register2.default }),
+          _react2.default.createElement(PrivateRoute, { isAuthenticated: this.state.isAuthenticated, path: '/dashboard', component: _Dashbord2.default }),
+          _react2.default.createElement(_reactRouterDom.Route, { render: function render() {
+              return _react2.default.createElement(
+                'h3',
+                null,
+                'No Match'
+              );
+            } })
+        )
       );
+    }
+  }, {
+    key: '_onChange',
+    value: function _onChange() {
+      this.setState({
+        isAuthenticated: _PostItStore2.default.getIsAuthenticated(),
+        user: _PostItStore2.default.getLoggedInUser()
+      });
     }
   }]);
 

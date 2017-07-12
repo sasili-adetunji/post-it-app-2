@@ -50,35 +50,21 @@ class Login extends React.Component {
         email: this.state.email,
         password: this.state.password
       }
-        PostItActions.login(user)
-        PostItActions.receiveAuthenticatedUser(user)
-
-        this.context.router.history.push('/dashboard')
-        
+        PostItActions.login(user)      
 
   }
 
      onClickGoogle(){
-      Actions.googleLogin(this.context.router);
+      PostItActions.googleLogin();
     }
 
     onClickReset(){
-      Actions.reset({ email: this.state.email
-          })
-      .then(() => this.setState(setErrorMsg(`Password reset email sent to ${this.email.value}.`)))
-      .catch((error) => this.setState(setErrorMsg(`Email address not found.`)))
+      let email = this.state.email
+      PostItActions.resetPassword(email)
     }
 
   render(){
-    if (this.state.isAuthenticated == true) {
-            return (
-                <Redirect to="/dashboard"/>
-            )
-        }
-        else {
-
-
-        return (
+       return (
                <div>
 
       <MuiThemeProvider >
@@ -127,7 +113,7 @@ class Login extends React.Component {
                 </div>  
         );
     }
-}
+
 
 }
 module.exports = Login;

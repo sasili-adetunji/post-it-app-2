@@ -41,6 +41,15 @@ PostItDispatcher.register((action) => {
     PostItStore.emitChange();
     break;
 
+  case PostItConstants.GOOGLE_LOGIN:
+
+    API.googleLogin();
+
+    PostItStore.signinUser(action.token);
+
+    PostItStore.emitChange();
+    break;
+
   case PostItConstants.ADDUSER_GROUP:
    
     console.log('add user group');
@@ -82,6 +91,12 @@ PostItDispatcher.register((action) => {
   case PostItConstants.RECEIVE_USER_GROUPS:
 
     PostItStore.setUserGroups(action.groups);
+
+    PostItStore.emitChange();
+    break;
+  case PostItConstants.RESET_PASSWORD:
+
+    API.resetPassword(action.email);
 
     PostItStore.emitChange();
     break;

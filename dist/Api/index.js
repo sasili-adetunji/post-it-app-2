@@ -50,6 +50,15 @@ module.exports = {
       _PostItActions2.default.receiveErrors(error.message);
     });
   },
+  googleLogin: function googleLogin(token) {
+    _axios2.default.post('/user/google').then(function (response) {
+      console.log(response.data.message);
+      _PostItActions2.default.receiveSuccess(response.user);
+      _PostItActions2.default.receiveAuthenticatedUser(response.user);
+    }).catch(function (error) {
+      _PostItActions2.default.receiveErrors(error.message);
+    });
+  },
   createNewGroup: function createNewGroup(group) {
     _axios2.default.post('/group', {
       groupname: group.groupname
@@ -95,6 +104,13 @@ module.exports = {
     _axios2.default.get('/users/' + user.uid + '/messages').then(function (response) {
       _PostItActions2.default.receiveSuccess(response.message);
       _PostItActions2.default.receiveGroupMessages(response.data.groupMessages);
+    }).catch(function (error) {
+      _PostItActions2.default.receiveErrors(error.message);
+    });
+  },
+  resetPassword: function resetPassword(email) {
+    _axios2.default.get('/user/reset').then(function (response) {
+      _PostItActions2.default.receiveSuccess(response.message);
     }).catch(function (error) {
       _PostItActions2.default.receiveErrors(error.message);
     });

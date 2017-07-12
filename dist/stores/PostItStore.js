@@ -83,7 +83,7 @@ var PostItStore = (0, _objectAssign2.default)({}, _events.EventEmitter.prototype
   getUserGroups: function getUserGroups() {
     return _userGroups;
   },
-  getUserpMessages: function getUserpMessages() {
+  getUserMessages: function getUserMessages() {
     return _userMessages;
   },
   getSuccess: function getSuccess() {

@@ -89,67 +89,60 @@ var Register = (_temp = _class = function (_React$Component) {
       var user = {
         email: this.state.email,
         password: this.state.password,
-        username: this.state.username,
-        isAuthenticated: false
-
+        username: this.state.username
       };
       _PostItActions2.default.registerUser(user);
       _PostItActions2.default.receiveAuthenticatedUser(user);
-      this.context.router.history.push('/dashboard');
     }
   }, {
     key: 'render',
     value: function render() {
-      if (this.state.isAuthenticated == true) {
-        return _react2.default.createElement(_reactRouterDom.Redirect, { to: '/dashboard' });
-      } else {
 
-        return _react2.default.createElement(
-          'div',
+      return _react2.default.createElement(
+        'div',
+        null,
+        _react2.default.createElement(
+          _MuiThemeProvider2.default,
           null,
           _react2.default.createElement(
-            _MuiThemeProvider2.default,
-            null,
+            _Card.Card,
+            { style: {
+                'maxWidth': '800px',
+                'margin': '30px auto',
+                'padding': '50px',
+                'textAlign': 'center'
+              } },
+            _react2.default.createElement(_Card.CardTitle, { style: { 'textAlign': 'center' },
+              title: 'Signup Form',
+              subtitle: 'To continue using PostIt, you need to register below' }),
+            _react2.default.createElement(_TextField2.default, { name: 'username', onChange: this.onChange, value: this.state.username,
+              errorText: 'This field is required', hintText: 'Username Field', floatingLabelText: 'Choose Username' }),
+            _react2.default.createElement('br', null),
+            _react2.default.createElement(_TextField2.default, { name: 'email', onChange: this.onChange, value: this.state.email,
+              errorText: 'This field is required', hintText: 'Email Field', floatingLabelText: 'Your Email' }),
+            _react2.default.createElement('br', null),
+            _react2.default.createElement(_TextField2.default, { name: 'password', onChange: this.onChange, value: this.state.password,
+              errorText: 'This field is required', hintText: 'Password Field', floatingLabelText: 'Choose Password', type: 'password' }),
+            _react2.default.createElement('br', null),
+            _react2.default.createElement('br', null),
             _react2.default.createElement(
-              _Card.Card,
-              { style: {
-                  'maxWidth': '800px',
-                  'margin': '30px auto',
-                  'padding': '50px',
-                  'textAlign': 'center'
-                } },
-              _react2.default.createElement(_Card.CardTitle, { style: { 'textAlign': 'center' },
-                title: 'Signup Form',
-                subtitle: 'To continue using PostIt, you need to register below' }),
-              _react2.default.createElement(_TextField2.default, { name: 'username', onChange: this.onChange, value: this.state.username,
-                errorText: 'This field is required', hintText: 'Username Field', floatingLabelText: 'Choose Username' }),
-              _react2.default.createElement('br', null),
-              _react2.default.createElement(_TextField2.default, { name: 'email', onChange: this.onChange, value: this.state.email,
-                errorText: 'This field is required', hintText: 'Email Field', floatingLabelText: 'Your Email' }),
-              _react2.default.createElement('br', null),
-              _react2.default.createElement(_TextField2.default, { name: 'password', onChange: this.onChange, value: this.state.password,
-                errorText: 'This field is required', hintText: 'Password Field', floatingLabelText: 'Choose Password', type: 'password' }),
-              _react2.default.createElement('br', null),
-              _react2.default.createElement('br', null),
+              'p',
+              null,
+              ' Already Have an account,',
               _react2.default.createElement(
-                'p',
-                null,
-                ' Already Have an account,',
-                _react2.default.createElement(
-                  'a',
-                  { href: '/#/signin' },
-                  ' Login here '
-                ),
-                ' '
+                'a',
+                { href: '/#/signin' },
+                ' Login here '
               ),
-              _react2.default.createElement(_RaisedButton2.default, { style: {
-                  display: 'block'
-                }, onClick: this.onClick,
-                label: 'Sign Up', primary: true })
-            )
+              ' '
+            ),
+            _react2.default.createElement(_RaisedButton2.default, { style: {
+                display: 'block'
+              }, onClick: this.onClick,
+              label: 'Sign Up', primary: true })
           )
-        );
-      }
+        )
+      );
     }
   }]);
 

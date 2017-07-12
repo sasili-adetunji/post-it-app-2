@@ -13,6 +13,7 @@ import usersList from './usersList';
 import userGroup from './userGroup';
 import userMessage from './userMessage';
 import googleLogin from './googleLogin';
+import resetPassword from './resetPassword';
 
 const index = (app, db) => {
   signup(app, db);
@@ -26,6 +27,8 @@ const index = (app, db) => {
   userMessage(app, db);
   userGroup(app, db);
   googleLogin(app, db);
+  resetPassword(app, db);
+
 
 };
 export default index;

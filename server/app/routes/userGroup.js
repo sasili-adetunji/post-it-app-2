@@ -16,7 +16,7 @@ const userGroup = (app, db) => {
         snapshot.forEach((childSnapShot) => {
           const group = {
             groupId: childSnapShot.key,
-            groupname: childSnapShot.val().groupname
+            groupname: childSnapShot.val().groupInfo.groupname
           }
           groups.push(group)
         })

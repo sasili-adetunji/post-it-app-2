@@ -24,6 +24,14 @@ var PostItActions = {
     });
     console.log('dispatcher signin....');
   },
+  googleLogin: function googleLogin() {
+    console.log('Google user....');
+    _PostItDispatcher2.default.dispatch({
+      actionType: _PostItConstants2.default.GOOGLE_LOGIN
+
+    });
+    console.log('dispatcher signin....');
+  },
   registerUser: function registerUser(user) {
     console.log('Reg user....', user);
     _PostItDispatcher2.default.dispatch({
@@ -69,6 +77,15 @@ var PostItActions = {
 
     });
     console.log(message);
+  },
+  resetPassword: function resetPassword(email) {
+    // console.log(email);
+    _PostItDispatcher2.default.dispatch({
+      actionType: _PostItConstants2.default.RESET_PASSWORD,
+      email: email
+
+    });
+    console.log(email);
   },
   signOutUser: function signOutUser() {
     _PostItDispatcher2.default.dispatch({

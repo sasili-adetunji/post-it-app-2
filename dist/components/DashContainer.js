@@ -66,10 +66,9 @@ function getAppState() {
     success: _PostItStore2.default.getSuccess(),
     loggedInUser: _PostItStore2.default.getLoggedInUser(),
     registeredUser: _PostItStore2.default.getRegisteredUser(),
-    users: _PostItStore2.default.getUsersNotInGroup(),
     groups: _PostItStore2.default.getUserGroups(),
-    messages: _PostItStore2.default.getGroupMessages(),
-    selectedGroup: _PostItStore2.default.getSelectedGroup()
+    messages: _PostItStore2.default.getUserMessages(),
+    selectedGroup: _PostItStore2.default.getOpenedGroup()
   };
 }
 
@@ -117,10 +116,9 @@ var DashContainer = function (_React$Component) {
       success: _PostItStore2.default.getSuccess(),
       loggedInUser: _PostItStore2.default.getLoggedInUser(),
       registeredUser: _PostItStore2.default.getRegisteredUser(),
-      users: _PostItStore2.default.getUsersNotInGroup(),
       groups: _PostItStore2.default.getUserGroups(),
-      messages: _PostItStore2.default.getGroupMessages(),
-      selectedGroup: _PostItStore2.default.getSelectedGroup()
+      messages: _PostItStore2.default.getUserMessages(),
+      selectedGroup: _PostItStore2.default.getOpenedGroup()
 
     };
 
@@ -128,6 +126,11 @@ var DashContainer = function (_React$Component) {
   }
 
   _createClass(DashContainer, [{
+    key: '_onChange',
+    value: function _onChange() {
+      this.setState(getAppState());
+    }
+  }, {
     key: 'componentDidMount',
     value: function componentDidMount() {
       //console.log(this.state.loggedInUser);
@@ -158,11 +161,6 @@ var DashContainer = function (_React$Component) {
           _react2.default.createElement(_GroupList2.default, { groups: this.state.groups })
         )
       );
-    }
-  }, {
-    key: '_onChange',
-    value: function _onChange() {
-      this.setState(getAppState());
     }
   }]);
 

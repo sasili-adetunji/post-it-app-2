@@ -60,9 +60,9 @@ var Group = function (_React$Component) {
           _react2.default.createElement(
             _List.ListItem,
             {
-              href: '/#/dashboard/' + this.props.group
+              href: '/#/dashboard/' + this.props.group.groupId
             },
-            this.props.group
+            this.props.group.groupname
           )
         )
       );

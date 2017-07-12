@@ -94,7 +94,7 @@ const PostItStore = assign({}, EventEmitter.prototype, {
     return _userGroups;
   },
 
-  getUserpMessages() {
+  getUserMessages() {
     return _userMessages;
   },
   getSuccess() {

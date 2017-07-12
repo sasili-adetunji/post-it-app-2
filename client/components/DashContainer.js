@@ -18,10 +18,9 @@ function getAppState() {
       success: PostItStore.getSuccess(),
       loggedInUser: PostItStore.getLoggedInUser(),
       registeredUser: PostItStore.getRegisteredUser(),
-      users: PostItStore.getUsersNotInGroup(),
       groups: PostItStore.getUserGroups(),
-      messages: PostItStore.getGroupMessages(),
-      selectedGroup: PostItStore.getSelectedGroup()
+      messages: PostItStore.getUserMessages(),
+      selectedGroup: PostItStore.getOpenedGroup()
     };
 }
 
@@ -64,14 +63,16 @@ class DashContainer extends React.Component {
       success: PostItStore.getSuccess(),
       loggedInUser: PostItStore.getLoggedInUser(),
       registeredUser: PostItStore.getRegisteredUser(),
-      users: PostItStore.getUsersNotInGroup(),
       groups: PostItStore.getUserGroups(),
-      messages: PostItStore.getGroupMessages(),
-      selectedGroup: PostItStore.getSelectedGroup()
+      messages: PostItStore.getUserMessages(),
+      selectedGroup: PostItStore.getOpenedGroup()
 
   }
 
   }
+  _onChange() {
+     this.setState(getAppState());
+   };
 	
 componentDidMount(){
     //console.log(this.state.loggedInUser);
@@ -104,9 +105,7 @@ componentUnmount() {
       </div>
     );
 }
-  _onChange() {
-     this.setState(getAppState());
-   };
+  
 
 }
 export default DashContainer;

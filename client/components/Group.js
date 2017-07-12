@@ -24,9 +24,9 @@ class Group extends React.Component {
            <div>
       <MuiThemeProvider >
       <ListItem 
-        href={'/#/dashboard/' + this.props.group}
+        href={'/#/dashboard/' + this.props.group.groupId}
         >
-        {this.props.group}
+        {this.props.group.groupname}
       </ListItem>
   </MuiThemeProvider >
   </div>
