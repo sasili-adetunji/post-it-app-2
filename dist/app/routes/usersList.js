@@ -22,14 +22,22 @@ var usersList = function usersList(app, db) {
 
     _firebase2.default.auth().onAuthStateChanged(function (user) {
       if (user) {
-        var users = new Map();
-
-        var userRef = fb.ref('users').once('value', function (msg) {
+        var users = [];
+        var userRef = _firebase2.default.database().ref('users/').once('value', function (msg) {
           msg.forEach(function (snapshot) {
-            users.set(snapshot.key, snapshot.val());
+            var user = {
+              userId: snapshot.key,
+              username: snapshot.val().username
+            };
+            users.push(user);
           });
+        }).then(function () {
           res.send({
             users: users
+          });
+        }).catch(function (error) {
+          res.status(500).send({
+            message: 'Error occurred ' + error.message
           });
         });
       } else {

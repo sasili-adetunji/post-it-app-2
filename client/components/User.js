@@ -2,6 +2,7 @@ import React from 'react';
 import mui from 'material-ui';
 import API from '../Api';
 import { ListItem } from 'material-ui/List';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 
 
 
@@ -11,23 +12,21 @@ class User extends React.Component {
     super(props);
   }
 
-  onClick(){
-    API.getUsersNotInGroups(this.props.group);
-  }
-
   render(){
-    if(this.props.user.selected){
-      style.backgroundColor = '#f0f0f0';
-    }
+      console.log('user-------',this.props.user)
+
 
     return (
+      <div>
+      <MuiThemeProvider >
       <ListItem
-      href={'/#/dashboard/' + this.props.user.key}
-      key={this.props.user.key}
- >
+      href={'/#/dashboard/' + this.props.user.userId}
+      >
         {this.props.user.username}
 
       </ListItem>
+      </MuiThemeProvider>
+      </div>
     );
   }
 }

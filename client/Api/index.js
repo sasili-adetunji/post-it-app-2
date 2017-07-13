@@ -113,6 +113,18 @@ import PostItActions from '../actions/PostItActions';
    });
   },
 
+  getUsers() {
+    axios.get('user/users')
+   .then((response) => {
+     console.log(response);
+     PostItActions.receiveSuccess(response.message);
+     PostItActions.receiveUsers(response.data.users);
+   })
+   .catch((error) => {
+     PostItActions.receiveErrors(error.message);
+   });
+  },
+
   getUserMessages(group) {
     axios.get(`/users/${user.uid}/messages`)
     .then((response) => {

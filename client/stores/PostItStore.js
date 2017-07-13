@@ -6,6 +6,7 @@ import assign from 'object-assign';
 const _registeredUser = [];
 let _usersInGroup = [];
 let _usersNotInGroup = [];
+let _users = [];
 let _userGroups = [];
 let _userMessages = [];
 let _errors = '';
@@ -93,6 +94,10 @@ const PostItStore = assign({}, EventEmitter.prototype, {
   getUserGroups() {
     return _userGroups;
   },
+  getUsers() {
+    console.log('userlist store');
+    return _users;
+  },
 
   getUserMessages() {
     return _userMessages;
@@ -103,6 +108,9 @@ const PostItStore = assign({}, EventEmitter.prototype, {
 
   setUserGroups(groups) {
     _userGroups = groups;
+  },
+  setUsers(users) {
+    _users = users;
   },
 
   setUserMessages(messages) {

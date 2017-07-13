@@ -94,6 +94,14 @@ PostItDispatcher.register((action) => {
 
     PostItStore.emitChange();
     break;
+  case PostItConstants.RECEIVE_USERS:
+
+      console.log('storing users...');
+
+    PostItStore.setUsers(action.users);
+
+    PostItStore.emitChange();
+    break;
   case PostItConstants.RESET_PASSWORD:
 
     API.resetPassword(action.email);

@@ -62,36 +62,15 @@ var UserList = function (_React$Component) {
   function UserList(props) {
     _classCallCheck(this, UserList);
 
-    var _this = _possibleConstructorReturn(this, (UserList.__proto__ || Object.getPrototypeOf(UserList)).call(this, props));
-
-    _this.state = { users: null };
-    return _this;
+    return _possibleConstructorReturn(this, (UserList.__proto__ || Object.getPrototypeOf(UserList)).call(this, props));
   }
 
   _createClass(UserList, [{
-    key: 'componentDidMount',
-    value: function componentDidMount() {
-
-      this.state.selectedUser = this.props.params.user;
-      _PostItStore2.default.getRegisteredUser(this.state.selectedUser);
-    }
-  }, {
-    key: 'componentWillReceiveProps',
-    value: function componentWillReceiveProps(nextProps) {
-      if (this.state.selectedUser != nextProps.params.user) {
-
-        this.state.selectedUser = nextProps.params.user;
-        _PostItStore2.default.getRegisteredUser(this.state.selectedUser);
-      }
-    }
-  }, {
     key: 'render',
     value: function render() {
-      var _this2 = this;
-
       if (!this.props.users) {
         return _react2.default.createElement(
-          Card,
+          _Card.Card,
           { style: {
               flexGrow: 1
             } },
@@ -107,20 +86,23 @@ var UserList = function (_React$Component) {
           })
         );
       }
-
-      var userNodes = this.props.users.map(function (k, i) {
-        var user = _this2.props.users[k];
+      var userNodes = this.props.users.map(function (user, i) {
         return _react2.default.createElement(_User2.default, { user: user, key: i });
       });
+      console.log('UserList------', this.props.users);
 
       return _react2.default.createElement(
         'div',
         null,
         _react2.default.createElement(
-          _List.List,
+          _MuiThemeProvider2.default,
           null,
-          _react2.default.createElement(_Card.CardTitle, { title: 'User List' }),
-          userNodes
+          _react2.default.createElement(
+            _List.List,
+            null,
+            _react2.default.createElement(_Card.CardTitle, { title: 'User List' }),
+            userNodes
+          )
         )
       );
     }

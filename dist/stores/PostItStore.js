@@ -15,6 +15,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var _registeredUser = [];
 var _usersInGroup = [];
 var _usersNotInGroup = [];
+var _users = [];
 var _userGroups = [];
 var _userMessages = [];
 var _errors = '';
@@ -83,6 +84,10 @@ var PostItStore = (0, _objectAssign2.default)({}, _events.EventEmitter.prototype
   getUserGroups: function getUserGroups() {
     return _userGroups;
   },
+  getUsers: function getUsers() {
+    console.log('userlist store');
+    return _users;
+  },
   getUserMessages: function getUserMessages() {
     return _userMessages;
   },
@@ -91,6 +96,9 @@ var PostItStore = (0, _objectAssign2.default)({}, _events.EventEmitter.prototype
   },
   setUserGroups: function setUserGroups(groups) {
     _userGroups = groups;
+  },
+  setUsers: function setUsers(users) {
+    _users = users;
   },
   setUserMessages: function setUserMessages(messages) {
     _groupMessages = messages;

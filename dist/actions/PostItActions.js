@@ -107,6 +107,13 @@ var PostItActions = {
 
     });
   },
+  receiveUsers: function receiveUsers(users) {
+    _PostItDispatcher2.default.dispatch({
+      actionType: _PostItConstants2.default.RECEIVE_USERS,
+      users: users
+
+    });
+  },
   receiveAuthenticatedUser: function receiveAuthenticatedUser(user) {
     _PostItDispatcher2.default.dispatch({
       actionType: _PostItConstants2.default.RECEIVE_AUTHENTICATED_USER,

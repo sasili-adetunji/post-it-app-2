@@ -1,6 +1,6 @@
 import React from 'react';
 import trim from 'trim';
-import {CardHeader, CardTitle} from 'material-ui/Card';
+import {CardHeader, CardTitle, Card } from 'material-ui/Card';
 import  TextField  from 'material-ui/TextField';
 import  { CircularProgress }  from 'material-ui/CircularProgress';
 
@@ -17,22 +17,8 @@ import { List } from 'material-ui/List';
 class UserList extends React.Component {
   constructor(props){
     super(props);
-    this.state = {users: null};
   }
-  componentDidMount(){
-
-    this.state.selectedUser = this.props.params.user;
-    PostItStore.getRegisteredUser(this.state.selectedUser);
-  }
-
-  componentWillReceiveProps(nextProps){
-    if(this.state.selectedUser != nextProps.params.user) {
-
-      this.state.selectedUser = nextProps.params.user;
-      PostItStore.getRegisteredUser(this.state.selectedUser);
-    }
-  }
-
+  
 render(){
     if(!this.props.users){
       return (
@@ -52,22 +38,24 @@ render(){
         </Card>
       );
     }
-
-    var userNodes = this.props.users
-      .map((k, i)=> {
-        let user = this.props.users[k];
+var userNodes = this.props.users.map((user, i)=> {
         return (
-          <User user={user} key={i}/>
+          <User user={user} key={i} />
         );
       })
+              console.log('UserList------', this.props.users)
+
+
 
 
     return ( 
       <div> 
+      <MuiThemeProvider>
        <List>
        <CardTitle title="User List" />
           {userNodes}
         </List>
+        </MuiThemeProvider>
         </div>
         )
       }

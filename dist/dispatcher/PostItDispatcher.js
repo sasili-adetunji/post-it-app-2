@@ -110,6 +110,14 @@ PostItDispatcher.register(function (action) {
 
             _PostItStore2.default.emitChange();
             break;
+        case _PostItConstants2.default.RECEIVE_USERS:
+
+            console.log('storing users...');
+
+            _PostItStore2.default.setUsers(action.users);
+
+            _PostItStore2.default.emitChange();
+            break;
         case _PostItConstants2.default.RESET_PASSWORD:
 
             _Api2.default.resetPassword(action.email);

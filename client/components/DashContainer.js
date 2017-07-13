@@ -20,7 +20,9 @@ function getAppState() {
       registeredUser: PostItStore.getRegisteredUser(),
       groups: PostItStore.getUserGroups(),
       messages: PostItStore.getUserMessages(),
-      selectedGroup: PostItStore.getOpenedGroup()
+      selectedGroup: PostItStore.getOpenedGroup(),
+      users: PostItStore.getUsers()
+
     };
 }
 
@@ -65,7 +67,8 @@ class DashContainer extends React.Component {
       registeredUser: PostItStore.getRegisteredUser(),
       groups: PostItStore.getUserGroups(),
       messages: PostItStore.getUserMessages(),
-      selectedGroup: PostItStore.getOpenedGroup()
+      selectedGroup: PostItStore.getOpenedGroup(),
+      users: PostItStore.getUsers()
 
   }
 
@@ -77,6 +80,8 @@ class DashContainer extends React.Component {
 componentDidMount(){
     //console.log(this.state.loggedInUser);
     API.getUserGroups();
+    API.getUsers();
+
     PostItStore.addChangeListener(this._onChange.bind(this));
   }
 
@@ -100,6 +105,7 @@ componentUnmount() {
     <CreateGroup />
     <AddMember />
    <GroupList groups = {this.state.groups} />
+   <UserList users = {this.state.users} />
     
     </GridList>
       </div>

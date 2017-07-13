@@ -107,7 +107,13 @@ signOutUser() {
 
     });
   },
+receiveUsers(users) {
+    PostItDispatcher.dispatch({
+      actionType: PostItConstants.RECEIVE_USERS,
+      users
 
+    });
+  },
   receiveAuthenticatedUser(user) {
     PostItDispatcher.dispatch({
       actionType: PostItConstants.RECEIVE_AUTHENTICATED_USER,

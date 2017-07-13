@@ -100,6 +100,15 @@ module.exports = {
       _PostItActions2.default.receiveErrors(error.message);
     });
   },
+  getUsers: function getUsers() {
+    _axios2.default.get('user/users').then(function (response) {
+      console.log(response);
+      _PostItActions2.default.receiveSuccess(response.message);
+      _PostItActions2.default.receiveUsers(response.data.users);
+    }).catch(function (error) {
+      _PostItActions2.default.receiveErrors(error.message);
+    });
+  },
   getUserMessages: function getUserMessages(group) {
     _axios2.default.get('/users/' + user.uid + '/messages').then(function (response) {
       _PostItActions2.default.receiveSuccess(response.message);
