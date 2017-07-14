@@ -81,9 +81,9 @@ PostItDispatcher.register((action) => {
     PostItStore.emitChange();
     break;
 
-  case PostItConstants.RECEIVE_USER_MESSAGES:
+  case PostItConstants.RECEIVE_MESSAGES:
  
-    PostItStore.setUserMessages(action.messages);
+    PostItStore.setMessages(action.messages);
   
     PostItStore.emitChange();
     break;

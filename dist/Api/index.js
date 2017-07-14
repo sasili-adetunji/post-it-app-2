@@ -109,10 +109,10 @@ module.exports = {
       _PostItActions2.default.receiveErrors(error.message);
     });
   },
-  getUserMessages: function getUserMessages(group) {
-    _axios2.default.get('/users/' + user.uid + '/messages').then(function (response) {
+  getMessages: function getMessages() {
+    _axios2.default.get('/user/message').then(function (response) {
       _PostItActions2.default.receiveSuccess(response.message);
-      _PostItActions2.default.receiveGroupMessages(response.data.groupMessages);
+      _PostItActions2.default.receiveMessages(response.data.messages);
     }).catch(function (error) {
       _PostItActions2.default.receiveErrors(error.message);
     });

@@ -9,24 +9,22 @@ const groupList = (app, db) => {
 	app.get('/user/message', (req, res) => {
 	firebase.auth().onAuthStateChanged((user) => {
     if (user) {
-    	const messageRef = fb.ref(`users/${user.uid}/groups/${request.params.groupId}/messages/`);
+    	const messageRef = fb.ref(`users/${user.uid}/groups/${req.params.groupId}/messages/`);
       	const messages = [];
 
  		messageRef.orderByKey().once('value', (snapshot) => {
         snapshot.forEach((childSnapShot) => {
           const message = {
-            id: childSnapShot.key,
-            message: childSnapShot.val().message,
-            author: childSnapShot.val().author,
-            date: childSnapShot.val().date,
-            priority: childSnapShot.val().priority,
+            messageId: childSnapShot.key,
+            messageText: childSnapShot.val().message
           };
+            messages.push(message);
+
           });
-          messages.push(message);
         })
  		.then(() => {
         res.send({
-          messages,
+          messages
         });
       }) 
  		.catch((error) => {

@@ -99,7 +99,7 @@ const PostItStore = assign({}, EventEmitter.prototype, {
     return _users;
   },
 
-  getUserMessages() {
+  getMessages() {
     return _userMessages;
   },
   getSuccess() {
@@ -113,8 +113,8 @@ const PostItStore = assign({}, EventEmitter.prototype, {
     _users = users;
   },
 
-  setUserMessages(messages) {
-    _groupMessages = messages;
+  setMessages(messages) {
+    _userMessages = messages;
   },
 
   setOpenedGroup(group) {

@@ -125,11 +125,11 @@ import PostItActions from '../actions/PostItActions';
    });
   },
 
-  getUserMessages(group) {
-    axios.get(`/users/${user.uid}/messages`)
+  getMessages() {
+    axios.get(`/user/message`)
     .then((response) => {
       PostItActions.receiveSuccess(response.message);
-      PostItActions.receiveGroupMessages(response.data.groupMessages);
+      PostItActions.receiveMessages(response.data.messages);
     })
    .catch((error) => {
      PostItActions.receiveErrors(error.message);

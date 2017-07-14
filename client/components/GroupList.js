@@ -27,7 +27,6 @@ class GroupList extends React.Component {
 
 
 render(){
-  console.log(this.props.groups)
     if(!this.props.groups){
       return (
         <div>

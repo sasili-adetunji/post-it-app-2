@@ -72,7 +72,6 @@ var GroupList = function (_React$Component) {
   _createClass(GroupList, [{
     key: 'render',
     value: function render() {
-      console.log(this.props.groups);
       if (!this.props.groups) {
         return _react2.default.createElement(
           'div',

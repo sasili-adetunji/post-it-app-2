@@ -93,9 +93,9 @@ var PostItActions = {
 
     });
   },
-  receiveUserMessages: function receiveUserMessages(messages) {
+  receiveMessages: function receiveMessages(messages) {
     _PostItDispatcher2.default.dispatch({
-      actionType: _PostItConstants2.default.RECEIVE_USER_MESSAGES,
+      actionType: _PostItConstants2.default.RECEIVE_MESSAGES,
       messages: messages
 
     });

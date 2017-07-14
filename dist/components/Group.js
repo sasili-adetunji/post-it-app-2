@@ -24,6 +24,8 @@ var _MuiThemeProvider = require('material-ui/styles/MuiThemeProvider');
 
 var _MuiThemeProvider2 = _interopRequireDefault(_MuiThemeProvider);
 
+var _Table = require('material-ui/Table');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -38,19 +40,22 @@ var Group = function (_React$Component) {
   function Group(props) {
     _classCallCheck(this, Group);
 
-    return _possibleConstructorReturn(this, (Group.__proto__ || Object.getPrototypeOf(Group)).call(this, props));
+    var _this = _possibleConstructorReturn(this, (Group.__proto__ || Object.getPrototypeOf(Group)).call(this, props));
+
+    _this.handleClick = _this.handleClick.bind(_this);
+
+    return _this;
   }
 
   _createClass(Group, [{
-    key: 'onClick',
-    value: function onClick() {
-      _Api2.default.getUserGroups(this.props);
+    key: 'handleClick',
+    value: function handleClick() {
+      _Api2.default.getMessages(this.props.group.groupId);
+      console.log('my messages');
     }
   }, {
     key: 'render',
     value: function render() {
-      console.log('group-------', this.props.group);
-
       return _react2.default.createElement(
         'div',
         null,
@@ -58,11 +63,30 @@ var Group = function (_React$Component) {
           _MuiThemeProvider2.default,
           null,
           _react2.default.createElement(
-            _List.ListItem,
-            {
-              href: '/#/dashboard/' + this.props.group.groupId
-            },
-            this.props.group.groupname
+            _Table.Table,
+            null,
+            _react2.default.createElement(
+              _Table.TableBody,
+              null,
+              _react2.default.createElement(
+                _Table.TableRow,
+                null,
+                _react2.default.createElement(
+                  _Table.TableRowColumn,
+                  null,
+                  ' ',
+                  this.props.group.groupId,
+                  ' '
+                ),
+                _react2.default.createElement(
+                  _Table.TableRowColumn,
+                  null,
+                  ' ',
+                  this.props.group.groupname,
+                  ' '
+                )
+              )
+            )
           )
         )
       );

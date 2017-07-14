@@ -97,9 +97,9 @@ PostItDispatcher.register(function (action) {
             _PostItStore2.default.emitChange();
             break;
 
-        case _PostItConstants2.default.RECEIVE_USER_MESSAGES:
+        case _PostItConstants2.default.RECEIVE_MESSAGES:
 
-            _PostItStore2.default.setUserMessages(action.messages);
+            _PostItStore2.default.setMessages(action.messages);
 
             _PostItStore2.default.emitChange();
             break;

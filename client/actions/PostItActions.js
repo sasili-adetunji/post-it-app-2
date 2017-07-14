@@ -92,9 +92,9 @@ signOutUser() {
 
     });
   },
-  receiveUserMessages(messages) {
+  receiveMessages(messages) {
     PostItDispatcher.dispatch({
-      actionType: PostItConstants.RECEIVE_USER_MESSAGES,
+      actionType: PostItConstants.RECEIVE_MESSAGES,
       messages
 
     });

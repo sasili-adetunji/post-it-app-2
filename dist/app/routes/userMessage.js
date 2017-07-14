@@ -21,20 +21,17 @@ var groupList = function groupList(app, db) {
   app.get('/user/message', function (req, res) {
     _firebase2.default.auth().onAuthStateChanged(function (user) {
       if (user) {
-        var messageRef = fb.ref('users/' + user.uid + '/groups/' + request.params.groupId + '/messages/');
+        var messageRef = fb.ref('users/' + user.uid + '/groups/' + req.params.groupId + '/messages/');
         var messages = [];
 
         messageRef.orderByKey().once('value', function (snapshot) {
           snapshot.forEach(function (childSnapShot) {
             var message = {
-              id: childSnapShot.key,
-              message: childSnapShot.val().message,
-              author: childSnapShot.val().author,
-              date: childSnapShot.val().date,
-              priority: childSnapShot.val().priority
+              messageId: childSnapShot.key,
+              messageText: childSnapShot.val().message
             };
+            messages.push(message);
           });
-          messages.push(message);
         }).then(function () {
           res.send({
             messages: messages

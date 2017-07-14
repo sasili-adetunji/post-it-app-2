@@ -88,7 +88,7 @@ var PostItStore = (0, _objectAssign2.default)({}, _events.EventEmitter.prototype
     console.log('userlist store');
     return _users;
   },
-  getUserMessages: function getUserMessages() {
+  getMessages: function getMessages() {
     return _userMessages;
   },
   getSuccess: function getSuccess() {
@@ -100,8 +100,8 @@ var PostItStore = (0, _objectAssign2.default)({}, _events.EventEmitter.prototype
   setUsers: function setUsers(users) {
     _users = users;
   },
-  setUserMessages: function setUserMessages(messages) {
-    _groupMessages = messages;
+  setMessages: function setMessages(messages) {
+    _userMessages = messages;
   },
   setOpenedGroup: function setOpenedGroup(group) {
     _selectedGroup.pop();

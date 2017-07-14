@@ -67,9 +67,9 @@ function getAppState() {
     loggedInUser: _PostItStore2.default.getLoggedInUser(),
     registeredUser: _PostItStore2.default.getRegisteredUser(),
     groups: _PostItStore2.default.getUserGroups(),
-    messages: _PostItStore2.default.getUserMessages(),
     selectedGroup: _PostItStore2.default.getOpenedGroup(),
-    users: _PostItStore2.default.getUsers()
+    users: _PostItStore2.default.getUsers(),
+    messages: _PostItStore2.default.getMessages()
 
   };
 }
@@ -119,9 +119,9 @@ var DashContainer = function (_React$Component) {
       loggedInUser: _PostItStore2.default.getLoggedInUser(),
       registeredUser: _PostItStore2.default.getRegisteredUser(),
       groups: _PostItStore2.default.getUserGroups(),
-      messages: _PostItStore2.default.getUserMessages(),
       selectedGroup: _PostItStore2.default.getOpenedGroup(),
-      users: _PostItStore2.default.getUsers()
+      users: _PostItStore2.default.getUsers(),
+      messages: _PostItStore2.default.getMessages()
 
     };
 
@@ -139,6 +139,7 @@ var DashContainer = function (_React$Component) {
       //console.log(this.state.loggedInUser);
       _Api2.default.getUserGroups();
       _Api2.default.getUsers();
+      _Api2.default.getMessages();
 
       _PostItStore2.default.addChangeListener(this._onChange.bind(this));
     }
@@ -157,7 +158,9 @@ var DashContainer = function (_React$Component) {
         _react2.default.createElement(
           _GridList.GridList,
           {
-            cellHeight: 180,
+            cellHeight: 'auto',
+            cols: 2,
+            padding: 4,
             style: style.gridList
           },
           _react2.default.createElement(_MessageBox2.default, null),
