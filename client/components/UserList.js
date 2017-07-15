@@ -50,12 +50,11 @@ var userNodes = this.props.users.map((user, i)=> {
 
     return ( 
       <div> 
-      <MuiThemeProvider>
        <List>
-       <CardTitle title="User List" />
+              <CardTitle title="User List" />
+
           {userNodes}
         </List>
-        </MuiThemeProvider>
         </div>
         )
       }

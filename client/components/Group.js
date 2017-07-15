@@ -2,6 +2,7 @@ import React from 'react';
 import mui from 'material-ui';
 import API from '../Api';
 import { ListItem } from 'material-ui/List';
+import AddMember from './AddMember';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import {
   Table,
@@ -11,9 +12,6 @@ import {
   TableRow,
   TableRowColumn,
 } from 'material-ui/Table';
-
-
-
 
 class Group extends React.Component {
   constructor(props){
@@ -27,11 +25,11 @@ class Group extends React.Component {
   console.log('my messages')
  }
 
+
   render(){
       return (
 <div>
-  <MuiThemeProvider>
-    <Table>
+    <Table onCellClick={this.props.onCellClick}>
       <TableBody>
         <TableRow>
           <TableRowColumn> {this.props.group.groupId} </TableRowColumn>
@@ -39,7 +37,6 @@ class Group extends React.Component {
         </TableRow>
       </TableBody>
     </Table>
-  </MuiThemeProvider>
 </div>
     );
   }

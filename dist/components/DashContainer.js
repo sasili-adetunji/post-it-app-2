@@ -154,20 +154,30 @@ var DashContainer = function (_React$Component) {
 
       return _react2.default.createElement(
         'div',
-        { style: style.root },
+        null,
         _react2.default.createElement(
-          _GridList.GridList,
-          {
-            cellHeight: 'auto',
-            cols: 2,
-            padding: 4,
-            style: style.gridList
-          },
-          _react2.default.createElement(_MessageBox2.default, null),
-          _react2.default.createElement(_CreateGroup2.default, null),
-          _react2.default.createElement(_AddMember2.default, null),
+          'div',
+          { className: 'col-sm-4' },
+          _react2.default.createElement(_UserList2.default, { users: this.state.users }),
+          ' '
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'col-sm-4' },
           _react2.default.createElement(_GroupList2.default, { groups: this.state.groups }),
-          _react2.default.createElement(_UserList2.default, { users: this.state.users })
+          ' '
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'col-sm-4' },
+          _react2.default.createElement(_CreateGroup2.default, null),
+          ' '
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'col-sm-4' },
+          _react2.default.createElement(_MessageBox2.default, null),
+          ' '
         )
       );
     }

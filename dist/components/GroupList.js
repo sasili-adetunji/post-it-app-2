@@ -46,6 +46,12 @@ var _PostItStore = require('../stores/PostItStore');
 
 var _PostItStore2 = _interopRequireDefault(_PostItStore);
 
+var _AddMember = require('./AddMember');
+
+var _AddMember2 = _interopRequireDefault(_AddMember);
+
+var _Table = require('material-ui/Table');
+
 var _Group = require('./Group');
 
 var _Group2 = _interopRequireDefault(_Group);
@@ -66,41 +72,53 @@ var GroupList = function (_React$Component) {
   function GroupList(props) {
     _classCallCheck(this, GroupList);
 
-    return _possibleConstructorReturn(this, (GroupList.__proto__ || Object.getPrototypeOf(GroupList)).call(this, props));
+    var _this = _possibleConstructorReturn(this, (GroupList.__proto__ || Object.getPrototypeOf(GroupList)).call(this, props));
+
+    _this.state = {
+      showAdd: false
+    };
+
+    _this.handleCellClick = _this.handleCellClick.bind(_this);
+    return _this;
   }
 
   _createClass(GroupList, [{
+    key: 'handleCellClick',
+    value: function handleCellClick(row, column, event) {
+      this.setState({
+        showAdd: true
+      });
+    }
+  }, {
     key: 'render',
     value: function render() {
+      var _this2 = this;
+
       if (!this.props.groups) {
         return _react2.default.createElement(
           'div',
           null,
           _react2.default.createElement(
-            _MuiThemeProvider2.default,
-            null,
-            _react2.default.createElement(
-              _Card.Card,
-              { style: {
-                  flexGrow: 1
-                } },
-              _react2.default.createElement(_CircularProgress.CircularProgress, {
-                mode: 'indeterminate',
-                style: {
-                  paddingTop: '20px',
-                  paddingBottom: '20px',
-                  margin: '0 auto',
-                  display: 'block',
-                  width: '60px'
-                }
-              })
-            )
+            _Card.Card,
+            { style: {
+                flexGrow: 1
+              } },
+            _react2.default.createElement(_CircularProgress.CircularProgress, {
+              mode: 'indeterminate',
+              style: {
+                paddingTop: '20px',
+                paddingBottom: '20px',
+                margin: '0 auto',
+                display: 'block',
+                width: '60px'
+              }
+            })
           )
         );
       }
 
       var groupNodes = this.props.groups.map(function (group, i) {
-        return _react2.default.createElement(_Group2.default, { group: group, key: i });
+        return _react2.default.createElement(_Group2.default, { group: group, key: i, onCellClick: _this2.handleCellClick });
       });
       console.log('GroupList------', this.props.groups);
 
@@ -108,15 +126,12 @@ var GroupList = function (_React$Component) {
         'div',
         null,
         _react2.default.createElement(
-          _MuiThemeProvider2.default,
+          _List.List,
           null,
-          _react2.default.createElement(
-            _List.List,
-            null,
-            _react2.default.createElement(_Card.CardTitle, { title: 'Group List' }),
-            groupNodes
-          )
-        )
+          _react2.default.createElement(_Card.CardTitle, { title: 'Group List' }),
+          groupNodes
+        ),
+        this.state.showAdd ? _react2.default.createElement(_AddMember2.default, null) : null
       );
     }
   }]);

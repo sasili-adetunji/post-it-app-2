@@ -50,31 +50,27 @@ var User = function (_React$Component) {
         'div',
         null,
         _react2.default.createElement(
-          _MuiThemeProvider2.default,
+          _Table.Table,
           null,
           _react2.default.createElement(
-            _Table.Table,
+            _Table.TableBody,
             null,
             _react2.default.createElement(
-              _Table.TableBody,
+              _Table.TableRow,
               null,
               _react2.default.createElement(
-                _Table.TableRow,
+                _Table.TableRowColumn,
                 null,
-                _react2.default.createElement(
-                  _Table.TableRowColumn,
-                  null,
-                  ' ',
-                  this.props.user.userId,
-                  ' '
-                ),
-                _react2.default.createElement(
-                  _Table.TableRowColumn,
-                  null,
-                  ' ',
-                  this.props.user.username,
-                  ' '
-                )
+                ' ',
+                this.props.user.userId,
+                ' '
+              ),
+              _react2.default.createElement(
+                _Table.TableRowColumn,
+                null,
+                ' ',
+                this.props.user.username,
+                ' '
               )
             )
           )

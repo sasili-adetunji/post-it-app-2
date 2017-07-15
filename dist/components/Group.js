@@ -20,6 +20,10 @@ var _Api2 = _interopRequireDefault(_Api);
 
 var _List = require('material-ui/List');
 
+var _AddMember = require('./AddMember');
+
+var _AddMember2 = _interopRequireDefault(_AddMember);
+
 var _MuiThemeProvider = require('material-ui/styles/MuiThemeProvider');
 
 var _MuiThemeProvider2 = _interopRequireDefault(_MuiThemeProvider);
@@ -60,31 +64,27 @@ var Group = function (_React$Component) {
         'div',
         null,
         _react2.default.createElement(
-          _MuiThemeProvider2.default,
-          null,
+          _Table.Table,
+          { onCellClick: this.props.onCellClick },
           _react2.default.createElement(
-            _Table.Table,
+            _Table.TableBody,
             null,
             _react2.default.createElement(
-              _Table.TableBody,
+              _Table.TableRow,
               null,
               _react2.default.createElement(
-                _Table.TableRow,
+                _Table.TableRowColumn,
                 null,
-                _react2.default.createElement(
-                  _Table.TableRowColumn,
-                  null,
-                  ' ',
-                  this.props.group.groupId,
-                  ' '
-                ),
-                _react2.default.createElement(
-                  _Table.TableRowColumn,
-                  null,
-                  ' ',
-                  this.props.group.groupname,
-                  ' '
-                )
+                ' ',
+                this.props.group.groupId,
+                ' '
+              ),
+              _react2.default.createElement(
+                _Table.TableRowColumn,
+                null,
+                ' ',
+                this.props.group.groupname,
+                ' '
               )
             )
           )

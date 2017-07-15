@@ -99,20 +99,16 @@ componentUnmount() {
 
             return (
         
-         <div style={style.root}>
-    		<GridList
-      		cellHeight={'auto'}
-          cols={2}
-          padding={4}
-      		style={style.gridList}
-    >
-    <MessageBox />
-    <CreateGroup />
-    <AddMember />
-   <GroupList groups = {this.state.groups} />
-   <UserList users = {this.state.users} />
-   </GridList>
-      </div>
+        <div>
+          <div className= 'col-sm-4'>
+            <UserList users = {this.state.users} /> </div>
+          <div className= 'col-sm-4'>
+            <GroupList groups = {this.state.groups} /> </div>
+          <div className= 'col-sm-4'>
+            <CreateGroup /> </div>
+          <div className= 'col-sm-4'>
+            <MessageBox /> </div>
+        </div>
     );
 }
   

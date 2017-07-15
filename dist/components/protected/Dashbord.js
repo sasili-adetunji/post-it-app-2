@@ -90,14 +90,7 @@ var Dashboard = function (_React$Component) {
         value: function render() {
             return _react2.default.createElement(
                 'div',
-                { style: {
-                        display: 'flex',
-                        flexFlow: 'row wrap',
-                        maxWidth: 1200,
-                        width: '100%',
-                        margin: '30px auto 30px'
-
-                    } },
+                { className: 'row' },
                 _react2.default.createElement(
                     _MuiThemeProvider2.default,
                     null,

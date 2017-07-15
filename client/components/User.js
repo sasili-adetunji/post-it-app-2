@@ -21,7 +21,6 @@ class User extends React.Component {
   render(){
     return (
   <div>
-    <MuiThemeProvider >
       <Table>
         <TableBody> 
           <TableRow>
@@ -30,7 +29,6 @@ class User extends React.Component {
           </TableRow>
         </TableBody>
       </Table>
-    </MuiThemeProvider>
   </div>
     );
   }

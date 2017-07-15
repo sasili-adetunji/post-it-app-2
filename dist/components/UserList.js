@@ -95,14 +95,10 @@ var UserList = function (_React$Component) {
         'div',
         null,
         _react2.default.createElement(
-          _MuiThemeProvider2.default,
+          _List.List,
           null,
-          _react2.default.createElement(
-            _List.List,
-            null,
-            _react2.default.createElement(_Card.CardTitle, { title: 'User List' }),
-            userNodes
-          )
+          _react2.default.createElement(_Card.CardTitle, { title: 'User List' }),
+          userNodes
         )
       );
     }

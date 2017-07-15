@@ -35,14 +35,7 @@ class Dashboard extends React.Component {
     render() {
       return (
 
-          <div style={{
-            display: 'flex',
-            flexFlow: 'row wrap',
-            maxWidth: 1200,
-            width: '100%',
-            margin: '30px auto 30px'
-      
-      }}>
+          <div className='row'>
       <MuiThemeProvider>
         <DashContainer />
       </MuiThemeProvider>

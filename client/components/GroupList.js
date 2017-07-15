@@ -9,20 +9,35 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import Paper from 'material-ui/Paper';
 import PostItActions from '../actions/PostItActions';
 import PostItStore from '../stores/PostItStore';
+import AddMember from './AddMember';
+import {
+  Table,
+  TableBody,
+  TableHeader,
+  TableHeaderColumn,
+  TableRow,
+  TableRowColumn,
+} from 'material-ui/Table';
 
 import Group from './Group';
 import { List } from 'material-ui/List';
 
 
 
-
-
-
-
 class GroupList extends React.Component {
   constructor(props){
     super(props);
-   
+    this.state ={
+      showAdd: false
+    }
+
+this.handleCellClick = this.handleCellClick.bind(this);
+}
+
+handleCellClick (row,column,event){
+this.setState({
+  showAdd: true
+  })
 }
 
 
@@ -30,7 +45,6 @@ render(){
     if(!this.props.groups){
       return (
         <div>
-  <MuiThemeProvider >
 
         <Card style={{
           flexGrow: 1
@@ -46,8 +60,6 @@ render(){
             }}
           />
         </Card>
-        </MuiThemeProvider>
-
         </div>
       );
     }
@@ -55,7 +67,7 @@ render(){
     
     var groupNodes = this.props.groups.map((group, i)=> {
         return (
-          <Group group={group} key={i} />
+          <Group group={group} key={i} onCellClick= {this.handleCellClick}/>
         );
       })
               console.log('GroupList------', this.props.groups)
@@ -64,14 +76,14 @@ render(){
 
     return ( 
       <div> 
-      <MuiThemeProvider>
 
        <List >
        <CardTitle title="Group List" />
           {groupNodes}
         </List>
-                </MuiThemeProvider>
-
+        {this.state.showAdd ? 
+        <AddMember /> : null
+      }
         </div>
         )
       }
