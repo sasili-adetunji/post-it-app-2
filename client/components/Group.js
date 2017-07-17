@@ -1,6 +1,8 @@
 import React from 'react';
 import mui from 'material-ui';
 import API from '../Api';
+import Toggle from 'material-ui/Toggle';
+
 import { ListItem } from 'material-ui/List';
 import AddMember from './AddMember';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
@@ -16,17 +18,10 @@ import {
 class Group extends React.Component {
   constructor(props){
     super(props);
-    this.handleClick = this.handleClick.bind(this);
-
   }
 
- handleClick (){
-  API.getMessages(this.props.group.groupId)
-  console.log('my messages')
- }
-
-
-  render(){
+  render()
+    {
       return (
 <div>
     <Table onCellClick={this.props.onCellClick}>

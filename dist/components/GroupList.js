@@ -10,21 +10,15 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var _trim = require('trim');
-
-var _trim2 = _interopRequireDefault(_trim);
-
 var _Card = require('material-ui/Card');
 
-var _TextField = require('material-ui/TextField');
+var _Toggle = require('material-ui/Toggle');
 
-var _TextField2 = _interopRequireDefault(_TextField);
+var _Toggle2 = _interopRequireDefault(_Toggle);
 
-var _CircularProgress = require('material-ui/CircularProgress');
+var _PostItStore = require('../stores/PostItStore');
 
-var _lodash = require('lodash');
-
-var _lodash2 = _interopRequireDefault(_lodash);
+var _PostItStore2 = _interopRequireDefault(_PostItStore);
 
 var _RaisedButton = require('material-ui/RaisedButton');
 
@@ -42,15 +36,17 @@ var _PostItActions = require('../actions/PostItActions');
 
 var _PostItActions2 = _interopRequireDefault(_PostItActions);
 
-var _PostItStore = require('../stores/PostItStore');
-
-var _PostItStore2 = _interopRequireDefault(_PostItStore);
-
 var _AddMember = require('./AddMember');
 
 var _AddMember2 = _interopRequireDefault(_AddMember);
 
-var _Table = require('material-ui/Table');
+var _CreateGroup = require('./CreateGroup');
+
+var _CreateGroup2 = _interopRequireDefault(_CreateGroup);
+
+var _MessageBox = require('./MessageBox');
+
+var _MessageBox2 = _interopRequireDefault(_MessageBox);
 
 var _Group = require('./Group');
 
@@ -75,53 +71,47 @@ var GroupList = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, (GroupList.__proto__ || Object.getPrototypeOf(GroupList)).call(this, props));
 
     _this.state = {
-      showAdd: false
+      toggledAdd: false,
+      showAdd: false,
+      showCreate: false,
+      showMessage: false,
+      toggledCreate: false,
+      toggledMessage: false
     };
+    _this.handleToggleAdd = _this.handleToggleAdd.bind(_this);
+    _this.handleToggleCreate = _this.handleToggleCreate.bind(_this);
+    _this.handleToggleMessage = _this.handleToggleMessage.bind(_this);
 
-    _this.handleCellClick = _this.handleCellClick.bind(_this);
     return _this;
   }
 
   _createClass(GroupList, [{
-    key: 'handleCellClick',
-    value: function handleCellClick(row, column, event) {
+    key: 'handleToggleAdd',
+    value: function handleToggleAdd() {
       this.setState({
-        showAdd: true
+        toggledAdd: !this.state.toggledAdd
+      });
+    }
+  }, {
+    key: 'handleToggleCreate',
+    value: function handleToggleCreate() {
+      this.setState({
+        toggledCreate: !this.state.toggledCreate
+      });
+    }
+  }, {
+    key: 'handleToggleMessage',
+    value: function handleToggleMessage() {
+      this.setState({
+        toggledMessage: !this.state.toggledMessage
       });
     }
   }, {
     key: 'render',
     value: function render() {
-      var _this2 = this;
-
-      if (!this.props.groups) {
-        return _react2.default.createElement(
-          'div',
-          null,
-          _react2.default.createElement(
-            _Card.Card,
-            { style: {
-                flexGrow: 1
-              } },
-            _react2.default.createElement(_CircularProgress.CircularProgress, {
-              mode: 'indeterminate',
-              style: {
-                paddingTop: '20px',
-                paddingBottom: '20px',
-                margin: '0 auto',
-                display: 'block',
-                width: '60px'
-              }
-            })
-          )
-        );
-      }
-
       var groupNodes = this.props.groups.map(function (group, i) {
-        return _react2.default.createElement(_Group2.default, { group: group, key: i, onCellClick: _this2.handleCellClick });
+        return _react2.default.createElement(_Group2.default, { group: group, key: i });
       });
-      console.log('GroupList------', this.props.groups);
-
       return _react2.default.createElement(
         'div',
         null,
@@ -131,7 +121,39 @@ var GroupList = function (_React$Component) {
           _react2.default.createElement(_Card.CardTitle, { title: 'Group List' }),
           groupNodes
         ),
-        this.state.showAdd ? _react2.default.createElement(_AddMember2.default, null) : null
+        _react2.default.createElement(
+          'div',
+          null,
+          _react2.default.createElement(
+            'h3',
+            null,
+            'App Properties'
+          ),
+          _react2.default.createElement(_Toggle2.default, {
+            name: 'addMember',
+            label: 'Add Member',
+            defaultToggled: this.state.toggledAdd,
+            onToggle: this.handleToggleAdd
+          }),
+          _react2.default.createElement(_Toggle2.default, {
+            name: 'createGroup',
+            label: 'Create Group',
+            defaultToggled: this.state.toggledCreate,
+            onToggle: this.handleToggleCreate
+          }),
+          _react2.default.createElement(_Toggle2.default, {
+            name: 'messageBox',
+            label: 'Send Message',
+            defaultToggled: this.state.toggledMessage,
+            onToggle: this.handleToggleMessage
+          }),
+          this.state.toggledAdd ? this.state.showAdd = true : this.state.showAdd = false,
+          this.state.showAdd ? _react2.default.createElement(_AddMember2.default, null) : '',
+          this.state.toggledCreate ? this.state.showCreate = true : this.state.showCreate = false,
+          this.state.showCreate ? _react2.default.createElement(_CreateGroup2.default, null) : '',
+          this.state.toggledMessage ? this.state.showMessage = true : this.state.showMessage = false,
+          this.state.showMessage ? _react2.default.createElement(_MessageBox2.default, null) : ''
+        )
       );
     }
   }]);

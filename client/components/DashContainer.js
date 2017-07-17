@@ -100,14 +100,10 @@ componentUnmount() {
             return (
         
         <div>
-          <div className= 'col-sm-4'>
+          <div className= 'col-sm-6'>
             <UserList users = {this.state.users} /> </div>
-          <div className= 'col-sm-4'>
+          <div className= 'col-sm-6'>
             <GroupList groups = {this.state.groups} /> </div>
-          <div className= 'col-sm-4'>
-            <CreateGroup /> </div>
-          <div className= 'col-sm-4'>
-            <MessageBox /> </div>
         </div>
     );
 }

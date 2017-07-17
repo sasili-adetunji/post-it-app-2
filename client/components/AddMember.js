@@ -47,7 +47,6 @@ let user ={
 render () {
             return (
 
-    
       <div style={style}> 
        <CardTitle title="Add" />
         <TextField name= 'groupId' onChange={this.onChange} value = {this.state.groupId}

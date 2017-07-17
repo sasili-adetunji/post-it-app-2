@@ -157,26 +157,14 @@ var DashContainer = function (_React$Component) {
         null,
         _react2.default.createElement(
           'div',
-          { className: 'col-sm-4' },
+          { className: 'col-sm-6' },
           _react2.default.createElement(_UserList2.default, { users: this.state.users }),
           ' '
         ),
         _react2.default.createElement(
           'div',
-          { className: 'col-sm-4' },
+          { className: 'col-sm-6' },
           _react2.default.createElement(_GroupList2.default, { groups: this.state.groups }),
-          ' '
-        ),
-        _react2.default.createElement(
-          'div',
-          { className: 'col-sm-4' },
-          _react2.default.createElement(_CreateGroup2.default, null),
-          ' '
-        ),
-        _react2.default.createElement(
-          'div',
-          { className: 'col-sm-4' },
-          _react2.default.createElement(_MessageBox2.default, null),
           ' '
         )
       );

@@ -18,6 +18,10 @@ var _Api = require('../Api');
 
 var _Api2 = _interopRequireDefault(_Api);
 
+var _Toggle = require('material-ui/Toggle');
+
+var _Toggle2 = _interopRequireDefault(_Toggle);
+
 var _List = require('material-ui/List');
 
 var _AddMember = require('./AddMember');
@@ -44,20 +48,10 @@ var Group = function (_React$Component) {
   function Group(props) {
     _classCallCheck(this, Group);
 
-    var _this = _possibleConstructorReturn(this, (Group.__proto__ || Object.getPrototypeOf(Group)).call(this, props));
-
-    _this.handleClick = _this.handleClick.bind(_this);
-
-    return _this;
+    return _possibleConstructorReturn(this, (Group.__proto__ || Object.getPrototypeOf(Group)).call(this, props));
   }
 
   _createClass(Group, [{
-    key: 'handleClick',
-    value: function handleClick() {
-      _Api2.default.getMessages(this.props.group.groupId);
-      console.log('my messages');
-    }
-  }, {
     key: 'render',
     value: function render() {
       return _react2.default.createElement(
