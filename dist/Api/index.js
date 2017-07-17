@@ -118,7 +118,9 @@ module.exports = {
     });
   },
   resetPassword: function resetPassword(email) {
-    _axios2.default.get('/user/reset').then(function (response) {
+    _axios2.default.post('/user/reset', {
+      email: email.email
+    }).then(function (response) {
       _PostItActions2.default.receiveSuccess(response.message);
     }).catch(function (error) {
       _PostItActions2.default.receiveErrors(error.message);

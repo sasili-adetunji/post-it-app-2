@@ -8528,7 +8528,9 @@ module.exports = {
     });
   },
   resetPassword: function resetPassword(email) {
-    _axios2.default.get('/user/reset').then(function (response) {
+    _axios2.default.post('/user/reset', {
+      email: email.email
+    }).then(function (response) {
       _PostItActions2.default.receiveSuccess(response.message);
     }).catch(function (error) {
       _PostItActions2.default.receiveErrors(error.message);
@@ -32190,7 +32192,9 @@ var Login = function (_React$Component) {
   }, {
     key: 'onClickReset',
     value: function onClickReset() {
-      var email = this.state.email;
+      var email = {
+        email: this.state.email
+      };
       _PostItActions2.default.resetPassword(email);
     }
   }, {
@@ -32246,6 +32250,17 @@ var Login = function (_React$Component) {
                 'a',
                 { href: '/#/signup' },
                 ' Register here '
+              ),
+              ' '
+            ),
+            _react2.default.createElement(
+              'p',
+              null,
+              ' Forgot your Password? Enter your Email and ',
+              _react2.default.createElement(
+                'a',
+                { href: '/#/signup', onClick: this.onClickReset },
+                ' Click here '
               ),
               ' '
             ),

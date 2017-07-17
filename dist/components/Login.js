@@ -104,7 +104,9 @@ var Login = (_temp = _class = function (_React$Component) {
   }, {
     key: 'onClickReset',
     value: function onClickReset() {
-      var email = this.state.email;
+      var email = {
+        email: this.state.email
+      };
       _PostItActions2.default.resetPassword(email);
     }
   }, {
@@ -160,6 +162,17 @@ var Login = (_temp = _class = function (_React$Component) {
                 'a',
                 { href: '/#/signup' },
                 ' Register here '
+              ),
+              ' '
+            ),
+            _react2.default.createElement(
+              'p',
+              null,
+              ' Forgot your Password? Enter your Email and ',
+              _react2.default.createElement(
+                'a',
+                { href: '/#/signup', onClick: this.onClickReset },
+                ' Click here '
               ),
               ' '
             ),

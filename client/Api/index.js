@@ -136,7 +136,9 @@ import PostItActions from '../actions/PostItActions';
    });
   },
   resetPassword(email) {
-    axios.get('/user/reset')
+    axios.post('/user/reset', {
+          email: email.email
+    })
     .then((response) => {
       PostItActions.receiveSuccess(response.message);
     })

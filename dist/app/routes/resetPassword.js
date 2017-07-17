@@ -23,17 +23,16 @@ var app = (0, _express2.default)(); // resetpassword route
 var resetPassword = function resetPassword(app, db) {
   app.post('/user/reset', function (req, res) {
 
-    // using firebase signout methods
-    email = req.body.email;
+    var email = req.body.email;
 
-    _firebase2.default.auth.sendPasswordResetEmail(email).then(function () {
-      // redirect to home page after signout
+    _firebase2.default.auth().sendPasswordResetEmail(email).then(function () {
+
       res.send({
         message: 'An email has been sent to your email'
       });
     }).catch(function (err) {
       res.send({
-        message: 'There appear to be ' + err.message + ' with signing out'
+        message: 'There appear to be ' + err.message
       });
     });
   });

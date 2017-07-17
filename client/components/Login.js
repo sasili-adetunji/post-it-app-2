@@ -59,7 +59,10 @@ class Login extends React.Component {
     }
 
     onClickReset(){
-      let email = this.state.email
+      let email = 
+      {
+        email: this.state.email
+      }
       PostItActions.resetPassword(email)
     }
 
@@ -94,6 +97,7 @@ class Login extends React.Component {
             </div>
           }
            <p> Dont Have an account,<a href='/#/signup'> Register here </a> </p>
+           <p> Forgot your Password? Enter your Email and <a href='/#/signup' onClick= {this.onClickReset}> Click here </a> </p>
 
           <RaisedButton style={{
                 display: 'block',
