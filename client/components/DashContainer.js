@@ -80,7 +80,6 @@ class DashContainer extends React.Component {
    };
 	
 componentDidMount(){
-    //console.log(this.state.loggedInUser);
     API.getUserGroups();
     API.getUsers();
     API.getMessages();

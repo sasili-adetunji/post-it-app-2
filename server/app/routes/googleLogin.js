@@ -10,25 +10,33 @@ import { firebaseAuth, ref } from '../../config/db'
 const app = express();
 const googleLogin = (app, db) => {
   app.post('/user/google', (req, res) => {
-const provider = new firebase.auth.GoogleAuthProvider();
-firebase.auth().signInWithPopup(provider)
-.then((result) => {
-  var token = result.credential.accessToken;
-  var user = result.user;
-  console.log('googleuser info', user)
-  res.send({ 
-    token: token,
-    user: user
-    })
+    var token,
+    email,
+    uid,
+    displayName;
+var provider = new firebase.auth.GoogleAuthProvider();
+    provider.addScope('https://www.googleapis.com/auth/plus.login');
+      firebaseAuth().signInWithPopup(provider)
+      .then((result)=> {
+            token = result.credential.accessToken;
+            email = result.user.email;
+            uid = result.user.uid
+            displayName = result.user.displayName
+        })
+      .then((snap)=> {
+      const userRef = firebase.database()
+       .ref(`users/`).child(uid).set({
+        username: displayName,
+        email: email
+      });
+    }) 
+      .catch((error)=> {
+         res.send({
+          message: error.message
+         })
+        })
+
 })
-.catch((err) => {
-     const errorMessage = err.message;
-       res.status(400).send({ 
-        message: 'Error signing up with Google: ', errorMessage 
-          });
-    });
-    
-  })
 }
 
 export default googleLogin;

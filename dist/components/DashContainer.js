@@ -136,7 +136,6 @@ var DashContainer = function (_React$Component) {
   }, {
     key: 'componentDidMount',
     value: function componentDidMount() {
-      //console.log(this.state.loggedInUser);
       _Api2.default.getUserGroups();
       _Api2.default.getUsers();
       _Api2.default.getMessages();

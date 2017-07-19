@@ -42,6 +42,7 @@ PostItDispatcher.register((action) => {
     break;
 
   case PostItConstants.GOOGLE_LOGIN:
+    console.log('Google login');
 
     API.googleLogin();
 

@@ -9,7 +9,9 @@ import PostItStore from '../stores/PostItStore';
 import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
+import firebase from 'firebase';
 
+import { firebaseAuth, ref } from '../../server/config/db'
 
 
 function setErrorMsg(error) {
@@ -53,10 +55,9 @@ class Login extends React.Component {
         PostItActions.login(user)      
 
   }
-
      onClickGoogle(){
-      PostItActions.googleLogin();
-    }
+      PostItActions.googleLogin();      
+  }
 
     onClickReset(){
       let email = 
@@ -98,7 +99,6 @@ class Login extends React.Component {
           }
            <p> Dont Have an account,<a href='/#/signup'> Register here </a> </p>
            <p> Forgot your Password? Enter your Email and <a href='/#/signup' onClick= {this.onClickReset}> Click here </a> </p>
-
           <RaisedButton style={{
                 display: 'block',
               }} 

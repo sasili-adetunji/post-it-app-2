@@ -1,5 +1,9 @@
 import axios from 'axios';
 import PropTypes from 'prop-types';
+import firebase from 'firebase';
+
+import { firebaseAuth, ref } from '../../server/config/db'
+
 
 
 import PostItActions from '../actions/PostItActions';
@@ -50,17 +54,38 @@ import PostItActions from '../actions/PostItActions';
       PostItActions.receiveErrors(error.message);
     });
   },
-  googleLogin(token) {
-    axios.post('/user/google')
-    .then((response) => {
-      console.log(response.data.message);
-      PostItActions.receiveSuccess(response.user);
-      PostItActions.receiveAuthenticatedUser(response.user);
-
+  googleLogin() {
+    var token,
+    email,
+    uid,
+    displayName;
+   var provider = new firebase.auth.GoogleAuthProvider();
+    provider.addScope('https://www.googleapis.com/auth/plus.login');
+      firebaseAuth().signInWithPopup(provider)
+      .then((result)=> {
+            token = result.credential.accessToken;
+            email = result.user.email;
+            uid = result.user.uid
+            displayName = result.user.displayName
+        })
+    .then((snap)=> {
+      const userRef = firebase.database()
+       .ref(`users/`).child(uid).set({
+        username: displayName,
+        email: email
+      });
     })
-    .catch((error) => {
-      PostItActions.receiveErrors(error.message);
-    });
+    .then(() => {
+      const authuser = {
+        email: email,
+        isAuthenticated: true
+      };
+      PostItActions.receiveSuccess({message: 'Success: you have successfuly signed in.'});
+      PostItActions.receiveAuthenticatedUser(authuser);
+    })
+      .catch((error)=> {
+          PostItActions.receiveErrors(error.message);
+    })
   },
 
   createNewGroup(group) {

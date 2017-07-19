@@ -8,6 +8,12 @@ var _propTypes = require('prop-types');
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
+var _firebase = require('firebase');
+
+var _firebase2 = _interopRequireDefault(_firebase);
+
+var _db = require('../../server/config/db');
+
 var _PostItActions = require('../actions/PostItActions');
 
 var _PostItActions2 = _interopRequireDefault(_PostItActions);
@@ -50,11 +56,13 @@ module.exports = {
       _PostItActions2.default.receiveErrors(error.message);
     });
   },
-  googleLogin: function googleLogin(token) {
+  googleLogin: function googleLogin() {
     _axios2.default.post('/user/google').then(function (response) {
-      console.log(response.data.message);
-      _PostItActions2.default.receiveSuccess(response.user);
-      _PostItActions2.default.receiveAuthenticatedUser(response.user);
+      var authuser = {
+        email: response.email
+      };
+      _PostItActions2.default.receiveSuccess(response.message);
+      _PostItActions2.default.receiveAuthenticatedUser(authuser);
     }).catch(function (error) {
       _PostItActions2.default.receiveErrors(error.message);
     });
