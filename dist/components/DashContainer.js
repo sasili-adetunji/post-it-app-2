@@ -44,6 +44,10 @@ var _UserList = require('./UserList');
 
 var _UserList2 = _interopRequireDefault(_UserList);
 
+var _MessageList = require('./MessageList');
+
+var _MessageList2 = _interopRequireDefault(_MessageList);
+
 var _PostItStore = require('../stores/PostItStore');
 
 var _PostItStore2 = _interopRequireDefault(_PostItStore);
@@ -138,7 +142,6 @@ var DashContainer = function (_React$Component) {
     value: function componentDidMount() {
       _Api2.default.getUserGroups();
       _Api2.default.getUsers();
-      _Api2.default.getMessages();
 
       _PostItStore2.default.addChangeListener(this._onChange.bind(this));
     }
@@ -156,14 +159,20 @@ var DashContainer = function (_React$Component) {
         null,
         _react2.default.createElement(
           'div',
-          { className: 'col-sm-6' },
+          { className: 'col-sm-4' },
           _react2.default.createElement(_UserList2.default, { users: this.state.users }),
           ' '
         ),
         _react2.default.createElement(
           'div',
-          { className: 'col-sm-6' },
+          { className: 'col-sm-4' },
           _react2.default.createElement(_GroupList2.default, { groups: this.state.groups }),
+          ' '
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'col-sm-4' },
+          _react2.default.createElement(_MessageList2.default, this.state),
           ' '
         )
       );

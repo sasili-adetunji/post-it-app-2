@@ -150,8 +150,8 @@ import PostItActions from '../actions/PostItActions';
    });
   },
 
-  getMessages() {
-    axios.get(`/user/message`)
+  getMessages(group) {
+    axios.get(`/group/${group.groupId}/messages`)
     .then((response) => {
       PostItActions.receiveSuccess(response.message);
       PostItActions.receiveMessages(response.data.messages);

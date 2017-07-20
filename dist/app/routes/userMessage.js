@@ -18,7 +18,7 @@ var app = (0, _express2.default)();
 var fb = _firebase2.default.database();
 
 var groupList = function groupList(app, db) {
-  app.get('/user/message', function (req, res) {
+  app.get('/group/:groupId/messages', function (req, res) {
     _firebase2.default.auth().onAuthStateChanged(function (user) {
       if (user) {
         var messageRef = fb.ref('users/' + user.uid + '/groups/' + req.params.groupId + '/messages/');

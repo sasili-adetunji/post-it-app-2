@@ -42,7 +42,7 @@ var PostItStore = (0, _objectAssign2.default)({}, _events.EventEmitter.prototype
     console.log('add user store');
   },
   postMessage: function postMessage(message) {
-    _groupMessages.push(message);
+    _userMessages.push(message);
     console.log('message store');
   },
   createNewGroup: function createNewGroup(group) {
@@ -103,9 +103,11 @@ var PostItStore = (0, _objectAssign2.default)({}, _events.EventEmitter.prototype
   setMessages: function setMessages(messages) {
     _userMessages = messages;
   },
-  setOpenedGroup: function setOpenedGroup(group) {
+  setOpenedGroup: function setOpenedGroup(selectedGroup) {
+    console.log('setOpenedGroup store');
+
     _selectedGroup.pop();
-    _selectedGroup.push(group);
+    _selectedGroup.push(selectedGroup);
   },
   emitChange: function emitChange() {
     this.emit('change');

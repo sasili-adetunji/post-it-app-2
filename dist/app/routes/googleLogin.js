@@ -32,19 +32,15 @@ var googleLogin = function googleLogin(app, db) {
       email = result.user.email;
       uid = result.user.uid;
       displayName = result.user.displayName;
-    }).then(function (user) {
-      user.updateProfile({
-        displayName: username
-      });
+    }).then(function (snap) {
       var userRef = _firebase2.default.database().ref('users/').child(uid).set({
-        username: username,
+        username: displayName,
         email: email
       });
-      res.send({
-        message: 'Success: you have successfuly signed in.'
-      });
     }).catch(function (error) {
-      res.send({ message: 'Error: The email or password of the user is invalid' });
+      res.send({
+        message: error.message
+      });
     });
   });
 };

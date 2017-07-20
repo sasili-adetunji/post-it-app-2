@@ -6,7 +6,7 @@ const fb = firebase.database();
 
 
 const groupList = (app, db) => {
-	app.get('/user/message', (req, res) => {
+	app.get(`/group/:groupId/messages`, (req, res) => {
 	firebase.auth().onAuthStateChanged((user) => {
     if (user) {
     	const messageRef = fb.ref(`users/${user.uid}/groups/${req.params.groupId}/messages/`);

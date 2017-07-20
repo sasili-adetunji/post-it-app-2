@@ -56,7 +56,8 @@ class Login extends React.Component {
 
   }
      onClickGoogle(){
-      PostItActions.googleLogin();      
+      PostItActions.googleLogin();
+            
   }
 
     onClickReset(){

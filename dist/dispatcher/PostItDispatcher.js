@@ -134,15 +134,10 @@ PostItDispatcher.register(function (action) {
             _PostItStore2.default.emitChange();
             break;
 
-        case _PostItConstants2.default.SELECT_GROUP:
+        case _PostItConstants2.default.GROUP_OPENED:
+            console.log('group opened Dispatcher');
 
             _PostItStore2.default.setOpenedGroup(action.selectedGroup);
-
-            _PostItStore2.default.emitChange();
-            break;
-        case _PostItConstants2.default.GROUP_OPENED:
-
-            _PostItStore2.default.getOpenedGroup(action.selectedGroup);
 
             _PostItStore2.default.emitChange();
             break;

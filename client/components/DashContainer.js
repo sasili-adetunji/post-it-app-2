@@ -8,6 +8,7 @@ import CreateGroup from './CreateGroup';
 import AddMember from './AddMember';
 import GroupList from './GroupList';
 import UserList from './UserList';
+import MessageList from './MessageList';
 import PostItStore from '../stores/PostItStore'
 import API from '../Api'
 
@@ -82,7 +83,6 @@ class DashContainer extends React.Component {
 componentDidMount(){
     API.getUserGroups();
     API.getUsers();
-    API.getMessages();
 
     PostItStore.addChangeListener(this._onChange.bind(this));
   }
@@ -99,10 +99,13 @@ componentUnmount() {
             return (
         
         <div>
-          <div className= 'col-sm-6'>
+          <div className= 'col-sm-4'>
             <UserList users = {this.state.users} /> </div>
-          <div className= 'col-sm-6'>
+          <div className= 'col-sm-4'>
             <GroupList groups = {this.state.groups} /> </div>
+         <div className= 'col-sm-4'>
+            <MessageList  {...this.state} /> </div>
+         
         </div>
     );
 }

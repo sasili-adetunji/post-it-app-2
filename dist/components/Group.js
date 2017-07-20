@@ -22,6 +22,14 @@ var _Toggle = require('material-ui/Toggle');
 
 var _Toggle2 = _interopRequireDefault(_Toggle);
 
+var _PostItActions = require('../actions/PostItActions');
+
+var _PostItActions2 = _interopRequireDefault(_PostItActions);
+
+var _PostItStore = require('../stores/PostItStore');
+
+var _PostItStore2 = _interopRequireDefault(_PostItStore);
+
 var _List = require('material-ui/List');
 
 var _AddMember = require('./AddMember');
@@ -48,40 +56,35 @@ var Group = function (_React$Component) {
   function Group(props) {
     _classCallCheck(this, Group);
 
-    return _possibleConstructorReturn(this, (Group.__proto__ || Object.getPrototypeOf(Group)).call(this, props));
+    var _this = _possibleConstructorReturn(this, (Group.__proto__ || Object.getPrototypeOf(Group)).call(this, props));
+
+    _this.state = {};
+    _this.onClick = _this.onClick.bind(_this);
+    return _this;
   }
 
   _createClass(Group, [{
+    key: 'onClick',
+    value: function onClick() {
+      var groupId = {
+        groupId: this.props.group.groupId
+      };
+      _PostItActions2.default.groupOpened(this.props.group);
+      _Api2.default.getMessages(this.props.group);
+    }
+  }, {
     key: 'render',
     value: function render() {
       return _react2.default.createElement(
         'div',
         null,
         _react2.default.createElement(
-          _Table.Table,
-          { onCellClick: this.props.onCellClick },
-          _react2.default.createElement(
-            _Table.TableBody,
-            null,
-            _react2.default.createElement(
-              _Table.TableRow,
-              null,
-              _react2.default.createElement(
-                _Table.TableRowColumn,
-                null,
-                ' ',
-                this.props.group.groupId,
-                ' '
-              ),
-              _react2.default.createElement(
-                _Table.TableRowColumn,
-                null,
-                ' ',
-                this.props.group.groupname,
-                ' '
-              )
-            )
-          )
+          _List.ListItem,
+          {
+            href: '/#/dashboard/' + this.props.group.groupId,
+            onClick: this.onClick
+          },
+          this.props.group.groupname
         )
       );
     }

@@ -40,7 +40,7 @@ const PostItStore = assign({}, EventEmitter.prototype, {
   },
 
   postMessage(message) {
-    _groupMessages.push(message);
+    _userMessages.push(message);
             console.log('message store');
 
   },
@@ -117,9 +117,11 @@ const PostItStore = assign({}, EventEmitter.prototype, {
     _userMessages = messages;
   },
 
-  setOpenedGroup(group) {
+  setOpenedGroup(selectedGroup) {
+        console.log('setOpenedGroup store');
+
     _selectedGroup.pop();
-    _selectedGroup.push(group);
+    _selectedGroup.push(selectedGroup);
   },
 
   emitChange() {

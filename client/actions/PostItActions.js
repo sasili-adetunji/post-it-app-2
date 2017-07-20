@@ -123,11 +123,14 @@ receiveUsers(users) {
   },
 
   groupOpened(selectedGroup) {
+        console.log('group opened',selectedGroup);
+
     PostItDispatcher.dispatch({
       actionType: PostItConstants.GROUP_OPENED,
       selectedGroup
 
     });
+
   }
 }
 

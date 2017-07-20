@@ -83,8 +83,8 @@ PostItDispatcher.register((action) => {
     break;
 
   case PostItConstants.RECEIVE_MESSAGES:
- 
-    PostItStore.setMessages(action.messages);
+
+     PostItStore.setMessages(action.messages);
   
     PostItStore.emitChange();
     break;
@@ -117,16 +117,12 @@ PostItDispatcher.register((action) => {
     PostItStore.setIsAuthenticated(true);
     PostItStore.emitChange();
     break;
+    
+  case PostItConstants.GROUP_OPENED:
+      console.log('group opened Dispatcher');
 
-  case PostItConstants.SELECT_GROUP:
   
     PostItStore.setOpenedGroup(action.selectedGroup);
-
-    PostItStore.emitChange();
-    break;
-  case PostItConstants.GROUP_OPENED:
-  
-    PostItStore.getOpenedGroup(action.selectedGroup);
 
     PostItStore.emitChange();
     break;

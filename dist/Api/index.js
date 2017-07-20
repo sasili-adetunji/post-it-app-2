@@ -57,11 +57,25 @@ module.exports = {
     });
   },
   googleLogin: function googleLogin() {
-    _axios2.default.post('/user/google').then(function (response) {
+    var token, email, uid, displayName;
+    var provider = new _firebase2.default.auth.GoogleAuthProvider();
+    provider.addScope('https://www.googleapis.com/auth/plus.login');
+    (0, _db.firebaseAuth)().signInWithPopup(provider).then(function (result) {
+      token = result.credential.accessToken;
+      email = result.user.email;
+      uid = result.user.uid;
+      displayName = result.user.displayName;
+    }).then(function (snap) {
+      var userRef = _firebase2.default.database().ref('users/').child(uid).set({
+        username: displayName,
+        email: email
+      });
+    }).then(function () {
       var authuser = {
-        email: response.email
+        email: email,
+        isAuthenticated: true
       };
-      _PostItActions2.default.receiveSuccess(response.message);
+      _PostItActions2.default.receiveSuccess({ message: 'Success: you have successfuly signed in.' });
       _PostItActions2.default.receiveAuthenticatedUser(authuser);
     }).catch(function (error) {
       _PostItActions2.default.receiveErrors(error.message);
@@ -117,8 +131,8 @@ module.exports = {
       _PostItActions2.default.receiveErrors(error.message);
     });
   },
-  getMessages: function getMessages() {
-    _axios2.default.get('/user/message').then(function (response) {
+  getMessages: function getMessages(group) {
+    _axios2.default.get('/group/' + group.groupId + '/messages').then(function (response) {
       _PostItActions2.default.receiveSuccess(response.message);
       _PostItActions2.default.receiveMessages(response.data.messages);
     }).catch(function (error) {

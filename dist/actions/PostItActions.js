@@ -122,6 +122,8 @@ var PostItActions = {
     });
   },
   groupOpened: function groupOpened(selectedGroup) {
+    console.log('group opened', selectedGroup);
+
     _PostItDispatcher2.default.dispatch({
       actionType: _PostItConstants2.default.GROUP_OPENED,
       selectedGroup: selectedGroup
