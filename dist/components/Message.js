@@ -46,36 +46,13 @@ var Message = function (_React$Component) {
   _createClass(Message, [{
     key: 'render',
     value: function render() {
-      console.log(this.props.message);
-
       return _react2.default.createElement(
         'div',
         null,
         _react2.default.createElement(
-          _Table.Table,
+          _List.ListItem,
           null,
-          _react2.default.createElement(
-            _Table.TableBody,
-            null,
-            _react2.default.createElement(
-              _Table.TableRow,
-              null,
-              _react2.default.createElement(
-                _Table.TableRowColumn,
-                null,
-                ' ',
-                this.props.message.messageId,
-                ' '
-              ),
-              _react2.default.createElement(
-                _Table.TableRowColumn,
-                null,
-                ' ',
-                this.props.message.messageText,
-                ' '
-              )
-            )
-          )
+          this.props.message.messageText
         )
       );
     }

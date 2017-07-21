@@ -20,12 +20,6 @@ class MessageList extends React.Component {
   }
   
 render(){
-   let groupsname = '';
-    if (this.props.selectedGroup.length !== 0)
-    {
-      groupsname = this.props.selectedGroup[0].groupname;
-    }
-      console.log('groupsname------', groupsname)
 
 var messageNodes = this.props.messages.map((message, i)=> {
         return (

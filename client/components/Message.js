@@ -19,18 +19,11 @@ class Message extends React.Component {
   }
 
   render(){
-        console.log(this.props.message);
-
     return (
   <div>
-      <Table>
-        <TableBody> 
-          <TableRow>
-            <TableRowColumn> {this.props.message.messageId} </TableRowColumn>
-            <TableRowColumn> {this.props.message.messageText} </TableRowColumn>
-          </TableRow>
-        </TableBody>
-      </Table>
+      <ListItem>
+      {this.props.message.messageText}
+      </ListItem>
   </div>
     );
   }

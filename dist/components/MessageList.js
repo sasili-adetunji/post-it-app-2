@@ -68,11 +68,6 @@ var MessageList = function (_React$Component) {
   _createClass(MessageList, [{
     key: 'render',
     value: function render() {
-      var groupsname = '';
-      if (this.props.selectedGroup.length !== 0) {
-        groupsname = this.props.selectedGroup[0].groupname;
-      }
-      console.log('groupsname------', groupsname);
 
       var messageNodes = this.props.messages.map(function (message, i) {
         return _react2.default.createElement(_Message2.default, { message: message, key: i });
