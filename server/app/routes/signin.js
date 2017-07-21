@@ -11,9 +11,15 @@ const signin = (app, db) => {
     const email = req.body.email;
      const password = req.body.password;
  firebase.auth().signInWithEmailAndPassword(email, password)
-        res.json({ message: 'Success: you have successfuly signed in.' })
+  .then((user) => {
+
+   res.send({ 
+   	message: 'Success: you have successfuly signed in.',
+   	user
+    })
+  })
 .catch((err) => {
-    res.send({ message: 'Error: The email or password of the user is invalid' } );
+    res.send({ message: 'Error: The email or password of the user is invalid' });
     });
   });  
 };

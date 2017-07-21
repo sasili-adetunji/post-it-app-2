@@ -10,7 +10,17 @@ const PostItActions = {
       user
 
     });
-         console.log('dispatcher signin....');
+      console.log('dispatcher signin....');
+
+  },
+  googleLogin() {
+     console.log('Google user....');
+    PostItDispatcher.dispatch({
+      actionType: PostItConstants.GOOGLE_LOGIN
+      
+
+    });
+      console.log('dispatcher signin....');
 
   },
 
@@ -65,16 +75,26 @@ const PostItActions = {
         console.log(message);
 
   },
+resetPassword(email) {
+    // console.log(email);
+    PostItDispatcher.dispatch({
+      actionType: PostItConstants.RESET_PASSWORD,
+      email
 
-  signOutUser() {
+    });
+        console.log(email);
+
+  },
+
+signOutUser() {
     PostItDispatcher.dispatch({
       actionType: PostItConstants.SIGNOUT_USER
 
     });
   },
-  receiveUserMessages(messages) {
+  receiveMessages(messages) {
     PostItDispatcher.dispatch({
-      actionType: PostItConstants.RECEIVE_USER_MESSAGES,
+      actionType: PostItConstants.RECEIVE_MESSAGES,
       messages
 
     });
@@ -87,7 +107,13 @@ const PostItActions = {
 
     });
   },
+receiveUsers(users) {
+    PostItDispatcher.dispatch({
+      actionType: PostItConstants.RECEIVE_USERS,
+      users
 
+    });
+  },
   receiveAuthenticatedUser(user) {
     PostItDispatcher.dispatch({
       actionType: PostItConstants.RECEIVE_AUTHENTICATED_USER,
@@ -97,11 +123,14 @@ const PostItActions = {
   },
 
   groupOpened(selectedGroup) {
+        console.log('group opened',selectedGroup);
+
     PostItDispatcher.dispatch({
       actionType: PostItConstants.GROUP_OPENED,
       selectedGroup
 
     });
+
   }
 }
 

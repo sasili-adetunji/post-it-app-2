@@ -1,82 +1,100 @@
 import React from 'react';
-import trim from 'trim';
 import {CardHeader, CardTitle, Card} from 'material-ui/Card';
-import  TextField  from 'material-ui/TextField';
-import  { CircularProgress }  from 'material-ui/CircularProgress';
-import _ from 'lodash'
+import Toggle from 'material-ui/Toggle';
+import PostItStore from '../stores/PostItStore';
 import RaisedButton from 'material-ui/RaisedButton';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import Paper from 'material-ui/Paper';
 import PostItActions from '../actions/PostItActions';
-import PostItStore from '../stores/PostItStore';
-
+import AddMember from './AddMember';
+import CreateGroup from './CreateGroup';
+import MessageBox from './MessageBox';
 import Group from './Group';
 import { List } from 'material-ui/List';
-
-
-
-
 
 
 
 class GroupList extends React.Component {
   constructor(props){
     super(props);
-   
-}
+    this.state = {
+      toggledAdd: false,
+      showAdd: false,
+      showCreate: false,
+      showMessage: false,
+      toggledCreate: false,
+      toggledMessage: false
+  };
+    this.handleToggleAdd = this.handleToggleAdd.bind(this);
+    this.handleToggleCreate = this.handleToggleCreate.bind(this);
+    this.handleToggleMessage = this.handleToggleMessage.bind(this);
 
+  }
 
-render(){
-  console.log(this.props.groups)
-    if(!this.props.groups){
-      return (
-        <div>
-  <MuiThemeProvider >
+  
+  handleToggleAdd(){
+    this.setState({
+      toggledAdd: !this.state.toggledAdd
+    })
+  };
 
-        <Card style={{
-          flexGrow: 1
-        }}>
-          <CircularProgress
-            mode="indeterminate"
-            style={{
-              paddingTop: '20px',
-              paddingBottom: '20px',
-              margin: '0 auto',
-              display: 'block',
-              width: '60px'
-            }}
-          />
-        </Card>
-        </MuiThemeProvider>
+handleToggleCreate(){
+    this.setState({
+      toggledCreate: !this.state.toggledCreate
+    })
+  };
 
-        </div>
-      );
-    }
+  handleToggleMessage(){
+    this.setState({
+      toggledMessage: !this.state.toggledMessage
+    })
+  };
 
-    
+render(){ 
     var groupNodes = this.props.groups.map((group, i)=> {
         return (
           <Group group={group} key={i} />
         );
-      })
-              console.log('GroupList------', this.props.groups)
-
-
-
-    return ( 
+      })         
+   return( 
       <div> 
-      <MuiThemeProvider>
-
        <List >
        <CardTitle title="Group List" />
           {groupNodes}
         </List>
-                </MuiThemeProvider>
+      <div>
+      <h3>App Properties</h3>  
+        <Toggle
+          name="addMember"
+          label="Add Member"
+          defaultToggled={this.state.toggledAdd}
+          onToggle={this.handleToggleAdd}
+        />
+        <Toggle
+          name="createGroup"
+          label="Create Group"
+          defaultToggled={this.state.toggledCreate}
+          onToggle={this.handleToggleCreate}
+        />
+         <Toggle
+          name="messageBox"
+          label="Send Message"
+          defaultToggled={this.state.toggledMessage}
+          onToggle={this.handleToggleMessage}
+        />
+      {this.state.toggledAdd ? this.state.showAdd = true : this.state.showAdd = false}
+      {this.state.showAdd ? <AddMember /> : ''}
 
-        </div>
-        )
-      }
-    }
+      {this.state.toggledCreate ? this.state.showCreate = true : this.state.showCreate = false}
+      {this.state.showCreate ? <CreateGroup /> : ''}  
+
+      {this.state.toggledMessage ? this.state.showMessage = true : this.state.showMessage = false}
+      {this.state.showMessage ? <MessageBox /> : ''}                       
+    </div>
+  </div>
+      )
+  }
+}
 
 
 export default GroupList;

@@ -33,7 +33,7 @@ var group = function group(app, db) {
       var groupRef = fb.ref('groups/' + groupKey + '/users/').set({
         Id: user.uid
       });
-      var userRef = fb.ref('users/' + user.uid + '/groups/groupInfo').set({ groupid: groupKey,
+      var userRef = fb.ref('users/' + user.uid + '/groups/' + groupKey + '/groupInfo').set({
         groupname: groupname
       }).then(function () {
         alert("Group Successfully created");

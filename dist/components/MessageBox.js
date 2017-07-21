@@ -53,7 +53,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var style = {
   height: 100,
   width: 100,
-  margin: '30px auto',
+  margin: '30px 30px',
   padding: 30,
   textAlign: 'center',
   display: 'inline-block'
@@ -103,7 +103,7 @@ var MessageBox = function (_React$Component) {
           value: this.state.message,
           onChange: this.onChange,
           style: {
-            width: '100px',
+            width: '200px',
             borderColor: '#D0D0D0',
             resize: 'none',
             borderRadius: 3,
@@ -115,7 +115,17 @@ var MessageBox = function (_React$Component) {
         _react2.default.createElement(
           'div',
           null,
-          _react2.default.createElement(_TextField2.default, { name: 'groupId', onChange: this.onChange, value: this.state.groupId,
+          _react2.default.createElement(_TextField2.default, { style: {
+              width: '200px',
+              borderColor: '#D0D0D0',
+              resize: 'none',
+              borderRadius: 3,
+              minHeight: '50px',
+              color: '#555',
+              fontSize: 14,
+              outline: 'auto 0px'
+            },
+            name: 'groupId', onChange: this.onChange, value: this.state.groupId,
             floatingLabelText: 'Group ID' }),
           _react2.default.createElement('br', null)
         ),

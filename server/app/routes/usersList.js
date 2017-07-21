@@ -10,26 +10,36 @@ const usersList = (app, db) => {
 
 	firebase.auth().onAuthStateChanged((user) => {
       if (user) {
-        const users = new Map();
-
-        const userRef = fb.ref('users').once('value', msg =>{
+        const users = [];
+        const userRef = firebase.database().ref(`users/`).once('value', msg =>{
         	msg.forEach((snapshot) => {
-            users.set(snapshot.key, snapshot.val());
-          });
-        	 res.send({
-            users: users
-          });
-        });
-      } 
-      else {
-        res.status(403).send({
+            const user = {
+            userId: snapshot.key,
+            username: snapshot.val().username
+          }
+          users.push(user)          
+        })
+      })
+        .then(() => {
+        res.send({
+          users
+        })
+      }) 
+    .catch((error) => {
+        res.status(500).send({
+          message: `Error occurred ${error.message}`,
+        })
+      })
+  }
+  else{
+    res.status(403).send({
           message: 'You are not signed in right now! '
         });
-      }
-    });
-  });
-
+  }
+  })
+})
 }
+    
 
 export default usersList;
 

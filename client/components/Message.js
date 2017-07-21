@@ -13,7 +13,7 @@ import {
 } from 'material-ui/Table';
 
 
-class User extends React.Component {
+class Message extends React.Component {
   constructor(props){
     super(props);
   }
@@ -21,17 +21,12 @@ class User extends React.Component {
   render(){
     return (
   <div>
-      <Table>
-        <TableBody> 
-          <TableRow>
-            <TableRowColumn> {this.props.user.userId} </TableRowColumn>
-            <TableRowColumn> {this.props.user.username} </TableRowColumn>
-          </TableRow>
-        </TableBody>
-      </Table>
+      <ListItem>
+      {this.props.message.messageText}
+      </ListItem>
   </div>
     );
   }
 }
 
-export default User;
+export default Message;

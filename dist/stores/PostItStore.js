@@ -15,6 +15,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var _registeredUser = [];
 var _usersInGroup = [];
 var _usersNotInGroup = [];
+var _users = [];
 var _userGroups = [];
 var _userMessages = [];
 var _errors = '';
@@ -41,7 +42,7 @@ var PostItStore = (0, _objectAssign2.default)({}, _events.EventEmitter.prototype
     console.log('add user store');
   },
   postMessage: function postMessage(message) {
-    _groupMessages.push(message);
+    _userMessages.push(message);
     console.log('message store');
   },
   createNewGroup: function createNewGroup(group) {
@@ -83,7 +84,11 @@ var PostItStore = (0, _objectAssign2.default)({}, _events.EventEmitter.prototype
   getUserGroups: function getUserGroups() {
     return _userGroups;
   },
-  getUserpMessages: function getUserpMessages() {
+  getUsers: function getUsers() {
+    console.log('userlist store');
+    return _users;
+  },
+  getMessages: function getMessages() {
     return _userMessages;
   },
   getSuccess: function getSuccess() {
@@ -92,12 +97,17 @@ var PostItStore = (0, _objectAssign2.default)({}, _events.EventEmitter.prototype
   setUserGroups: function setUserGroups(groups) {
     _userGroups = groups;
   },
-  setUserMessages: function setUserMessages(messages) {
-    _groupMessages = messages;
+  setUsers: function setUsers(users) {
+    _users = users;
   },
-  setOpenedGroup: function setOpenedGroup(group) {
+  setMessages: function setMessages(messages) {
+    _userMessages = messages;
+  },
+  setOpenedGroup: function setOpenedGroup(selectedGroup) {
+    console.log('setOpenedGroup store');
+
     _selectedGroup.pop();
-    _selectedGroup.push(group);
+    _selectedGroup.push(selectedGroup);
   },
   emitChange: function emitChange() {
     this.emit('change');

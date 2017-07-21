@@ -58,6 +58,16 @@ PostItDispatcher.register(function (action) {
             _PostItStore2.default.emitChange();
             break;
 
+        case _PostItConstants2.default.GOOGLE_LOGIN:
+            console.log('Google login');
+
+            _Api2.default.googleLogin();
+
+            _PostItStore2.default.signinUser(action.token);
+
+            _PostItStore2.default.emitChange();
+            break;
+
         case _PostItConstants2.default.ADDUSER_GROUP:
 
             console.log('add user group');
@@ -88,9 +98,9 @@ PostItDispatcher.register(function (action) {
             _PostItStore2.default.emitChange();
             break;
 
-        case _PostItConstants2.default.RECEIVE_USER_MESSAGES:
+        case _PostItConstants2.default.RECEIVE_MESSAGES:
 
-            _PostItStore2.default.setUserMessages(action.messages);
+            _PostItStore2.default.setMessages(action.messages);
 
             _PostItStore2.default.emitChange();
             break;
@@ -98,6 +108,20 @@ PostItDispatcher.register(function (action) {
         case _PostItConstants2.default.RECEIVE_USER_GROUPS:
 
             _PostItStore2.default.setUserGroups(action.groups);
+
+            _PostItStore2.default.emitChange();
+            break;
+        case _PostItConstants2.default.RECEIVE_USERS:
+
+            console.log('storing users...');
+
+            _PostItStore2.default.setUsers(action.users);
+
+            _PostItStore2.default.emitChange();
+            break;
+        case _PostItConstants2.default.RESET_PASSWORD:
+
+            _Api2.default.resetPassword(action.email);
 
             _PostItStore2.default.emitChange();
             break;
@@ -110,15 +134,10 @@ PostItDispatcher.register(function (action) {
             _PostItStore2.default.emitChange();
             break;
 
-        case _PostItConstants2.default.SELECT_GROUP:
+        case _PostItConstants2.default.GROUP_OPENED:
+            console.log('group opened Dispatcher');
 
             _PostItStore2.default.setOpenedGroup(action.selectedGroup);
-
-            _PostItStore2.default.emitChange();
-            break;
-        case _PostItConstants2.default.GROUP_OPENED:
-
-            _PostItStore2.default.getOpenedGroup(action.selectedGroup);
 
             _PostItStore2.default.emitChange();
             break;

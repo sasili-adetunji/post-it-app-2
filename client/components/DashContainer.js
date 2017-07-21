@@ -8,6 +8,7 @@ import CreateGroup from './CreateGroup';
 import AddMember from './AddMember';
 import GroupList from './GroupList';
 import UserList from './UserList';
+import MessageList from './MessageList';
 import PostItStore from '../stores/PostItStore'
 import API from '../Api'
 
@@ -18,10 +19,12 @@ function getAppState() {
       success: PostItStore.getSuccess(),
       loggedInUser: PostItStore.getLoggedInUser(),
       registeredUser: PostItStore.getRegisteredUser(),
-      users: PostItStore.getUsersNotInGroup(),
       groups: PostItStore.getUserGroups(),
-      messages: PostItStore.getGroupMessages(),
-      selectedGroup: PostItStore.getSelectedGroup()
+      selectedGroup: PostItStore.getOpenedGroup(),
+      users: PostItStore.getUsers(),
+      messages: PostItStore.getMessages()
+
+
     };
 }
 
@@ -64,18 +67,23 @@ class DashContainer extends React.Component {
       success: PostItStore.getSuccess(),
       loggedInUser: PostItStore.getLoggedInUser(),
       registeredUser: PostItStore.getRegisteredUser(),
-      users: PostItStore.getUsersNotInGroup(),
       groups: PostItStore.getUserGroups(),
-      messages: PostItStore.getGroupMessages(),
-      selectedGroup: PostItStore.getSelectedGroup()
+      selectedGroup: PostItStore.getOpenedGroup(),
+      users: PostItStore.getUsers(),
+      messages: PostItStore.getMessages()
+
 
   }
 
   }
+  _onChange() {
+     this.setState(getAppState());
+   };
 	
 componentDidMount(){
-    //console.log(this.state.loggedInUser);
     API.getUserGroups();
+    API.getUsers();
+
     PostItStore.addChangeListener(this._onChange.bind(this));
   }
 
@@ -90,23 +98,18 @@ componentUnmount() {
 
             return (
         
-         <div style={style.root}>
-    		<GridList
-      		cellHeight={180}
-      		style={style.gridList}
-    >
-    <MessageBox />
-    <CreateGroup />
-    <AddMember />
-   <GroupList groups = {this.state.groups} />
-    
-    </GridList>
-      </div>
+        <div>
+          <div className= 'col-sm-4'>
+            <UserList users = {this.state.users} /> </div>
+          <div className= 'col-sm-4'>
+            <GroupList groups = {this.state.groups} /> </div>
+         <div className= 'col-sm-4'>
+            <MessageList  {...this.state} /> </div>
+         
+        </div>
     );
 }
-  _onChange() {
-     this.setState(getAppState());
-   };
+  
 
 }
 export default DashContainer;

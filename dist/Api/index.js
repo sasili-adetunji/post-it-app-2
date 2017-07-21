@@ -8,6 +8,12 @@ var _propTypes = require('prop-types');
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
+var _firebase = require('firebase');
+
+var _firebase2 = _interopRequireDefault(_firebase);
+
+var _db = require('../../server/config/db');
+
 var _PostItActions = require('../actions/PostItActions');
 
 var _PostItActions2 = _interopRequireDefault(_PostItActions);
@@ -46,6 +52,31 @@ module.exports = {
   signoutUser: function signoutUser() {
     _axios2.default.post('/user/signout').then(function (response) {
       _PostItActions2.default.receiveSuccess(response.message);
+    }).catch(function (error) {
+      _PostItActions2.default.receiveErrors(error.message);
+    });
+  },
+  googleLogin: function googleLogin() {
+    var token, email, uid, displayName;
+    var provider = new _firebase2.default.auth.GoogleAuthProvider();
+    provider.addScope('https://www.googleapis.com/auth/plus.login');
+    (0, _db.firebaseAuth)().signInWithPopup(provider).then(function (result) {
+      token = result.credential.accessToken;
+      email = result.user.email;
+      uid = result.user.uid;
+      displayName = result.user.displayName;
+    }).then(function (snap) {
+      var userRef = _firebase2.default.database().ref('users/').child(uid).set({
+        username: displayName,
+        email: email
+      });
+    }).then(function () {
+      var authuser = {
+        email: email,
+        isAuthenticated: true
+      };
+      _PostItActions2.default.receiveSuccess({ message: 'Success: you have successfuly signed in.' });
+      _PostItActions2.default.receiveAuthenticatedUser(authuser);
     }).catch(function (error) {
       _PostItActions2.default.receiveErrors(error.message);
     });
@@ -91,10 +122,28 @@ module.exports = {
       _PostItActions2.default.receiveErrors(error.message);
     });
   },
-  getUserMessages: function getUserMessages(group) {
-    _axios2.default.get('/users/' + user.uid + '/messages').then(function (response) {
+  getUsers: function getUsers() {
+    _axios2.default.get('user/users').then(function (response) {
+      console.log(response);
       _PostItActions2.default.receiveSuccess(response.message);
-      _PostItActions2.default.receiveGroupMessages(response.data.groupMessages);
+      _PostItActions2.default.receiveUsers(response.data.users);
+    }).catch(function (error) {
+      _PostItActions2.default.receiveErrors(error.message);
+    });
+  },
+  getMessages: function getMessages(group) {
+    _axios2.default.get('/group/' + group.groupId + '/messages').then(function (response) {
+      _PostItActions2.default.receiveSuccess(response.message);
+      _PostItActions2.default.receiveMessages(response.data.messages);
+    }).catch(function (error) {
+      _PostItActions2.default.receiveErrors(error.message);
+    });
+  },
+  resetPassword: function resetPassword(email) {
+    _axios2.default.post('/user/reset', {
+      email: email.email
+    }).then(function (response) {
+      _PostItActions2.default.receiveSuccess(response.message);
     }).catch(function (error) {
       _PostItActions2.default.receiveErrors(error.message);
     });

@@ -24,6 +24,14 @@ var PostItActions = {
     });
     console.log('dispatcher signin....');
   },
+  googleLogin: function googleLogin() {
+    console.log('Google user....');
+    _PostItDispatcher2.default.dispatch({
+      actionType: _PostItConstants2.default.GOOGLE_LOGIN
+
+    });
+    console.log('dispatcher signin....');
+  },
   registerUser: function registerUser(user) {
     console.log('Reg user....', user);
     _PostItDispatcher2.default.dispatch({
@@ -70,15 +78,24 @@ var PostItActions = {
     });
     console.log(message);
   },
+  resetPassword: function resetPassword(email) {
+    // console.log(email);
+    _PostItDispatcher2.default.dispatch({
+      actionType: _PostItConstants2.default.RESET_PASSWORD,
+      email: email
+
+    });
+    console.log(email);
+  },
   signOutUser: function signOutUser() {
     _PostItDispatcher2.default.dispatch({
       actionType: _PostItConstants2.default.SIGNOUT_USER
 
     });
   },
-  receiveUserMessages: function receiveUserMessages(messages) {
+  receiveMessages: function receiveMessages(messages) {
     _PostItDispatcher2.default.dispatch({
-      actionType: _PostItConstants2.default.RECEIVE_USER_MESSAGES,
+      actionType: _PostItConstants2.default.RECEIVE_MESSAGES,
       messages: messages
 
     });
@@ -90,6 +107,13 @@ var PostItActions = {
 
     });
   },
+  receiveUsers: function receiveUsers(users) {
+    _PostItDispatcher2.default.dispatch({
+      actionType: _PostItConstants2.default.RECEIVE_USERS,
+      users: users
+
+    });
+  },
   receiveAuthenticatedUser: function receiveAuthenticatedUser(user) {
     _PostItDispatcher2.default.dispatch({
       actionType: _PostItConstants2.default.RECEIVE_AUTHENTICATED_USER,
@@ -98,6 +122,8 @@ var PostItActions = {
     });
   },
   groupOpened: function groupOpened(selectedGroup) {
+    console.log('group opened', selectedGroup);
+
     _PostItDispatcher2.default.dispatch({
       actionType: _PostItConstants2.default.GROUP_OPENED,
       selectedGroup: selectedGroup

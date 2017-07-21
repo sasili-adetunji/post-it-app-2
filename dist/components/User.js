@@ -20,6 +20,12 @@ var _Api2 = _interopRequireDefault(_Api);
 
 var _List = require('material-ui/List');
 
+var _MuiThemeProvider = require('material-ui/styles/MuiThemeProvider');
+
+var _MuiThemeProvider2 = _interopRequireDefault(_MuiThemeProvider);
+
+var _Table = require('material-ui/Table');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -38,24 +44,37 @@ var User = function (_React$Component) {
   }
 
   _createClass(User, [{
-    key: 'onClick',
-    value: function onClick() {
-      _Api2.default.getUsersNotInGroups(this.props.group);
-    }
-  }, {
     key: 'render',
     value: function render() {
-      if (this.props.user.selected) {
-        style.backgroundColor = '#f0f0f0';
-      }
-
       return _react2.default.createElement(
-        _List.ListItem,
-        {
-          href: '/#/dashboard/' + this.props.user.key,
-          key: this.props.user.key
-        },
-        this.props.user.username
+        'div',
+        null,
+        _react2.default.createElement(
+          _Table.Table,
+          null,
+          _react2.default.createElement(
+            _Table.TableBody,
+            null,
+            _react2.default.createElement(
+              _Table.TableRow,
+              null,
+              _react2.default.createElement(
+                _Table.TableRowColumn,
+                null,
+                ' ',
+                this.props.user.userId,
+                ' '
+              ),
+              _react2.default.createElement(
+                _Table.TableRowColumn,
+                null,
+                ' ',
+                this.props.user.username,
+                ' '
+              )
+            )
+          )
+        )
       );
     }
   }]);

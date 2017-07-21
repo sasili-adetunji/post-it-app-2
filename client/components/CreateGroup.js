@@ -11,7 +11,7 @@ import PostItActions from '../actions/PostItActions';
 const style = {
   height: 100,
   width: 100,
-  margin: '30px auto',
+  margin: '30px 30px',
   padding: 30,
   textAlign: 'center',
   display: 'inline-block',
@@ -43,15 +43,19 @@ onChange(e){
             return (
 
     
-      <div style={style}> 
+      <div> 
 
        <CardTitle title="Create" />
 
       <TextField name= 'groupname' onChange={this.onChange} value = {this.state.groupname}
        floatingLabelText="Group Name"  /><br />
       <RaisedButton style={{
-                display: 'block',
-                width: '20px'
+            width: '200px',
+            borderColor: '#D0D0D0',
+            resize: 'none',
+            borderRadius: 3,
+            minHeight: '50px',
+            fontSize: 14
               }} onClick={this.onClick}
               label="Create" primary={true} />
       </div>

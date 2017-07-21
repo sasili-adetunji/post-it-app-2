@@ -47,10 +47,8 @@ let user ={
 render () {
             return (
 
-    
       <div style={style}> 
        <CardTitle title="Add" />
-
         <TextField name= 'groupId' onChange={this.onChange} value = {this.state.groupId}
               floatingLabelText="Group ID"/><br />
         <TextField name= 'userId' onChange={this.onChange} value = {this.state.userId}

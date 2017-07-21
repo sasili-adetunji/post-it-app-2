@@ -18,23 +18,23 @@ var _db2 = _interopRequireDefault(_db);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var app = (0, _express2.default)(); // login route
-//using firebase authentication method
+var app = (0, _express2.default)(); // resetpassword route
 
-var signin = function signin(app, db) {
-  app.post('/user/signin', function (req, res) {
+var resetPassword = function resetPassword(app, db) {
+  app.post('/user/reset', function (req, res) {
+
     var email = req.body.email;
-    var password = req.body.password;
-    _firebase2.default.auth().signInWithEmailAndPassword(email, password).then(function (user) {
+
+    _firebase2.default.auth().sendPasswordResetEmail(email).then(function () {
 
       res.send({
-        message: 'Success: you have successfuly signed in.',
-        user: user
+        message: 'An email has been sent to your email'
       });
     }).catch(function (err) {
-      res.send({ message: 'Error: The email or password of the user is invalid' });
+      res.send({
+        message: 'There appear to be ' + err.message
+      });
     });
   });
 };
-
-exports.default = signin;
+exports.default = resetPassword;

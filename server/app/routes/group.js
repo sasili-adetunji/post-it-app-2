@@ -18,9 +18,9 @@ const group = (app, db) => {
           .set({
           Id: user.uid,
       })
-        const userRef = fb.ref(`users/${user.uid}/groups/groupInfo`).set(
-          { groupid: groupKey,
-            groupname: groupname
+        const userRef = fb.ref(`users/${user.uid}/groups/${groupKey}/groupInfo`).set
+        ({ 
+          groupname: groupname
         })
         .then(() => {
       alert("Group Successfully created")

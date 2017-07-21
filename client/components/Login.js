@@ -9,7 +9,9 @@ import PostItStore from '../stores/PostItStore';
 import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
+import firebase from 'firebase';
 
+import { firebaseAuth, ref } from '../../server/config/db'
 
 
 function setErrorMsg(error) {
@@ -50,35 +52,24 @@ class Login extends React.Component {
         email: this.state.email,
         password: this.state.password
       }
-        PostItActions.login(user)
-        PostItActions.receiveAuthenticatedUser(user)
-
-        this.context.router.history.push('/dashboard')
-        
+        PostItActions.login(user)      
 
   }
-
      onClickGoogle(){
-      Actions.googleLogin(this.context.router);
-    }
+      PostItActions.googleLogin();
+            
+  }
 
     onClickReset(){
-      Actions.reset({ email: this.state.email
-          })
-      .then(() => this.setState(setErrorMsg(`Password reset email sent to ${this.email.value}.`)))
-      .catch((error) => this.setState(setErrorMsg(`Email address not found.`)))
+      let email = 
+      {
+        email: this.state.email
+      }
+      PostItActions.resetPassword(email)
     }
 
   render(){
-    if (this.state.isAuthenticated == true) {
-            return (
-                <Redirect to="/dashboard"/>
-            )
-        }
-        else {
-
-
-        return (
+       return (
                <div>
 
       <MuiThemeProvider >
@@ -108,7 +99,7 @@ class Login extends React.Component {
             </div>
           }
            <p> Dont Have an account,<a href='/#/signup'> Register here </a> </p>
-
+           <p> Forgot your Password? Enter your Email and <a href='/#/signup' onClick= {this.onClickReset}> Click here </a> </p>
           <RaisedButton style={{
                 display: 'block',
               }} 
@@ -127,7 +118,7 @@ class Login extends React.Component {
                 </div>  
         );
     }
-}
+
 
 }
 module.exports = Login;

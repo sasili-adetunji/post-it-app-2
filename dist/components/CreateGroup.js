@@ -49,7 +49,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var style = {
   height: 100,
   width: 100,
-  margin: '30px auto',
+  margin: '30px 30px',
   padding: 30,
   textAlign: 'center',
   display: 'inline-block'
@@ -90,14 +90,18 @@ var CreateGroup = function (_React$Component) {
     value: function render() {
       return _react2.default.createElement(
         'div',
-        { style: style },
+        null,
         _react2.default.createElement(_Card.CardTitle, { title: 'Create' }),
         _react2.default.createElement(_TextField2.default, { name: 'groupname', onChange: this.onChange, value: this.state.groupname,
           floatingLabelText: 'Group Name' }),
         _react2.default.createElement('br', null),
         _react2.default.createElement(_RaisedButton2.default, { style: {
-            display: 'block',
-            width: '20px'
+            width: '200px',
+            borderColor: '#D0D0D0',
+            resize: 'none',
+            borderRadius: 3,
+            minHeight: '50px',
+            fontSize: 14
           }, onClick: this.onClick,
           label: 'Create', primary: true })
       );

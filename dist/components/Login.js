@@ -44,6 +44,12 @@ var _MuiThemeProvider = require('material-ui/styles/MuiThemeProvider');
 
 var _MuiThemeProvider2 = _interopRequireDefault(_MuiThemeProvider);
 
+var _firebase = require('firebase');
+
+var _firebase2 = _interopRequireDefault(_firebase);
+
+var _db = require('../../server/config/db');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -95,102 +101,101 @@ var Login = (_temp = _class = function (_React$Component) {
         password: this.state.password
       };
       _PostItActions2.default.login(user);
-      _PostItActions2.default.receiveAuthenticatedUser(user);
-
-      this.context.router.history.push('/dashboard');
     }
   }, {
     key: 'onClickGoogle',
     value: function onClickGoogle() {
-      Actions.googleLogin(this.context.router);
+      _PostItActions2.default.googleLogin();
     }
   }, {
     key: 'onClickReset',
     value: function onClickReset() {
-      var _this2 = this;
-
-      Actions.reset({ email: this.state.email
-      }).then(function () {
-        return _this2.setState(setErrorMsg('Password reset email sent to ' + _this2.email.value + '.'));
-      }).catch(function (error) {
-        return _this2.setState(setErrorMsg('Email address not found.'));
-      });
+      var email = {
+        email: this.state.email
+      };
+      _PostItActions2.default.resetPassword(email);
     }
   }, {
     key: 'render',
     value: function render() {
-      if (this.state.isAuthenticated == true) {
-        return _react2.default.createElement(_reactRouterDom.Redirect, { to: '/dashboard' });
-      } else {
-
-        return _react2.default.createElement(
-          'div',
+      return _react2.default.createElement(
+        'div',
+        null,
+        _react2.default.createElement(
+          _MuiThemeProvider2.default,
           null,
           _react2.default.createElement(
-            _MuiThemeProvider2.default,
-            null,
-            _react2.default.createElement(
-              _Card.Card,
-              { style: {
-                  'maxWidth': '800px',
-                  'margin': '30px auto',
-                  'padding': '50px',
-                  'textAlign': 'center'
-                } },
-              _react2.default.createElement(_Card.CardTitle, { style: { 'textAlign': 'center' },
-                title: 'Login Form',
-                subtitle: 'To continue using PostIt, you need to login below' }),
-              _react2.default.createElement(_TextField2.default, { name: 'email', onChange: this.onChange, value: this.state.email,
-                errorText: 'This field is required', hintText: 'Email Field', floatingLabelText: 'Your Email' }),
-              _react2.default.createElement('br', null),
-              _react2.default.createElement(_TextField2.default, { name: 'password', onChange: this.onChange, value: this.state.password,
-                errorText: 'This field is required', hintText: 'Password Field', floatingLabelText: 'Choose Password', type: 'password' }),
-              _react2.default.createElement('br', null),
-              _react2.default.createElement('br', null),
-              this.state.loginMessage && _react2.default.createElement(
-                'div',
-                null,
-                _react2.default.createElement('span', null),
-                _react2.default.createElement(
-                  'span',
-                  null,
-                  'Error:'
-                ),
-                '\xA0',
-                this.state.loginMessage,
-                ' ',
-                _react2.default.createElement(
-                  'a',
-                  { href: '#', onClick: this.onClickReset },
-                  'Forgot Password?'
-                )
-              ),
+            _Card.Card,
+            { style: {
+                'maxWidth': '800px',
+                'margin': '30px auto',
+                'padding': '50px',
+                'textAlign': 'center'
+              } },
+            _react2.default.createElement(_Card.CardTitle, { style: { 'textAlign': 'center' },
+              title: 'Login Form',
+              subtitle: 'To continue using PostIt, you need to login below' }),
+            _react2.default.createElement(_TextField2.default, { name: 'email', onChange: this.onChange, value: this.state.email,
+              errorText: 'This field is required', hintText: 'Email Field', floatingLabelText: 'Your Email' }),
+            _react2.default.createElement('br', null),
+            _react2.default.createElement(_TextField2.default, { name: 'password', onChange: this.onChange, value: this.state.password,
+              errorText: 'This field is required', hintText: 'Password Field', floatingLabelText: 'Choose Password', type: 'password' }),
+            _react2.default.createElement('br', null),
+            _react2.default.createElement('br', null),
+            this.state.loginMessage && _react2.default.createElement(
+              'div',
+              null,
+              _react2.default.createElement('span', null),
               _react2.default.createElement(
-                'p',
+                'span',
                 null,
-                ' Dont Have an account,',
-                _react2.default.createElement(
-                  'a',
-                  { href: '/#/signup' },
-                  ' Register here '
-                ),
-                ' '
+                'Error:'
               ),
-              _react2.default.createElement(_RaisedButton2.default, { style: {
-                  display: 'block'
-                },
-                label: 'Login', primary: true, onClick: this.onClick }),
-              _react2.default.createElement('div', null),
-              _react2.default.createElement(_FlatButton2.default, { style: {
-                  width: '50%',
-                  margin: '0 auto',
-                  border: '2px solid',
-                  backgroundColor: '#ffd699'
-                }, label: 'Sign in with Google', primary: true, onClick: this.onClickGoogle })
-            )
+              '\xA0',
+              this.state.loginMessage,
+              ' ',
+              _react2.default.createElement(
+                'a',
+                { href: '#', onClick: this.onClickReset },
+                'Forgot Password?'
+              )
+            ),
+            _react2.default.createElement(
+              'p',
+              null,
+              ' Dont Have an account,',
+              _react2.default.createElement(
+                'a',
+                { href: '/#/signup' },
+                ' Register here '
+              ),
+              ' '
+            ),
+            _react2.default.createElement(
+              'p',
+              null,
+              ' Forgot your Password? Enter your Email and ',
+              _react2.default.createElement(
+                'a',
+                { href: '/#/signup', onClick: this.onClickReset },
+                ' Click here '
+              ),
+              ' '
+            ),
+            _react2.default.createElement(_RaisedButton2.default, { style: {
+                display: 'block'
+              },
+              label: 'Login', primary: true, onClick: this.onClick }),
+            _react2.default.createElement('div', null),
+            _react2.default.createElement(_FlatButton2.default, { style: {
+                width: '50%',
+                margin: '0 auto',
+                border: '2px solid',
+                backgroundColor: '#ffd699'
+              }, label: 'Sign in with Google', primary: true, onClick: this.onClickGoogle })
           )
-        );
-      }
+        )
+      );
     }
   }]);
 

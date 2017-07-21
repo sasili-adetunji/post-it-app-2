@@ -44,6 +44,10 @@ var _UserList = require('./UserList');
 
 var _UserList2 = _interopRequireDefault(_UserList);
 
+var _MessageList = require('./MessageList');
+
+var _MessageList2 = _interopRequireDefault(_MessageList);
+
 var _PostItStore = require('../stores/PostItStore');
 
 var _PostItStore2 = _interopRequireDefault(_PostItStore);
@@ -66,10 +70,11 @@ function getAppState() {
     success: _PostItStore2.default.getSuccess(),
     loggedInUser: _PostItStore2.default.getLoggedInUser(),
     registeredUser: _PostItStore2.default.getRegisteredUser(),
-    users: _PostItStore2.default.getUsersNotInGroup(),
     groups: _PostItStore2.default.getUserGroups(),
-    messages: _PostItStore2.default.getGroupMessages(),
-    selectedGroup: _PostItStore2.default.getSelectedGroup()
+    selectedGroup: _PostItStore2.default.getOpenedGroup(),
+    users: _PostItStore2.default.getUsers(),
+    messages: _PostItStore2.default.getMessages()
+
   };
 }
 
@@ -117,10 +122,10 @@ var DashContainer = function (_React$Component) {
       success: _PostItStore2.default.getSuccess(),
       loggedInUser: _PostItStore2.default.getLoggedInUser(),
       registeredUser: _PostItStore2.default.getRegisteredUser(),
-      users: _PostItStore2.default.getUsersNotInGroup(),
       groups: _PostItStore2.default.getUserGroups(),
-      messages: _PostItStore2.default.getGroupMessages(),
-      selectedGroup: _PostItStore2.default.getSelectedGroup()
+      selectedGroup: _PostItStore2.default.getOpenedGroup(),
+      users: _PostItStore2.default.getUsers(),
+      messages: _PostItStore2.default.getMessages()
 
     };
 
@@ -128,10 +133,16 @@ var DashContainer = function (_React$Component) {
   }
 
   _createClass(DashContainer, [{
+    key: '_onChange',
+    value: function _onChange() {
+      this.setState(getAppState());
+    }
+  }, {
     key: 'componentDidMount',
     value: function componentDidMount() {
-      //console.log(this.state.loggedInUser);
       _Api2.default.getUserGroups();
+      _Api2.default.getUsers();
+
       _PostItStore2.default.addChangeListener(this._onChange.bind(this));
     }
   }, {
@@ -145,24 +156,26 @@ var DashContainer = function (_React$Component) {
 
       return _react2.default.createElement(
         'div',
-        { style: style.root },
+        null,
         _react2.default.createElement(
-          _GridList.GridList,
-          {
-            cellHeight: 180,
-            style: style.gridList
-          },
-          _react2.default.createElement(_MessageBox2.default, null),
-          _react2.default.createElement(_CreateGroup2.default, null),
-          _react2.default.createElement(_AddMember2.default, null),
-          _react2.default.createElement(_GroupList2.default, { groups: this.state.groups })
+          'div',
+          { className: 'col-sm-4' },
+          _react2.default.createElement(_UserList2.default, { users: this.state.users }),
+          ' '
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'col-sm-4' },
+          _react2.default.createElement(_GroupList2.default, { groups: this.state.groups }),
+          ' '
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'col-sm-4' },
+          _react2.default.createElement(_MessageList2.default, this.state),
+          ' '
         )
       );
-    }
-  }, {
-    key: '_onChange',
-    value: function _onChange() {
-      this.setState(getAppState());
     }
   }]);
 

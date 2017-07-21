@@ -11,9 +11,6 @@ import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 
-
-
-
 function setErrorMsg(error) {
   return {
     loginMessage: error
@@ -53,23 +50,15 @@ class Register extends React.Component {
     let user = {
     email: this.state.email,
     password: this.state.password,
-    username: this.state.username,
-    isAuthenticated: false
-
+    username: this.state.username
   }
     PostItActions.registerUser(user)
     PostItActions.receiveAuthenticatedUser(user)
-    this.context.router.history.push('/dashboard')
+   
     }    
   
 
     render(){
-      if (this.state.isAuthenticated == true) {
-            return (
-                <Redirect to="/dashboard"/>
-            )
-        }
-        else {
 
       return (
         <div>
@@ -107,7 +96,7 @@ class Register extends React.Component {
         );
     
   }
-}
+
 }
 module.exports = Register;
 

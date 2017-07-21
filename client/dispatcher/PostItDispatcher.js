@@ -41,6 +41,16 @@ PostItDispatcher.register((action) => {
     PostItStore.emitChange();
     break;
 
+  case PostItConstants.GOOGLE_LOGIN:
+    console.log('Google login');
+
+    API.googleLogin();
+
+    PostItStore.signinUser(action.token);
+
+    PostItStore.emitChange();
+    break;
+
   case PostItConstants.ADDUSER_GROUP:
    
     console.log('add user group');
@@ -72,9 +82,9 @@ PostItDispatcher.register((action) => {
     PostItStore.emitChange();
     break;
 
-  case PostItConstants.RECEIVE_USER_MESSAGES:
- 
-    PostItStore.setUserMessages(action.messages);
+  case PostItConstants.RECEIVE_MESSAGES:
+
+     PostItStore.setMessages(action.messages);
   
     PostItStore.emitChange();
     break;
@@ -82,6 +92,20 @@ PostItDispatcher.register((action) => {
   case PostItConstants.RECEIVE_USER_GROUPS:
 
     PostItStore.setUserGroups(action.groups);
+
+    PostItStore.emitChange();
+    break;
+  case PostItConstants.RECEIVE_USERS:
+
+      console.log('storing users...');
+
+    PostItStore.setUsers(action.users);
+
+    PostItStore.emitChange();
+    break;
+  case PostItConstants.RESET_PASSWORD:
+
+    API.resetPassword(action.email);
 
     PostItStore.emitChange();
     break;
@@ -93,16 +117,12 @@ PostItDispatcher.register((action) => {
     PostItStore.setIsAuthenticated(true);
     PostItStore.emitChange();
     break;
+    
+  case PostItConstants.GROUP_OPENED:
+      console.log('group opened Dispatcher');
 
-  case PostItConstants.SELECT_GROUP:
   
     PostItStore.setOpenedGroup(action.selectedGroup);
-
-    PostItStore.emitChange();
-    break;
-  case PostItConstants.GROUP_OPENED:
-  
-    PostItStore.getOpenedGroup(action.selectedGroup);
 
     PostItStore.emitChange();
     break;

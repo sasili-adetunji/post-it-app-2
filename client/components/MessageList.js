@@ -10,50 +10,29 @@ import Paper from 'material-ui/Paper';
 import PostItActions from '../actions/PostItActions';
 import PostItStore from '../stores/PostItStore';
 
-import User from './User';
+import Message from './Message';
 import { List } from 'material-ui/List';
 
 
-class UserList extends React.Component {
+class MessageList extends React.Component {
   constructor(props){
     super(props);
   }
   
 render(){
-    if(!this.props.users){
-      return (
-        <Card style={{
-          flexGrow: 1
-        }}>
-          <CircularProgress
-            mode="indeterminate"
-            style={{
-              paddingTop: '20px',
-              paddingBottom: '20px',
-              margin: '0 auto',
-              display: 'block',
-              width: '60px'
-            }}
-          />
-        </Card>
-      );
-    }
-var userNodes = this.props.users.map((user, i)=> {
+
+var messageNodes = this.props.messages.map((message, i)=> {
         return (
-          <User user={user} key={i} />
+          <Message message={message} key={i} />
         );
       })
-              console.log('UserList------', this.props.users)
-
-
-
 
     return ( 
       <div> 
        <List>
-              <CardTitle title="User List" />
+              <CardTitle title="Messages" />
 
-          {userNodes}
+          {messageNodes}
         </List>
         </div>
         )
@@ -62,4 +41,4 @@ var userNodes = this.props.users.map((user, i)=> {
       
  
 
-export default UserList;
+export default MessageList;

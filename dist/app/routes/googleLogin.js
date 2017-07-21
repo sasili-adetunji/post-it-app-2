@@ -24,14 +24,22 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var app = (0, _express2.default)();
 var googleLogin = function googleLogin(app, db) {
   app.post('/user/google', function (req, res) {
-    var provider = new _db.firebaseAuth().GoogleAuthProvider();
-    return _firebase2.default.auth().signInWithPopup(provider);
-    res.send({
-      message: 'Success: you have successfuly signed in with google.'
-    }).catch(function (err) {
-      var errorMessage = error.message;
-      res.status(400).send({
-        message: 'Error signing up with Google: ', errorMessage: errorMessage
+    var token, email, uid, displayName;
+    var provider = new _firebase2.default.auth.GoogleAuthProvider();
+    provider.addScope('https://www.googleapis.com/auth/plus.login');
+    (0, _db.firebaseAuth)().signInWithPopup(provider).then(function (result) {
+      token = result.credential.accessToken;
+      email = result.user.email;
+      uid = result.user.uid;
+      displayName = result.user.displayName;
+    }).then(function (snap) {
+      var userRef = _firebase2.default.database().ref('users/').child(uid).set({
+        username: displayName,
+        email: email
+      });
+    }).catch(function (error) {
+      res.send({
+        message: error.message
       });
     });
   });

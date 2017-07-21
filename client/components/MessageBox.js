@@ -12,7 +12,7 @@ import PostItActions from '../actions/PostItActions';
 const style = {
   height: 100,
   width: 100,
-  margin: '30px auto',
+  margin: '30px 30px',
   padding: 30,
   textAlign: 'center',
   display: 'inline-block',
@@ -58,7 +58,7 @@ onClick(e){
           value={this.state.message}
           onChange={this.onChange}
           style={{
-            width: '100px',
+            width: '200px',
             borderColor: '#D0D0D0',
             resize: 'none',
             borderRadius: 3,
@@ -68,7 +68,17 @@ onClick(e){
             outline: 'auto 0px'
           }} />
           <div>
-          <TextField name= 'groupId' onChange={this.onChange} value = {this.state.groupId}
+          <TextField style={{
+            width: '200px',
+            borderColor: '#D0D0D0',
+            resize: 'none',
+            borderRadius: 3,
+            minHeight: '50px',
+            color: '#555',
+            fontSize: 14,
+            outline: 'auto 0px'
+          }}
+           name= 'groupId' onChange={this.onChange} value = {this.state.groupId}
           floatingLabelText="Group ID" /><br />
           </div>
           <RaisedButton style={{
