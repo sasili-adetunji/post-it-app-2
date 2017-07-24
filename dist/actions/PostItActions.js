@@ -70,7 +70,7 @@ var PostItActions = {
     });
   },
   addMessage: function addMessage(message) {
-    // console.log(message);
+    //console.log(message);
     _PostItDispatcher2.default.dispatch({
       actionType: _PostItConstants2.default.ADD_MESSAGE,
       message: message

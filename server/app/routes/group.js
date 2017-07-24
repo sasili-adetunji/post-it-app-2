@@ -14,7 +14,7 @@ const group = (app, db) => {
           groupname: groupname,
           groupadmin: user.email,
         }).key;
-        const groupRef = fb.ref(`groups/${groupKey}/users/`)
+        const groupRef = fb.ref(`groups/${groupKey}/users/${user.uid}/`)
           .set({
           Id: user.uid,
       })

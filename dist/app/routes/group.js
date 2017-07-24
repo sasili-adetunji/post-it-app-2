@@ -30,7 +30,7 @@ var group = function group(app, db) {
         groupname: groupname,
         groupadmin: user.email
       }).key;
-      var groupRef = fb.ref('groups/' + groupKey + '/users/').set({
+      var groupRef = fb.ref('groups/' + groupKey + '/users/' + user.uid + '/').set({
         Id: user.uid
       });
       var userRef = fb.ref('users/' + user.uid + '/groups/' + groupKey + '/groupInfo').set({

@@ -1,4 +1,3 @@
-
 {
   "name": "post-it-app",
   "version": "1.0.0",
@@ -9,6 +8,7 @@
     "test": "mocha --timeout 75000 dist/test/apiTest.js",
     "start": "node ./dist/server.js",
     "build": "babel server/ -d dist && babel client/ -d dist",
+    "build1": "babel server/ -d dist",
     "dev": "webpack-dev-server --hot & npm start",
     "server": "nodemon --watch server --exec babel-node -- server/server.js",
     "dev1": "babel-watch server/server.js",
@@ -45,6 +45,7 @@
     "eslint-plugin-import": "^2.3.0",
     "express": "^4.15.3",
     "firebase": "^4.0.0",
+    "firebase-tools": "^3.9.1",
     "flux": "^3.1.2",
     "history": "^4.6.1",
     "jwt-decode": "^2.2.0",
@@ -52,6 +53,8 @@
     "mocha": "^3.4.2",
     "node-loader": "^0.6.0",
     "node-sass": "^4.5.3",
+    "nodemailer": "^4.0.1",
+    "nodemailer-smtp-transport": "^2.7.4",
     "nodemon": "^1.11.0",
     "object-assign": "^4.1.1",
     "prop-types": "^15.5.10",

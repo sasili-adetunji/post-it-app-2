@@ -9,34 +9,31 @@ const fb = firebase.database();
 const groupAdd = (app, db) => {
    app.post('/group/:groupId/user', (req, res) => {
 
-    const groupId = req.params.groupId;
-     const newUser = req.body.userId;
+    let groupId = req.params.groupId;
+     let newUser = req.body.userId;
     firebase.auth().onAuthStateChanged((user) => {
-    if (user) {
-      const groupRef = fb.ref(`groups/${groupId}/users/`);
-      groupRef.child(newUser).set({
-        userId: userId,
-      })
-     .then(() => {
-       const userRef = fb.ref(`users/${userId}/groups/`);
-       userRef.child(groupId).set({
-         groupId: groupId,
-       });
-       res.send({
-         message: 'User successfully added',
+      const groupRef = fb.ref(`groups/${groupId}/users/${newUser}/`).set({
+               Id: newUser
+             })
+      
+        const groupNames = fb.ref(`groups/${groupId}`).orderByKey()
+              .once('value', (snap) => {
+                  let groupname = snap.val().groupname
+    
+       const userRef = fb.ref(`users/${newUser}/groups/${groupId}/groupInfo`).set({
+          groupname: groupname
        });
      })
+  
+       res.send({
+         message: 'User successfully added',
+       })
+    
      .catch((error) => {
        res.status(500).send({
          message: `Error occurred ${error.message}`,
        });
      });
-    } 
-    else {
-      res.status(403).send({
-        message: 'Only logged users can add users to groups'
-        });
-      }
     })
   })
 };

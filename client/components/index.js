@@ -13,6 +13,7 @@ import FlatButton from 'material-ui/FlatButton';
 import PostItStore from '../stores/PostItStore';
 import PostItActions from '../actions/PostItActions';
 import PropTypes from 'prop-types';
+import firebase from 'firebase';
 
 import Dashboard from './protected/Dashbord'
 import { firebaseAuth } from '../../server/config/db'
@@ -69,6 +70,18 @@ class App extends Component {
 
   componentDidMount () {
         PostItStore.addChangeListener(this._onChange);
+
+        // messaging.requestPermission().
+        // then(function(){
+        //   console.log('Have Permisssion')
+        //   return messaging.getToken();
+        // })
+        // .then(function(token){
+        //   console.log(token)
+        // })
+        // .catch(function(){
+        //   console.log('Error Occured')
+        // })
       }
 
   componentWillUnmount () {

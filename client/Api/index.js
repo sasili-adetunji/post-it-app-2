@@ -117,7 +117,8 @@ import PostItActions from '../actions/PostItActions';
     // console.log('api', message);
     axios.post('/message', {
       groupId: message.groupId,
-      message: message.message
+      message: message.message,
+      priorityLevel: message.priorityLevel
     }).then((response) => {
       PostItActions.receiveSuccess(response.message);
     })

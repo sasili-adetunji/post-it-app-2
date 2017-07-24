@@ -106,7 +106,8 @@ module.exports = {
     // console.log('api', message);
     _axios2.default.post('/message', {
       groupId: message.groupId,
-      message: message.message
+      message: message.message,
+      priorityLevel: message.priorityLevel
     }).then(function (response) {
       _PostItActions2.default.receiveSuccess(response.message);
     }).catch(function (error) {
