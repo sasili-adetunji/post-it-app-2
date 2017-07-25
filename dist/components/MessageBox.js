@@ -100,6 +100,8 @@ var MessageBox = function (_React$Component) {
   }, {
     key: 'onClick',
     value: function onClick(e) {
+      var _this2 = this;
+
       e.preventDefault();
       var message = {
         message: this.state.message,
@@ -107,41 +109,39 @@ var MessageBox = function (_React$Component) {
         priorityLevel: this.state.priorityLevel
       };
 
-      _PostItActions2.default.addMessage(message);
+      //PostItActions.addMessage(message)
       //console.log(message)
-      // const groupRef = firebase.database().ref(`groups/-Kpniq09QbqloaIMjgcY/messages`)
-      //   .push().set({
-      //     message: this.state.message         
-      //   })
-      //   const userRef = firebase.database().ref(`groups/-Kpniq09QbqloaIMjgcY/users/`);
-      //       userRef.orderByKey().once('value', (snapshot) => {
-      //               snapshot.forEach((childSnapShot) => {
-      //               userIds.push(childSnapShot.val().Id);
-      //           console.log('user Ids ', userIds)
-      //         })
-      //       userIds.forEach((uid) => {         
+      var groupRef = _firebase2.default.database().ref('groups/-Kpniq09QbqloaIMjgcY/messages').push().set({
+        message: this.state.message
+      });
+      var userRef = _firebase2.default.database().ref('groups/-Kpniq09QbqloaIMjgcY/users/');
+      userRef.orderByKey().once('value', function (snapshot) {
+        snapshot.forEach(function (childSnapShot) {
+          userIds.push(childSnapShot.val().Id);
+          console.log('user Ids ', userIds);
+        });
+        userIds.forEach(function (uid) {
 
-      // const userRef2 = firebase.database().ref(`users/${uid}/groups/-Kpniq09QbqloaIMjgcY/messages`);
-      //   userRef2.push().set({
-      //     message: this.state.message
-      //     }) 
-      //   if((this.state.priorityLevel==="Critical") || (this.state.priorityLevel==="Urgent")){
-      //   const userEmailRef = firebase.database().ref(`users/${uid}/`)
-      //                   .once('value', (snap) => {
-      //                       emails.push(snap.val().email);
-      //                       console.log('user Emails ', emails)
+          var userRef2 = _firebase2.default.database().ref('users/' + uid + '/groups/-Kpniq09QbqloaIMjgcY/messages');
+          userRef2.push().set({
+            message: _this2.state.message
+          });
+          if (_this2.state.priorityLevel === "Critical" || _this2.state.priorityLevel === "Urgent") {
+            var userEmailRef = _firebase2.default.database().ref('users/' + uid + '/').once('value', function (snap) {
+              emails.push(snap.val().email);
+              console.log('user Emails ', emails);
 
-
-      //           emails.forEach((email) => {
-      //             let mail = email;
-      //             console.log('EEEEEmails', mail)
-      //           })
-      //       })
-      //                 }
-      //  })       
-
-
-      //     })
+              emails.forEach(function (email) {
+                var mail = email;
+                console.log('EEEEEmails', mail);
+              });
+            });
+          }
+          if (_this2.state.priorityLevel === "Urgent") {
+            console.log('this is strictly', _this2.state.priorityLevel);
+          }
+        });
+      });
     }
   }, {
     key: 'render',

@@ -26,7 +26,8 @@ module.exports = {
     _axios2.default.post('/user/signup', {
       email: user.email,
       password: user.password,
-      username: user.username
+      username: user.username,
+      phoneNumber: user.phoneNumber
     }).then(function (response) {
       console.log(response.data.message);
       _PostItActions2.default.receiveSuccess(response.data.message);

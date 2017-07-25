@@ -27,7 +27,8 @@ var signup = function signup(app, db) {
   app.post('/user/signup', function (req, res) {
     var email = req.body.email,
         password = req.body.password,
-        username = req.body.username;
+        username = req.body.username,
+        phoneNumber = req.body.phoneNumber;
     _firebase2.default.auth().createUserWithEmailAndPassword(email, password).then(function (user) {
       user.updateProfile({
         displayName: username
@@ -35,7 +36,8 @@ var signup = function signup(app, db) {
         var userRef = _firebase2.default.database().ref('users/');
         userRef.child(user.uid).set({
           username: username,
-          email: email
+          email: email,
+          phoneNumber: phoneNumber
         });
         res.send({ message: 'Welcome ' + user.email + '. You have successfully registered' });
       });

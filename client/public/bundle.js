@@ -7537,7 +7537,8 @@ module.exports = {
     _axios2.default.post('/user/signup', {
       email: user.email,
       password: user.password,
-      username: user.username
+      username: user.username,
+      phoneNumber: user.phoneNumber
     }).then(function (response) {
       console.log(response.data.message);
       _PostItActions2.default.receiveSuccess(response.data.message);
@@ -18488,6 +18489,8 @@ var MessageBox = function (_React$Component) {
   }, {
     key: 'onClick',
     value: function onClick(e) {
+      var _this2 = this;
+
       e.preventDefault();
       var message = {
         message: this.state.message,
@@ -18495,41 +18498,39 @@ var MessageBox = function (_React$Component) {
         priorityLevel: this.state.priorityLevel
       };
 
-      _PostItActions2.default.addMessage(message);
+      //PostItActions.addMessage(message)
       //console.log(message)
-      // const groupRef = firebase.database().ref(`groups/-Kpniq09QbqloaIMjgcY/messages`)
-      //   .push().set({
-      //     message: this.state.message         
-      //   })
-      //   const userRef = firebase.database().ref(`groups/-Kpniq09QbqloaIMjgcY/users/`);
-      //       userRef.orderByKey().once('value', (snapshot) => {
-      //               snapshot.forEach((childSnapShot) => {
-      //               userIds.push(childSnapShot.val().Id);
-      //           console.log('user Ids ', userIds)
-      //         })
-      //       userIds.forEach((uid) => {         
+      var groupRef = _firebase2.default.database().ref('groups/-Kpniq09QbqloaIMjgcY/messages').push().set({
+        message: this.state.message
+      });
+      var userRef = _firebase2.default.database().ref('groups/-Kpniq09QbqloaIMjgcY/users/');
+      userRef.orderByKey().once('value', function (snapshot) {
+        snapshot.forEach(function (childSnapShot) {
+          userIds.push(childSnapShot.val().Id);
+          console.log('user Ids ', userIds);
+        });
+        userIds.forEach(function (uid) {
 
-      // const userRef2 = firebase.database().ref(`users/${uid}/groups/-Kpniq09QbqloaIMjgcY/messages`);
-      //   userRef2.push().set({
-      //     message: this.state.message
-      //     }) 
-      //   if((this.state.priorityLevel==="Critical") || (this.state.priorityLevel==="Urgent")){
-      //   const userEmailRef = firebase.database().ref(`users/${uid}/`)
-      //                   .once('value', (snap) => {
-      //                       emails.push(snap.val().email);
-      //                       console.log('user Emails ', emails)
+          var userRef2 = _firebase2.default.database().ref('users/' + uid + '/groups/-Kpniq09QbqloaIMjgcY/messages');
+          userRef2.push().set({
+            message: _this2.state.message
+          });
+          if (_this2.state.priorityLevel === "Critical" || _this2.state.priorityLevel === "Urgent") {
+            var userEmailRef = _firebase2.default.database().ref('users/' + uid + '/').once('value', function (snap) {
+              emails.push(snap.val().email);
+              console.log('user Emails ', emails);
 
-
-      //           emails.forEach((email) => {
-      //             let mail = email;
-      //             console.log('EEEEEmails', mail)
-      //           })
-      //       })
-      //                 }
-      //  })       
-
-
-      //     })
+              emails.forEach(function (email) {
+                var mail = email;
+                console.log('EEEEEmails', mail);
+              });
+            });
+          }
+          if (_this2.state.priorityLevel === "Urgent") {
+            console.log('this is strictly', _this2.state.priorityLevel);
+          }
+        });
+      });
     }
   }, {
     key: 'render',
@@ -32885,6 +32886,7 @@ var Register = function (_React$Component) {
       username: '',
       email: '',
       password: '',
+      phoneNumber: '',
       loginMessage: null,
       isAuthenticated: _PostItStore2.default.getIsAuthenticated()
     };
@@ -32906,7 +32908,9 @@ var Register = function (_React$Component) {
       var user = {
         email: this.state.email,
         password: this.state.password,
-        username: this.state.username
+        username: this.state.username,
+        phoneNumber: this.state.phoneNumber
+
       };
       _PostItActions2.default.registerUser(user);
       _PostItActions2.default.receiveAuthenticatedUser(user);
@@ -32940,6 +32944,9 @@ var Register = function (_React$Component) {
             _react2.default.createElement('br', null),
             _react2.default.createElement(_TextField2.default, { name: 'password', onChange: this.onChange, value: this.state.password,
               errorText: 'This field is required', hintText: 'Password Field', floatingLabelText: 'Choose Password', type: 'password' }),
+            _react2.default.createElement('br', null),
+            _react2.default.createElement(_TextField2.default, { name: 'phoneNumber', onChange: this.onChange, value: this.state.phoneNumber,
+              errorText: 'This field is required', hintText: 'E.g. 23480', floatingLabelText: 'Phone Number' }),
             _react2.default.createElement('br', null),
             _react2.default.createElement('br', null),
             _react2.default.createElement(

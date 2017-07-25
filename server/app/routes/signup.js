@@ -12,7 +12,8 @@ const signup = (app, db) => {
     app.post('/user/signup', (req, res) => {
     const email =     req.body.email,
         password = req.body.password,
-        username = req.body.username;
+        username = req.body.username,
+        phoneNumber = req.body.phoneNumber;
     firebase.auth().createUserWithEmailAndPassword(email, password)
     .then((user) => {
     user.updateProfile({
@@ -21,8 +22,9 @@ const signup = (app, db) => {
     .then(() => {
       const userRef = firebase.database().ref(`users/`);
       userRef.child(user.uid).set({
-        username,
-        email
+        username: username,
+        email: email,
+        phoneNumber: phoneNumber
       })
       res.send({ message: `Welcome ${user.email}. You have successfully registered`});
       })

@@ -68,6 +68,7 @@ var Register = (_temp = _class = function (_React$Component) {
       username: '',
       email: '',
       password: '',
+      phoneNumber: '',
       loginMessage: null,
       isAuthenticated: _PostItStore2.default.getIsAuthenticated()
     };
@@ -89,7 +90,9 @@ var Register = (_temp = _class = function (_React$Component) {
       var user = {
         email: this.state.email,
         password: this.state.password,
-        username: this.state.username
+        username: this.state.username,
+        phoneNumber: this.state.phoneNumber
+
       };
       _PostItActions2.default.registerUser(user);
       _PostItActions2.default.receiveAuthenticatedUser(user);
@@ -123,6 +126,9 @@ var Register = (_temp = _class = function (_React$Component) {
             _react2.default.createElement('br', null),
             _react2.default.createElement(_TextField2.default, { name: 'password', onChange: this.onChange, value: this.state.password,
               errorText: 'This field is required', hintText: 'Password Field', floatingLabelText: 'Choose Password', type: 'password' }),
+            _react2.default.createElement('br', null),
+            _react2.default.createElement(_TextField2.default, { name: 'phoneNumber', onChange: this.onChange, value: this.state.phoneNumber,
+              errorText: 'This field is required', hintText: 'E.g. 23480', floatingLabelText: 'Phone Number' }),
             _react2.default.createElement('br', null),
             _react2.default.createElement('br', null),
             _react2.default.createElement(
