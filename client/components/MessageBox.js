@@ -14,7 +14,7 @@ import PostItActions from '../actions/PostItActions';
 
 let emails = [];
 let userIds = [];
-
+let numbers = [];
 
 
 
@@ -52,47 +52,44 @@ onClick(e){
         groupId: this.state.groupId,
         priorityLevel: this.state.priorityLevel,
       }
+    PostItActions.addMessage(message)
+     // firebase.database().ref(`groups/-Kpniq09QbqloaIMjgcY/messages`)
+     //   .push().set({
+     //        message: this.state.message,
+     //          isRead: false        
+     //       })
 
-     //PostItActions.addMessage(message)
-      //console.log(message)
-      const groupRef = firebase.database().ref(`groups/-Kpniq09QbqloaIMjgcY/messages`)
-        .push().set({
-          message: this.state.message         
-        })
-        const userRef = firebase.database().ref(`groups/-Kpniq09QbqloaIMjgcY/users/`);
-            userRef.orderByKey().once('value', (snapshot) => {
-                    snapshot.forEach((childSnapShot) => {
-                    userIds.push(childSnapShot.val().Id);
-                console.log('user Ids ', userIds)
-              })
-            userIds.forEach((uid) => {         
-                  
-      const userRef2 = firebase.database().ref(`users/${uid}/groups/-Kpniq09QbqloaIMjgcY/messages`);
-        userRef2.push().set({
-          message: this.state.message
-          }) 
-        if((this.state.priorityLevel==="Critical") || (this.state.priorityLevel==="Urgent"))
-            {
-        const userEmailRef = firebase.database().ref(`users/${uid}/`)
-                        .once('value', (snap) => {
-                            emails.push(snap.val().email);
-                            console.log('user Emails ', emails)
-                            
-                        
-                emails.forEach((email) => {
-                  let mail = email;
-                  console.log('EEEEEmails', mail)
-                })
-            })
-                      }
-          if(this.state.priorityLevel==="Urgent"){
-              console.log('this is strictly', this.state.priorityLevel)
-          }
-       })       
-              
-             
-          })
+        //     firebase.database().ref(`groups/-Kpniq09QbqloaIMjgcY/users/`)
+        //      .once('value', (snapshot) => {
+        //       snapshot.forEach((childSnapShot) => {
+        //         userIds.push(childSnapShot.key);
+        //       })
+        //     })
+        // .then(()=>{
+        //     userIds.forEach((uid)=>{
+        //      // firebase.database().ref(`users/${uid}/groups/-Kpniq09QbqloaIMjgcY/messages`)
+        //      // .push({
+        //      //    message: this.state.message,
+        //      //    isRead: false
+        //      //    })
+        //       firebase.database().ref(`users/${uid}/`)
+        //           .once('value', (snap) => {
+        //             snap.forEach((msg) =>{
+        //             emails.push(msg.val().email);
+        //                 console.log(msg.val())
 
+        //           })
+        //           })
+        //         })
+        //   })
+        //   .then(()=>{
+
+
+        //             emails.forEach((mail)=>{
+        //               console.log(mail)
+        //         })
+        //             })
+                
   }
 
  render(){

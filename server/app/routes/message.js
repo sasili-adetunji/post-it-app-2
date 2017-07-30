@@ -3,11 +3,15 @@ import firebase from 'firebase';
 import db from '../../config/db';
 import nodemailer from 'nodemailer';
 import smtpTransport from 'nodemailer-smtp-transport';
+import Nexmo from 'nexmo';
+
 const app = express();
 const fb = firebase.database();
 
 let emails = [];
 let userIds = [];
+let numbers = [];
+
 let transporter = nodemailer.createTransport(smtpTransport({
     service: 'gmail',
     auth: {
@@ -20,33 +24,41 @@ let mailOptions = {
     from: 'sasil.adetunji@gmail.com',
     subject: 'A new message from PostIt',
 };
+
+let nexmo = new Nexmo({
+    apiKey: 'a4e15f2c',
+    apiSecret: 'c88f4f0e7092b986'
+  });
+
 const message = (app, db) => {
   app.post('/message', (req, res) => {
     let message = req.body.message;
     let groupId = req.body.groupId;
     let priorityLevel = req.body.priorityLevel;
 
-firebase.auth().onAuthStateChanged((user) => {
-        const groupRef = firebase.database().ref(`groups/${groupId}/messages`)
-        .push().set({
-          message: message         
+    firebase.auth().onAuthStateChanged((user) => {
+        firebase.database().ref(`groups/${groupId}/messages`)
+        .push({
+          message: message
         })
         .then(() => {
-           const userRef = firebase.database().ref(`groups/${groupId}/users/`);
-            userRef.orderByKey().once('value', (snapshot) => {
+           firebase.database().ref(`groups/${groupId}/users/`)
+           .once('value', (snapshot) => {
                     snapshot.forEach((childSnapShot) => {
                     userIds.push(childSnapShot.val().Id);
+                })
               })
             userIds.forEach((uid) => {    
-              const userRef2 = firebase.database().ref(`users/${uid}/groups/${groupId}/messages`);
-                  userRef2.push().set({
-                      message: message
+              firebase.database().ref(`users/${uid}/groups/${groupId}/messages`)
+              .push({
+                      message: message,
+                      isRead: false
                     })  
             if((priorityLevel==="Critical") || (priorityLevel==="Urgent")){
-                  const userEmailRef = firebase.database().ref(`users/${uid}/`)
+                  firebase.database().ref(`users/${uid}/`)
                         .once('value', (snap) => {
-                            emails.push(snap.val().email);
-                            emails.forEach((email) => {
+                          emails.push(snap.val().email);
+                          emails.forEach((email) => {
                   mailOptions.to = email; 
                   mailOptions.text = message                
                   transporter.sendMail(mailOptions, (error, info) => {
@@ -58,12 +70,25 @@ firebase.auth().onAuthStateChanged((user) => {
                           })
                         })
               }
-       
-       })       
-   
+            if(priorityLevel==='Critical'){
+              firebase.database().ref(`users/${uid}/`)
+                        .once('value', (msg) => {
+                            numbers.push(msg.val().phoneNumber);
+                            numbers.forEach((number) => {
+              
+                      nexmo.message.sendSms(
+                      'PostIt', number, message,
+                      (err, responseData) => {
+                        if (err){
+                        console.log(err)} 
+                        else {
+                        console.log(responseData)}
+                      })
+                    })
+                  })
+                }
           })
         res.send({ message: 'Message Sent successfully to Group'})
-
            })
             .catch((error) => {
               result.status(500).send({
@@ -71,7 +96,7 @@ firebase.auth().onAuthStateChanged((user) => {
             });
           })
         })
-      })
+  })
       
   }
 

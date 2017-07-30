@@ -24,6 +24,10 @@ var _nodemailerSmtpTransport = require('nodemailer-smtp-transport');
 
 var _nodemailerSmtpTransport2 = _interopRequireDefault(_nodemailerSmtpTransport);
 
+var _nexmo = require('nexmo');
+
+var _nexmo2 = _interopRequireDefault(_nexmo);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var app = (0, _express2.default)();
@@ -31,6 +35,8 @@ var fb = _firebase2.default.database();
 
 var emails = [];
 var userIds = [];
+var numbers = [];
+
 var transporter = _nodemailer2.default.createTransport((0, _nodemailerSmtpTransport2.default)({
   service: 'gmail',
   auth: {
@@ -43,6 +49,12 @@ var mailOptions = {
   from: 'sasil.adetunji@gmail.com',
   subject: 'A new message from PostIt'
 };
+
+var nexmo = new _nexmo2.default({
+  apiKey: 'a4e15f2c',
+  apiSecret: 'c88f4f0e7092b986'
+});
+
 var message = function message(app, db) {
   app.post('/message', function (req, res) {
     var message = req.body.message;
@@ -50,35 +62,49 @@ var message = function message(app, db) {
     var priorityLevel = req.body.priorityLevel;
 
     _firebase2.default.auth().onAuthStateChanged(function (user) {
-      var groupRef = _firebase2.default.database().ref('groups/' + groupId + '/messages').push().set({
+      _firebase2.default.database().ref('groups/' + groupId + '/messages').push({
         message: message
       }).then(function () {
-        var userRef = _firebase2.default.database().ref('groups/' + groupId + '/users/');
-        userRef.orderByKey().once('value', function (snapshot) {
+        _firebase2.default.database().ref('groups/' + groupId + '/users/').once('value', function (snapshot) {
           snapshot.forEach(function (childSnapShot) {
             userIds.push(childSnapShot.val().Id);
           });
-          userIds.forEach(function (uid) {
-            var userRef2 = _firebase2.default.database().ref('users/' + uid + '/groups/' + groupId + '/messages');
-            userRef2.push().set({
-              message: message
-            });
-            if (priorityLevel === "Critical" || priorityLevel === "Urgent") {
-              var userEmailRef = _firebase2.default.database().ref('users/' + uid + '/').once('value', function (snap) {
-                emails.push(snap.val().email);
-                emails.forEach(function (email) {
-                  mailOptions.to = email;
-                  mailOptions.text = message;
-                  transporter.sendMail(mailOptions, function (error, info) {
-                    if (error) {
-                      return console.log(error);
-                    }
-                    console.log('Message %s sent: %s', info.messageId, info.response);
-                  });
+        });
+        userIds.forEach(function (uid) {
+          _firebase2.default.database().ref('users/' + uid + '/groups/' + groupId + '/messages').push({
+            message: message,
+            isRead: false
+          });
+          if (priorityLevel === "Critical" || priorityLevel === "Urgent") {
+            _firebase2.default.database().ref('users/' + uid + '/').once('value', function (snap) {
+              emails.push(snap.val().email);
+              emails.forEach(function (email) {
+                mailOptions.to = email;
+                mailOptions.text = message;
+                transporter.sendMail(mailOptions, function (error, info) {
+                  if (error) {
+                    return console.log(error);
+                  }
+                  console.log('Message %s sent: %s', info.messageId, info.response);
                 });
               });
-            }
-          });
+            });
+          }
+          if (priorityLevel === 'Critical') {
+            _firebase2.default.database().ref('users/' + uid + '/').once('value', function (msg) {
+              numbers.push(msg.val().phoneNumber);
+              numbers.forEach(function (number) {
+
+                nexmo.message.sendSms('PostIt', number, message, function (err, responseData) {
+                  if (err) {
+                    console.log(err);
+                  } else {
+                    console.log(responseData);
+                  }
+                });
+              });
+            });
+          }
         });
         res.send({ message: 'Message Sent successfully to Group' });
       }).catch(function (error) {

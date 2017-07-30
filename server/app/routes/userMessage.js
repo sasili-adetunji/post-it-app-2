@@ -5,7 +5,7 @@ const fb = firebase.database();
 
 
 
-const groupList = (app, db) => {
+const userMessage = (app, db) => {
 	app.get(`/group/:groupId/messages`, (req, res) => {
 	firebase.auth().onAuthStateChanged((user) => {
     if (user) {
@@ -16,12 +16,17 @@ const groupList = (app, db) => {
         snapshot.forEach((childSnapShot) => {
           const message = {
             messageId: childSnapShot.key,
-            messageText: childSnapShot.val().message
+            messageText: childSnapShot.val().message,
+            isRead: childSnapShot.val().isRead
           };
             messages.push(message);
-
-          });
-        })
+          
+      // firebase.database().ref(`users/${user.uid}/groups/${req.params.groupId}/messages/${childSnapShot.key}`);
+      //   .update({
+      //                 isRead: true
+      //               })
+                })
+    })
  		.then(() => {
         res.send({
           messages
@@ -42,6 +47,6 @@ const groupList = (app, db) => {
 })
 }
  
-export default groupList;
+export default userMessage;
 
         
