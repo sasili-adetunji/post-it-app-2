@@ -6,6 +6,8 @@
   "scripts": {
     "webpack": "webpack --config ./webpack.config.js",
     "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
     "test1": "mocha --timeout 75000 dist/test/apiTest.js",
     "start": "node ./dist/server.js",
     "build": "babel server/ -d dist && babel client/ -d dist",
@@ -43,6 +45,7 @@
     "eslint": "^3.19.0",
     "eslint-config-airbnb-base": "^11.2.0",
     "eslint-plugin-import": "^2.3.0",
+    "expect": "^1.20.2",
     "express": "^4.15.3",
     "firebase": "^4.0.0",
     "flux": "^3.1.2",

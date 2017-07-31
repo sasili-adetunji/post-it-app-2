@@ -9,9 +9,4 @@ describe(' Test for App Component', () => {
     shallow(<App />);
   });
 
-  it('renders Navigation bar components', () => {
-    const wrapper = shallow(<App />);
-    const navbar = <Nav />;
-    expect(wrapper.contains(navbar)).toEqual(true);
-  });
 });
