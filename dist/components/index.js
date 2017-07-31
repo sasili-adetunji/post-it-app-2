@@ -68,6 +68,10 @@ var _propTypes = require('prop-types');
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
+var _firebase = require('firebase');
+
+var _firebase2 = _interopRequireDefault(_firebase);
+
 var _Dashbord = require('./protected/Dashbord');
 
 var _Dashbord2 = _interopRequireDefault(_Dashbord);
@@ -145,6 +149,18 @@ var App = (_temp = _class = function (_Component) {
     key: 'componentDidMount',
     value: function componentDidMount() {
       _PostItStore2.default.addChangeListener(this._onChange);
+
+      // messaging.requestPermission().
+      // then(function(){
+      //   console.log('Have Permisssion')
+      //   return messaging.getToken();
+      // })
+      // .then(function(token){
+      //   console.log(token)
+      // })
+      // .catch(function(){
+      //   console.log('Error Occured')
+      // })
     }
   }, {
     key: 'componentWillUnmount',

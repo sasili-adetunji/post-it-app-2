@@ -28,28 +28,25 @@ var groupAdd = function groupAdd(app, db) {
     var groupId = req.params.groupId;
     var newUser = req.body.userId;
     _firebase2.default.auth().onAuthStateChanged(function (user) {
-      if (user) {
-        var groupRef = fb.ref('groups/' + groupId + '/users/');
-        groupRef.child(newUser).set({
-          userId: userId
-        }).then(function () {
-          var userRef = fb.ref('users/' + userId + '/groups/');
-          userRef.child(groupId).set({
-            groupId: groupId
-          });
-          res.send({
-            message: 'User successfully added'
-          });
-        }).catch(function (error) {
-          res.status(500).send({
-            message: 'Error occurred ' + error.message
-          });
+      var groupRef = fb.ref('groups/' + groupId + '/users/' + newUser + '/').set({
+        Id: newUser
+      });
+
+      var groupNames = fb.ref('groups/' + groupId).orderByKey().once('value', function (snap) {
+        var groupname = snap.val().groupname;
+
+        var userRef = fb.ref('users/' + newUser + '/groups/' + groupId + '/groupInfo').set({
+          groupname: groupname
         });
-      } else {
-        res.status(403).send({
-          message: 'Only logged users can add users to groups'
+      });
+
+      res.send({
+        message: 'User successfully added'
+      }).catch(function (error) {
+        res.status(500).send({
+          message: 'Error occurred ' + error.message
         });
-      }
+      });
     });
   });
 };

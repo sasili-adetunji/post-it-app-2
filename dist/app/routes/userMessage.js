@@ -17,7 +17,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var app = (0, _express2.default)();
 var fb = _firebase2.default.database();
 
-var groupList = function groupList(app, db) {
+var userMessage = function userMessage(app, db) {
   app.get('/group/:groupId/messages', function (req, res) {
     _firebase2.default.auth().onAuthStateChanged(function (user) {
       if (user) {
@@ -28,9 +28,15 @@ var groupList = function groupList(app, db) {
           snapshot.forEach(function (childSnapShot) {
             var message = {
               messageId: childSnapShot.key,
-              messageText: childSnapShot.val().message
+              messageText: childSnapShot.val().message,
+              isRead: childSnapShot.val().isRead
             };
             messages.push(message);
+
+            // firebase.database().ref(`users/${user.uid}/groups/${req.params.groupId}/messages/${childSnapShot.key}`);
+            //   .update({
+            //                 isRead: true
+            //               })
           });
         }).then(function () {
           res.send({
@@ -50,4 +56,4 @@ var groupList = function groupList(app, db) {
   });
 };
 
-exports.default = groupList;
+exports.default = userMessage;

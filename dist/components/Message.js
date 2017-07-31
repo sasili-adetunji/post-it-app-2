@@ -52,7 +52,9 @@ var Message = function (_React$Component) {
         _react2.default.createElement(
           _List.ListItem,
           null,
-          this.props.message.messageText
+          this.props.message.messageText,
+          ' - ',
+          this.props.message.isRead
         )
       );
     }

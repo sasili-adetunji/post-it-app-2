@@ -22,7 +22,7 @@ class Message extends React.Component {
     return (
   <div>
       <ListItem>
-      {this.props.message.messageText}
+      {this.props.message.messageText} - {this.props.message.isRead} 
       </ListItem>
   </div>
     );

@@ -20,17 +20,12 @@ class User extends React.Component {
 
   render(){
     return (
-  <div>
-      <Table>
-        <TableBody> 
-          <TableRow>
-            <TableRowColumn> {this.props.user.userId} </TableRowColumn>
-            <TableRowColumn> {this.props.user.username} </TableRowColumn>
-          </TableRow>
-        </TableBody>
-      </Table>
-  </div>
-    );
+       <div>
+         <ListItem
+        href={'/#/dashboard/users' + this.props.user.userId}
+      > {this.props.user.username} </ListItem>
+      </div>
+      );
   }
 }
 

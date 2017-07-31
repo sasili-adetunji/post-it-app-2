@@ -30,6 +30,7 @@ class Register extends React.Component {
       username: '',
       email: '',
       password: '',
+      phoneNumber: '',
       loginMessage: null,
       isAuthenticated: PostItStore.getIsAuthenticated()  
     }
@@ -50,11 +51,12 @@ class Register extends React.Component {
     let user = {
     email: this.state.email,
     password: this.state.password,
-    username: this.state.username
+    username: this.state.username,
+    phoneNumber: this.state.phoneNumber
+
   }
     PostItActions.registerUser(user)
     PostItActions.receiveAuthenticatedUser(user)
-   
     }    
   
 
@@ -80,6 +82,8 @@ class Register extends React.Component {
               errorText="This field is required" hintText="Email Field" floatingLabelText="Your Email"/><br />
         <TextField name= 'password' onChange={this.onChange} value = {this.state.password}
           errorText="This field is required" hintText="Password Field" floatingLabelText="Choose Password" type="password" /><br />
+      <TextField name= 'phoneNumber' onChange={this.onChange} value = {this.state.phoneNumber}
+          errorText="This field is required" hintText="E.g. 23480" floatingLabelText="Phone Number" /><br />
 
            <br />
           <p> Already Have an account,<a href='/#/signin'> Login here </a> </p>

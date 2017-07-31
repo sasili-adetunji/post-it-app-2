@@ -20,6 +20,18 @@ var _TextField = require('material-ui/TextField');
 
 var _TextField2 = _interopRequireDefault(_TextField);
 
+var _SelectField = require('material-ui/SelectField');
+
+var _SelectField2 = _interopRequireDefault(_SelectField);
+
+var _MenuItem = require('material-ui/MenuItem');
+
+var _MenuItem2 = _interopRequireDefault(_MenuItem);
+
+var _firebase = require('firebase');
+
+var _firebase2 = _interopRequireDefault(_firebase);
+
 var _RaisedButton = require('material-ui/RaisedButton');
 
 var _RaisedButton2 = _interopRequireDefault(_RaisedButton);
@@ -50,6 +62,10 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+var emails = [];
+var userIds = [];
+var numbers = [];
+
 var style = {
   height: 100,
   width: 100,
@@ -69,7 +85,8 @@ var MessageBox = function (_React$Component) {
 
     _this.state = {
       message: '',
-      groupId: ''
+      groupId: '',
+      priorityLevel: ''
     };
     _this.onChange = _this.onChange.bind(_this);
     _this.onClick = _this.onClick.bind(_this);
@@ -87,9 +104,46 @@ var MessageBox = function (_React$Component) {
       e.preventDefault();
       var message = {
         message: this.state.message,
-        groupId: this.state.groupId
+        groupId: this.state.groupId,
+        priorityLevel: this.state.priorityLevel
       };
       _PostItActions2.default.addMessage(message);
+      // firebase.database().ref(`groups/-Kpniq09QbqloaIMjgcY/messages`)
+      //   .push().set({
+      //        message: this.state.message,
+      //          isRead: false        
+      //       })
+
+      //     firebase.database().ref(`groups/-Kpniq09QbqloaIMjgcY/users/`)
+      //      .once('value', (snapshot) => {
+      //       snapshot.forEach((childSnapShot) => {
+      //         userIds.push(childSnapShot.key);
+      //       })
+      //     })
+      // .then(()=>{
+      //     userIds.forEach((uid)=>{
+      //      // firebase.database().ref(`users/${uid}/groups/-Kpniq09QbqloaIMjgcY/messages`)
+      //      // .push({
+      //      //    message: this.state.message,
+      //      //    isRead: false
+      //      //    })
+      //       firebase.database().ref(`users/${uid}/`)
+      //           .once('value', (snap) => {
+      //             snap.forEach((msg) =>{
+      //             emails.push(msg.val().email);
+      //                 console.log(msg.val())
+
+      //           })
+      //           })
+      //         })
+      //   })
+      //   .then(()=>{
+
+
+      //             emails.forEach((mail)=>{
+      //               console.log(mail)
+      //         })
+      //             })
     }
   }, {
     key: 'render',
@@ -127,7 +181,41 @@ var MessageBox = function (_React$Component) {
             },
             name: 'groupId', onChange: this.onChange, value: this.state.groupId,
             floatingLabelText: 'Group ID' }),
-          _react2.default.createElement('br', null)
+          _react2.default.createElement('br', null),
+          _react2.default.createElement(
+            'label',
+            { htmlFor: 'priorityLevel' },
+            'Priority Level:'
+          ),
+          _react2.default.createElement(
+            'select',
+            { style: {
+                width: '200px',
+                borderColor: '#D0D0D0',
+                resize: 'none',
+                borderRadius: 3,
+                minHeight: '50px',
+                color: '#555',
+                fontSize: 14,
+                outline: 'auto 0px'
+              },
+              placeholder: 'Priority Level', name: 'priorityLevel', onChange: this.onChange, value: this.state.priorityLevel, className: 'form-control' },
+            _react2.default.createElement(
+              'option',
+              { value: 'Normal' },
+              'Normal'
+            ),
+            _react2.default.createElement(
+              'option',
+              { value: 'Urgent' },
+              'Urgent'
+            ),
+            _react2.default.createElement(
+              'option',
+              { value: 'Critical' },
+              'Critical'
+            )
+          )
         ),
         _react2.default.createElement(_RaisedButton2.default, { style: {
             display: 'block',

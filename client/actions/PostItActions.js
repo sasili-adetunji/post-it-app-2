@@ -66,7 +66,7 @@ const PostItActions = {
   },
 
   addMessage(message) {
-    // console.log(message);
+    //console.log(message);
     PostItDispatcher.dispatch({
       actionType: PostItConstants.ADD_MESSAGE,
       message

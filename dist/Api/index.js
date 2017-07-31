@@ -26,7 +26,8 @@ module.exports = {
     _axios2.default.post('/user/signup', {
       email: user.email,
       password: user.password,
-      username: user.username
+      username: user.username,
+      phoneNumber: user.phoneNumber
     }).then(function (response) {
       console.log(response.data.message);
       _PostItActions2.default.receiveSuccess(response.data.message);
@@ -106,7 +107,8 @@ module.exports = {
     // console.log('api', message);
     _axios2.default.post('/message', {
       groupId: message.groupId,
-      message: message.message
+      message: message.message,
+      priorityLevel: message.priorityLevel
     }).then(function (response) {
       _PostItActions2.default.receiveSuccess(response.message);
     }).catch(function (error) {

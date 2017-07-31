@@ -15,7 +15,8 @@ import PostItActions from '../actions/PostItActions';
     axios.post('/user/signup', {
       email: user.email,
       password: user.password,
-      username: user.username
+      username: user.username,
+      phoneNumber: user.phoneNumber
     })
     .then((response) => {
       console.log(response.data.message);
@@ -117,7 +118,8 @@ import PostItActions from '../actions/PostItActions';
     // console.log('api', message);
     axios.post('/message', {
       groupId: message.groupId,
-      message: message.message
+      message: message.message,
+      priorityLevel: message.priorityLevel
     }).then((response) => {
       PostItActions.receiveSuccess(response.message);
     })
