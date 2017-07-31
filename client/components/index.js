@@ -93,7 +93,6 @@ class App extends Component {
   }
   
   render() {
-     console.log('Ret render auth:', this.state.isAuthenticated)
             {!this.state.isAuthenticated ? <Nav /> : ''}
     return  (
         <div>
@@ -103,7 +102,7 @@ class App extends Component {
             </MuiThemeProvider>
 
               <Switch>
-                <Route path='/' exact component={Login} />
+                <PublicRoute path='/' exact component={Login} />
                 <PublicRoute isAuthenticated={this.state.isAuthenticated} path='/signin' component={Login} />
                 <PublicRoute isAuthenticated={this.state.isAuthenticated} path='/signup' component={Register} />
                 <PrivateRoute isAuthenticated={this.state.isAuthenticated} path='/dashboard' component={Dashboard} />

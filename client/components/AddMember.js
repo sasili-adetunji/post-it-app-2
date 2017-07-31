@@ -1,5 +1,4 @@
 import React from 'react';
-import trim from 'trim';
 import {CardHeader, CardTitle} from 'material-ui/Card';
 import  TextField  from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';

@@ -35,7 +35,7 @@ class Dashboard extends React.Component {
     render() {
       return (
 
-          <div className='row'>
+      <div className='row'>
       <MuiThemeProvider>
         <DashContainer />
       </MuiThemeProvider>
