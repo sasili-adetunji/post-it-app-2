@@ -50,30 +50,13 @@ var User = function (_React$Component) {
         'div',
         null,
         _react2.default.createElement(
-          _Table.Table,
-          null,
-          _react2.default.createElement(
-            _Table.TableBody,
-            null,
-            _react2.default.createElement(
-              _Table.TableRow,
-              null,
-              _react2.default.createElement(
-                _Table.TableRowColumn,
-                null,
-                ' ',
-                this.props.user.userId,
-                ' '
-              ),
-              _react2.default.createElement(
-                _Table.TableRowColumn,
-                null,
-                ' ',
-                this.props.user.username,
-                ' '
-              )
-            )
-          )
+          _List.ListItem,
+          {
+            href: '/#/dashboard/users' + this.props.user.userId
+          },
+          ' ',
+          this.props.user.username,
+          ' '
         )
       );
     }

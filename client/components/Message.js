@@ -2,7 +2,7 @@ import React from 'react';
 import mui from 'material-ui';
 import API from '../Api';
 import { ListItem } from 'material-ui/List';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {
   Table,
   TableBody,
@@ -14,17 +14,17 @@ import {
 
 
 class Message extends React.Component {
-  constructor(props){
+  constructor(props) {
     super(props);
   }
 
-  render(){
+  render() {
     return (
-  <div>
-      <ListItem>
-      {this.props.message.messageText} - {this.props.message.isRead} 
-      </ListItem>
-  </div>
+      <div>
+        <ListItem>
+          {this.props.message.messageText} - {this.props.message.isRead}
+        </ListItem>
+      </div>
     );
   }
 }

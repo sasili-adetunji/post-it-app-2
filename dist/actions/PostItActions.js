@@ -16,29 +16,22 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var PostItActions = {
   login: function login(user) {
-    console.log('Logging user....');
     _PostItDispatcher2.default.dispatch({
       actionType: _PostItConstants2.default.LOGIN_USER,
       user: user
 
     });
-    console.log('dispatcher signin....');
   },
   googleLogin: function googleLogin() {
-    console.log('Google user....');
     _PostItDispatcher2.default.dispatch({
       actionType: _PostItConstants2.default.GOOGLE_LOGIN
-
     });
-    console.log('dispatcher signin....');
   },
   registerUser: function registerUser(user) {
-    console.log('Reg user....', user);
     _PostItDispatcher2.default.dispatch({
       actionType: _PostItConstants2.default.REGISTER_USER,
       user: user
     });
-    console.log('dispatcher resgister....', user);
   },
   receiveErrors: function receiveErrors(errors) {
     _PostItDispatcher2.default.dispatch({
@@ -61,8 +54,6 @@ var PostItActions = {
     });
   },
   addUserToGroup: function addUserToGroup(user) {
-    console.log(user);
-
     _PostItDispatcher2.default.dispatch({
       actionType: _PostItConstants2.default.ADDUSER_GROUP,
       user: user
@@ -70,22 +61,18 @@ var PostItActions = {
     });
   },
   addMessage: function addMessage(message) {
-    //console.log(message);
     _PostItDispatcher2.default.dispatch({
       actionType: _PostItConstants2.default.ADD_MESSAGE,
       message: message
 
     });
-    console.log(message);
   },
   resetPassword: function resetPassword(email) {
-    // console.log(email);
     _PostItDispatcher2.default.dispatch({
       actionType: _PostItConstants2.default.RESET_PASSWORD,
       email: email
 
     });
-    console.log(email);
   },
   signOutUser: function signOutUser() {
     _PostItDispatcher2.default.dispatch({
@@ -122,8 +109,6 @@ var PostItActions = {
     });
   },
   groupOpened: function groupOpened(selectedGroup) {
-    console.log('group opened', selectedGroup);
-
     _PostItDispatcher2.default.dispatch({
       actionType: _PostItConstants2.default.GROUP_OPENED,
       selectedGroup: selectedGroup

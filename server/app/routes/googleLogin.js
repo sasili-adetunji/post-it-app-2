@@ -1,42 +1,41 @@
 // google route
-//using firebase authentication method
+// using firebase authentication method
 
-import express from 'express'; 
+import express from 'express';
 import firebase from 'firebase';
 import db from '../../config/db';
-import { firebaseAuth, ref } from '../../config/db'
+import { firebaseAuth, ref } from '../../config/db';
 
 
 const app = express();
 const googleLogin = (app, db) => {
   app.post('/user/google', (req, res) => {
-    var token,
-    email,
-    uid,
-    displayName;
-var provider = new firebase.auth.GoogleAuthProvider();
+    let token,
+      email,
+      uid,
+      displayName;
+    const provider = new firebase.auth.GoogleAuthProvider();
     provider.addScope('https://www.googleapis.com/auth/plus.login');
-      firebaseAuth().signInWithPopup(provider)
-      .then((result)=> {
-            token = result.credential.accessToken;
-            email = result.user.email;
-            uid = result.user.uid
-            displayName = result.user.displayName
-        })
-      .then((snap)=> {
-      const userRef = firebase.database()
-       .ref(`users/`).child(uid).set({
-        username: displayName,
-        email: email
-      });
-    }) 
-      .catch((error)=> {
-         res.send({
+    firebaseAuth().signInWithPopup(provider)
+      .then((result) => {
+        token = result.credential.accessToken;
+        email = result.user.email;
+        uid = result.user.uid;
+        displayName = result.user.displayName;
+      })
+      .then((snap) => {
+        const userRef = firebase.database()
+       .ref('users/').child(uid).set({
+         username: displayName,
+         email
+       });
+      })
+      .catch((error) => {
+        res.send({
           message: error.message
-         })
-        })
-
-})
-}
+        });
+      });
+  });
+};
 
 export default googleLogin;

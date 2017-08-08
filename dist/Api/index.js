@@ -4,10 +4,6 @@ var _axios = require('axios');
 
 var _axios2 = _interopRequireDefault(_axios);
 
-var _propTypes = require('prop-types');
-
-var _propTypes2 = _interopRequireDefault(_propTypes);
-
 var _firebase = require('firebase');
 
 var _firebase2 = _interopRequireDefault(_firebase);
@@ -58,7 +54,9 @@ module.exports = {
     });
   },
   googleLogin: function googleLogin() {
-    var token, email, uid, displayName;
+    var email = void 0,
+        uid = void 0,
+        displayName = void 0;
     var provider = new _firebase2.default.auth.GoogleAuthProvider();
     provider.addScope('https://www.googleapis.com/auth/plus.login');
     (0, _db.firebaseAuth)().signInWithPopup(provider).then(function (result) {
@@ -66,8 +64,8 @@ module.exports = {
       email = result.user.email;
       uid = result.user.uid;
       displayName = result.user.displayName;
-    }).then(function (snap) {
-      var userRef = _firebase2.default.database().ref('users/').child(uid).set({
+    }).then(function () {
+      _firebase2.default.database().ref('users/').child(uid).set({
         username: displayName,
         email: email
       });

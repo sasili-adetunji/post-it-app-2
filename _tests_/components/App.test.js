@@ -8,5 +8,4 @@ describe(' Test for App Component', () => {
   it('renders the app components', () => {
     shallow(<App />);
   });
-
 });

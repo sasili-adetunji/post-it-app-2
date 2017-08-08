@@ -1,151 +1,136 @@
 
 import { Dispatcher } from 'flux';
-import PostItStore from '../stores/PostItStore'
-import assign from 'object-assign';
+import PostItStore from '../stores/PostItStore';
 import PostItConstants from '../constants/PostItConstants';
 import API from '../Api';
 
 
-
-const PostItDispatcher = new Dispatcher()
+const PostItDispatcher = new Dispatcher();
 
 PostItDispatcher.register((action) => {
-
   switch (action.actionType) {
-  case PostItConstants.REGISTER_USER:
-    
-  	 console.log('Registering user...');
-    API.registerNewUser(action.user)
-    PostItStore.registerNewUser(action.user);
-         console.log('storing user...');
-    PostItStore.emitChange();
-    break;
+    case PostItConstants.REGISTER_USER:
 
-  case PostItConstants.LOGIN_USER:
+      API.registerNewUser(action.user);
+      PostItStore.registerNewUser(action.user);
+      PostItStore.emitChange();
+      break;
 
-     console.log('logging in user...');
+    case PostItConstants.LOGIN_USER:
 
-    API.signinUser(action.user);
-    PostItStore.signinUser(action.user);
+      API.signinUser(action.user);
+      PostItStore.signinUser(action.user);
 
-    PostItStore.emitChange();
-    break;
+      PostItStore.emitChange();
+      break;
 
-  case PostItConstants.CREATE_GROUP:
-    console.log('create user group');
+    case PostItConstants.CREATE_GROUP:
 
-    API.createNewGroup(action.group);
+      API.createNewGroup(action.group);
 
-    PostItStore.createNewGroup(action.group);
+      PostItStore.createNewGroup(action.group);
 
-    PostItStore.emitChange();
-    break;
+      PostItStore.emitChange();
+      break;
 
-  case PostItConstants.GOOGLE_LOGIN:
-    console.log('Google login');
+    case PostItConstants.GOOGLE_LOGIN:
 
-    API.googleLogin();
+      API.googleLogin();
 
-    PostItStore.signinUser(action.token);
+      PostItStore.signinUser(action.token);
 
-    PostItStore.emitChange();
-    break;
+      PostItStore.emitChange();
+      break;
 
-  case PostItConstants.ADDUSER_GROUP:
-   
-    console.log('add user group');
-    API.addUserToGroup(action.user);
+    case PostItConstants.ADDUSER_GROUP:
 
-    PostItStore.addUserToGroup(action.user);
+      API.addUserToGroup(action.user);
 
-    PostItStore.emitChange();
-    break;
+      PostItStore.addUserToGroup(action.user);
 
-  case PostItConstants.ADD_MESSAGE:
-    console.log('add message');
+      PostItStore.emitChange();
+      break;
 
-    API.postMessage(action.message);
+    case PostItConstants.ADD_MESSAGE:
 
-    PostItStore.postMessage(action.message);
-      console.log('storing message...');
+      API.postMessage(action.message);
 
-    PostItStore.emitChange();
-    break;
+      PostItStore.postMessage(action.message);
 
-  case PostItConstants.SIGNOUT_USER:
+      PostItStore.emitChange();
+      break;
 
-    API.signoutUser();
+    case PostItConstants.SIGNOUT_USER:
+
+      API.signoutUser();
 
 
-    PostItStore.signOutUser();
-    
-    PostItStore.emitChange();
-    break;
+      PostItStore.signOutUser();
 
-  case PostItConstants.RECEIVE_MESSAGES:
+      PostItStore.emitChange();
+      break;
 
-     PostItStore.setMessages(action.messages);
-  
-    PostItStore.emitChange();
-    break;
+    case PostItConstants.RECEIVE_MESSAGES:
 
-  case PostItConstants.RECEIVE_USER_GROUPS:
+      PostItStore.setMessages(action.messages);
 
-    PostItStore.setUserGroups(action.groups);
+      PostItStore.emitChange();
+      break;
 
-    PostItStore.emitChange();
-    break;
-  case PostItConstants.RECEIVE_USERS:
+    case PostItConstants.RECEIVE_USER_GROUPS:
 
-      console.log('storing users...');
+      PostItStore.setUserGroups(action.groups);
 
-    PostItStore.setUsers(action.users);
-
-    PostItStore.emitChange();
-    break;
-  case PostItConstants.RESET_PASSWORD:
-
-    API.resetPassword(action.email);
-
-    PostItStore.emitChange();
-    break;
-
-  case PostItConstants.RECEIVE_AUTHENTICATED_USER:
-
-    PostItStore.signinUser(action.user);
-    PostItStore.registerNewUser(action.user)
-    PostItStore.setIsAuthenticated(true);
-    PostItStore.emitChange();
-    break;
-    
-  case PostItConstants.GROUP_OPENED:
-      console.log('group opened Dispatcher');
-
-  
-    PostItStore.setOpenedGroup(action.selectedGroup);
-
-    PostItStore.emitChange();
-    break;
-
-  case PostItConstants.RECEIVE_SUCCESS:
-    PostItStore.receiveSuccess(action.message);
-
-    PostItStore.emitChange()
-    break;
-
-  case PostItConstants.RECEIVE_ERRORS:
-  
-    PostItStore.receiveErrors(action.errors);
-
-    PostItStore.emitChange();
+      PostItStore.emitChange();
+      break;
+    case PostItConstants.RECEIVE_USERS:
 
 
-  default:
+      PostItStore.setUsers(action.users);
+
+      PostItStore.emitChange();
+      break;
+    case PostItConstants.RESET_PASSWORD:
+
+      API.resetPassword(action.email);
+
+      PostItStore.emitChange();
+      break;
+
+    case PostItConstants.RECEIVE_AUTHENTICATED_USER:
+
+      PostItStore.signinUser(action.user);
+      PostItStore.registerNewUser(action.user);
+      PostItStore.setIsAuthenticated(true);
+      PostItStore.emitChange();
+      break;
+
+    case PostItConstants.GROUP_OPENED:
+
+      PostItStore.setOpenedGroup(action.selectedGroup);
+
+      PostItStore.emitChange();
+      break;
+
+    case PostItConstants.RECEIVE_SUCCESS:
+      PostItStore.receiveSuccess(action.message);
+
+      PostItStore.emitChange();
+      break;
+
+    case PostItConstants.RECEIVE_ERRORS:
+
+      PostItStore.receiveErrors(action.errors);
+
+      PostItStore.emitChange();
+      break;
+
+    default:
 
   }
 
   return true;
-})
+});
 
 
 export default PostItDispatcher;

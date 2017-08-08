@@ -19,8 +19,8 @@ const index = (app, db) => {
   signup(app, db);
   signin(app, db);
   signout(app, db);
-  group (app, db);
-  message (app, db);
+  group(app, db);
+  message(app, db);
   groupAdd(app, db);
   usersList(app, db);
   groupList(app, db);
@@ -28,7 +28,5 @@ const index = (app, db) => {
   userGroup(app, db);
   googleLogin(app, db);
   resetPassword(app, db);
-
-
 };
 export default index;

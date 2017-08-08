@@ -26,7 +26,7 @@ var SignIn = {
 };
 
 var group = {
-  groupName: "Business tips"
+  groupName: 'Business tips'
 };
 
 describe('Sign up route', function () {

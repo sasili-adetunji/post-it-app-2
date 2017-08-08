@@ -75,7 +75,7 @@ var message = function message(app, db) {
             message: message,
             isRead: false
           });
-          if (priorityLevel === "Critical" || priorityLevel === "Urgent") {
+          if (priorityLevel === 'Critical' || priorityLevel === 'Urgent') {
             _firebase2.default.database().ref('users/' + uid + '/').once('value', function (snap) {
               emails.push(snap.val().email);
               emails.forEach(function (email) {
@@ -94,7 +94,6 @@ var message = function message(app, db) {
             _firebase2.default.database().ref('users/' + uid + '/').once('value', function (msg) {
               numbers.push(msg.val().phoneNumber);
               numbers.forEach(function (number) {
-
                 nexmo.message.sendSms('PostIt', number, message, function (err, responseData) {
                   if (err) {
                     console.log(err);
@@ -108,7 +107,7 @@ var message = function message(app, db) {
         });
         res.send({ message: 'Message Sent successfully to Group' });
       }).catch(function (error) {
-        result.status(500).send({
+        res.status(500).send({
           message: 'Error occurred ' + error.message
         });
       });

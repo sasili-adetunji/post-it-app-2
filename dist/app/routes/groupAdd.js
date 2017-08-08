@@ -24,7 +24,6 @@ var fb = _firebase2.default.database();
 
 var groupAdd = function groupAdd(app, db) {
   app.post('/group/:groupId/user', function (req, res) {
-
     var groupId = req.params.groupId;
     var newUser = req.body.userId;
     _firebase2.default.auth().onAuthStateChanged(function (user) {

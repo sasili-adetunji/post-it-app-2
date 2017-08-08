@@ -1,7 +1,7 @@
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -59,48 +59,48 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var styles = {
-    main: {
-        display: 'flex',
-        flexDirection: 'column',
-        minHeight: '100vh'
-    },
-    body: {
-        backgroundColor: '#edecec',
-        display: 'flex',
-        flex: 1,
-        overflow: 'hidden'
-    },
-    content: {
-        flex: 1,
-        padding: '2em'
-    }
+  main: {
+    display: 'flex',
+    flexDirection: 'column',
+    minHeight: '100vh'
+  },
+  body: {
+    backgroundColor: '#edecec',
+    display: 'flex',
+    flex: 1,
+    overflow: 'hidden'
+  },
+  content: {
+    flex: 1,
+    padding: '2em'
+  }
 };
 
 var Dashboard = function (_React$Component) {
-    _inherits(Dashboard, _React$Component);
+  _inherits(Dashboard, _React$Component);
 
-    function Dashboard() {
-        _classCallCheck(this, Dashboard);
+  function Dashboard() {
+    _classCallCheck(this, Dashboard);
 
-        return _possibleConstructorReturn(this, (Dashboard.__proto__ || Object.getPrototypeOf(Dashboard)).apply(this, arguments));
+    return _possibleConstructorReturn(this, (Dashboard.__proto__ || Object.getPrototypeOf(Dashboard)).apply(this, arguments));
+  }
+
+  _createClass(Dashboard, [{
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(
+        'div',
+        { className: 'row' },
+        _react2.default.createElement(
+          _MuiThemeProvider2.default,
+          null,
+          _react2.default.createElement(_DashContainer2.default, null)
+        )
+      );
     }
+  }]);
 
-    _createClass(Dashboard, [{
-        key: 'render',
-        value: function render() {
-            return _react2.default.createElement(
-                'div',
-                { className: 'row' },
-                _react2.default.createElement(
-                    _MuiThemeProvider2.default,
-                    null,
-                    _react2.default.createElement(_DashContainer2.default, null)
-                )
-            );
-        }
-    }]);
-
-    return Dashboard;
+  return Dashboard;
 }(_react2.default.Component);
 
 exports.default = Dashboard;

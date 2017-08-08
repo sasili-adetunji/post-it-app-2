@@ -176,7 +176,6 @@ var App = (_temp = _class = function (_Component) {
   }, {
     key: 'render',
     value: function render() {
-      console.log('Ret render auth:', this.state.isAuthenticated);
       {
         !this.state.isAuthenticated ? _react2.default.createElement(_Nav2.default, null) : '';
       }
@@ -191,7 +190,7 @@ var App = (_temp = _class = function (_Component) {
         _react2.default.createElement(
           _reactRouterDom.Switch,
           null,
-          _react2.default.createElement(_reactRouterDom.Route, { path: '/', exact: true, component: _Login2.default }),
+          _react2.default.createElement(PublicRoute, { path: '/', exact: true, component: _Login2.default }),
           _react2.default.createElement(PublicRoute, { isAuthenticated: this.state.isAuthenticated, path: '/signin', component: _Login2.default }),
           _react2.default.createElement(PublicRoute, { isAuthenticated: this.state.isAuthenticated, path: '/signup', component: _Register2.default }),
           _react2.default.createElement(PrivateRoute, { isAuthenticated: this.state.isAuthenticated, path: '/dashboard', component: _Dashbord2.default }),

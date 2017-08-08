@@ -16,9 +16,9 @@ const SignIn = {
 };
 
 const group = {
-  groupName : "Business tips"
-}
- 
+  groupName: 'Business tips'
+};
+
 
 describe('Sign up route', () => {
   it('should succesfully sign up a user', (done) => {
@@ -75,7 +75,7 @@ describe('Sign in route', () => {
 
 describe('Add group route', () => {
   it('should ensure a signed in user successfuly add group', (done) => {
-   supertest(app)
+    supertest(app)
     .post('/group')
     .send(group)
     .expect('Content-type', /json/)
@@ -102,7 +102,7 @@ describe('Add user to group route', () => {
 });
 
 describe('Sign out route', () => {
-  it('should successfuly sign out user', (done) =>{
+  it('should successfuly sign out user', (done) => {
     supertest(app)
     .get('/signout')
     .expect('Content-type', /json/)

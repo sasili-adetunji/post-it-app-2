@@ -81,7 +81,6 @@ var GroupList = function (_React$Component) {
     _this.handleToggleAdd = _this.handleToggleAdd.bind(_this);
     _this.handleToggleCreate = _this.handleToggleCreate.bind(_this);
     _this.handleToggleMessage = _this.handleToggleMessage.bind(_this);
-
     return _this;
   }
 

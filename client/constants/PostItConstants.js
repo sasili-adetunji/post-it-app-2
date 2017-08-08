@@ -16,5 +16,4 @@ module.exports = {
   RECEIVE_MESSAGES: 'RECEIVE_MESSAGES'
 
 
-
 };

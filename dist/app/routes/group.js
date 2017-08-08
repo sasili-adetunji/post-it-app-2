@@ -35,8 +35,6 @@ var group = function group(app, db) {
       });
       var userRef = fb.ref('users/' + user.uid + '/groups/' + groupKey + '/groupInfo').set({
         groupname: groupname
-      }).then(function () {
-        alert("Group Successfully created");
       }).catch(function (error) {});
     });
   });

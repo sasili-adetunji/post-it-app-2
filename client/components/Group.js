@@ -7,7 +7,7 @@ import PostItStore from '../stores/PostItStore';
 
 import { ListItem } from 'material-ui/List';
 import AddMember from './AddMember';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {
   Table,
   TableBody,
@@ -18,27 +18,24 @@ import {
 } from 'material-ui/Table';
 
 class Group extends React.Component {
-  constructor(props){
+  constructor(props) {
     super(props);
-     this.state ={};
-          this.onClick = this.onClick.bind(this);
-      }
-  onClick(){
-    let groupId ={
-        groupId: this.props.group.groupId
-    }
-    PostItActions.groupOpened(this.props.group)
+    this.state = {};
+    this.onClick = this.onClick.bind(this);
+  }
+  onClick() {
+    const groupId = {
+      groupId: this.props.group.groupId
+    };
+    PostItActions.groupOpened(this.props.group);
     API.getMessages(this.props.group);
-
   }
 
-  render()
-
-    {
-      return (
-        <div>
-         <ListItem
-        href={'/#/dashboard/groups' + this.props.group.groupId}
+  render() {
+    return (
+      <div>
+        <ListItem
+        href={`/#/dashboard/groups${this.props.group.groupId}`}
         onClick={this.onClick}
       >{this.props.group.groupname}</ListItem>
       </div>
