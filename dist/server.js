@@ -1,7 +1,7 @@
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
-	value: true
+  value: true
 });
 
 var _express = require('express');
@@ -30,29 +30,30 @@ var _index2 = _interopRequireDefault(_index);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var app = (0, _express2.default)(); // server file
+// server file
+
+var app = (0, _express2.default)();
 
 var port = process.env.PORT || 8000;
 
-// use body parser to allow parsing of incoming request bodies 
-//available under the req.body property.
+// use body parser to allow parsing of incoming request bodies
+// available under the req.body property.
 
 app.use(_bodyParser2.default.urlencoded({ extended: true }));
 app.use(_bodyParser2.default.json());
 
 // import the index file which has all the routes
 
-
-// app.get("*", function (req, res) {  
+// app.get("*", function (req, res) {
 //   res.sendFile(path.join(__dirname, "../client/public"));
 // });
 
-app.use(_express2.default.static(_path2.default.join(__dirname, "../client/public")));
+app.use(_express2.default.static(_path2.default.join(__dirname, '../client/public')));
 
 (0, _index2.default)(app, {});
 
 app.listen(port, function () {
-	console.log('You are listening on ' + port);
+  console.log('You are listening on ' + port);
 });
 
 exports.default = app;

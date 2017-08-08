@@ -10,10 +10,6 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var _trim = require('trim');
-
-var _trim2 = _interopRequireDefault(_trim);
-
 var _Card = require('material-ui/Card');
 
 var _TextField = require('material-ui/TextField');
@@ -92,10 +88,12 @@ var CreateGroup = function (_React$Component) {
         'div',
         null,
         _react2.default.createElement(_Card.CardTitle, { title: 'Create' }),
-        _react2.default.createElement(_TextField2.default, { name: 'groupname', onChange: this.onChange, value: this.state.groupname,
+        _react2.default.createElement(_TextField2.default, {
+          name: 'groupname', onChange: this.onChange, value: this.state.groupname,
           floatingLabelText: 'Group Name' }),
         _react2.default.createElement('br', null),
-        _react2.default.createElement(_RaisedButton2.default, { style: {
+        _react2.default.createElement(_RaisedButton2.default, {
+          style: {
             width: '200px',
             borderColor: '#D0D0D0',
             resize: 'none',

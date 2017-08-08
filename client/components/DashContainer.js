@@ -2,48 +2,48 @@ import React from 'react';
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
 import RaisedButton from 'material-ui/RaisedButton';
-import {GridList, GridTile} from 'material-ui/GridList';
+import { GridList, GridTile } from 'material-ui/GridList';
 import MessageBox from './MessageBox';
 import CreateGroup from './CreateGroup';
 import AddMember from './AddMember';
 import GroupList from './GroupList';
 import UserList from './UserList';
 import MessageList from './MessageList';
-import PostItStore from '../stores/PostItStore'
-import API from '../Api'
+import PostItStore from '../stores/PostItStore';
+import API from '../Api';
 
 
 function getAppState() {
-    return {
-      errors: PostItStore.getErrors(),
-      success: PostItStore.getSuccess(),
-      loggedInUser: PostItStore.getLoggedInUser(),
-      registeredUser: PostItStore.getRegisteredUser(),
-      groups: PostItStore.getUserGroups(),
-      selectedGroup: PostItStore.getOpenedGroup(),
-      users: PostItStore.getUsers(),
-      messages: PostItStore.getMessages()
+  return {
+    errors: PostItStore.getErrors(),
+    success: PostItStore.getSuccess(),
+    loggedInUser: PostItStore.getLoggedInUser(),
+    registeredUser: PostItStore.getRegisteredUser(),
+    groups: PostItStore.getUserGroups(),
+    selectedGroup: PostItStore.getOpenedGroup(),
+    users: PostItStore.getUsers(),
+    messages: PostItStore.getMessages()
 
 
-    };
+  };
 }
 
 const styles = {
-    main: {
-        display: 'flex',
-        flexDirection: 'column',
-        minHeight: '100vh',
-    },
-    body: {
-        backgroundColor: '#edecec',
-        display: 'flex',
-        flex: 1,
-        overflow: 'hidden',
-    },
-    content: {
-        flex: 1,
-        padding: '2em',
-    },
+  main: {
+    display: 'flex',
+    flexDirection: 'column',
+    minHeight: '100vh',
+  },
+  body: {
+    backgroundColor: '#edecec',
+    display: 'flex',
+    flex: 1,
+    overflow: 'hidden',
+  },
+  content: {
+    flex: 1,
+    padding: '2em',
+  },
 };
 
 const style = {
@@ -60,9 +60,9 @@ const style = {
 };
 
 class DashContainer extends React.Component {
-	constructor(props) {
+  constructor(props) {
     super(props);
-  this.state ={
+    this.state = {
       errors: PostItStore.getErrors(),
       success: PostItStore.getSuccess(),
       loggedInUser: PostItStore.getLoggedInUser(),
@@ -73,43 +73,39 @@ class DashContainer extends React.Component {
       messages: PostItStore.getMessages()
 
 
-  }
-
+    };
   }
   _onChange() {
-     this.setState(getAppState());
-   };
-	
-componentDidMount(){
+    this.setState(getAppState());
+  }
+
+  componentDidMount() {
     API.getUserGroups();
     API.getUsers();
 
     PostItStore.addChangeListener(this._onChange.bind(this));
   }
 
-componentUnmount() {
+  componentUnmount() {
     PostItStore.removeChangeListener(this._onChange.bind(this));
   }
-  
 
 
-  
-  render () {
+  render() {
+    return (
 
-            return (
-        
-        <div>
-          <div className= 'col-sm-4'>
-            <UserList users = {this.state.users} /> </div>
-          <div className= 'col-sm-4'>
-            <GroupList groups = {this.state.groups} /> </div>
-         <div className= 'col-sm-4'>
-            <MessageList  {...this.state} /> </div>
-         
-        </div>
+      <div>
+        <div className="col-sm-4">
+          <UserList users={this.state.users} /> </div>
+        <div className="col-sm-4">
+          <GroupList groups={this.state.groups} /> </div>
+        <div className="col-sm-4">
+          <MessageList {...this.state} /> </div>
+
+      </div>
     );
-}
-  
+  }
+
 
 }
 export default DashContainer;

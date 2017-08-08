@@ -2,7 +2,7 @@ import React from 'react';
 import mui from 'material-ui';
 import API from '../Api';
 import { ListItem } from 'material-ui/List';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {
   Table,
   TableBody,
@@ -14,18 +14,18 @@ import {
 
 
 class User extends React.Component {
-  constructor(props){
+  constructor(props) {
     super(props);
   }
 
-  render(){
+  render() {
     return (
-       <div>
-         <ListItem
-        href={'/#/dashboard/users' + this.props.user.userId}
+      <div>
+        <ListItem
+        href={`/#/dashboard/users${this.props.user.userId}`}
       > {this.props.user.username} </ListItem>
       </div>
-      );
+    );
   }
 }
 

@@ -4,33 +4,24 @@ import PostItConstants from '../constants/PostItConstants';
 
 const PostItActions = {
   login(user) {
-     console.log('Logging user....');
     PostItDispatcher.dispatch({
       actionType: PostItConstants.LOGIN_USER,
       user
 
     });
-      console.log('dispatcher signin....');
-
   },
+
   googleLogin() {
-     console.log('Google user....');
     PostItDispatcher.dispatch({
       actionType: PostItConstants.GOOGLE_LOGIN
-      
-
     });
-      console.log('dispatcher signin....');
-
   },
 
   registerUser(user) {
-     console.log('Reg user....', user);
     PostItDispatcher.dispatch({
       actionType: PostItConstants.REGISTER_USER,
       user
     });
-    console.log('dispatcher resgister....', user);
   },
 
   receiveErrors(errors) {
@@ -56,8 +47,6 @@ const PostItActions = {
   },
 
   addUserToGroup(user) {
-      console.log(user);
-
     PostItDispatcher.dispatch({
       actionType: PostItConstants.ADDUSER_GROUP,
       user
@@ -66,27 +55,21 @@ const PostItActions = {
   },
 
   addMessage(message) {
-    //console.log(message);
     PostItDispatcher.dispatch({
       actionType: PostItConstants.ADD_MESSAGE,
       message
 
     });
-        console.log(message);
-
   },
-resetPassword(email) {
-    // console.log(email);
+  resetPassword(email) {
     PostItDispatcher.dispatch({
       actionType: PostItConstants.RESET_PASSWORD,
       email
 
     });
-        console.log(email);
-
   },
 
-signOutUser() {
+  signOutUser() {
     PostItDispatcher.dispatch({
       actionType: PostItConstants.SIGNOUT_USER
 
@@ -107,7 +90,7 @@ signOutUser() {
 
     });
   },
-receiveUsers(users) {
+  receiveUsers(users) {
     PostItDispatcher.dispatch({
       actionType: PostItConstants.RECEIVE_USERS,
       users
@@ -123,15 +106,12 @@ receiveUsers(users) {
   },
 
   groupOpened(selectedGroup) {
-        console.log('group opened',selectedGroup);
-
     PostItDispatcher.dispatch({
       actionType: PostItConstants.GROUP_OPENED,
       selectedGroup
 
     });
-
   }
-}
+};
 
 export default PostItActions;

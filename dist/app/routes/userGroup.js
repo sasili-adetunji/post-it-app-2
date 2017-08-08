@@ -21,10 +21,9 @@ var userGroup = function userGroup(app, db) {
   app.get('/user/groups', function (req, res) {
     _firebase2.default.auth().onAuthStateChanged(function (user) {
       if (user) {
-        var groupRef = _firebase2.default.database().ref('users/' + user.uid + '/groups/');
         var groups = [];
 
-        groupRef.orderByKey().once('value', function (snapshot) {
+        _firebase2.default.database().ref('users/' + user.uid + '/groups/').orderByKey().once('value', function (snapshot) {
           snapshot.forEach(function (childSnapShot) {
             var group = {
               groupId: childSnapShot.key,

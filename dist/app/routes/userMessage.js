@@ -21,10 +21,8 @@ var userMessage = function userMessage(app, db) {
   app.get('/group/:groupId/messages', function (req, res) {
     _firebase2.default.auth().onAuthStateChanged(function (user) {
       if (user) {
-        var messageRef = fb.ref('users/' + user.uid + '/groups/' + req.params.groupId + '/messages/');
         var messages = [];
-
-        messageRef.orderByKey().once('value', function (snapshot) {
+        fb.ref('users/' + user.uid + '/groups/' + req.params.groupId + '/messages/').orderByKey().once('value', function (snapshot) {
           snapshot.forEach(function (childSnapShot) {
             var message = {
               messageId: childSnapShot.key,

@@ -10,10 +10,6 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var _trim = require('trim');
-
-var _trim2 = _interopRequireDefault(_trim);
-
 var _Card = require('material-ui/Card');
 
 var _TextField = require('material-ui/TextField');
@@ -111,7 +107,7 @@ var MessageBox = function (_React$Component) {
       // firebase.database().ref(`groups/-Kpniq09QbqloaIMjgcY/messages`)
       //   .push().set({
       //        message: this.state.message,
-      //          isRead: false        
+      //          isRead: false
       //       })
 
       //     firebase.database().ref(`groups/-Kpniq09QbqloaIMjgcY/users/`)
@@ -148,12 +144,12 @@ var MessageBox = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
-
       return _react2.default.createElement(
         'div',
         { style: style },
         _react2.default.createElement(_Card.CardTitle, { title: 'Message' }),
-        _react2.default.createElement('textarea', { name: 'message',
+        _react2.default.createElement('textarea', {
+          name: 'message',
           value: this.state.message,
           onChange: this.onChange,
           style: {
@@ -169,7 +165,8 @@ var MessageBox = function (_React$Component) {
         _react2.default.createElement(
           'div',
           null,
-          _react2.default.createElement(_TextField2.default, { style: {
+          _react2.default.createElement(_TextField2.default, {
+            style: {
               width: '200px',
               borderColor: '#D0D0D0',
               resize: 'none',
@@ -189,7 +186,8 @@ var MessageBox = function (_React$Component) {
           ),
           _react2.default.createElement(
             'select',
-            { style: {
+            {
+              style: {
                 width: '200px',
                 borderColor: '#D0D0D0',
                 resize: 'none',
@@ -217,7 +215,8 @@ var MessageBox = function (_React$Component) {
             )
           )
         ),
-        _react2.default.createElement(_RaisedButton2.default, { style: {
+        _react2.default.createElement(_RaisedButton2.default, {
+          style: {
             display: 'block',
             width: '20px'
           }, onClick: this.onClick,

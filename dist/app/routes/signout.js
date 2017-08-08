@@ -22,11 +22,7 @@ var app = (0, _express2.default)(); // signout route
 
 var signout = function signout(app, db) {
   app.post('/user/signout', function (req, res) {
-
-    // using firebase signout methods
-
     _firebase2.default.auth().signOut().then(function () {
-      // redirect to home page after signout
       res.send({
         message: 'You have signed out f the Appliction'
       });

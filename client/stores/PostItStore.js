@@ -2,126 +2,118 @@ import { EventEmitter } from 'events';
 import assign from 'object-assign';
 
 
-
-const _registeredUser = [];
-let _usersInGroup = [];
-let _usersNotInGroup = [];
-let _users = [];
-let _userGroups = [];
-let _userMessages = [];
-let _errors = '';
-let _success = '';
-const _loggedInUser = [];
-let _selectedGroup = [];
-let _openedGroup = [];
-let _isAuthenticated = false;
-
+const registeredUser = [];
+const usersInGroup = [];
+const usersNotInGroup = [];
+let users = [];
+let userGroups = [];
+let userMessages = [];
+let errors = '';
+let success = '';
+const loggedInUser = [];
+const selectedGroup = [];
+const openedGroup = [];
+let isAuthenticated = false;
 
 
 const PostItStore = assign({}, EventEmitter.prototype, {
 
 
   registerNewUser(user) {
+    registeredUser.push(user);
 
-    _registeredUser.push(user);
-    // _isAuthenticated = true;
 
-      
-        console.log('new user store auth:', _isAuthenticated);
-
+    console.log('new user store auth:', isAuthenticated);
   },
   getRegisteredUser() {
-    return _registeredUser;
+    return registeredUser;
   },
   addUserToGroup(user) {
-    _usersInGroup.push(user);
-            console.log('add user store');
-
+    usersInGroup.push(user);
+    console.log('add user store');
   },
 
   postMessage(message) {
-    _userMessages.push(message);
-            console.log('message store');
-
+    userMessages.push(message);
+    console.log('message store');
   },
 
   createNewGroup(group) {
-    _userGroups.push(group);
+    userGroups.push(group);
   },
 
   signinUser(user) {
-    _loggedInUser.push(user);
+    loggedInUser.push(user);
     // _isAuthenticated = true;
-    console.log('new user store auth:', _isAuthenticated);
-
+    console.log('new user store auth:', isAuthenticated);
   },
 
   signOutUser() {
     console.log('signing out...');
-    _loggedInUser.pop();
-    _isAuthenticated = false;
+    loggedInUser.pop();
+    isAuthenticated = false;
   },
 
   setIsAuthenticated(value) {
-    _isAuthenticated = value;
+    isAuthenticated = value;
   },
 
   receiveErrors(error) {
     console.log(error);
-    _errors = error;
+    errors = error;
   },
 
   receiveSuccess(message) {
-    _success = message;
+    success = message;
   },
 
   getErrors() {
-    return _errors;
+    return errors;
   },
   getOpenedGroup() {
-    return _selectedGroup;
+    return selectedGroup;
   },
 
   getLoggedInUser() {
     // this.signinUser();
-    return _loggedInUser;
+    return loggedInUser;
   },
 
   getIsAuthenticated() {
-    return _isAuthenticated;
+    return isAuthenticated;
   },
 
   getUserGroups() {
-    return _userGroups;
+    return userGroups;
   },
   getUsers() {
     console.log('userlist store');
-    return _users;
+    return users;
   },
 
   getMessages() {
-    return _userMessages;
+    return userMessages;
   },
   getSuccess() {
-    return _success;
+    return success;
   },
 
   setUserGroups(groups) {
-    _userGroups = groups;
+    userGroups = groups;
   },
-  setUsers(users) {
-    _users = users;
+  setUsers(user) {
+    users = user;
   },
 
   setMessages(messages) {
-    _userMessages = messages;
+    userMessages = messages;
   },
 
-  setOpenedGroup(selectedGroup) {
-        console.log('setOpenedGroup store');
+  setOpenedGroup(group) {
+    console.log('setOpenedGroup store');
 
-    _selectedGroup.pop();
-    _selectedGroup.push(selectedGroup);
+    selectedGroup.pop();
+    selectedGroup.push(group);
   },
 
   emitChange() {

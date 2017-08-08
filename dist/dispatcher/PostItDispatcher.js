@@ -1,7 +1,7 @@
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 
 var _flux = require('flux');
@@ -9,10 +9,6 @@ var _flux = require('flux');
 var _PostItStore = require('../stores/PostItStore');
 
 var _PostItStore2 = _interopRequireDefault(_PostItStore);
-
-var _objectAssign = require('object-assign');
-
-var _objectAssign2 = _interopRequireDefault(_objectAssign);
 
 var _PostItConstants = require('../constants/PostItConstants');
 
@@ -27,138 +23,126 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var PostItDispatcher = new _flux.Dispatcher();
 
 PostItDispatcher.register(function (action) {
+  switch (action.actionType) {
+    case _PostItConstants2.default.REGISTER_USER:
 
-    switch (action.actionType) {
-        case _PostItConstants2.default.REGISTER_USER:
+      _Api2.default.registerNewUser(action.user);
+      _PostItStore2.default.registerNewUser(action.user);
+      _PostItStore2.default.emitChange();
+      break;
 
-            console.log('Registering user...');
-            _Api2.default.registerNewUser(action.user);
-            _PostItStore2.default.registerNewUser(action.user);
-            console.log('storing user...');
-            _PostItStore2.default.emitChange();
-            break;
+    case _PostItConstants2.default.LOGIN_USER:
 
-        case _PostItConstants2.default.LOGIN_USER:
+      _Api2.default.signinUser(action.user);
+      _PostItStore2.default.signinUser(action.user);
 
-            console.log('logging in user...');
+      _PostItStore2.default.emitChange();
+      break;
 
-            _Api2.default.signinUser(action.user);
-            _PostItStore2.default.signinUser(action.user);
+    case _PostItConstants2.default.CREATE_GROUP:
 
-            _PostItStore2.default.emitChange();
-            break;
+      _Api2.default.createNewGroup(action.group);
 
-        case _PostItConstants2.default.CREATE_GROUP:
-            console.log('create user group');
+      _PostItStore2.default.createNewGroup(action.group);
 
-            _Api2.default.createNewGroup(action.group);
+      _PostItStore2.default.emitChange();
+      break;
 
-            _PostItStore2.default.createNewGroup(action.group);
+    case _PostItConstants2.default.GOOGLE_LOGIN:
 
-            _PostItStore2.default.emitChange();
-            break;
+      _Api2.default.googleLogin();
 
-        case _PostItConstants2.default.GOOGLE_LOGIN:
-            console.log('Google login');
+      _PostItStore2.default.signinUser(action.token);
 
-            _Api2.default.googleLogin();
+      _PostItStore2.default.emitChange();
+      break;
 
-            _PostItStore2.default.signinUser(action.token);
+    case _PostItConstants2.default.ADDUSER_GROUP:
 
-            _PostItStore2.default.emitChange();
-            break;
+      _Api2.default.addUserToGroup(action.user);
 
-        case _PostItConstants2.default.ADDUSER_GROUP:
+      _PostItStore2.default.addUserToGroup(action.user);
 
-            console.log('add user group');
-            _Api2.default.addUserToGroup(action.user);
+      _PostItStore2.default.emitChange();
+      break;
 
-            _PostItStore2.default.addUserToGroup(action.user);
+    case _PostItConstants2.default.ADD_MESSAGE:
 
-            _PostItStore2.default.emitChange();
-            break;
+      _Api2.default.postMessage(action.message);
 
-        case _PostItConstants2.default.ADD_MESSAGE:
-            console.log('add message');
+      _PostItStore2.default.postMessage(action.message);
 
-            _Api2.default.postMessage(action.message);
+      _PostItStore2.default.emitChange();
+      break;
 
-            _PostItStore2.default.postMessage(action.message);
-            console.log('storing message...');
+    case _PostItConstants2.default.SIGNOUT_USER:
 
-            _PostItStore2.default.emitChange();
-            break;
+      _Api2.default.signoutUser();
 
-        case _PostItConstants2.default.SIGNOUT_USER:
+      _PostItStore2.default.signOutUser();
 
-            _Api2.default.signoutUser();
+      _PostItStore2.default.emitChange();
+      break;
 
-            _PostItStore2.default.signOutUser();
+    case _PostItConstants2.default.RECEIVE_MESSAGES:
 
-            _PostItStore2.default.emitChange();
-            break;
+      _PostItStore2.default.setMessages(action.messages);
 
-        case _PostItConstants2.default.RECEIVE_MESSAGES:
+      _PostItStore2.default.emitChange();
+      break;
 
-            _PostItStore2.default.setMessages(action.messages);
+    case _PostItConstants2.default.RECEIVE_USER_GROUPS:
 
-            _PostItStore2.default.emitChange();
-            break;
+      _PostItStore2.default.setUserGroups(action.groups);
 
-        case _PostItConstants2.default.RECEIVE_USER_GROUPS:
+      _PostItStore2.default.emitChange();
+      break;
+    case _PostItConstants2.default.RECEIVE_USERS:
 
-            _PostItStore2.default.setUserGroups(action.groups);
+      _PostItStore2.default.setUsers(action.users);
 
-            _PostItStore2.default.emitChange();
-            break;
-        case _PostItConstants2.default.RECEIVE_USERS:
+      _PostItStore2.default.emitChange();
+      break;
+    case _PostItConstants2.default.RESET_PASSWORD:
 
-            console.log('storing users...');
+      _Api2.default.resetPassword(action.email);
 
-            _PostItStore2.default.setUsers(action.users);
+      _PostItStore2.default.emitChange();
+      break;
 
-            _PostItStore2.default.emitChange();
-            break;
-        case _PostItConstants2.default.RESET_PASSWORD:
+    case _PostItConstants2.default.RECEIVE_AUTHENTICATED_USER:
 
-            _Api2.default.resetPassword(action.email);
+      _PostItStore2.default.signinUser(action.user);
+      _PostItStore2.default.registerNewUser(action.user);
+      _PostItStore2.default.setIsAuthenticated(true);
+      _PostItStore2.default.emitChange();
+      break;
 
-            _PostItStore2.default.emitChange();
-            break;
+    case _PostItConstants2.default.GROUP_OPENED:
 
-        case _PostItConstants2.default.RECEIVE_AUTHENTICATED_USER:
+      _PostItStore2.default.setOpenedGroup(action.selectedGroup);
 
-            _PostItStore2.default.signinUser(action.user);
-            _PostItStore2.default.registerNewUser(action.user);
-            _PostItStore2.default.setIsAuthenticated(true);
-            _PostItStore2.default.emitChange();
-            break;
+      _PostItStore2.default.emitChange();
+      break;
 
-        case _PostItConstants2.default.GROUP_OPENED:
-            console.log('group opened Dispatcher');
+    case _PostItConstants2.default.RECEIVE_SUCCESS:
+      _PostItStore2.default.receiveSuccess(action.message);
 
-            _PostItStore2.default.setOpenedGroup(action.selectedGroup);
+      _PostItStore2.default.emitChange();
+      break;
 
-            _PostItStore2.default.emitChange();
-            break;
+    case _PostItConstants2.default.RECEIVE_ERRORS:
 
-        case _PostItConstants2.default.RECEIVE_SUCCESS:
-            _PostItStore2.default.receiveSuccess(action.message);
+      _PostItStore2.default.receiveErrors(action.errors);
 
-            _PostItStore2.default.emitChange();
-            break;
+      _PostItStore2.default.emitChange();
+      break;
 
-        case _PostItConstants2.default.RECEIVE_ERRORS:
+    default:
 
-            _PostItStore2.default.receiveErrors(action.errors);
+  }
 
-            _PostItStore2.default.emitChange();
-
-        default:
-
-    }
-
-    return true;
+  return true;
 });
 
 exports.default = PostItDispatcher;

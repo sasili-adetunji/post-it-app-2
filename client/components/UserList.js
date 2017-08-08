@@ -1,10 +1,9 @@
 import React from 'react';
-import {CardHeader, CardTitle, Card } from 'material-ui/Card';
-import  TextField  from 'material-ui/TextField';
-import  { CircularProgress }  from 'material-ui/CircularProgress';
-
+import { CardHeader, CardTitle, Card } from 'material-ui/Card';
+import TextField from 'material-ui/TextField';
+import { CircularProgress } from 'material-ui/CircularProgress';
 import RaisedButton from 'material-ui/RaisedButton';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Paper from 'material-ui/Paper';
 import PostItActions from '../actions/PostItActions';
 import PostItStore from '../stores/PostItStore';
@@ -14,12 +13,12 @@ import { List } from 'material-ui/List';
 
 
 class UserList extends React.Component {
-  constructor(props){
+  constructor(props) {
     super(props);
   }
-  
-render(){
-    if(!this.props.users){
+
+  render() {
+    if (!this.props.users) {
       return (
         <Card style={{
           flexGrow: 1
@@ -37,28 +36,24 @@ render(){
         </Card>
       );
     }
-var userNodes = this.props.users.map((user, i)=> {
-        return (
-          <User user={user} key={i} />
-        );
-      })
-              console.log('UserList------', this.props.users)
+    const userNodes = this.props.users.map((user, i) => {
+      return (
+        <User user={user} key={i} />
+      );
+    });
+    console.log('UserList------', this.props.users);
 
-
-
-
-    return ( 
-      <div> 
-       <List>
-              <CardTitle title="User List" />
+    return (
+      <div>
+        <List>
+          <CardTitle title="User List" />
 
           {userNodes}
         </List>
-        </div>
-        )
-      }
+      </div>
+    );
+  }
     }
-      
- 
+
 
 export default UserList;

@@ -10,10 +10,6 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var _trim = require('trim');
-
-var _trim2 = _interopRequireDefault(_trim);
-
 var _Card = require('material-ui/Card');
 
 var _TextField = require('material-ui/TextField');
@@ -68,7 +64,6 @@ var MessageList = function (_React$Component) {
   _createClass(MessageList, [{
     key: 'render',
     value: function render() {
-
       var messageNodes = this.props.messages.map(function (message, i) {
         return _react2.default.createElement(_Message2.default, { message: message, key: i });
       });

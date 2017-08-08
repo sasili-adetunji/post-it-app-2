@@ -1,14 +1,12 @@
 import axios from 'axios';
-import PropTypes from 'prop-types';
 import firebase from 'firebase';
 
-import { firebaseAuth, ref } from '../../server/config/db'
-
+import { firebaseAuth } from '../../server/config/db';
 
 
 import PostItActions from '../actions/PostItActions';
 
- module.exports = {
+module.exports = {
 
   registerNewUser(user) {
     console.log(user);
@@ -21,11 +19,10 @@ import PostItActions from '../actions/PostItActions';
     .then((response) => {
       console.log(response.data.message);
       PostItActions.receiveSuccess(response.data.message);
-
     })
   .catch((error) => {
     PostItActions.receiveErrors(error.message);
-  })
+  });
   },
 
   signinUser(user) {
@@ -39,11 +36,9 @@ import PostItActions from '../actions/PostItActions';
       };
       PostItActions.receiveSuccess(response.message);
       PostItActions.receiveAuthenticatedUser(authuser);
-
     })
   .catch((error) => {
     PostItActions.receiveErrors(error.message);
-    
   });
   },
 
@@ -56,37 +51,36 @@ import PostItActions from '../actions/PostItActions';
     });
   },
   googleLogin() {
-    var token,
-    email,
-    uid,
-    displayName;
-   var provider = new firebase.auth.GoogleAuthProvider();
+    let email,
+      uid,
+      displayName;
+    const provider = new firebase.auth.GoogleAuthProvider();
     provider.addScope('https://www.googleapis.com/auth/plus.login');
-      firebaseAuth().signInWithPopup(provider)
-      .then((result)=> {
-            token = result.credential.accessToken;
-            email = result.user.email;
-            uid = result.user.uid
-            displayName = result.user.displayName
-        })
-    .then((snap)=> {
-      const userRef = firebase.database()
-       .ref(`users/`).child(uid).set({
-        username: displayName,
-        email: email
-      });
+    firebaseAuth().signInWithPopup(provider)
+      .then((result) => {
+        token = result.credential.accessToken;
+        email = result.user.email;
+        uid = result.user.uid;
+        displayName = result.user.displayName;
+      })
+    .then(() => {
+      firebase.database()
+       .ref('users/').child(uid).set({
+         username: displayName,
+         email
+       });
     })
     .then(() => {
       const authuser = {
-        email: email,
+        email,
         isAuthenticated: true
       };
-      PostItActions.receiveSuccess({message: 'Success: you have successfuly signed in.'});
+      PostItActions.receiveSuccess({ message: 'Success: you have successfuly signed in.' });
       PostItActions.receiveAuthenticatedUser(authuser);
     })
-      .catch((error)=> {
-          PostItActions.receiveErrors(error.message);
-    })
+      .catch((error) => {
+        PostItActions.receiveErrors(error.message);
+      });
   },
 
   createNewGroup(group) {
@@ -164,7 +158,7 @@ import PostItActions from '../actions/PostItActions';
   },
   resetPassword(email) {
     axios.post('/user/reset', {
-          email: email.email
+      email: email.email
     })
     .then((response) => {
       PostItActions.receiveSuccess(response.message);

@@ -19,7 +19,6 @@ var fb = _firebase2.default.database();
 
 var usersList = function usersList(app, db) {
   app.get('/user/users', function (req, res) {
-
     _firebase2.default.auth().onAuthStateChanged(function (user) {
       if (user) {
         var users = [];
