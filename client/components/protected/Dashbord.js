@@ -9,6 +9,7 @@ import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
 import RaisedButton from 'material-ui/RaisedButton';
 import { Redirect } from 'react-router-dom';
+import firebase from 'firebase';
 
 
 const styles = {
@@ -30,11 +31,8 @@ const styles = {
 };
 
 class Dashboard extends React.Component {
-
-
   render() {
     return (
-
       <div className="row">
         <MuiThemeProvider>
           <DashContainer />

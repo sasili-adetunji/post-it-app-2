@@ -21,21 +21,18 @@ const PostItStore = assign({}, EventEmitter.prototype, {
 
   registerNewUser(user) {
     registeredUser.push(user);
-
-
-    console.log('new user store auth:', isAuthenticated);
   },
+
   getRegisteredUser() {
     return registeredUser;
   },
+
   addUserToGroup(user) {
     usersInGroup.push(user);
-    console.log('add user store');
   },
 
   postMessage(message) {
     userMessages.push(message);
-    console.log('message store');
   },
 
   createNewGroup(group) {
@@ -44,12 +41,11 @@ const PostItStore = assign({}, EventEmitter.prototype, {
 
   signinUser(user) {
     loggedInUser.push(user);
-    // _isAuthenticated = true;
-    console.log('new user store auth:', isAuthenticated);
+  //   isAuthenticated = fa;
+  //   console.log('signin user store auth:', isAuthenticated);
   },
 
   signOutUser() {
-    console.log('signing out...');
     loggedInUser.pop();
     isAuthenticated = false;
   },
@@ -75,7 +71,6 @@ const PostItStore = assign({}, EventEmitter.prototype, {
   },
 
   getLoggedInUser() {
-    // this.signinUser();
     return loggedInUser;
   },
 
@@ -87,7 +82,6 @@ const PostItStore = assign({}, EventEmitter.prototype, {
     return userGroups;
   },
   getUsers() {
-    console.log('userlist store');
     return users;
   },
 
@@ -110,8 +104,6 @@ const PostItStore = assign({}, EventEmitter.prototype, {
   },
 
   setOpenedGroup(group) {
-    console.log('setOpenedGroup store');
-
     selectedGroup.pop();
     selectedGroup.push(group);
   },

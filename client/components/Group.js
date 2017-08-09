@@ -35,7 +35,7 @@ class Group extends React.Component {
     return (
       <div>
         <ListItem
-        href={`/#/dashboard/groups${this.props.group.groupId}`}
+        href={`/#/dashboard/groups/${this.props.group.groupId}`}
         onClick={this.onClick}
       >{this.props.group.groupname}</ListItem>
       </div>

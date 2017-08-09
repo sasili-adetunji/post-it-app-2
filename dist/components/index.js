@@ -94,15 +94,15 @@ function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in ob
 
 (0, _reactTapEventPlugin2.default)();
 
-function getAppState() {
-  return {
-    errors: _PostItStore2.default.getErrors(),
-    success: _PostItStore2.default.getSuccess(),
-    loggedInUser: _PostItStore2.default.getLoggedInUser(),
-    registeredUser: _PostItStore2.default.getRegisteredUser(),
-    isAuthenticated: _PostItStore2.default.getIsAuthenticated()
-  };
-}
+// function getAppState() {
+//     return {
+//         errors: PostItStore.getErrors(),
+//         success: PostItStore.getSuccess(),
+//         loggedInUser: PostItStore.getLoggedInUser(),
+//         registeredUser: PostItStore.getRegisteredUser(),
+//         isAuthenticated: PostItStore.getIsAuthenticated()
+//     };
+// }
 
 function PrivateRoute(_ref) {
   var Component = _ref.component,

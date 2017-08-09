@@ -12,14 +12,14 @@ PostItDispatcher.register((action) => {
     case PostItConstants.REGISTER_USER:
 
       API.registerNewUser(action.user);
-      PostItStore.registerNewUser(action.user);
+     // PostItStore.registerNewUser(action.user);
       PostItStore.emitChange();
       break;
 
     case PostItConstants.LOGIN_USER:
 
       API.signinUser(action.user);
-      PostItStore.signinUser(action.user);
+      // PostItStore.setIsAuthenticated(true);
 
       PostItStore.emitChange();
       break;
@@ -99,8 +99,8 @@ PostItDispatcher.register((action) => {
 
     case PostItConstants.RECEIVE_AUTHENTICATED_USER:
 
-      PostItStore.signinUser(action.user);
-      PostItStore.registerNewUser(action.user);
+      // PostItStore.signinUser(action.user);
+      // PostItStore.registerNewUser(action.user);
       PostItStore.setIsAuthenticated(true);
       PostItStore.emitChange();
       break;

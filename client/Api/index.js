@@ -9,7 +9,6 @@ import PostItActions from '../actions/PostItActions';
 module.exports = {
 
   registerNewUser(user) {
-    console.log(user);
     axios.post('/user/signup', {
       email: user.email,
       password: user.password,
@@ -18,7 +17,12 @@ module.exports = {
     })
     .then((response) => {
       console.log(response.data.message);
+      const authuser = {
+        email: user.email,
+        isAuthenticated: true
+      };
       PostItActions.receiveSuccess(response.data.message);
+      PostItActions.receiveAuthenticatedUser(authuser);
     })
   .catch((error) => {
     PostItActions.receiveErrors(error.message);
@@ -30,12 +34,17 @@ module.exports = {
       email: user.email,
       password: user.password
     }).then((response) => {
+      console.log(response.data);
       const authuser = {
         email: user.email,
         isAuthenticated: true
       };
-      PostItActions.receiveSuccess(response.message);
-      PostItActions.receiveAuthenticatedUser(authuser);
+      if (response.data.message === 'Error: The email or password of the user is invalid') {
+        PostItActions.receiveErrors(response.data.message);
+      } else {
+        PostItActions.receiveSuccess(response.message);
+        PostItActions.receiveAuthenticatedUser(authuser);
+      }
     })
   .catch((error) => {
     PostItActions.receiveErrors(error.message);
@@ -58,7 +67,7 @@ module.exports = {
     provider.addScope('https://www.googleapis.com/auth/plus.login');
     firebaseAuth().signInWithPopup(provider)
       .then((result) => {
-        token = result.credential.accessToken;
+        const token = result.credential.accessToken;
         email = result.user.email;
         uid = result.user.uid;
         displayName = result.user.displayName;
@@ -109,7 +118,6 @@ module.exports = {
   },
 
   postMessage(message) {
-    // console.log('api', message);
     axios.post('/message', {
       groupId: message.groupId,
       message: message.message,

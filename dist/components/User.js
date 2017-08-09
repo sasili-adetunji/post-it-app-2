@@ -52,7 +52,7 @@ var User = function (_React$Component) {
         _react2.default.createElement(
           _List.ListItem,
           {
-            href: '/#/dashboard/users' + this.props.user.userId
+            href: '/#/dashboard/users/' + this.props.user.userId
           },
           ' ',
           this.props.user.username,

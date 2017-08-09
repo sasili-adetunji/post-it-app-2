@@ -27,14 +27,14 @@ PostItDispatcher.register(function (action) {
     case _PostItConstants2.default.REGISTER_USER:
 
       _Api2.default.registerNewUser(action.user);
-      _PostItStore2.default.registerNewUser(action.user);
+      // PostItStore.registerNewUser(action.user);
       _PostItStore2.default.emitChange();
       break;
 
     case _PostItConstants2.default.LOGIN_USER:
 
       _Api2.default.signinUser(action.user);
-      _PostItStore2.default.signinUser(action.user);
+      // PostItStore.setIsAuthenticated(true);
 
       _PostItStore2.default.emitChange();
       break;
@@ -112,8 +112,8 @@ PostItDispatcher.register(function (action) {
 
     case _PostItConstants2.default.RECEIVE_AUTHENTICATED_USER:
 
-      _PostItStore2.default.signinUser(action.user);
-      _PostItStore2.default.registerNewUser(action.user);
+      // PostItStore.signinUser(action.user);
+      // PostItStore.registerNewUser(action.user);
       _PostItStore2.default.setIsAuthenticated(true);
       _PostItStore2.default.emitChange();
       break;

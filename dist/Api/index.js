@@ -18,7 +18,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 module.exports = {
   registerNewUser: function registerNewUser(user) {
-    console.log(user);
     _axios2.default.post('/user/signup', {
       email: user.email,
       password: user.password,
@@ -26,7 +25,12 @@ module.exports = {
       phoneNumber: user.phoneNumber
     }).then(function (response) {
       console.log(response.data.message);
+      var authuser = {
+        email: user.email,
+        isAuthenticated: true
+      };
       _PostItActions2.default.receiveSuccess(response.data.message);
+      _PostItActions2.default.receiveAuthenticatedUser(authuser);
     }).catch(function (error) {
       _PostItActions2.default.receiveErrors(error.message);
     });
@@ -36,12 +40,17 @@ module.exports = {
       email: user.email,
       password: user.password
     }).then(function (response) {
+      console.log(response.data);
       var authuser = {
         email: user.email,
         isAuthenticated: true
       };
-      _PostItActions2.default.receiveSuccess(response.message);
-      _PostItActions2.default.receiveAuthenticatedUser(authuser);
+      if (response.data.message === 'Error: The email or password of the user is invalid') {
+        _PostItActions2.default.receiveErrors(response.data.message);
+      } else {
+        _PostItActions2.default.receiveSuccess(response.message);
+        _PostItActions2.default.receiveAuthenticatedUser(authuser);
+      }
     }).catch(function (error) {
       _PostItActions2.default.receiveErrors(error.message);
     });
@@ -60,7 +69,7 @@ module.exports = {
     var provider = new _firebase2.default.auth.GoogleAuthProvider();
     provider.addScope('https://www.googleapis.com/auth/plus.login');
     (0, _db.firebaseAuth)().signInWithPopup(provider).then(function (result) {
-      token = result.credential.accessToken;
+      var token = result.credential.accessToken;
       email = result.user.email;
       uid = result.user.uid;
       displayName = result.user.displayName;
@@ -102,7 +111,6 @@ module.exports = {
     });
   },
   postMessage: function postMessage(message) {
-    // console.log('api', message);
     _axios2.default.post('/message', {
       groupId: message.groupId,
       message: message.message,

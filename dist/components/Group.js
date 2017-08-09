@@ -81,7 +81,7 @@ var Group = function (_React$Component) {
         _react2.default.createElement(
           _List.ListItem,
           {
-            href: '/#/dashboard/groups' + this.props.group.groupId,
+            href: '/#/dashboard/groups/' + this.props.group.groupId,
             onClick: this.onClick
           },
           this.props.group.groupname

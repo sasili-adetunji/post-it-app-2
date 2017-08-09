@@ -22,7 +22,7 @@ class User extends React.Component {
     return (
       <div>
         <ListItem
-        href={`/#/dashboard/users${this.props.user.userId}`}
+        href={`/#/dashboard/users/${this.props.user.userId}`}
       > {this.props.user.username} </ListItem>
       </div>
     );

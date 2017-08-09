@@ -41,7 +41,7 @@ class UserList extends React.Component {
         <User user={user} key={i} />
       );
     });
-    console.log('UserList------', this.props.users);
+//    console.log('UserList------', this.props.users);
 
     return (
       <div>

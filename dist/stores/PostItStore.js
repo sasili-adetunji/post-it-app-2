@@ -28,30 +28,25 @@ var isAuthenticated = false;
 var PostItStore = (0, _objectAssign2.default)({}, _events.EventEmitter.prototype, {
   registerNewUser: function registerNewUser(user) {
     registeredUser.push(user);
-
-    console.log('new user store auth:', isAuthenticated);
   },
   getRegisteredUser: function getRegisteredUser() {
     return registeredUser;
   },
   addUserToGroup: function addUserToGroup(user) {
     usersInGroup.push(user);
-    console.log('add user store');
   },
   postMessage: function postMessage(message) {
     userMessages.push(message);
-    console.log('message store');
   },
   createNewGroup: function createNewGroup(group) {
     userGroups.push(group);
   },
   signinUser: function signinUser(user) {
     loggedInUser.push(user);
-    // _isAuthenticated = true;
-    console.log('new user store auth:', isAuthenticated);
+    //   isAuthenticated = fa;
+    //   console.log('signin user store auth:', isAuthenticated);
   },
   signOutUser: function signOutUser() {
-    console.log('signing out...');
     loggedInUser.pop();
     isAuthenticated = false;
   },
@@ -72,7 +67,6 @@ var PostItStore = (0, _objectAssign2.default)({}, _events.EventEmitter.prototype
     return selectedGroup;
   },
   getLoggedInUser: function getLoggedInUser() {
-    // this.signinUser();
     return loggedInUser;
   },
   getIsAuthenticated: function getIsAuthenticated() {
@@ -82,7 +76,6 @@ var PostItStore = (0, _objectAssign2.default)({}, _events.EventEmitter.prototype
     return userGroups;
   },
   getUsers: function getUsers() {
-    console.log('userlist store');
     return users;
   },
   getMessages: function getMessages() {
@@ -101,8 +94,6 @@ var PostItStore = (0, _objectAssign2.default)({}, _events.EventEmitter.prototype
     userMessages = messages;
   },
   setOpenedGroup: function setOpenedGroup(group) {
-    console.log('setOpenedGroup store');
-
     selectedGroup.pop();
     selectedGroup.push(group);
   },

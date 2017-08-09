@@ -21,15 +21,15 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 injectTapEventPlugin();
 
 
-function getAppState() {
-    return {
-        errors: PostItStore.getErrors(),
-        success: PostItStore.getSuccess(),
-        loggedInUser: PostItStore.getLoggedInUser(),
-        registeredUser: PostItStore.getRegisteredUser(),
-        isAuthenticated: PostItStore.getIsAuthenticated()
-    };
-}
+// function getAppState() {
+//     return {
+//         errors: PostItStore.getErrors(),
+//         success: PostItStore.getSuccess(),
+//         loggedInUser: PostItStore.getLoggedInUser(),
+//         registeredUser: PostItStore.getRegisteredUser(),
+//         isAuthenticated: PostItStore.getIsAuthenticated()
+//     };
+// }
 
 function PrivateRoute ({component: Component, isAuthenticated, ...rest}) {
   return (

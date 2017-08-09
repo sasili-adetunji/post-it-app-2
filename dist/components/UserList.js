@@ -85,7 +85,7 @@ var UserList = function (_React$Component) {
       var userNodes = this.props.users.map(function (user, i) {
         return _react2.default.createElement(_User2.default, { user: user, key: i });
       });
-      console.log('UserList------', this.props.users);
+      //    console.log('UserList------', this.props.users);
 
       return _react2.default.createElement(
         'div',
