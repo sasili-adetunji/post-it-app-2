@@ -32,18 +32,17 @@ var signup = function signup(app, db) {
     _firebase2.default.auth().createUserWithEmailAndPassword(email, password).then(function (user) {
       user.updateProfile({
         displayName: username
-      }).then(function () {
-        var userRef = _firebase2.default.database().ref('users/');
-        userRef.child(user.uid).set({
-          username: username,
-          email: email,
-          phoneNumber: phoneNumber
-        });
-        res.send({ message: 'Welcome ' + user.email + '. You have successfully registered' });
       });
-    }).catch(function (error) {
-      var errorMessage = error.message;
-      res.status(400).send({ message: 'Error signing up: ', errorMessage: errorMessage });
+      _firebase2.default.database().ref('users/').child(user.uid).set({
+        username: username,
+        email: email,
+        phoneNumber: phoneNumber
+      });
+      res.send({ message: 'Welcome ' + user.email + '. You have successfully registered',
+        user: user });
+    }).catch(function (err) {
+      var errorMessage = err.message;
+      res.send({ message: errorMessage });
     });
   });
 };

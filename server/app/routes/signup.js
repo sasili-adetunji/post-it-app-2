@@ -18,21 +18,20 @@ const signup = (app, db) => {
     firebase.auth().createUserWithEmailAndPassword(email, password)
     .then((user) => {
       user.updateProfile({
-        displayName: username,
-      })
-    .then(() => {
-      const userRef = firebase.database().ref('users/');
-      userRef.child(user.uid).set({
+        displayName: username
+      });
+      firebase.database().ref('users/')
+      .child(user.uid).set({
         username,
         email,
         phoneNumber
       });
-      res.send({ message: `Welcome ${user.email}. You have successfully registered` });
-    });
+      res.send({ message: `Welcome ${user.email}. You have successfully registered`,
+        user });
     })
-    .catch((error) => {
-      const errorMessage = error.message;
-      res.status(400).send({ message: 'Error signing up: ', errorMessage });
+    .catch((err) => {
+      const errorMessage = err.message;
+      res.send({ message: errorMessage });
     });
   });
 };

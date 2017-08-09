@@ -24,13 +24,16 @@ module.exports = {
       username: user.username,
       phoneNumber: user.phoneNumber
     }).then(function (response) {
-      console.log(response.data.message);
       var authuser = {
         email: user.email,
         isAuthenticated: true
       };
-      _PostItActions2.default.receiveSuccess(response.data.message);
-      _PostItActions2.default.receiveAuthenticatedUser(authuser);
+      if (response.data.message === 'The email address is badly formatted.' || response.data.message === 'The email address is already in use by another account.') {
+        _PostItActions2.default.receiveErrors(response.data.message);
+      } else {
+        _PostItActions2.default.receiveSuccess(response.data.message);
+        _PostItActions2.default.receiveAuthenticatedUser(authuser);
+      }
     }).catch(function (error) {
       _PostItActions2.default.receiveErrors(error.message);
     });
@@ -40,7 +43,6 @@ module.exports = {
       email: user.email,
       password: user.password
     }).then(function (response) {
-      console.log(response.data);
       var authuser = {
         email: user.email,
         isAuthenticated: true
@@ -48,7 +50,7 @@ module.exports = {
       if (response.data.message === 'Error: The email or password of the user is invalid') {
         _PostItActions2.default.receiveErrors(response.data.message);
       } else {
-        _PostItActions2.default.receiveSuccess(response.message);
+        _PostItActions2.default.receiveSuccess(response.data.message);
         _PostItActions2.default.receiveAuthenticatedUser(authuser);
       }
     }).catch(function (error) {

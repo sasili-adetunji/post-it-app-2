@@ -16,13 +16,16 @@ module.exports = {
       phoneNumber: user.phoneNumber
     })
     .then((response) => {
-      console.log(response.data.message);
       const authuser = {
         email: user.email,
         isAuthenticated: true
       };
-      PostItActions.receiveSuccess(response.data.message);
-      PostItActions.receiveAuthenticatedUser(authuser);
+      if ((response.data.message === 'The email address is badly formatted.') || (response.data.message === 'The email address is already in use by another account.')) {
+        PostItActions.receiveErrors(response.data.message);
+      } else {
+        PostItActions.receiveSuccess(response.data.message);
+        PostItActions.receiveAuthenticatedUser(authuser);
+      }
     })
   .catch((error) => {
     PostItActions.receiveErrors(error.message);
@@ -34,7 +37,6 @@ module.exports = {
       email: user.email,
       password: user.password
     }).then((response) => {
-      console.log(response.data);
       const authuser = {
         email: user.email,
         isAuthenticated: true
@@ -42,7 +44,7 @@ module.exports = {
       if (response.data.message === 'Error: The email or password of the user is invalid') {
         PostItActions.receiveErrors(response.data.message);
       } else {
-        PostItActions.receiveSuccess(response.message);
+        PostItActions.receiveSuccess(response.data.message);
         PostItActions.receiveAuthenticatedUser(authuser);
       }
     })

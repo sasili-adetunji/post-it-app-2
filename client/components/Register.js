@@ -56,7 +56,6 @@ class Register extends React.Component {
 
   }
     PostItActions.registerUser(user)
-    PostItActions.receiveAuthenticatedUser(user)
     }    
   
 

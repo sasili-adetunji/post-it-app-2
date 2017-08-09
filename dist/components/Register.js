@@ -95,7 +95,6 @@ var Register = (_temp = _class = function (_React$Component) {
 
       };
       _PostItActions2.default.registerUser(user);
-      _PostItActions2.default.receiveAuthenticatedUser(user);
     }
   }, {
     key: 'render',
