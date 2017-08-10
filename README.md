@@ -17,7 +17,7 @@ This application allows friends and colleagues to create groups for notification
 - SMS notifications of messages 
 - Read messages should be marked
 ## Technologies used
-  PostIt-app API is built with <a href="https://nodejs.org/">Node.js</a>, <a href="https://www.javascript.com/">JavaScript(ES6)</a>, <a href="https://expressjs.com/">Express</a> and <a href="https://firebase.google.com/">Firebase</a>
+  PostIt-app API is built with <a href="https://nodejs.org/">Node.js</a>, <a href="https://www.javascript.com/">JavaScript(ES6)</a>, <a href="https://expressjs.com/">Express</a>, <a href="https://firebase.google.com/">Firebase</a> and <a href="https://facebook.github.io/react/">ReactJs</a> using  <a href="https://facebook.github.io/flux/docs/overview.html"> Flux Architecture </a>
 ## API Documentation
 It is a simple RESTful api, which creates users,sign in registered users, create group and add memebrs to a groups.
 use x-www-formurlencoded parameters.
@@ -31,7 +31,7 @@ Methods
 
 			email: string
 
-			userName: string
+			username: string
 
 			password: string
 
@@ -49,7 +49,7 @@ Methods
 
 	.POST: Create a group
 
-		 groupName: string
+		 groupname: string
         
 '/group/groupId/user'
       
@@ -62,7 +62,8 @@ Methods
 - Download or clone the app on your local machine
 - Move into local directory ```cd post-it-app-2```
 - Install project dependencies ```npm install```
-- Create a firebase database
+- Go to <a href="https://firebase.google.com/">Firebase</a> and ```Click Go To Console``` to add a new project
+- After getting setting your project, click ``` Add Firebase to Your Web App```. This will bring your security key
 - Create a ```.env``` file and set the variables in the  ```env-sample``` to your specified database connection
 - Start the server by running ```npm start```
 - Run `npm test ` for testing 
