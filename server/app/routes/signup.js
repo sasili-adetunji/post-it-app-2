@@ -3,13 +3,10 @@
 
 import express from 'express';
 import firebase from 'firebase';
-import db from '../../config/db';
 
 const app = express();
-const fb = firebase.database();
 
-
-const signup = (app, db) => {
+const signup = (app) => {
   app.post('/user/signup', (req, res) => {
     const email = req.body.email,
       password = req.body.password,

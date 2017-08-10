@@ -17,6 +17,12 @@ var _PostItActions2 = _interopRequireDefault(_PostItActions);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 module.exports = {
+
+  /**
+   * api call to register new user from the signup route
+   *
+   * @param {any} user
+   */
   registerNewUser: function registerNewUser(user) {
     _axios2.default.post('/user/signup', {
       email: user.email,
@@ -38,6 +44,13 @@ module.exports = {
       _PostItActions2.default.receiveErrors(error.message);
     });
   },
+
+
+  /**
+   * api call to signin user from the signin route
+   *
+   * @param {any} user
+   */
   signinUser: function signinUser(user) {
     _axios2.default.post('/user/signin', {
       email: user.email,
@@ -57,6 +70,12 @@ module.exports = {
       _PostItActions2.default.receiveErrors(error.message);
     });
   },
+
+
+  /**
+   * api call to signout user from the signout route
+   *
+   */
   signoutUser: function signoutUser() {
     _axios2.default.post('/user/signout').then(function (response) {
       _PostItActions2.default.receiveSuccess(response.message);
@@ -64,6 +83,12 @@ module.exports = {
       _PostItActions2.default.receiveErrors(error.message);
     });
   },
+
+
+  /**
+   * api call to login us with google
+   * 
+   */
   googleLogin: function googleLogin() {
     var email = void 0,
         uid = void 0,
@@ -91,6 +116,13 @@ module.exports = {
       _PostItActions2.default.receiveErrors(error.message);
     });
   },
+
+
+  /**
+   * api call to create new group from the route
+   *
+   * @param {any} group
+   */
   createNewGroup: function createNewGroup(group) {
     _axios2.default.post('/group', {
       groupname: group.groupname
@@ -100,6 +132,13 @@ module.exports = {
       _PostItActions2.default.receiveErrors(error.message);
     });
   },
+
+
+  /**
+   * api call to add user to groups
+   *
+   * @param {any} user
+   */
   addUserToGroup: function addUserToGroup(user) {
     _axios2.default.post('/group/' + user.groupId + '/user', {
       email: user.email,
@@ -112,6 +151,13 @@ module.exports = {
       _PostItActions2.default.receiveErrors(error.message);
     });
   },
+
+
+  /**
+   * api call to post message through the message route
+   *
+   * @param {any} message
+   */
   postMessage: function postMessage(message) {
     _axios2.default.post('/message', {
       groupId: message.groupId,
@@ -123,6 +169,12 @@ module.exports = {
       _PostItActions2.default.receiveErrors(error.message);
     });
   },
+
+
+  /**
+   * api call to get user groups
+   *
+   */
   getUserGroups: function getUserGroups() {
     _axios2.default.get('user/groups').then(function (response) {
       console.log(response);
@@ -132,6 +184,12 @@ module.exports = {
       _PostItActions2.default.receiveErrors(error.message);
     });
   },
+
+
+  /**
+   * api call to get list of all the users in the App
+   *
+   */
   getUsers: function getUsers() {
     _axios2.default.get('user/users').then(function (response) {
       console.log(response);
@@ -141,6 +199,13 @@ module.exports = {
       _PostItActions2.default.receiveErrors(error.message);
     });
   },
+
+
+  /**
+   * api call to get messages in a particular groups
+   *
+   * @param {any} group
+   */
   getMessages: function getMessages(group) {
     _axios2.default.get('/group/' + group.groupId + '/messages').then(function (response) {
       _PostItActions2.default.receiveSuccess(response.message);
@@ -149,6 +214,13 @@ module.exports = {
       _PostItActions2.default.receiveErrors(error.message);
     });
   },
+
+
+  /**
+   * api call to reset password
+   *
+   * @param {any} email
+   */
   resetPassword: function resetPassword(email) {
     _axios2.default.post('/user/reset', {
       email: email.email

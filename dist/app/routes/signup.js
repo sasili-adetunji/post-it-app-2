@@ -12,18 +12,14 @@ var _firebase = require('firebase');
 
 var _firebase2 = _interopRequireDefault(_firebase);
 
-var _db = require('../../config/db');
-
-var _db2 = _interopRequireDefault(_db);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var app = (0, _express2.default)(); // signin route
+// signin route
 // using firebase authentication method
 
-var fb = _firebase2.default.database();
+var app = (0, _express2.default)();
 
-var signup = function signup(app, db) {
+var signup = function signup(app) {
   app.post('/user/signup', function (req, res) {
     var email = req.body.email,
         password = req.body.password,

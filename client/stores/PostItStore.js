@@ -18,7 +18,6 @@ let isAuthenticated = false;
 
 const PostItStore = assign({}, EventEmitter.prototype, {
 
-
   registerNewUser(user) {
     registeredUser.push(user);
   },
@@ -41,8 +40,6 @@ const PostItStore = assign({}, EventEmitter.prototype, {
 
   signinUser(user) {
     loggedInUser.push(user);
-  //   isAuthenticated = fa;
-  //   console.log('signin user store auth:', isAuthenticated);
   },
 
   signOutUser() {

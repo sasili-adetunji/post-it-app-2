@@ -16,19 +16,11 @@ var _materialUi2 = _interopRequireDefault(_materialUi);
 
 var _reactRouterDom = require('react-router-dom');
 
-var _propTypes = require('prop-types');
-
-var _propTypes2 = _interopRequireDefault(_propTypes);
-
 var _Card = require('material-ui/Card');
 
 var _TextField = require('material-ui/TextField');
 
 var _TextField2 = _interopRequireDefault(_TextField);
-
-var _Snackbar = require('material-ui/Snackbar');
-
-var _Snackbar2 = _interopRequireDefault(_Snackbar);
 
 var _RaisedButton = require('material-ui/RaisedButton');
 
@@ -56,15 +48,18 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-function setErrorMsg(error) {
-  return {
-    loginMessage: error
-  };
-}
-
+/**
+ * Register component.
+ * @returns {String} The HTML markup for the register component
+ */
 var Register = function (_React$Component) {
   _inherits(Register, _React$Component);
 
+  /**
+   * Creates an instance of Register.
+   * @param {object} props
+   * @memberOf Register
+   */
   function Register(props) {
     _classCallCheck(this, Register);
 
@@ -72,11 +67,9 @@ var Register = function (_React$Component) {
 
     _this.state = {
       username: '',
-      open: false,
       email: '',
       password: '',
       phoneNumber: '',
-      loginMessage: null,
       isAuthenticated: _PostItStore2.default.getIsAuthenticated(),
       errors: _PostItStore2.default.getErrors()
     };
@@ -85,12 +78,26 @@ var Register = function (_React$Component) {
     _this.onClick = _this.onClick.bind(_this);
     return _this;
   }
+  /**
+     * Monitors changes in the components and change the state
+     * @param {object} e
+     * @returns {void}
+     * @memberOf Register
+  */
+
 
   _createClass(Register, [{
     key: 'onChange',
     value: function onChange(e) {
       this.setState(_defineProperty({}, e.target.name, e.target.value));
     }
+    /**
+       * Makes an action call to register a user with email and password
+       * @param {object} e
+       * @returns {void}
+       * @memberOf Register
+    */
+
   }, {
     key: 'onClick',
     value: function onClick(e) {
@@ -104,6 +111,11 @@ var Register = function (_React$Component) {
       };
       _PostItActions2.default.registerUser(user);
     }
+    /**
+       * @returns {String} The HTML markup for the Login
+       * @memberOf Login
+    */
+
   }, {
     key: 'render',
     value: function render() {
@@ -126,18 +138,24 @@ var Register = function (_React$Component) {
               title: 'Signup Form',
               subtitle: 'To continue using PostIt, you need to register below' }),
             _react2.default.createElement(_TextField2.default, {
-              name: 'username', onChange: this.onChange, value: this.state.username, hintText: 'Username Field', floatingLabelText: 'Choose Username' }),
+              name: 'username', onChange: this.onChange,
+              value: this.state.username, hintText: 'Username Field',
+              floatingLabelText: 'Choose Username' }),
             _react2.default.createElement('br', null),
             _react2.default.createElement(_TextField2.default, {
               name: 'email', onChange: this.onChange, value: this.state.email,
-              errorText: this.state.errors, hintText: 'Email Field', floatingLabelText: 'Your Email' }),
+              errorText: this.state.errors, hintText: 'Email Field',
+              floatingLabelText: 'Your Email' }),
             _react2.default.createElement('br', null),
             _react2.default.createElement(_TextField2.default, {
-              name: 'password', onChange: this.onChange, value: this.state.password,
-              errorText: this.state.errors, hintText: 'Password Field', floatingLabelText: 'Choose Password', type: 'password' }),
+              name: 'password', onChange: this.onChange,
+              value: this.state.password,
+              errorText: this.state.errors, hintText: 'Password Field',
+              floatingLabelText: 'Choose Password', type: 'password' }),
             _react2.default.createElement('br', null),
             _react2.default.createElement(_TextField2.default, {
-              name: 'phoneNumber', onChange: this.onChange, value: this.state.phoneNumber,
+              name: 'phoneNumber', onChange: this.onChange,
+              value: this.state.phoneNumber,
               hintText: 'E.g. 23480', floatingLabelText: 'Phone Number' }),
             _react2.default.createElement('br', null),
             _react2.default.createElement('br', null),

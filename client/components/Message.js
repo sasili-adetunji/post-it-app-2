@@ -1,23 +1,26 @@
 import React from 'react';
-import mui from 'material-ui';
-import API from '../Api';
 import { ListItem } from 'material-ui/List';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import {
-  Table,
-  TableBody,
-  TableHeader,
-  TableHeaderColumn,
-  TableRow,
-  TableRowColumn,
-} from 'material-ui/Table';
+import API from '../Api';
 
 
+/**
+ *
+ *
+ * @class Message
+ * @extends {React.Component}
+ */
 class Message extends React.Component {
   constructor(props) {
     super(props);
   }
 
+  /**
+   *
+   * renders the message components
+   * @returns {void}
+   * @memberof Message
+   */
   render() {
     return (
       <div>

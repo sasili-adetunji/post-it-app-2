@@ -11,22 +11,15 @@ import PostItActions from '../actions/PostItActions';
 import Login from './Login';
 import Register from './Register';
 import Group from './Group';
-import Nav from './Nav';
 import Dashboard from './protected/Dashbord';
 
 injectTapEventPlugin();
 
-
-// function getAppState() {
-//     return {
-//         errors: PostItStore.getErrors(),
-//         success: PostItStore.getSuccess(),
-//         loggedInUser: PostItStore.getLoggedInUser(),
-//         registeredUser: PostItStore.getRegisteredUser(),
-//         isAuthenticated: PostItStore.getIsAuthenticated()
-//     };
-// }
-
+/**
+ * function that returns route then
+ * @param {any} { component: Component, isAuthenticated, ...rest }
+ * @returns {void}
+ */
 function PrivateRoute({ component: Component, isAuthenticated, ...rest }) {
   return (
     <Route
@@ -37,7 +30,11 @@ function PrivateRoute({ component: Component, isAuthenticated, ...rest }) {
     />
   );
 }
-
+/**
+ *
+ * @param {any} { component: Component, isAuthenticated, ...rest }
+ * @returns {void}
+ */
 function PublicRoute({ component: Component, isAuthenticated, ...rest }) {
   return (
     <Route
@@ -60,8 +57,11 @@ class App extends Component {
     this._onChange = this._onChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
   }
-
-
+  /**
+   *  adds changeListener from the store
+   *
+   * @memberof App
+   */
   componentDidMount() {
     PostItStore.addChangeListener(this._onChange);
 
@@ -78,6 +78,11 @@ class App extends Component {
         // })
   }
 
+  /**
+   * removes change listener from the store
+   *
+   * @memberof App
+   */
   componentWillUnmount() {
     PostItStore.removeChangeListener(this._onChange);
   }
@@ -87,25 +92,35 @@ class App extends Component {
   }
 
   render() {
-    { !this.state.isAuthenticated ? <Nav /> : ''; }
     return (
       <div>
-
         <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
-          <AppBar title="Post It App" iconElementRight={<FlatButton label="Sign Out" onClick={this.handleClick} />} />
+          <AppBar
+            title="Post It App" iconElementRight={<FlatButton
+            label="Sign Out" onClick={this.handleClick} />} />
         </MuiThemeProvider>
-
         <Switch>
           <PublicRoute path="/" exact component={Login} />
-          <PublicRoute isAuthenticated={this.state.isAuthenticated} path="/signin" component={Login} />
-          <PublicRoute isAuthenticated={this.state.isAuthenticated} path="/signup" component={Register} />
-          <PrivateRoute isAuthenticated={this.state.isAuthenticated} path="/dashboard" component={Dashboard} />
+          <PublicRoute
+            isAuthenticated={this.state.isAuthenticated}
+            path="/signin" component={Login} />
+          <PublicRoute
+            isAuthenticated={this.state.isAuthenticated}
+            path="/signup" component={Register} />
+          <PrivateRoute
+            isAuthenticated={this.state.isAuthenticated}
+            path="/dashboard" component={Dashboard} />
           <Route render={() => <h3>No Match</h3>} />
         </Switch>
       </div>
     );
   }
 
+  /**
+   * monitors changes of the components
+   *
+   * @memberof App
+   */
   _onChange() {
     this.setState({
       isAuthenticated: PostItStore.getIsAuthenticated(),

@@ -3,10 +3,9 @@
 
 import express from 'express';
 import firebase from 'firebase';
-import db from '../../config/db';
 
 const app = express();
-const signin = (app, db) => {
+const signin = (app) => {
   app.post('/user/signin', (req, res) => {
     const email = req.body.email;
     const password = req.body.password;

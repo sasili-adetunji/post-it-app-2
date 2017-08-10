@@ -1,19 +1,14 @@
 import React from 'react';
-import mui from 'material-ui';
-import API from '../Api';
 import { ListItem } from 'material-ui/List';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import {
-  Table,
-  TableBody,
-  TableHeader,
-  TableHeaderColumn,
-  TableRow,
-  TableRowColumn,
-} from 'material-ui/Table';
-
+import API from '../Api';
 
 class User extends React.Component {
+  /**
+   * Creates an instance of User.
+   * @param {any} props
+   * @memberof User
+   */
   constructor(props) {
     super(props);
   }

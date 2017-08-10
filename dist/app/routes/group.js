@@ -12,28 +12,24 @@ var _firebase = require('firebase');
 
 var _firebase2 = _interopRequireDefault(_firebase);
 
-var _db = require('../../config/db');
-
-var _db2 = _interopRequireDefault(_db);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var app = (0, _express2.default)(); // create group routes
+// create group routes
 
-var fb = _firebase2.default.database();
+var app = (0, _express2.default)();
 
-var group = function group(app, db) {
+var group = function group(app) {
   app.post('/group', function (req, res) {
     var groupname = req.body.groupname;
     _firebase2.default.auth().onAuthStateChanged(function (user) {
-      var groupKey = fb.ref('groups/').push({
+      var groupKey = _firebase2.default.database().ref('groups/').push({
         groupname: groupname,
         groupadmin: user.email
       }).key;
-      var groupRef = fb.ref('groups/' + groupKey + '/users/' + user.uid + '/').set({
+      var groupRef = _firebase2.default.database().ref('groups/' + groupKey + '/users/' + user.uid + '/').set({
         Id: user.uid
       });
-      var userRef = fb.ref('users/' + user.uid + '/groups/' + groupKey + '/groupInfo').set({
+      var userRef = _firebase2.default.database().ref('users/' + user.uid + '/groups/' + groupKey + '/groupInfo').set({
         groupname: groupname
       }).catch(function (error) {});
     });

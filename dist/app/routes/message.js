@@ -12,10 +12,6 @@ var _firebase = require('firebase');
 
 var _firebase2 = _interopRequireDefault(_firebase);
 
-var _db = require('../../config/db');
-
-var _db2 = _interopRequireDefault(_db);
-
 var _nodemailer = require('nodemailer');
 
 var _nodemailer2 = _interopRequireDefault(_nodemailer);
@@ -55,7 +51,7 @@ var nexmo = new _nexmo2.default({
   apiSecret: 'c88f4f0e7092b986'
 });
 
-var message = function message(app, db) {
+var message = function message(app) {
   app.post('/message', function (req, res) {
     var message = req.body.message;
     var groupId = req.body.groupId;

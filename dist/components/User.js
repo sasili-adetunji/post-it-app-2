@@ -10,21 +10,15 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var _materialUi = require('material-ui');
-
-var _materialUi2 = _interopRequireDefault(_materialUi);
-
-var _Api = require('../Api');
-
-var _Api2 = _interopRequireDefault(_Api);
-
 var _List = require('material-ui/List');
 
 var _MuiThemeProvider = require('material-ui/styles/MuiThemeProvider');
 
 var _MuiThemeProvider2 = _interopRequireDefault(_MuiThemeProvider);
 
-var _Table = require('material-ui/Table');
+var _Api = require('../Api');
+
+var _Api2 = _interopRequireDefault(_Api);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -37,6 +31,11 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var User = function (_React$Component) {
   _inherits(User, _React$Component);
 
+  /**
+   * Creates an instance of User.
+   * @param {any} props
+   * @memberof User
+   */
   function User(props) {
     _classCallCheck(this, User);
 

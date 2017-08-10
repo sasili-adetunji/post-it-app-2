@@ -26,6 +26,10 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+/**
+ * Dashboard component.
+ * @returns {void} The markup for the Dashboard component
+ */
 var Dashboard = function (_React$Component) {
   _inherits(Dashboard, _React$Component);
 
@@ -37,6 +41,12 @@ var Dashboard = function (_React$Component) {
 
   _createClass(Dashboard, [{
     key: 'render',
+
+    /**
+     * Creates an instance of Dashboard and renders the components
+     * @memberOf Dashboard
+     * @returns {void} The markup for the Dashboard
+    */
     value: function render() {
       return _react2.default.createElement(
         'div',

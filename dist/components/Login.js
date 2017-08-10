@@ -28,19 +28,9 @@ var _FlatButton = require('material-ui/FlatButton');
 
 var _FlatButton2 = _interopRequireDefault(_FlatButton);
 
-var _reactRouterDom = require('react-router-dom');
-
-var _propTypes = require('prop-types');
-
-var _propTypes2 = _interopRequireDefault(_propTypes);
-
 var _MuiThemeProvider = require('material-ui/styles/MuiThemeProvider');
 
 var _MuiThemeProvider2 = _interopRequireDefault(_MuiThemeProvider);
-
-var _firebase = require('firebase');
-
-var _firebase2 = _interopRequireDefault(_firebase);
 
 var _PostItActions = require('../actions/PostItActions');
 
@@ -49,8 +39,6 @@ var _PostItActions2 = _interopRequireDefault(_PostItActions);
 var _PostItStore = require('../stores/PostItStore');
 
 var _PostItStore2 = _interopRequireDefault(_PostItStore);
-
-var _db = require('../../server/config/db');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -62,15 +50,19 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-function setErrorMsg(error) {
-  return {
-    loginMessage: error
-  };
-}
+/**
+ * Login component.
+ * @returns {String} The HTML markup for the login component
+ */
 
 var Login = function (_React$Component) {
   _inherits(Login, _React$Component);
 
+  /**
+   * Creates an instance of Login.
+   * @param {object} props
+   * @memberOf Login
+   */
   function Login(props) {
     _classCallCheck(this, Login);
 
@@ -79,7 +71,6 @@ var Login = function (_React$Component) {
     _this.state = {
       email: '',
       password: '',
-      loginMessage: null,
       isAuthenticated: _PostItStore2.default.getIsAuthenticated(),
       errors: _PostItStore2.default.getErrors()
     };
@@ -89,34 +80,71 @@ var Login = function (_React$Component) {
     _this.onClickReset = _this.onClickReset.bind(_this);
     return _this;
   }
+  /**
+     * Monitors changes in the components and change the state
+     * @param {object} e
+     * @returns {void}
+     * @memberOf Login
+  */
+
 
   _createClass(Login, [{
     key: 'onChange',
     value: function onChange(e) {
       this.setState(_defineProperty({}, e.target.name, e.target.value));
     }
+
+    /**
+       * Makes an action call to log a user with email and password
+       * @param {object} e
+       * @returns {void}
+       * @memberOf Login
+    */
+
   }, {
     key: 'onClick',
-    value: function onClick() {
+    value: function onClick(e) {
+      e.preventDefault();
       var user = {
         email: this.state.email,
         password: this.state.password
       };
       _PostItActions2.default.login(user);
     }
+    /**
+       * Makes an action call to log a user with google
+       * @param {object} e
+       * @returns {void}
+       * @memberOf Login
+    */
+
   }, {
     key: 'onClickGoogle',
-    value: function onClickGoogle() {
+    value: function onClickGoogle(e) {
+      e.preventDefault();
       _PostItActions2.default.googleLogin();
     }
+    /**
+       * Makes an action call to reset password
+       * @param {object} e
+       * @returns {void}
+       * @memberOf Login
+    */
+
   }, {
     key: 'onClickReset',
-    value: function onClickReset() {
+    value: function onClickReset(e) {
+      e.preventDefault();
       var email = {
         email: this.state.email
       };
       _PostItActions2.default.resetPassword(email);
     }
+    /**
+       * @returns {String} The HTML markup for the Login
+       * @memberOf Login
+       */
+
   }, {
     key: 'render',
     value: function render() {
@@ -140,35 +168,19 @@ var Login = function (_React$Component) {
               subtitle: 'To continue using PostIt, you need to login below' }),
             _react2.default.createElement(_TextField2.default, {
               name: 'email', onChange: this.onChange, value: this.state.email,
-              errorText: this.state.errors, hintText: 'Email Field', floatingLabelText: 'Your Email' }),
+              errorText: this.state.errors, hintText: 'Email Field',
+              floatingLabelText: 'Your Email' }),
             _react2.default.createElement('br', null),
             _react2.default.createElement(_TextField2.default, {
               name: 'password', onChange: this.onChange, value: this.state.password,
-              errorText: this.state.errors, hintText: 'Password Field', floatingLabelText: 'Choose Password', type: 'password' }),
+              errorText: this.state.errors, hintText: 'Password Field',
+              floatingLabelText: 'Choose Password', type: 'password' }),
             _react2.default.createElement('br', null),
             _react2.default.createElement('br', null),
-            this.state.loginMessage && _react2.default.createElement(
-              'div',
-              null,
-              _react2.default.createElement('span', null),
-              _react2.default.createElement(
-                'span',
-                null,
-                'Error:'
-              ),
-              '\xA0',
-              this.state.errors,
-              ' ',
-              _react2.default.createElement(
-                'a',
-                { href: '#', onClick: this.onClickReset },
-                'Forgot Password?'
-              )
-            ),
             _react2.default.createElement(
               'p',
               null,
-              ' Dont Have an account,',
+              ' Dont Have an account, ',
               _react2.default.createElement(
                 'a',
                 { href: '/#/signup' },
@@ -182,7 +194,8 @@ var Login = function (_React$Component) {
               ' Forgot your Password? Enter your Email and ',
               _react2.default.createElement(
                 'a',
-                { href: '/#/signup', onClick: this.onClickReset },
+                { href: '/#/signup',
+                  onClick: this.onClickReset },
                 ' Click here '
               ),
               ' '

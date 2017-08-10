@@ -1,7 +1,4 @@
 // import all the route into a single index file
-import express from 'express';
-import path from 'path';
-
 import signup from './signup';
 import signin from './signin';
 import group from './group';
@@ -15,18 +12,19 @@ import userMessage from './userMessage';
 import googleLogin from './googleLogin';
 import resetPassword from './resetPassword';
 
-const index = (app, db) => {
-  signup(app, db);
-  signin(app, db);
-  signout(app, db);
-  group(app, db);
-  message(app, db);
-  groupAdd(app, db);
-  usersList(app, db);
-  groupList(app, db);
-  userMessage(app, db);
-  userGroup(app, db);
-  googleLogin(app, db);
-  resetPassword(app, db);
+
+const index = (app) => {
+  signup(app);
+  signin(app);
+  signout(app);
+  group(app);
+  message(app);
+  groupAdd(app);
+  usersList(app);
+  groupList(app);
+  userMessage(app);
+  userGroup(app);
+  googleLogin(app);
+  resetPassword(app);
 };
 export default index;

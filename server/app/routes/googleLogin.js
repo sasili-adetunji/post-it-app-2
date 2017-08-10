@@ -3,11 +3,11 @@
 
 import express from 'express';
 import firebase from 'firebase';
-import { firebaseAuth, ref, db } from '../../config/db';
+import { firebaseAuth } from '../../config/db';
 
 
 const app = express();
-const googleLogin = (app, db) => {
+const googleLogin = (app) => {
   app.post('/user/google', (req, res) => {
     let token,
       email,
