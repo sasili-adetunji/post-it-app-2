@@ -24,10 +24,6 @@ var _MenuItem = require('material-ui/MenuItem');
 
 var _MenuItem2 = _interopRequireDefault(_MenuItem);
 
-var _firebase = require('firebase');
-
-var _firebase2 = _interopRequireDefault(_firebase);
-
 var _RaisedButton = require('material-ui/RaisedButton');
 
 var _RaisedButton2 = _interopRequireDefault(_RaisedButton);
@@ -35,14 +31,6 @@ var _RaisedButton2 = _interopRequireDefault(_RaisedButton);
 var _MuiThemeProvider = require('material-ui/styles/MuiThemeProvider');
 
 var _MuiThemeProvider2 = _interopRequireDefault(_MuiThemeProvider);
-
-var _Paper = require('material-ui/Paper');
-
-var _Paper2 = _interopRequireDefault(_Paper);
-
-var _Snackbar = require('material-ui/Snackbar');
-
-var _Snackbar2 = _interopRequireDefault(_Snackbar);
 
 var _PostItActions = require('../actions/PostItActions');
 
@@ -58,10 +46,6 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var emails = [];
-var userIds = [];
-var numbers = [];
-
 var style = {
   height: 100,
   width: 100,
@@ -71,9 +55,21 @@ var style = {
   display: 'inline-block'
 };
 
+/**
+ * Renders the MessageBox components
+ *
+ * @class MessageBox
+ * @extends {React.Component}
+ */
+
 var MessageBox = function (_React$Component) {
   _inherits(MessageBox, _React$Component);
 
+  /**
+   * Creates an instance of MessageBox.
+   * @param {any} props
+   * @memberof MessageBox
+   */
   function MessageBox(props) {
     _classCallCheck(this, MessageBox);
 
@@ -89,11 +85,27 @@ var MessageBox = function (_React$Component) {
     return _this;
   }
 
+  /**
+   * monitors the state of the components state
+   *
+   * @param {any} e
+   * @memberof MessageBox
+   */
+
+
   _createClass(MessageBox, [{
     key: 'onChange',
     value: function onChange(e) {
       this.setState(_defineProperty({}, e.target.name, e.target.value));
     }
+
+    /**
+     * makes an action call to post message
+     *
+     * @param {any} e
+     * @memberof MessageBox
+     */
+
   }, {
     key: 'onClick',
     value: function onClick(e) {
@@ -104,43 +116,15 @@ var MessageBox = function (_React$Component) {
         priorityLevel: this.state.priorityLevel
       };
       _PostItActions2.default.addMessage(message);
-      // firebase.database().ref(`groups/-Kpniq09QbqloaIMjgcY/messages`)
-      //   .push().set({
-      //        message: this.state.message,
-      //          isRead: false
-      //       })
-
-      //     firebase.database().ref(`groups/-Kpniq09QbqloaIMjgcY/users/`)
-      //      .once('value', (snapshot) => {
-      //       snapshot.forEach((childSnapShot) => {
-      //         userIds.push(childSnapShot.key);
-      //       })
-      //     })
-      // .then(()=>{
-      //     userIds.forEach((uid)=>{
-      //      // firebase.database().ref(`users/${uid}/groups/-Kpniq09QbqloaIMjgcY/messages`)
-      //      // .push({
-      //      //    message: this.state.message,
-      //      //    isRead: false
-      //      //    })
-      //       firebase.database().ref(`users/${uid}/`)
-      //           .once('value', (snap) => {
-      //             snap.forEach((msg) =>{
-      //             emails.push(msg.val().email);
-      //                 console.log(msg.val())
-
-      //           })
-      //           })
-      //         })
-      //   })
-      //   .then(()=>{
-
-
-      //             emails.forEach((mail)=>{
-      //               console.log(mail)
-      //         })
-      //             })
     }
+
+    /**
+     * renders the messagebox components
+     *
+     * @returns {void}
+     * @memberof MessageBox
+     */
+
   }, {
     key: 'render',
     value: function render() {
@@ -150,8 +134,7 @@ var MessageBox = function (_React$Component) {
         _react2.default.createElement(_Card.CardTitle, { title: 'Message' }),
         _react2.default.createElement('textarea', {
           name: 'message',
-          value: this.state.message,
-          onChange: this.onChange,
+          value: this.state.message, onChange: this.onChange,
           style: {
             width: '200px',
             borderColor: '#D0D0D0',
@@ -197,7 +180,8 @@ var MessageBox = function (_React$Component) {
                 fontSize: 14,
                 outline: 'auto 0px'
               },
-              placeholder: 'Priority Level', name: 'priorityLevel', onChange: this.onChange, value: this.state.priorityLevel, className: 'form-control' },
+              placeholder: 'Priority Level', name: 'priorityLevel', onChange: this.onChange,
+              value: this.state.priorityLevel, className: 'form-control' },
             _react2.default.createElement(
               'option',
               { value: 'Normal' },
@@ -219,7 +203,8 @@ var MessageBox = function (_React$Component) {
           style: {
             display: 'block',
             width: '20px'
-          }, onClick: this.onClick,
+          },
+          onClick: this.onClick,
           label: 'Send ', primary: true
         })
       );

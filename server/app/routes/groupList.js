@@ -2,16 +2,13 @@ import express from 'express';
 import firebase from 'firebase';
 
 const app = express();
-const fb = firebase.database();
 
-
-const groupList = (app, db) => {
+const groupList = (app) => {
   app.get('/group', (req, res) => {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
-        const groupRef = fb.ref(`users/${user.uid}/groups/`);
+        const groupRef = firebase.database().ref(`users/${user.uid}/groups/`);
         const groups = [];
-
         groupRef.orderByKey().once('value', (snapshot) => {
           snapshot.forEach((childSnapShot) => {
             const group = {

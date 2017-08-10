@@ -2,22 +2,20 @@ import express from 'express';
 import firebase from 'firebase';
 
 const app = express();
-const fb = firebase.database();
 
-
-const usersList = (app, db) => {
+const usersList = (app) => {
   app.get('/user/users', (req, res) => {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         const users = [];
         const userRef = firebase.database().ref('users/').once('value', (msg) => {
-             	msg.forEach((snapshot) => {
-               const user = {
-                 userId: snapshot.key,
-                 username: snapshot.val().username
-               };
-               users.push(user);
-             });
+          msg.forEach((snapshot) => {
+            const user = {
+              userId: snapshot.key,
+              username: snapshot.val().username
+            };
+            users.push(user);
+          });
         })
         .then(() => {
           res.send({

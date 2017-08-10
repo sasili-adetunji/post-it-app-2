@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.firebaseAuth = exports.ref = undefined;
+exports.ref = exports.firebaseAuth = undefined;
 
 var _firebase = require('firebase');
 
@@ -19,9 +19,9 @@ var config = {
   storageBucket: 'postit-335c1.appspot.com',
   messagingSenderId: '63329792793'
 };
-
 var db = _firebase2.default.initializeApp(config);
-// export const messaging = firebase.messaging
-var ref = exports.ref = _firebase2.default.database().ref;
 var firebaseAuth = exports.firebaseAuth = _firebase2.default.auth;
+var ref = exports.ref = _firebase2.default.database().ref();
 exports.default = db;
+
+// export const messaging = firebase.messaging

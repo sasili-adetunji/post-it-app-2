@@ -1,5 +1,4 @@
 import React from 'react';
-import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
 import RaisedButton from 'material-ui/RaisedButton';
 import { GridList, GridTile } from 'material-ui/GridList';
@@ -60,6 +59,11 @@ const style = {
 };
 
 class DashContainer extends React.Component {
+  /**
+   * Creates an instance of DashContainer.
+   * @param {any} props 
+   * @memberof DashContainer
+   */
   constructor(props) {
     super(props);
     this.state = {
@@ -79,6 +83,10 @@ class DashContainer extends React.Component {
     this.setState(getAppState());
   }
 
+  /**
+   * adds change listener, get users and usergroups from API
+   * @memberof DashContainer
+   */
   componentDidMount() {
     API.getUserGroups();
     API.getUsers();
@@ -86,14 +94,22 @@ class DashContainer extends React.Component {
     PostItStore.addChangeListener(this._onChange.bind(this));
   }
 
+  /**
+   * removes changelistener
+   * @memberof DashContainer
+   */
   componentUnmount() {
     PostItStore.removeChangeListener(this._onChange.bind(this));
   }
 
 
+  /**
+   * renders components view
+   * @returns {void}
+   * @memberof DashContainer
+   */
   render() {
     return (
-
       <div>
         <div className="col-sm-4">
           <UserList users={this.state.users} /> </div>

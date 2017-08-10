@@ -58,10 +58,6 @@ var _Group = require('./Group');
 
 var _Group2 = _interopRequireDefault(_Group);
 
-var _Nav = require('./Nav');
-
-var _Nav2 = _interopRequireDefault(_Nav);
-
 var _Dashbord = require('./protected/Dashbord');
 
 var _Dashbord2 = _interopRequireDefault(_Dashbord);
@@ -78,16 +74,11 @@ function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in ob
 
 (0, _reactTapEventPlugin2.default)();
 
-// function getAppState() {
-//     return {
-//         errors: PostItStore.getErrors(),
-//         success: PostItStore.getSuccess(),
-//         loggedInUser: PostItStore.getLoggedInUser(),
-//         registeredUser: PostItStore.getRegisteredUser(),
-//         isAuthenticated: PostItStore.getIsAuthenticated()
-//     };
-// }
-
+/**
+ * function that returns route then
+ * @param {any} { component: Component, isAuthenticated, ...rest }
+ * @returns {void}
+ */
 function PrivateRoute(_ref) {
   var Component = _ref.component,
       isAuthenticated = _ref.isAuthenticated,
@@ -99,7 +90,11 @@ function PrivateRoute(_ref) {
     }
   }));
 }
-
+/**
+ *
+ * @param {any} { component: Component, isAuthenticated, ...rest }
+ * @returns {void}
+ */
 function PublicRoute(_ref2) {
   var Component = _ref2.component,
       isAuthenticated = _ref2.isAuthenticated,
@@ -129,6 +124,12 @@ var App = function (_Component) {
     _this.handleClick = _this.handleClick.bind(_this);
     return _this;
   }
+  /**
+   *  adds changeListener from the store
+   *
+   * @memberof App
+   */
+
 
   _createClass(App, [{
     key: 'componentDidMount',
@@ -147,6 +148,13 @@ var App = function (_Component) {
       //   console.log('Error Occured')
       // })
     }
+
+    /**
+     * removes change listener from the store
+     *
+     * @memberof App
+     */
+
   }, {
     key: 'componentWillUnmount',
     value: function componentWillUnmount() {
@@ -161,24 +169,29 @@ var App = function (_Component) {
   }, {
     key: 'render',
     value: function render() {
-      {
-        !this.state.isAuthenticated ? _react2.default.createElement(_Nav2.default, null) : '';
-      }
       return _react2.default.createElement(
         'div',
         null,
         _react2.default.createElement(
           _MuiThemeProvider2.default,
           { muiTheme: (0, _getMuiTheme2.default)(_darkBaseTheme2.default) },
-          _react2.default.createElement(_AppBar2.default, { title: 'Post It App', iconElementRight: _react2.default.createElement(_FlatButton2.default, { label: 'Sign Out', onClick: this.handleClick }) })
+          _react2.default.createElement(_AppBar2.default, {
+            title: 'Post It App', iconElementRight: _react2.default.createElement(_FlatButton2.default, {
+              label: 'Sign Out', onClick: this.handleClick }) })
         ),
         _react2.default.createElement(
           _reactRouterDom.Switch,
           null,
           _react2.default.createElement(PublicRoute, { path: '/', exact: true, component: _Login2.default }),
-          _react2.default.createElement(PublicRoute, { isAuthenticated: this.state.isAuthenticated, path: '/signin', component: _Login2.default }),
-          _react2.default.createElement(PublicRoute, { isAuthenticated: this.state.isAuthenticated, path: '/signup', component: _Register2.default }),
-          _react2.default.createElement(PrivateRoute, { isAuthenticated: this.state.isAuthenticated, path: '/dashboard', component: _Dashbord2.default }),
+          _react2.default.createElement(PublicRoute, {
+            isAuthenticated: this.state.isAuthenticated,
+            path: '/signin', component: _Login2.default }),
+          _react2.default.createElement(PublicRoute, {
+            isAuthenticated: this.state.isAuthenticated,
+            path: '/signup', component: _Register2.default }),
+          _react2.default.createElement(PrivateRoute, {
+            isAuthenticated: this.state.isAuthenticated,
+            path: '/dashboard', component: _Dashbord2.default }),
           _react2.default.createElement(_reactRouterDom.Route, { render: function render() {
               return _react2.default.createElement(
                 'h3',
@@ -189,6 +202,13 @@ var App = function (_Component) {
         )
       );
     }
+
+    /**
+     * monitors changes of the components
+     *
+     * @memberof App
+     */
+
   }, {
     key: '_onChange',
     value: function _onChange() {

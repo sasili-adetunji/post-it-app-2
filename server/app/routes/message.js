@@ -1,6 +1,5 @@
 import express from 'express';
 import firebase from 'firebase';
-import db from '../../config/db';
 import nodemailer from 'nodemailer';
 import smtpTransport from 'nodemailer-smtp-transport';
 import Nexmo from 'nexmo';
@@ -30,7 +29,7 @@ const nexmo = new Nexmo({
   apiSecret: 'c88f4f0e7092b986'
 });
 
-const message = (app, db) => {
+const message = (app) => {
   app.post('/message', (req, res) => {
     const message = req.body.message;
     const groupId = req.body.groupId;

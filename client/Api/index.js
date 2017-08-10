@@ -1,13 +1,15 @@
 import axios from 'axios';
 import firebase from 'firebase';
-
 import { firebaseAuth } from '../../server/config/db';
-
-
 import PostItActions from '../actions/PostItActions';
 
 module.exports = {
 
+  /**
+   * api call to register new user from the signup route
+   *
+   * @param {any} user
+   */
   registerNewUser(user) {
     axios.post('/user/signup', {
       email: user.email,
@@ -32,6 +34,11 @@ module.exports = {
   });
   },
 
+  /**
+   * api call to signin user from the signin route
+   *
+   * @param {any} user
+   */
   signinUser(user) {
     axios.post('/user/signin', {
       email: user.email,
@@ -53,6 +60,10 @@ module.exports = {
   });
   },
 
+  /**
+   * api call to signout user from the signout route
+   *
+   */
   signoutUser() {
     axios.post('/user/signout').then((response) => {
       PostItActions.receiveSuccess(response.message);
@@ -61,6 +72,11 @@ module.exports = {
       PostItActions.receiveErrors(error.message);
     });
   },
+
+  /**
+   * api call to login us with google
+   * 
+   */
   googleLogin() {
     let email,
       uid,
@@ -94,6 +110,11 @@ module.exports = {
       });
   },
 
+  /**
+   * api call to create new group from the route
+   *
+   * @param {any} group
+   */
   createNewGroup(group) {
     axios.post('/group', {
       groupname: group.groupname,
@@ -105,6 +126,11 @@ module.exports = {
     });
   },
 
+  /**
+   * api call to add user to groups
+   *
+   * @param {any} user
+   */
   addUserToGroup(user) {
     axios.post(`/group/${user.groupId}/user`, {
       email: user.email,
@@ -119,6 +145,11 @@ module.exports = {
   });
   },
 
+  /**
+   * api call to post message through the message route
+   *
+   * @param {any} message
+   */
   postMessage(message) {
     axios.post('/message', {
       groupId: message.groupId,
@@ -132,6 +163,10 @@ module.exports = {
     });
   },
 
+  /**
+   * api call to get user groups
+   *
+   */
   getUserGroups() {
     axios.get('user/groups')
    .then((response) => {
@@ -144,6 +179,10 @@ module.exports = {
    });
   },
 
+  /**
+   * api call to get list of all the users in the App
+   *
+   */
   getUsers() {
     axios.get('user/users')
    .then((response) => {
@@ -156,6 +195,11 @@ module.exports = {
    });
   },
 
+  /**
+   * api call to get messages in a particular groups
+   *
+   * @param {any} group
+   */
   getMessages(group) {
     axios.get(`/group/${group.groupId}/messages`)
     .then((response) => {
@@ -166,6 +210,12 @@ module.exports = {
      PostItActions.receiveErrors(error.message);
    });
   },
+
+  /**
+   * api call to reset password
+   *
+   * @param {any} email
+   */
   resetPassword(email) {
     axios.post('/user/reset', {
       email: email.email

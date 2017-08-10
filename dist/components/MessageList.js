@@ -12,37 +12,19 @@ var _react2 = _interopRequireDefault(_react);
 
 var _Card = require('material-ui/Card');
 
-var _TextField = require('material-ui/TextField');
-
-var _TextField2 = _interopRequireDefault(_TextField);
-
-var _CircularProgress = require('material-ui/CircularProgress');
-
 var _RaisedButton = require('material-ui/RaisedButton');
 
 var _RaisedButton2 = _interopRequireDefault(_RaisedButton);
+
+var _List = require('material-ui/List');
 
 var _MuiThemeProvider = require('material-ui/styles/MuiThemeProvider');
 
 var _MuiThemeProvider2 = _interopRequireDefault(_MuiThemeProvider);
 
-var _Paper = require('material-ui/Paper');
-
-var _Paper2 = _interopRequireDefault(_Paper);
-
-var _PostItActions = require('../actions/PostItActions');
-
-var _PostItActions2 = _interopRequireDefault(_PostItActions);
-
-var _PostItStore = require('../stores/PostItStore');
-
-var _PostItStore2 = _interopRequireDefault(_PostItStore);
-
 var _Message = require('./Message');
 
 var _Message2 = _interopRequireDefault(_Message);
-
-var _List = require('material-ui/List');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -52,9 +34,20 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+/**
+ * Messagelist components
+ *
+ * @class MessageList
+ * @extends {React.Component}
+ */
 var MessageList = function (_React$Component) {
   _inherits(MessageList, _React$Component);
 
+  /**
+   * Creates an instance of MessageList.
+   * @param {any} props
+   * @memberof MessageList
+   */
   function MessageList(props) {
     _classCallCheck(this, MessageList);
 

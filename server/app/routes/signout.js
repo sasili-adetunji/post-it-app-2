@@ -2,16 +2,15 @@
 
 import express from 'express';
 import firebase from 'firebase';
-import db from '../../config/db';
 
 const app = express();
 
-const signout = (app, db) => {
+const signout = (app) => {
   app.post('/user/signout', (req, res) => {
     firebase.auth().signOut()
   .then(() => {
     res.send({
-      message: 'You have signed out f the Appliction'
+      message: 'You have signed out of the Appliction'
     });
   })
   .catch((err) => {

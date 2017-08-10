@@ -51,6 +51,13 @@ var style = {
   display: 'inline-block'
 };
 
+/**
+ *
+ *
+ * @class CreateGroup
+ * @extends {React.Component}
+ */
+
 var CreateGroup = function (_React$Component) {
   _inherits(CreateGroup, _React$Component);
 
@@ -67,11 +74,26 @@ var CreateGroup = function (_React$Component) {
     return _this;
   }
 
+  /**
+   * monitors the state of the components and change the state
+   *
+   * @param {any} e
+   * @memberof CreateGroup
+   */
+
   _createClass(CreateGroup, [{
     key: 'onChange',
     value: function onChange(e) {
       this.setState(_defineProperty({}, e.target.name, e.target.value));
     }
+
+    /**
+     * makes an action call to create group
+     *
+     * @param {any} e
+     * @memberof CreateGroup
+     */
+
   }, {
     key: 'onClick',
     value: function onClick(e) {
@@ -81,6 +103,13 @@ var CreateGroup = function (_React$Component) {
       };
       _PostItActions2.default.createGroup(group);
     }
+    /**
+     *
+     * renders the createGroup components
+     * @returns {void}
+     * @memberof CreateGroup
+     */
+
   }, {
     key: 'render',
     value: function render() {

@@ -14,13 +14,11 @@ var _materialUi = require('material-ui');
 
 var _materialUi2 = _interopRequireDefault(_materialUi);
 
-var _Api = require('../Api');
+var _List = require('material-ui/List');
 
-var _Api2 = _interopRequireDefault(_Api);
+var _MuiThemeProvider = require('material-ui/styles/MuiThemeProvider');
 
-var _Toggle = require('material-ui/Toggle');
-
-var _Toggle2 = _interopRequireDefault(_Toggle);
+var _MuiThemeProvider2 = _interopRequireDefault(_MuiThemeProvider);
 
 var _PostItActions = require('../actions/PostItActions');
 
@@ -30,17 +28,13 @@ var _PostItStore = require('../stores/PostItStore');
 
 var _PostItStore2 = _interopRequireDefault(_PostItStore);
 
-var _List = require('material-ui/List');
-
 var _AddMember = require('./AddMember');
 
 var _AddMember2 = _interopRequireDefault(_AddMember);
 
-var _MuiThemeProvider = require('material-ui/styles/MuiThemeProvider');
+var _Api = require('../Api');
 
-var _MuiThemeProvider2 = _interopRequireDefault(_MuiThemeProvider);
-
-var _Table = require('material-ui/Table');
+var _Api2 = _interopRequireDefault(_Api);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -50,6 +44,11 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+/**
+ * Group components
+ * @class Group
+ * @extends {React.Component}
+ */
 var Group = function (_React$Component) {
   _inherits(Group, _React$Component);
 
@@ -63,6 +62,13 @@ var Group = function (_React$Component) {
     return _this;
   }
 
+  /**
+   * makes an action call to group opened and an API call to get messages
+   *
+   * @memberof Group
+   */
+
+
   _createClass(Group, [{
     key: 'onClick',
     value: function onClick() {
@@ -72,6 +78,14 @@ var Group = function (_React$Component) {
       _PostItActions2.default.groupOpened(this.props.group);
       _Api2.default.getMessages(this.props.group);
     }
+
+    /**
+     * renders the group components
+     *
+     * @returns {void}
+     * @memberof Group
+     */
+
   }, {
     key: 'render',
     value: function render() {

@@ -50,10 +50,19 @@ var style = {
   textAlign: 'center',
   display: 'inline-block'
 };
+/**
+ * Addmember component.
+ * @returns {String} The markup for the addMember component
+ */
 
 var AddMember = function (_React$Component) {
   _inherits(AddMember, _React$Component);
 
+  /**
+   * Creates an instance of AddMember.
+   * @param {any} props
+   * @memberof AddMembe
+   */
   function AddMember(props) {
     _classCallCheck(this, AddMember);
 
@@ -68,11 +77,26 @@ var AddMember = function (_React$Component) {
     return _this;
   }
 
+  /**
+   * Monitors changes in the components and change the state
+   * @param {any} e
+   * @memberof AddMember
+   */
+
+
   _createClass(AddMember, [{
     key: 'onChange',
     value: function onChange(e) {
       this.setState(_defineProperty({}, e.target.name, e.target.value));
     }
+
+    /**
+     * makes an action to add member
+     *
+     * @param {any} e
+     * @memberof AddMember
+     */
+
   }, {
     key: 'onClick',
     value: function onClick(e) {
@@ -83,6 +107,14 @@ var AddMember = function (_React$Component) {
       };
       _PostItActions2.default.addUserToGroup(user);
     }
+
+    /**
+     * renders the addMember components
+     *
+     * @returns {void}
+     * @memberof AddMember
+     */
+
   }, {
     key: 'render',
     value: function render() {
@@ -102,7 +134,8 @@ var AddMember = function (_React$Component) {
           style: {
             display: 'block',
             width: '20px'
-          }, onClick: this.onClick,
+          },
+          onClick: this.onClick,
           label: 'Add', primary: true })
       );
     }

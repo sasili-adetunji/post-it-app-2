@@ -10,10 +10,6 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var _Drawer = require('material-ui/Drawer');
-
-var _Drawer2 = _interopRequireDefault(_Drawer);
-
 var _MenuItem = require('material-ui/MenuItem');
 
 var _MenuItem2 = _interopRequireDefault(_MenuItem);
@@ -112,6 +108,11 @@ var style = {
 var DashContainer = function (_React$Component) {
   _inherits(DashContainer, _React$Component);
 
+  /**
+   * Creates an instance of DashContainer.
+   * @param {any} props 
+   * @memberof DashContainer
+   */
   function DashContainer(props) {
     _classCallCheck(this, DashContainer);
 
@@ -136,6 +137,12 @@ var DashContainer = function (_React$Component) {
     value: function _onChange() {
       this.setState(getAppState());
     }
+
+    /**
+     * adds change listener, get users and usergroups from API
+     * @memberof DashContainer
+     */
+
   }, {
     key: 'componentDidMount',
     value: function componentDidMount() {
@@ -144,11 +151,24 @@ var DashContainer = function (_React$Component) {
 
       _PostItStore2.default.addChangeListener(this._onChange.bind(this));
     }
+
+    /**
+     * removes changelistener
+     * @memberof DashContainer
+     */
+
   }, {
     key: 'componentUnmount',
     value: function componentUnmount() {
       _PostItStore2.default.removeChangeListener(this._onChange.bind(this));
     }
+
+    /**
+     * renders components view
+     * @returns {void}
+     * @memberof DashContainer
+     */
+
   }, {
     key: 'render',
     value: function render() {

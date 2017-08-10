@@ -43,8 +43,6 @@ var PostItStore = (0, _objectAssign2.default)({}, _events.EventEmitter.prototype
   },
   signinUser: function signinUser(user) {
     loggedInUser.push(user);
-    //   isAuthenticated = fa;
-    //   console.log('signin user store auth:', isAuthenticated);
   },
   signOutUser: function signOutUser() {
     loggedInUser.pop();

@@ -16,8 +16,6 @@ var _TextField = require('material-ui/TextField');
 
 var _TextField2 = _interopRequireDefault(_TextField);
 
-var _CircularProgress = require('material-ui/CircularProgress');
-
 var _RaisedButton = require('material-ui/RaisedButton');
 
 var _RaisedButton2 = _interopRequireDefault(_RaisedButton);
@@ -26,9 +24,7 @@ var _MuiThemeProvider = require('material-ui/styles/MuiThemeProvider');
 
 var _MuiThemeProvider2 = _interopRequireDefault(_MuiThemeProvider);
 
-var _Paper = require('material-ui/Paper');
-
-var _Paper2 = _interopRequireDefault(_Paper);
+var _List = require('material-ui/List');
 
 var _PostItActions = require('../actions/PostItActions');
 
@@ -41,8 +37,6 @@ var _PostItStore2 = _interopRequireDefault(_PostItStore);
 var _User = require('./User');
 
 var _User2 = _interopRequireDefault(_User);
-
-var _List = require('material-ui/List');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -61,32 +55,19 @@ var UserList = function (_React$Component) {
     return _possibleConstructorReturn(this, (UserList.__proto__ || Object.getPrototypeOf(UserList)).call(this, props));
   }
 
+  /**
+   * renders the userlist components
+   * @returns {void}
+   * @memberof UserList
+   */
+
+
   _createClass(UserList, [{
     key: 'render',
     value: function render() {
-      if (!this.props.users) {
-        return _react2.default.createElement(
-          _Card.Card,
-          { style: {
-              flexGrow: 1
-            } },
-          _react2.default.createElement(_CircularProgress.CircularProgress, {
-            mode: 'indeterminate',
-            style: {
-              paddingTop: '20px',
-              paddingBottom: '20px',
-              margin: '0 auto',
-              display: 'block',
-              width: '60px'
-            }
-          })
-        );
-      }
       var userNodes = this.props.users.map(function (user, i) {
         return _react2.default.createElement(_User2.default, { user: user, key: i });
       });
-      //    console.log('UserList------', this.props.users);
-
       return _react2.default.createElement(
         'div',
         null,

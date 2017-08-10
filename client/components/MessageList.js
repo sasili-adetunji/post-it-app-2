@@ -1,18 +1,24 @@
 import React from 'react';
 import { CardHeader, CardTitle, Card } from 'material-ui/Card';
-import TextField from 'material-ui/TextField';
-import { CircularProgress } from 'material-ui/CircularProgress';
 import RaisedButton from 'material-ui/RaisedButton';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import Paper from 'material-ui/Paper';
-import PostItActions from '../actions/PostItActions';
-import PostItStore from '../stores/PostItStore';
-
-import Message from './Message';
 import { List } from 'material-ui/List';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import Message from './Message';
 
 
+/**
+ * Messagelist components
+ *
+ * @class MessageList
+ * @extends {React.Component}
+ */
 class MessageList extends React.Component {
+
+  /**
+   * Creates an instance of MessageList.
+   * @param {any} props
+   * @memberof MessageList
+   */
   constructor(props) {
     super(props);
   }
@@ -28,13 +34,12 @@ class MessageList extends React.Component {
       <div>
         <List>
           <CardTitle title="Messages" />
-
           {messageNodes}
         </List>
       </div>
     );
   }
-    }
+}
 
 
 export default MessageList;

@@ -15,14 +15,12 @@ var _firebase2 = _interopRequireDefault(_firebase);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var app = (0, _express2.default)();
-var fb = _firebase2.default.database();
 
-var userGroup = function userGroup(app, db) {
+var userGroup = function userGroup(app) {
   app.get('/user/groups', function (req, res) {
     _firebase2.default.auth().onAuthStateChanged(function (user) {
       if (user) {
         var groups = [];
-
         _firebase2.default.database().ref('users/' + user.uid + '/groups/').orderByKey().once('value', function (snapshot) {
           snapshot.forEach(function (childSnapShot) {
             var group = {

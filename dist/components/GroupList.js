@@ -16,9 +16,7 @@ var _Toggle = require('material-ui/Toggle');
 
 var _Toggle2 = _interopRequireDefault(_Toggle);
 
-var _PostItStore = require('../stores/PostItStore');
-
-var _PostItStore2 = _interopRequireDefault(_PostItStore);
+var _List = require('material-ui/List');
 
 var _RaisedButton = require('material-ui/RaisedButton');
 
@@ -27,10 +25,6 @@ var _RaisedButton2 = _interopRequireDefault(_RaisedButton);
 var _MuiThemeProvider = require('material-ui/styles/MuiThemeProvider');
 
 var _MuiThemeProvider2 = _interopRequireDefault(_MuiThemeProvider);
-
-var _Paper = require('material-ui/Paper');
-
-var _Paper2 = _interopRequireDefault(_Paper);
 
 var _PostItActions = require('../actions/PostItActions');
 
@@ -52,7 +46,9 @@ var _Group = require('./Group');
 
 var _Group2 = _interopRequireDefault(_Group);
 
-var _List = require('material-ui/List');
+var _PostItStore = require('../stores/PostItStore');
+
+var _PostItStore2 = _interopRequireDefault(_PostItStore);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -62,9 +58,20 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+/**
+ * Grouplist component with createGroup,MessageBox and AddMember component
+ *
+ * @class GroupList
+ * @extends {React.Component}
+ */
 var GroupList = function (_React$Component) {
   _inherits(GroupList, _React$Component);
 
+  /**
+   * Creates an instance of GroupList.
+   * @param {any} props
+   * @memberof GroupList
+   */
   function GroupList(props) {
     _classCallCheck(this, GroupList);
 
@@ -84,6 +91,13 @@ var GroupList = function (_React$Component) {
     return _this;
   }
 
+  /**
+   * controls the toggle of addMember components
+   *
+   * @memberof GroupList
+   */
+
+
   _createClass(GroupList, [{
     key: 'handleToggleAdd',
     value: function handleToggleAdd() {
@@ -91,6 +105,13 @@ var GroupList = function (_React$Component) {
         toggledAdd: !this.state.toggledAdd
       });
     }
+
+    /**
+     * controls the toggle for creatMember components
+     *
+     * @memberof GroupList
+     */
+
   }, {
     key: 'handleToggleCreate',
     value: function handleToggleCreate() {
@@ -98,6 +119,13 @@ var GroupList = function (_React$Component) {
         toggledCreate: !this.state.toggledCreate
       });
     }
+
+    /**
+     * controls the toggle for MessageBox components
+     *
+     * @memberof GroupList
+     */
+
   }, {
     key: 'handleToggleMessage',
     value: function handleToggleMessage() {
@@ -105,6 +133,14 @@ var GroupList = function (_React$Component) {
         toggledMessage: !this.state.toggledMessage
       });
     }
+
+    /**
+     * The markup for the groupList components
+     *
+     * @returns {void}
+     * @memberof GroupList
+     */
+
   }, {
     key: 'render',
     value: function render() {

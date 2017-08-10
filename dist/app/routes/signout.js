@@ -12,19 +12,17 @@ var _firebase = require('firebase');
 
 var _firebase2 = _interopRequireDefault(_firebase);
 
-var _db = require('../../config/db');
-
-var _db2 = _interopRequireDefault(_db);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var app = (0, _express2.default)(); // signout route
+// signout route
 
-var signout = function signout(app, db) {
+var app = (0, _express2.default)();
+
+var signout = function signout(app) {
   app.post('/user/signout', function (req, res) {
     _firebase2.default.auth().signOut().then(function () {
       res.send({
-        message: 'You have signed out f the Appliction'
+        message: 'You have signed out of the Appliction'
       });
     }).catch(function (err) {
       res.json({
