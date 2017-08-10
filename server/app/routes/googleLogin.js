@@ -3,8 +3,7 @@
 
 import express from 'express';
 import firebase from 'firebase';
-import db from '../../config/db';
-import { firebaseAuth, ref } from '../../config/db';
+import { firebaseAuth, ref, db } from '../../config/db';
 
 
 const app = express();

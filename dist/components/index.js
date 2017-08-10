@@ -6,8 +6,6 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _class, _temp;
-
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 var _react = require('react');
@@ -16,25 +14,9 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouterDom = require('react-router-dom');
 
-var _Login = require('./Login');
+var _reactTapEventPlugin = require('react-tap-event-plugin');
 
-var _Login2 = _interopRequireDefault(_Login);
-
-var _Register = require('./Register');
-
-var _Register2 = _interopRequireDefault(_Register);
-
-var _Group = require('./Group');
-
-var _Group2 = _interopRequireDefault(_Group);
-
-var _Home = require('./Home');
-
-var _Home2 = _interopRequireDefault(_Home);
-
-var _Nav = require('./Nav');
-
-var _Nav2 = _interopRequireDefault(_Nav);
+var _reactTapEventPlugin2 = _interopRequireDefault(_reactTapEventPlugin);
 
 var _darkBaseTheme = require('material-ui/styles/baseThemes/darkBaseTheme');
 
@@ -64,23 +46,25 @@ var _PostItActions = require('../actions/PostItActions');
 
 var _PostItActions2 = _interopRequireDefault(_PostItActions);
 
-var _propTypes = require('prop-types');
+var _Login = require('./Login');
 
-var _propTypes2 = _interopRequireDefault(_propTypes);
+var _Login2 = _interopRequireDefault(_Login);
 
-var _firebase = require('firebase');
+var _Register = require('./Register');
 
-var _firebase2 = _interopRequireDefault(_firebase);
+var _Register2 = _interopRequireDefault(_Register);
+
+var _Group = require('./Group');
+
+var _Group2 = _interopRequireDefault(_Group);
+
+var _Nav = require('./Nav');
+
+var _Nav2 = _interopRequireDefault(_Nav);
 
 var _Dashbord = require('./protected/Dashbord');
 
 var _Dashbord2 = _interopRequireDefault(_Dashbord);
-
-var _db = require('../../server/config/db');
-
-var _reactTapEventPlugin = require('react-tap-event-plugin');
-
-var _reactTapEventPlugin2 = _interopRequireDefault(_reactTapEventPlugin);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -128,7 +112,7 @@ function PublicRoute(_ref2) {
   }));
 }
 
-var App = (_temp = _class = function (_Component) {
+var App = function (_Component) {
   _inherits(App, _Component);
 
   function App(props) {
@@ -138,7 +122,8 @@ var App = (_temp = _class = function (_Component) {
 
     _this.state = {
       isAuthenticated: _PostItStore2.default.getIsAuthenticated(),
-      user: _PostItStore2.default.getLoggedInUser()
+      user: _PostItStore2.default.getLoggedInUser(),
+      errors: _PostItStore2.default.getErrors()
     };
     _this._onChange = _this._onChange.bind(_this);
     _this.handleClick = _this.handleClick.bind(_this);
@@ -209,13 +194,13 @@ var App = (_temp = _class = function (_Component) {
     value: function _onChange() {
       this.setState({
         isAuthenticated: _PostItStore2.default.getIsAuthenticated(),
-        user: _PostItStore2.default.getLoggedInUser()
+        user: _PostItStore2.default.getLoggedInUser(),
+        errors: _PostItStore2.default.getErrors()
       });
     }
   }]);
 
   return App;
-}(_react.Component), _class.contextTypes = {
-  router: _propTypes2.default.object
-}, _temp);
+}(_react.Component);
+
 exports.default = App;

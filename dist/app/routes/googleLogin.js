@@ -14,14 +14,11 @@ var _firebase2 = _interopRequireDefault(_firebase);
 
 var _db = require('../../config/db');
 
-var _db2 = _interopRequireDefault(_db);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-// google route
+var app = (0, _express2.default)(); // google route
 // using firebase authentication method
 
-var app = (0, _express2.default)();
 var googleLogin = function googleLogin(app, db) {
   app.post('/user/google', function (req, res) {
     var token = void 0,

@@ -1,8 +1,10 @@
 'use strict';
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 
-var _class, _temp;
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = require('react');
 
@@ -26,14 +28,6 @@ var _FlatButton = require('material-ui/FlatButton');
 
 var _FlatButton2 = _interopRequireDefault(_FlatButton);
 
-var _PostItActions = require('../actions/PostItActions');
-
-var _PostItActions2 = _interopRequireDefault(_PostItActions);
-
-var _PostItStore = require('../stores/PostItStore');
-
-var _PostItStore2 = _interopRequireDefault(_PostItStore);
-
 var _reactRouterDom = require('react-router-dom');
 
 var _propTypes = require('prop-types');
@@ -47,6 +41,14 @@ var _MuiThemeProvider2 = _interopRequireDefault(_MuiThemeProvider);
 var _firebase = require('firebase');
 
 var _firebase2 = _interopRequireDefault(_firebase);
+
+var _PostItActions = require('../actions/PostItActions');
+
+var _PostItActions2 = _interopRequireDefault(_PostItActions);
+
+var _PostItStore = require('../stores/PostItStore');
+
+var _PostItStore2 = _interopRequireDefault(_PostItStore);
 
 var _db = require('../../server/config/db');
 
@@ -66,7 +68,7 @@ function setErrorMsg(error) {
   };
 }
 
-var Login = (_temp = _class = function (_React$Component) {
+var Login = function (_React$Component) {
   _inherits(Login, _React$Component);
 
   function Login(props) {
@@ -78,7 +80,8 @@ var Login = (_temp = _class = function (_React$Component) {
       email: '',
       password: '',
       loginMessage: null,
-      isAuthenticated: _PostItStore2.default.getIsAuthenticated()
+      isAuthenticated: _PostItStore2.default.getIsAuthenticated(),
+      errors: _PostItStore2.default.getErrors()
     };
     _this.onChange = _this.onChange.bind(_this);
     _this.onClick = _this.onClick.bind(_this);
@@ -95,7 +98,6 @@ var Login = (_temp = _class = function (_React$Component) {
   }, {
     key: 'onClick',
     value: function onClick() {
-
       var user = {
         email: this.state.email,
         password: this.state.password
@@ -127,19 +129,22 @@ var Login = (_temp = _class = function (_React$Component) {
           _react2.default.createElement(
             _Card.Card,
             { style: {
-                'maxWidth': '800px',
-                'margin': '30px auto',
-                'padding': '50px',
-                'textAlign': 'center'
+                maxWidth: '800px',
+                margin: '30px auto',
+                padding: '50px',
+                textAlign: 'center'
               } },
-            _react2.default.createElement(_Card.CardTitle, { style: { 'textAlign': 'center' },
+            _react2.default.createElement(_Card.CardTitle, {
+              style: { textAlign: 'center' },
               title: 'Login Form',
               subtitle: 'To continue using PostIt, you need to login below' }),
-            _react2.default.createElement(_TextField2.default, { name: 'email', onChange: this.onChange, value: this.state.email,
-              errorText: 'This field is required', hintText: 'Email Field', floatingLabelText: 'Your Email' }),
+            _react2.default.createElement(_TextField2.default, {
+              name: 'email', onChange: this.onChange, value: this.state.email,
+              errorText: this.state.errors, hintText: 'Email Field', floatingLabelText: 'Your Email' }),
             _react2.default.createElement('br', null),
-            _react2.default.createElement(_TextField2.default, { name: 'password', onChange: this.onChange, value: this.state.password,
-              errorText: 'This field is required', hintText: 'Password Field', floatingLabelText: 'Choose Password', type: 'password' }),
+            _react2.default.createElement(_TextField2.default, {
+              name: 'password', onChange: this.onChange, value: this.state.password,
+              errorText: this.state.errors, hintText: 'Password Field', floatingLabelText: 'Choose Password', type: 'password' }),
             _react2.default.createElement('br', null),
             _react2.default.createElement('br', null),
             this.state.loginMessage && _react2.default.createElement(
@@ -152,7 +157,7 @@ var Login = (_temp = _class = function (_React$Component) {
                 'Error:'
               ),
               '\xA0',
-              this.state.loginMessage,
+              this.state.errors,
               ' ',
               _react2.default.createElement(
                 'a',
@@ -182,17 +187,21 @@ var Login = (_temp = _class = function (_React$Component) {
               ),
               ' '
             ),
-            _react2.default.createElement(_RaisedButton2.default, { style: {
+            _react2.default.createElement(_RaisedButton2.default, {
+              style: {
                 display: 'block'
               },
               label: 'Login', primary: true, onClick: this.onClick }),
             _react2.default.createElement('div', null),
-            _react2.default.createElement(_FlatButton2.default, { style: {
+            _react2.default.createElement(_FlatButton2.default, {
+              style: {
                 width: '50%',
                 margin: '0 auto',
                 border: '2px solid',
                 backgroundColor: '#ffd699'
-              }, label: 'Sign in with Google', primary: true, onClick: this.onClickGoogle })
+              },
+              label: 'Sign in with Google', primary: true, onClick: this.onClickGoogle
+            })
           )
         )
       );
@@ -200,8 +209,6 @@ var Login = (_temp = _class = function (_React$Component) {
   }]);
 
   return Login;
-}(_react2.default.Component), _class.contextTypes = {
-  router: _propTypes2.default.object
-}, _temp);
+}(_react2.default.Component);
 
-module.exports = Login;
+exports.default = Login;

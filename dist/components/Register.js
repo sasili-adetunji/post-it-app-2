@@ -1,8 +1,10 @@
 'use strict';
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 
-var _class, _temp;
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = require('react');
 
@@ -12,11 +14,21 @@ var _materialUi = require('material-ui');
 
 var _materialUi2 = _interopRequireDefault(_materialUi);
 
+var _reactRouterDom = require('react-router-dom');
+
+var _propTypes = require('prop-types');
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
 var _Card = require('material-ui/Card');
 
 var _TextField = require('material-ui/TextField');
 
 var _TextField2 = _interopRequireDefault(_TextField);
+
+var _Snackbar = require('material-ui/Snackbar');
+
+var _Snackbar2 = _interopRequireDefault(_Snackbar);
 
 var _RaisedButton = require('material-ui/RaisedButton');
 
@@ -30,15 +42,9 @@ var _PostItActions = require('../actions/PostItActions');
 
 var _PostItActions2 = _interopRequireDefault(_PostItActions);
 
-var _reactRouterDom = require('react-router-dom');
-
 var _PostItStore = require('../stores/PostItStore');
 
 var _PostItStore2 = _interopRequireDefault(_PostItStore);
-
-var _propTypes = require('prop-types');
-
-var _propTypes2 = _interopRequireDefault(_propTypes);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -56,7 +62,7 @@ function setErrorMsg(error) {
   };
 }
 
-var Register = (_temp = _class = function (_React$Component) {
+var Register = function (_React$Component) {
   _inherits(Register, _React$Component);
 
   function Register(props) {
@@ -66,11 +72,13 @@ var Register = (_temp = _class = function (_React$Component) {
 
     _this.state = {
       username: '',
+      open: false,
       email: '',
       password: '',
       phoneNumber: '',
       loginMessage: null,
-      isAuthenticated: _PostItStore2.default.getIsAuthenticated()
+      isAuthenticated: _PostItStore2.default.getIsAuthenticated(),
+      errors: _PostItStore2.default.getErrors()
     };
 
     _this.onChange = _this.onChange.bind(_this);
@@ -99,7 +107,6 @@ var Register = (_temp = _class = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
-
       return _react2.default.createElement(
         'div',
         null,
@@ -109,25 +116,29 @@ var Register = (_temp = _class = function (_React$Component) {
           _react2.default.createElement(
             _Card.Card,
             { style: {
-                'maxWidth': '800px',
-                'margin': '30px auto',
-                'padding': '50px',
-                'textAlign': 'center'
+                maxWidth: '800px',
+                margin: '30px auto',
+                padding: '50px',
+                textAlign: 'center'
               } },
-            _react2.default.createElement(_Card.CardTitle, { style: { 'textAlign': 'center' },
+            _react2.default.createElement(_Card.CardTitle, {
+              style: { textAlign: 'center' },
               title: 'Signup Form',
               subtitle: 'To continue using PostIt, you need to register below' }),
-            _react2.default.createElement(_TextField2.default, { name: 'username', onChange: this.onChange, value: this.state.username,
-              errorText: 'This field is required', hintText: 'Username Field', floatingLabelText: 'Choose Username' }),
+            _react2.default.createElement(_TextField2.default, {
+              name: 'username', onChange: this.onChange, value: this.state.username, hintText: 'Username Field', floatingLabelText: 'Choose Username' }),
             _react2.default.createElement('br', null),
-            _react2.default.createElement(_TextField2.default, { name: 'email', onChange: this.onChange, value: this.state.email,
-              errorText: 'This field is required', hintText: 'Email Field', floatingLabelText: 'Your Email' }),
+            _react2.default.createElement(_TextField2.default, {
+              name: 'email', onChange: this.onChange, value: this.state.email,
+              errorText: this.state.errors, hintText: 'Email Field', floatingLabelText: 'Your Email' }),
             _react2.default.createElement('br', null),
-            _react2.default.createElement(_TextField2.default, { name: 'password', onChange: this.onChange, value: this.state.password,
-              errorText: 'This field is required', hintText: 'Password Field', floatingLabelText: 'Choose Password', type: 'password' }),
+            _react2.default.createElement(_TextField2.default, {
+              name: 'password', onChange: this.onChange, value: this.state.password,
+              errorText: this.state.errors, hintText: 'Password Field', floatingLabelText: 'Choose Password', type: 'password' }),
             _react2.default.createElement('br', null),
-            _react2.default.createElement(_TextField2.default, { name: 'phoneNumber', onChange: this.onChange, value: this.state.phoneNumber,
-              errorText: 'This field is required', hintText: 'E.g. 23480', floatingLabelText: 'Phone Number' }),
+            _react2.default.createElement(_TextField2.default, {
+              name: 'phoneNumber', onChange: this.onChange, value: this.state.phoneNumber,
+              hintText: 'E.g. 23480', floatingLabelText: 'Phone Number' }),
             _react2.default.createElement('br', null),
             _react2.default.createElement('br', null),
             _react2.default.createElement(
@@ -141,9 +152,11 @@ var Register = (_temp = _class = function (_React$Component) {
               ),
               ' '
             ),
-            _react2.default.createElement(_RaisedButton2.default, { style: {
+            _react2.default.createElement(_RaisedButton2.default, {
+              style: {
                 display: 'block'
               }, onClick: this.onClick,
+              onTouchTap: this.handleTouchTap,
               label: 'Sign Up', primary: true })
           )
         )
@@ -152,8 +165,6 @@ var Register = (_temp = _class = function (_React$Component) {
   }]);
 
   return Register;
-}(_react2.default.Component), _class.contextTypes = {
-  router: _propTypes2.default.object
-}, _temp);
+}(_react2.default.Component);
 
-module.exports = Register;
+exports.default = Register;
