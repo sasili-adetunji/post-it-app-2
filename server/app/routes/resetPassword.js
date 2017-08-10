@@ -1,7 +1,6 @@
 // resetpassword route
 
 import express from 'express';
-import firebase from 'firebase';
 
 const app = express();
 
