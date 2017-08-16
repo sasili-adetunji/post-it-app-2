@@ -46,7 +46,7 @@ var User = function (_React$Component) {
     key: 'render',
     value: function render() {
       return _react2.default.createElement(
-        'div',
+        _MuiThemeProvider2.default,
         null,
         _react2.default.createElement(
           _List.ListItem,
@@ -54,8 +54,7 @@ var User = function (_React$Component) {
             href: '/#/dashboard/users/' + this.props.user.userId
           },
           ' ',
-          this.props.user.username,
-          ' '
+          this.props.user.username
         )
       );
     }

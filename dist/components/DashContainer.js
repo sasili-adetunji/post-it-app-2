@@ -110,7 +110,7 @@ var DashContainer = function (_React$Component) {
 
   /**
    * Creates an instance of DashContainer.
-   * @param {any} props 
+   * @param {any} props
    * @memberof DashContainer
    */
   function DashContainer(props) {
@@ -178,12 +178,6 @@ var DashContainer = function (_React$Component) {
         _react2.default.createElement(
           'div',
           { className: 'col-sm-4' },
-          _react2.default.createElement(_UserList2.default, { users: this.state.users }),
-          ' '
-        ),
-        _react2.default.createElement(
-          'div',
-          { className: 'col-sm-4' },
           _react2.default.createElement(_GroupList2.default, { groups: this.state.groups }),
           ' '
         ),
@@ -191,6 +185,16 @@ var DashContainer = function (_React$Component) {
           'div',
           { className: 'col-sm-4' },
           _react2.default.createElement(_MessageList2.default, this.state),
+          _react2.default.createElement(
+            'div',
+            null,
+            _react2.default.createElement(_MessageBox2.default, null)
+          )
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'col-sm-4' },
+          _react2.default.createElement(_UserList2.default, { users: this.state.users }),
           ' '
         )
       );

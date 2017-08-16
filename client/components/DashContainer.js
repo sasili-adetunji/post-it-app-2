@@ -61,7 +61,7 @@ const style = {
 class DashContainer extends React.Component {
   /**
    * Creates an instance of DashContainer.
-   * @param {any} props 
+   * @param {any} props
    * @memberof DashContainer
    */
   constructor(props) {
@@ -112,12 +112,15 @@ class DashContainer extends React.Component {
     return (
       <div>
         <div className="col-sm-4">
-          <UserList users={this.state.users} /> </div>
-        <div className="col-sm-4">
           <GroupList groups={this.state.groups} /> </div>
         <div className="col-sm-4">
-          <MessageList {...this.state} /> </div>
-
+          <MessageList {...this.state} />
+          <div>
+            <MessageBox />
+          </div>
+        </div>
+        <div className="col-sm-4">
+          <UserList users={this.state.users} /> </div>
       </div>
     );
   }

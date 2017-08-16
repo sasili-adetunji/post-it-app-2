@@ -10,8 +10,7 @@ const userMessage = (app) => {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         const messages = [];
-        firebase.database().ref(`users/${user.uid}/groups/${req.params.groupId}
-        /messages/`)
+        firebase.database().ref(`users/${user.uid}/groups/${req.params.groupId}/messages/`)
         .orderByKey().once('value', (snapshot) => {
           snapshot.forEach((childSnapShot) => {
             const message = {

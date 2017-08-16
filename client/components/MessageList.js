@@ -31,12 +31,14 @@ class MessageList extends React.Component {
     });
 
     return (
-      <div>
-        <List>
-          <CardTitle title="Messages" />
-          {messageNodes}
-        </List>
-      </div>
+      <MuiThemeProvider>
+        <Card>
+          <List>
+            <CardTitle title="Messages" />
+            {messageNodes}
+          </List>
+        </Card>
+      </MuiThemeProvider>
     );
   }
 }

@@ -15,11 +15,13 @@ class User extends React.Component {
 
   render() {
     return (
-      <div>
+      <MuiThemeProvider>
         <ListItem
         href={`/#/dashboard/users/${this.props.user.userId}`}
-      > {this.props.user.username} </ListItem>
-      </div>
+      > {this.props.user.username}
+        </ListItem>
+      </MuiThemeProvider>
+
     );
   }
 }

@@ -90,14 +90,13 @@ var Group = function (_React$Component) {
     key: 'render',
     value: function render() {
       return _react2.default.createElement(
-        'div',
+        _MuiThemeProvider2.default,
         null,
         _react2.default.createElement(
           _List.ListItem,
           {
             href: '/#/dashboard/groups/' + this.props.group.groupId,
-            onClick: this.onClick
-          },
+            onClick: this.onClick },
           this.props.group.groupname
         )
       );

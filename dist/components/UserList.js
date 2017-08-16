@@ -69,13 +69,17 @@ var UserList = function (_React$Component) {
         return _react2.default.createElement(_User2.default, { user: user, key: i });
       });
       return _react2.default.createElement(
-        'div',
+        _MuiThemeProvider2.default,
         null,
         _react2.default.createElement(
-          _List.List,
+          _Card.Card,
           null,
-          _react2.default.createElement(_Card.CardTitle, { title: 'User List' }),
-          userNodes
+          _react2.default.createElement(
+            _List.List,
+            null,
+            _react2.default.createElement(_Card.CardTitle, { title: 'User List' }),
+            userNodes
+          )
         )
       );
     }

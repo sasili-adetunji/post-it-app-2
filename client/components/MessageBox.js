@@ -1,5 +1,5 @@
 import React from 'react';
-import { CardHeader, CardTitle } from 'material-ui/Card';
+import { Card, CardHeader, CardTitle } from 'material-ui/Card';
 import TextField from 'material-ui/TextField';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
@@ -76,8 +76,9 @@ class MessageBox extends React.Component {
    */
   render() {
     return (
-      <div style={style}>
-        <CardTitle title="Message" />
+         <MuiThemeProvider>
+        <Card>
+          <CardTitle title="Send Message" />
         <textarea
             name="message"
             value={this.state.message} onChange={this.onChange}
@@ -133,8 +134,9 @@ class MessageBox extends React.Component {
             onClick={this.onClick}
             label="Send " primary
              />
+        </Card>
 
-      </div>
+            </MuiThemeProvider>
     );
   }
 

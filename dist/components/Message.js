@@ -55,14 +55,12 @@ var Message = function (_React$Component) {
     key: 'render',
     value: function render() {
       return _react2.default.createElement(
-        'div',
+        _MuiThemeProvider2.default,
         null,
         _react2.default.createElement(
           _List.ListItem,
           null,
-          this.props.message.messageText,
-          ' - ',
-          this.props.message.isRead
+          this.props.message.messageText
         )
       );
     }

@@ -24136,14 +24136,13 @@ var Group = function (_React$Component) {
     key: 'render',
     value: function render() {
       return _react2.default.createElement(
-        'div',
+        _MuiThemeProvider2.default,
         null,
         _react2.default.createElement(
           _List.ListItem,
           {
             href: '/#/dashboard/groups/' + this.props.group.groupId,
-            onClick: this.onClick
-          },
+            onClick: this.onClick },
           this.props.group.groupname
         )
       );
@@ -24291,26 +24290,15 @@ var MessageBox = function (_React$Component) {
     key: 'render',
     value: function render() {
       return _react2.default.createElement(
-        'div',
-        { style: style },
-        _react2.default.createElement(_Card.CardTitle, { title: 'Message' }),
-        _react2.default.createElement('textarea', {
-          name: 'message',
-          value: this.state.message, onChange: this.onChange,
-          style: {
-            width: '200px',
-            borderColor: '#D0D0D0',
-            resize: 'none',
-            borderRadius: 3,
-            minHeight: '50px',
-            color: '#555',
-            fontSize: 14,
-            outline: 'auto 0px'
-          } }),
+        _MuiThemeProvider2.default,
+        null,
         _react2.default.createElement(
-          'div',
+          _Card.Card,
           null,
-          _react2.default.createElement(_TextField2.default, {
+          _react2.default.createElement(_Card.CardTitle, { title: 'Send Message' }),
+          _react2.default.createElement('textarea', {
+            name: 'message',
+            value: this.state.message, onChange: this.onChange,
             style: {
               width: '200px',
               borderColor: '#D0D0D0',
@@ -24320,18 +24308,11 @@ var MessageBox = function (_React$Component) {
               color: '#555',
               fontSize: 14,
               outline: 'auto 0px'
-            },
-            name: 'groupId', onChange: this.onChange, value: this.state.groupId,
-            floatingLabelText: 'Group ID' }),
-          _react2.default.createElement('br', null),
+            } }),
           _react2.default.createElement(
-            'label',
-            { htmlFor: 'priorityLevel' },
-            'Priority Level:'
-          ),
-          _react2.default.createElement(
-            'select',
-            {
+            'div',
+            null,
+            _react2.default.createElement(_TextField2.default, {
               style: {
                 width: '200px',
                 borderColor: '#D0D0D0',
@@ -24342,33 +24323,55 @@ var MessageBox = function (_React$Component) {
                 fontSize: 14,
                 outline: 'auto 0px'
               },
-              placeholder: 'Priority Level', name: 'priorityLevel', onChange: this.onChange,
-              value: this.state.priorityLevel, className: 'form-control' },
+              name: 'groupId', onChange: this.onChange, value: this.state.groupId,
+              floatingLabelText: 'Group ID' }),
+            _react2.default.createElement('br', null),
             _react2.default.createElement(
-              'option',
-              { value: 'Normal' },
-              'Normal'
+              'label',
+              { htmlFor: 'priorityLevel' },
+              'Priority Level:'
             ),
             _react2.default.createElement(
-              'option',
-              { value: 'Urgent' },
-              'Urgent'
-            ),
-            _react2.default.createElement(
-              'option',
-              { value: 'Critical' },
-              'Critical'
+              'select',
+              {
+                style: {
+                  width: '200px',
+                  borderColor: '#D0D0D0',
+                  resize: 'none',
+                  borderRadius: 3,
+                  minHeight: '50px',
+                  color: '#555',
+                  fontSize: 14,
+                  outline: 'auto 0px'
+                },
+                placeholder: 'Priority Level', name: 'priorityLevel', onChange: this.onChange,
+                value: this.state.priorityLevel, className: 'form-control' },
+              _react2.default.createElement(
+                'option',
+                { value: 'Normal' },
+                'Normal'
+              ),
+              _react2.default.createElement(
+                'option',
+                { value: 'Urgent' },
+                'Urgent'
+              ),
+              _react2.default.createElement(
+                'option',
+                { value: 'Critical' },
+                'Critical'
+              )
             )
-          )
-        ),
-        _react2.default.createElement(_RaisedButton2.default, {
-          style: {
-            display: 'block',
-            width: '20px'
-          },
-          onClick: this.onClick,
-          label: 'Send ', primary: true
-        })
+          ),
+          _react2.default.createElement(_RaisedButton2.default, {
+            style: {
+              display: 'block',
+              width: '20px'
+            },
+            onClick: this.onClick,
+            label: 'Send ', primary: true
+          })
+        )
       );
     }
   }]);
@@ -43207,7 +43210,7 @@ var DashContainer = function (_React$Component) {
 
   /**
    * Creates an instance of DashContainer.
-   * @param {any} props 
+   * @param {any} props
    * @memberof DashContainer
    */
   function DashContainer(props) {
@@ -43275,12 +43278,6 @@ var DashContainer = function (_React$Component) {
         _react2.default.createElement(
           'div',
           { className: 'col-sm-4' },
-          _react2.default.createElement(_UserList2.default, { users: this.state.users }),
-          ' '
-        ),
-        _react2.default.createElement(
-          'div',
-          { className: 'col-sm-4' },
           _react2.default.createElement(_GroupList2.default, { groups: this.state.groups }),
           ' '
         ),
@@ -43288,6 +43285,16 @@ var DashContainer = function (_React$Component) {
           'div',
           { className: 'col-sm-4' },
           _react2.default.createElement(_MessageList2.default, this.state),
+          _react2.default.createElement(
+            'div',
+            null,
+            _react2.default.createElement(_MessageBox2.default, null)
+          )
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'col-sm-4' },
+          _react2.default.createElement(_UserList2.default, { users: this.state.users }),
           ' '
         )
       );
@@ -43455,46 +43462,38 @@ var GroupList = function (_React$Component) {
       });
       return _react2.default.createElement(
         'div',
-        null,
+        { className: 'bottomMargin' },
         _react2.default.createElement(
-          _List.List,
-          null,
-          _react2.default.createElement(_Card.CardTitle, { title: 'Group List' }),
-          groupNodes
-        ),
-        _react2.default.createElement(
-          'div',
+          _MuiThemeProvider2.default,
           null,
           _react2.default.createElement(
-            'h3',
+            _Card.Card,
             null,
-            'App Properties'
-          ),
-          _react2.default.createElement(_Toggle2.default, {
-            name: 'addMember',
-            label: 'Add Member',
-            defaultToggled: this.state.toggledAdd,
-            onToggle: this.handleToggleAdd
-          }),
-          _react2.default.createElement(_Toggle2.default, {
-            name: 'createGroup',
-            label: 'Create Group',
-            defaultToggled: this.state.toggledCreate,
-            onToggle: this.handleToggleCreate
-          }),
-          _react2.default.createElement(_Toggle2.default, {
-            name: 'messageBox',
-            label: 'Send Message',
-            defaultToggled: this.state.toggledMessage,
-            onToggle: this.handleToggleMessage
-          }),
-          this.state.toggledAdd ? this.state.showAdd = true : this.state.showAdd = false,
-          this.state.showAdd ? _react2.default.createElement(_AddMember2.default, null) : '',
-          this.state.toggledCreate ? this.state.showCreate = true : this.state.showCreate = false,
-          this.state.showCreate ? _react2.default.createElement(_CreateGroup2.default, null) : '',
-          this.state.toggledMessage ? this.state.showMessage = true : this.state.showMessage = false,
-          this.state.showMessage ? _react2.default.createElement(_MessageBox2.default, null) : ''
-        )
+            _react2.default.createElement(
+              _List.List,
+              null,
+              _react2.default.createElement(_Card.CardTitle, { title: 'My Groups' }),
+              groupNodes
+            ),
+            _react2.default.createElement(_Toggle2.default, {
+              name: 'createGroup',
+              label: 'Create Group',
+              defaultToggled: this.state.toggledCreate,
+              onToggle: this.handleToggleCreate
+            }),
+            _react2.default.createElement(_Toggle2.default, {
+              name: 'addMember',
+              label: 'Add Member',
+              defaultToggled: this.state.toggledAdd,
+              onToggle: this.handleToggleAdd
+            }),
+            this.state.toggledAdd ? this.state.showAdd = true : this.state.showAdd = false,
+            this.state.showAdd ? _react2.default.createElement(_AddMember2.default, null) : '',
+            this.state.toggledCreate ? this.state.showCreate = true : this.state.showCreate = false,
+            this.state.showCreate ? _react2.default.createElement(_CreateGroup2.default, null) : ''
+          )
+        ),
+        _react2.default.createElement('div', null)
       );
     }
   }]);
@@ -43799,14 +43798,12 @@ var Message = function (_React$Component) {
     key: 'render',
     value: function render() {
       return _react2.default.createElement(
-        'div',
+        _MuiThemeProvider2.default,
         null,
         _react2.default.createElement(
           _List.ListItem,
           null,
-          this.props.message.messageText,
-          ' - ',
-          this.props.message.isRead
+          this.props.message.messageText
         )
       );
     }
@@ -43886,13 +43883,17 @@ var MessageList = function (_React$Component) {
       });
 
       return _react2.default.createElement(
-        'div',
+        _MuiThemeProvider2.default,
         null,
         _react2.default.createElement(
-          _List.List,
+          _Card.Card,
           null,
-          _react2.default.createElement(_Card.CardTitle, { title: 'Messages' }),
-          messageNodes
+          _react2.default.createElement(
+            _List.List,
+            null,
+            _react2.default.createElement(_Card.CardTitle, { title: 'Messages' }),
+            messageNodes
+          )
         )
       );
     }
@@ -44150,7 +44151,7 @@ var User = function (_React$Component) {
     key: 'render',
     value: function render() {
       return _react2.default.createElement(
-        'div',
+        _MuiThemeProvider2.default,
         null,
         _react2.default.createElement(
           _List.ListItem,
@@ -44158,8 +44159,7 @@ var User = function (_React$Component) {
             href: '/#/dashboard/users/' + this.props.user.userId
           },
           ' ',
-          this.props.user.username,
-          ' '
+          this.props.user.username
         )
       );
     }
@@ -44246,13 +44246,17 @@ var UserList = function (_React$Component) {
         return _react2.default.createElement(_User2.default, { user: user, key: i });
       });
       return _react2.default.createElement(
-        'div',
+        _MuiThemeProvider2.default,
         null,
         _react2.default.createElement(
-          _List.List,
+          _Card.Card,
           null,
-          _react2.default.createElement(_Card.CardTitle, { title: 'User List' }),
-          userNodes
+          _react2.default.createElement(
+            _List.List,
+            null,
+            _react2.default.createElement(_Card.CardTitle, { title: 'User List' }),
+            userNodes
+          )
         )
       );
     }

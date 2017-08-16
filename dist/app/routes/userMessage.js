@@ -22,7 +22,7 @@ var userMessage = function userMessage(app) {
     _firebase2.default.auth().onAuthStateChanged(function (user) {
       if (user) {
         var messages = [];
-        _firebase2.default.database().ref('users/' + user.uid + '/groups/' + req.params.groupId + '\n        /messages/').orderByKey().once('value', function (snapshot) {
+        _firebase2.default.database().ref('users/' + user.uid + '/groups/' + req.params.groupId + '/messages/').orderByKey().once('value', function (snapshot) {
           snapshot.forEach(function (childSnapShot) {
             var message = {
               messageId: childSnapShot.key,

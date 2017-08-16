@@ -129,26 +129,15 @@ var MessageBox = function (_React$Component) {
     key: 'render',
     value: function render() {
       return _react2.default.createElement(
-        'div',
-        { style: style },
-        _react2.default.createElement(_Card.CardTitle, { title: 'Message' }),
-        _react2.default.createElement('textarea', {
-          name: 'message',
-          value: this.state.message, onChange: this.onChange,
-          style: {
-            width: '200px',
-            borderColor: '#D0D0D0',
-            resize: 'none',
-            borderRadius: 3,
-            minHeight: '50px',
-            color: '#555',
-            fontSize: 14,
-            outline: 'auto 0px'
-          } }),
+        _MuiThemeProvider2.default,
+        null,
         _react2.default.createElement(
-          'div',
+          _Card.Card,
           null,
-          _react2.default.createElement(_TextField2.default, {
+          _react2.default.createElement(_Card.CardTitle, { title: 'Send Message' }),
+          _react2.default.createElement('textarea', {
+            name: 'message',
+            value: this.state.message, onChange: this.onChange,
             style: {
               width: '200px',
               borderColor: '#D0D0D0',
@@ -158,18 +147,11 @@ var MessageBox = function (_React$Component) {
               color: '#555',
               fontSize: 14,
               outline: 'auto 0px'
-            },
-            name: 'groupId', onChange: this.onChange, value: this.state.groupId,
-            floatingLabelText: 'Group ID' }),
-          _react2.default.createElement('br', null),
+            } }),
           _react2.default.createElement(
-            'label',
-            { htmlFor: 'priorityLevel' },
-            'Priority Level:'
-          ),
-          _react2.default.createElement(
-            'select',
-            {
+            'div',
+            null,
+            _react2.default.createElement(_TextField2.default, {
               style: {
                 width: '200px',
                 borderColor: '#D0D0D0',
@@ -180,33 +162,55 @@ var MessageBox = function (_React$Component) {
                 fontSize: 14,
                 outline: 'auto 0px'
               },
-              placeholder: 'Priority Level', name: 'priorityLevel', onChange: this.onChange,
-              value: this.state.priorityLevel, className: 'form-control' },
+              name: 'groupId', onChange: this.onChange, value: this.state.groupId,
+              floatingLabelText: 'Group ID' }),
+            _react2.default.createElement('br', null),
             _react2.default.createElement(
-              'option',
-              { value: 'Normal' },
-              'Normal'
+              'label',
+              { htmlFor: 'priorityLevel' },
+              'Priority Level:'
             ),
             _react2.default.createElement(
-              'option',
-              { value: 'Urgent' },
-              'Urgent'
-            ),
-            _react2.default.createElement(
-              'option',
-              { value: 'Critical' },
-              'Critical'
+              'select',
+              {
+                style: {
+                  width: '200px',
+                  borderColor: '#D0D0D0',
+                  resize: 'none',
+                  borderRadius: 3,
+                  minHeight: '50px',
+                  color: '#555',
+                  fontSize: 14,
+                  outline: 'auto 0px'
+                },
+                placeholder: 'Priority Level', name: 'priorityLevel', onChange: this.onChange,
+                value: this.state.priorityLevel, className: 'form-control' },
+              _react2.default.createElement(
+                'option',
+                { value: 'Normal' },
+                'Normal'
+              ),
+              _react2.default.createElement(
+                'option',
+                { value: 'Urgent' },
+                'Urgent'
+              ),
+              _react2.default.createElement(
+                'option',
+                { value: 'Critical' },
+                'Critical'
+              )
             )
-          )
-        ),
-        _react2.default.createElement(_RaisedButton2.default, {
-          style: {
-            display: 'block',
-            width: '20px'
-          },
-          onClick: this.onClick,
-          label: 'Send ', primary: true
-        })
+          ),
+          _react2.default.createElement(_RaisedButton2.default, {
+            style: {
+              display: 'block',
+              width: '20px'
+            },
+            onClick: this.onClick,
+            label: 'Send ', primary: true
+          })
+        )
       );
     }
   }]);

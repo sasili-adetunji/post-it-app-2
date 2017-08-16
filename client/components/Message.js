@@ -23,11 +23,11 @@ class Message extends React.Component {
    */
   render() {
     return (
-      <div>
+      <MuiThemeProvider>
         <ListItem>
-          {this.props.message.messageText} - {this.props.message.isRead}
+          {this.props.message.messageText}
         </ListItem>
-      </div>
+      </MuiThemeProvider>
     );
   }
 }

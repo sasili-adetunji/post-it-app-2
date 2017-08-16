@@ -41,12 +41,14 @@ class Group extends React.Component {
    */
   render() {
     return (
-      <div>
+      <MuiThemeProvider>
         <ListItem
         href={`/#/dashboard/groups/${this.props.group.groupId}`}
-        onClick={this.onClick}
-      >{this.props.group.groupname}</ListItem>
-      </div>
+        onClick={this.onClick}>
+          {this.props.group.groupname}
+        </ListItem>
+      </MuiThemeProvider>
+
     );
   }
 }

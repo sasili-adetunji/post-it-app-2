@@ -86,30 +86,24 @@ class GroupList extends React.Component {
       );
     });
     return (
-      <div>
-        <List >
-          <CardTitle title="Group List" />
-          {groupNodes}
-        </List>
-        <div>
-          <h3>App Properties</h3>
-          <Toggle
-            name="addMember"
-            label="Add Member"
-            defaultToggled={this.state.toggledAdd}
-            onToggle={this.handleToggleAdd}
-          />
-          <Toggle
+      <div className="bottomMargin">
+        <MuiThemeProvider>
+          <Card>
+            <List >
+              <CardTitle title="My Groups" />
+              {groupNodes}
+            </List>
+           <Toggle
             name="createGroup"
             label="Create Group"
             defaultToggled={this.state.toggledCreate}
             onToggle={this.handleToggleCreate}
           />
           <Toggle
-            name="messageBox"
-            label="Send Message"
-            defaultToggled={this.state.toggledMessage}
-            onToggle={this.handleToggleMessage}
+            name="addMember"
+            label="Add Member"
+            defaultToggled={this.state.toggledAdd}
+            onToggle={this.handleToggleAdd}
           />
           {this.state.toggledAdd ? this.state.showAdd = true :
           this.state.showAdd = false}
@@ -118,10 +112,11 @@ class GroupList extends React.Component {
           {this.state.toggledCreate ? this.state.showCreate = true :
           this.state.showCreate = false}
           {this.state.showCreate ? <CreateGroup /> : ''}
-
-          {this.state.toggledMessage ? this.state.showMessage = true :
-          this.state.showMessage = false}
-          {this.state.showMessage ? <MessageBox /> : ''}
+          </Card>
+        </MuiThemeProvider>
+        <div>
+          
+          
         </div>
       </div>
     );

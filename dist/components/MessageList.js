@@ -62,13 +62,17 @@ var MessageList = function (_React$Component) {
       });
 
       return _react2.default.createElement(
-        'div',
+        _MuiThemeProvider2.default,
         null,
         _react2.default.createElement(
-          _List.List,
+          _Card.Card,
           null,
-          _react2.default.createElement(_Card.CardTitle, { title: 'Messages' }),
-          messageNodes
+          _react2.default.createElement(
+            _List.List,
+            null,
+            _react2.default.createElement(_Card.CardTitle, { title: 'Messages' }),
+            messageNodes
+          )
         )
       );
     }

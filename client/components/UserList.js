@@ -26,12 +26,14 @@ class UserList extends React.Component {
       );
     });
     return (
-      <div>
-        <List>
-          <CardTitle title="User List" />
-          {userNodes}
-        </List>
-      </div>
+      <MuiThemeProvider>
+        <Card>
+          <List>
+            <CardTitle title="User List" />
+            {userNodes}
+          </List>
+        </Card>
+      </MuiThemeProvider>
     );
   }
         }

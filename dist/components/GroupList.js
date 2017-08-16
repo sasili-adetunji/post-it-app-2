@@ -149,46 +149,38 @@ var GroupList = function (_React$Component) {
       });
       return _react2.default.createElement(
         'div',
-        null,
+        { className: 'bottomMargin' },
         _react2.default.createElement(
-          _List.List,
-          null,
-          _react2.default.createElement(_Card.CardTitle, { title: 'Group List' }),
-          groupNodes
-        ),
-        _react2.default.createElement(
-          'div',
+          _MuiThemeProvider2.default,
           null,
           _react2.default.createElement(
-            'h3',
+            _Card.Card,
             null,
-            'App Properties'
-          ),
-          _react2.default.createElement(_Toggle2.default, {
-            name: 'addMember',
-            label: 'Add Member',
-            defaultToggled: this.state.toggledAdd,
-            onToggle: this.handleToggleAdd
-          }),
-          _react2.default.createElement(_Toggle2.default, {
-            name: 'createGroup',
-            label: 'Create Group',
-            defaultToggled: this.state.toggledCreate,
-            onToggle: this.handleToggleCreate
-          }),
-          _react2.default.createElement(_Toggle2.default, {
-            name: 'messageBox',
-            label: 'Send Message',
-            defaultToggled: this.state.toggledMessage,
-            onToggle: this.handleToggleMessage
-          }),
-          this.state.toggledAdd ? this.state.showAdd = true : this.state.showAdd = false,
-          this.state.showAdd ? _react2.default.createElement(_AddMember2.default, null) : '',
-          this.state.toggledCreate ? this.state.showCreate = true : this.state.showCreate = false,
-          this.state.showCreate ? _react2.default.createElement(_CreateGroup2.default, null) : '',
-          this.state.toggledMessage ? this.state.showMessage = true : this.state.showMessage = false,
-          this.state.showMessage ? _react2.default.createElement(_MessageBox2.default, null) : ''
-        )
+            _react2.default.createElement(
+              _List.List,
+              null,
+              _react2.default.createElement(_Card.CardTitle, { title: 'My Groups' }),
+              groupNodes
+            ),
+            _react2.default.createElement(_Toggle2.default, {
+              name: 'createGroup',
+              label: 'Create Group',
+              defaultToggled: this.state.toggledCreate,
+              onToggle: this.handleToggleCreate
+            }),
+            _react2.default.createElement(_Toggle2.default, {
+              name: 'addMember',
+              label: 'Add Member',
+              defaultToggled: this.state.toggledAdd,
+              onToggle: this.handleToggleAdd
+            }),
+            this.state.toggledAdd ? this.state.showAdd = true : this.state.showAdd = false,
+            this.state.showAdd ? _react2.default.createElement(_AddMember2.default, null) : '',
+            this.state.toggledCreate ? this.state.showCreate = true : this.state.showCreate = false,
+            this.state.showCreate ? _react2.default.createElement(_CreateGroup2.default, null) : ''
+          )
+        ),
+        _react2.default.createElement('div', null)
       );
     }
   }]);
