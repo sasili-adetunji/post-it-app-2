@@ -3,7 +3,7 @@ import assign from 'object-assign';
 
 
 const registeredUser = [];
-const usersInGroup = [];
+let usersInGroup = [];
 const usersNotInGroup = [];
 let users = [];
 let userGroups = [];
@@ -78,6 +78,10 @@ const PostItStore = assign({}, EventEmitter.prototype, {
   getUserGroups() {
     return userGroups;
   },
+  getUsersInGroup() {
+    return usersInGroup;
+  },
+
   getUsers() {
     return users;
   },
@@ -94,6 +98,10 @@ const PostItStore = assign({}, EventEmitter.prototype, {
   },
   setUsers(user) {
     users = user;
+  },
+  setUsersInGroup(user) {
+    console.log('useringroups store');
+    usersInGroup = user;
   },
 
   setMessages(messages) {

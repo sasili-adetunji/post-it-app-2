@@ -73,6 +73,9 @@ var PostItStore = (0, _objectAssign2.default)({}, _events.EventEmitter.prototype
   getUserGroups: function getUserGroups() {
     return userGroups;
   },
+  getUsersInGroup: function getUsersInGroup() {
+    return usersInGroup;
+  },
   getUsers: function getUsers() {
     return users;
   },
@@ -87,6 +90,10 @@ var PostItStore = (0, _objectAssign2.default)({}, _events.EventEmitter.prototype
   },
   setUsers: function setUsers(user) {
     users = user;
+  },
+  setUsersInGroup: function setUsersInGroup(user) {
+    console.log('useringroups store');
+    usersInGroup = user;
   },
   setMessages: function setMessages(messages) {
     userMessages = messages;

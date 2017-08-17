@@ -6384,6 +6384,9 @@ var PostItStore = (0, _objectAssign2.default)({}, _events.EventEmitter.prototype
   getUserGroups: function getUserGroups() {
     return userGroups;
   },
+  getUsersInGroup: function getUsersInGroup() {
+    return usersInGroup;
+  },
   getUsers: function getUsers() {
     return users;
   },
@@ -6398,6 +6401,10 @@ var PostItStore = (0, _objectAssign2.default)({}, _events.EventEmitter.prototype
   },
   setUsers: function setUsers(user) {
     users = user;
+  },
+  setUsersInGroup: function setUsersInGroup(user) {
+    console.log('useringroups store');
+    usersInGroup = user;
   },
   setMessages: function setMessages(messages) {
     userMessages = messages;
@@ -10077,6 +10084,21 @@ module.exports = {
     });
   },
 
+
+  /**
+   * api call to get list of all the users in a group
+   *
+   */
+  getUsersInGroup: function getUsersInGroup(group) {
+    console.log('useringroups api');
+    _axios2.default.get('/group/' + group.groupId + '/users').then(function (response) {
+      console.log('ressss', response);
+      _PostItActions2.default.receiveSuccess(response.message);
+      _PostItActions2.default.receiveUsersInGroup(response.data.users);
+    }).catch(function (error) {
+      _PostItActions2.default.receiveErrors(error.message);
+    });
+  },
 
   /**
    * api call to get list of all the users in the App
@@ -24123,6 +24145,7 @@ var Group = function (_React$Component) {
       };
       _PostItActions2.default.groupOpened(this.props.group);
       _Api2.default.getMessages(this.props.group);
+      _Api2.default.getUsersInGroup(this.props.group);
     }
 
     /**
@@ -24403,7 +24426,8 @@ module.exports = {
   RESET_PASSWORD: 'RESET_PASSWORD',
   GOOGLE_LOGIN: 'GOOGLE_LOGIN',
   RECEIVE_USERS: 'RECEIVE_USERS',
-  RECEIVE_MESSAGES: 'RECEIVE_MESSAGES'
+  RECEIVE_MESSAGES: 'RECEIVE_MESSAGES',
+  RECIEVE_USERS_IN_GROUPS: 'RECIEVE_USERS_IN_GROUPS'
 
 };
 
@@ -43169,6 +43193,7 @@ function getAppState() {
     groups: _PostItStore2.default.getUserGroups(),
     selectedGroup: _PostItStore2.default.getOpenedGroup(),
     users: _PostItStore2.default.getUsers(),
+    // usersInGroup: PostItStore.getUsersInGroup(),
     messages: _PostItStore2.default.getMessages()
 
   };
@@ -43226,6 +43251,7 @@ var DashContainer = function (_React$Component) {
       groups: _PostItStore2.default.getUserGroups(),
       selectedGroup: _PostItStore2.default.getOpenedGroup(),
       users: _PostItStore2.default.getUsers(),
+      // usersInGroup: PostItStore.getUsersInGroup(),
       messages: _PostItStore2.default.getMessages()
 
     };
@@ -43247,6 +43273,7 @@ var DashContainer = function (_React$Component) {
     key: 'componentDidMount',
     value: function componentDidMount() {
       _Api2.default.getUserGroups();
+      // API.getUsersInGroup();
       _Api2.default.getUsers();
 
       _PostItStore2.default.addChangeListener(this._onChange.bind(this));
@@ -43400,7 +43427,6 @@ var GroupList = function (_React$Component) {
     };
     _this.handleToggleAdd = _this.handleToggleAdd.bind(_this);
     _this.handleToggleCreate = _this.handleToggleCreate.bind(_this);
-    _this.handleToggleMessage = _this.handleToggleMessage.bind(_this);
     return _this;
   }
 
@@ -43430,20 +43456,6 @@ var GroupList = function (_React$Component) {
     value: function handleToggleCreate() {
       this.setState({
         toggledCreate: !this.state.toggledCreate
-      });
-    }
-
-    /**
-     * controls the toggle for MessageBox components
-     *
-     * @memberof GroupList
-     */
-
-  }, {
-    key: 'handleToggleMessage',
-    value: function handleToggleMessage() {
-      this.setState({
-        toggledMessage: !this.state.toggledMessage
       });
     }
 
@@ -44242,6 +44254,7 @@ var UserList = function (_React$Component) {
   _createClass(UserList, [{
     key: 'render',
     value: function render() {
+      console.log('usersingroup----', _PostItStore2.default.getUsersInGroup());
       var userNodes = this.props.users.map(function (user, i) {
         return _react2.default.createElement(_User2.default, { user: user, key: i });
       });
@@ -44412,6 +44425,10 @@ PostItDispatcher.register(function (action) {
 
     case _PostItConstants2.default.RECEIVE_MESSAGES:
       _PostItStore2.default.setMessages(action.messages);
+      _PostItStore2.default.emitChange();
+      break;
+    case _PostItConstants2.default.RECEIVE_USERS_IN_GROUPS:
+      _PostItStore2.default.setUsersInGroup(action.groups);
       _PostItStore2.default.emitChange();
       break;
 

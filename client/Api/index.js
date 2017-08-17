@@ -180,6 +180,22 @@ module.exports = {
   },
 
   /**
+   * api call to get list of all the users in a group
+   *
+   */
+  getUsersInGroup(group) {
+    console.log('useringroups api');
+    axios.get(`/group/${group.groupId}/users`)
+   .then((response) => {
+     console.log('ressss', response);
+     PostItActions.receiveSuccess(response.message);
+     PostItActions.receiveUsersInGroup(response.data.users);
+   })
+   .catch((error) => {
+     PostItActions.receiveErrors(error.message);
+   });
+  },
+  /**
    * api call to get list of all the users in the App
    *
    */

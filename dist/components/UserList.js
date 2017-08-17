@@ -65,6 +65,7 @@ var UserList = function (_React$Component) {
   _createClass(UserList, [{
     key: 'render',
     value: function render() {
+      console.log('usersingroup----', _PostItStore2.default.getUsersInGroup());
       var userNodes = this.props.users.map(function (user, i) {
         return _react2.default.createElement(_User2.default, { user: user, key: i });
       });

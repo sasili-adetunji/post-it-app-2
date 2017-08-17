@@ -20,6 +20,7 @@ class UserList extends React.Component {
    * @memberof UserList
    */
   render() {
+    console.log('usersingroup----', PostItStore.getUsersInGroup());
     const userNodes = this.props.users.map((user, i) => {
       return (
         <User user={user} key={i} />

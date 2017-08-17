@@ -37,7 +37,6 @@ class GroupList extends React.Component {
     };
     this.handleToggleAdd = this.handleToggleAdd.bind(this);
     this.handleToggleCreate = this.handleToggleCreate.bind(this);
-    this.handleToggleMessage = this.handleToggleMessage.bind(this);
   }
 
   /**
@@ -59,17 +58,6 @@ class GroupList extends React.Component {
   handleToggleCreate() {
     this.setState({
       toggledCreate: !this.state.toggledCreate
-    });
-  }
-
-  /**
-   * controls the toggle for MessageBox components
-   *
-   * @memberof GroupList
-   */
-  handleToggleMessage() {
-    this.setState({
-      toggledMessage: !this.state.toggledMessage
     });
   }
 

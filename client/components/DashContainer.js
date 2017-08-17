@@ -21,6 +21,7 @@ function getAppState() {
     groups: PostItStore.getUserGroups(),
     selectedGroup: PostItStore.getOpenedGroup(),
     users: PostItStore.getUsers(),
+    // usersInGroup: PostItStore.getUsersInGroup(),
     messages: PostItStore.getMessages()
 
 
@@ -74,6 +75,7 @@ class DashContainer extends React.Component {
       groups: PostItStore.getUserGroups(),
       selectedGroup: PostItStore.getOpenedGroup(),
       users: PostItStore.getUsers(),
+      // usersInGroup: PostItStore.getUsersInGroup(),
       messages: PostItStore.getMessages()
 
 
@@ -89,6 +91,7 @@ class DashContainer extends React.Component {
    */
   componentDidMount() {
     API.getUserGroups();
+    // API.getUsersInGroup();
     API.getUsers();
 
     PostItStore.addChangeListener(this._onChange.bind(this));

@@ -87,7 +87,6 @@ var GroupList = function (_React$Component) {
     };
     _this.handleToggleAdd = _this.handleToggleAdd.bind(_this);
     _this.handleToggleCreate = _this.handleToggleCreate.bind(_this);
-    _this.handleToggleMessage = _this.handleToggleMessage.bind(_this);
     return _this;
   }
 
@@ -117,20 +116,6 @@ var GroupList = function (_React$Component) {
     value: function handleToggleCreate() {
       this.setState({
         toggledCreate: !this.state.toggledCreate
-      });
-    }
-
-    /**
-     * controls the toggle for MessageBox components
-     *
-     * @memberof GroupList
-     */
-
-  }, {
-    key: 'handleToggleMessage',
-    value: function handleToggleMessage() {
-      this.setState({
-        toggledMessage: !this.state.toggledMessage
       });
     }
 

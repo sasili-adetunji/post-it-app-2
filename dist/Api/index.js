@@ -187,6 +187,21 @@ module.exports = {
 
 
   /**
+   * api call to get list of all the users in a group
+   *
+   */
+  getUsersInGroup: function getUsersInGroup(group) {
+    console.log('useringroups api');
+    _axios2.default.get('/group/' + group.groupId + '/users').then(function (response) {
+      console.log('ressss', response);
+      _PostItActions2.default.receiveSuccess(response.message);
+      _PostItActions2.default.receiveUsersInGroup(response.data.users);
+    }).catch(function (error) {
+      _PostItActions2.default.receiveErrors(error.message);
+    });
+  },
+
+  /**
    * api call to get list of all the users in the App
    *
    */
