@@ -78,7 +78,7 @@ var UserList = function (_React$Component) {
           _react2.default.createElement(
             _List.List,
             null,
-            _react2.default.createElement(_Card.CardTitle, { title: 'User List' }),
+            _react2.default.createElement(_Card.CardTitle, { title: 'Users in Groups' }),
             userNodes
           )
         )

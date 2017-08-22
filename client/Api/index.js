@@ -2,6 +2,7 @@ import axios from 'axios';
 import firebase from 'firebase';
 import { firebaseAuth } from '../../server/config/db';
 import PostItActions from '../actions/PostItActions';
+import PostItStore from '../stores/PostItStore';
 
 module.exports = {
 
@@ -184,12 +185,11 @@ module.exports = {
    *
    */
   getUsersInGroup(group) {
-    console.log('useringroups api');
     axios.get(`/group/${group.groupId}/users`)
    .then((response) => {
-     console.log('ressss', response);
      PostItActions.receiveSuccess(response.message);
-     PostItActions.receiveUsersInGroup(response.data.users);
+     PostItStore.setUsersInGroup(response.data.users);
+    //  PostItActions.receiveUsersInGroup(response.data.users);
    })
    .catch((error) => {
      PostItActions.receiveErrors(error.message);

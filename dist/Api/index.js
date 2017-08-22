@@ -14,6 +14,10 @@ var _PostItActions = require('../actions/PostItActions');
 
 var _PostItActions2 = _interopRequireDefault(_PostItActions);
 
+var _PostItStore = require('../stores/PostItStore');
+
+var _PostItStore2 = _interopRequireDefault(_PostItStore);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 module.exports = {
@@ -191,11 +195,10 @@ module.exports = {
    *
    */
   getUsersInGroup: function getUsersInGroup(group) {
-    console.log('useringroups api');
     _axios2.default.get('/group/' + group.groupId + '/users').then(function (response) {
-      console.log('ressss', response);
       _PostItActions2.default.receiveSuccess(response.message);
-      _PostItActions2.default.receiveUsersInGroup(response.data.users);
+      _PostItStore2.default.setUsersInGroup(response.data.users);
+      //  PostItActions.receiveUsersInGroup(response.data.users);
     }).catch(function (error) {
       _PostItActions2.default.receiveErrors(error.message);
     });

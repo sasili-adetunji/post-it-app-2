@@ -30,7 +30,7 @@ class UserList extends React.Component {
       <MuiThemeProvider>
         <Card>
           <List>
-            <CardTitle title="User List" />
+            <CardTitle title="Users in Groups" />
             {userNodes}
           </List>
         </Card>

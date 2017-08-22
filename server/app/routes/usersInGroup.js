@@ -4,7 +4,7 @@ import firebase from 'firebase';
 const app = express();
 
 const usersInGroup = (app) => {
-  app.get('group/:groupId/users', (req, res) => {
+  app.get('/group/:groupId/users', (req, res) => {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         const users = [];
@@ -12,7 +12,6 @@ const usersInGroup = (app) => {
           msg.forEach((snapshot) => {
             const user = {
               userId: snapshot.key,
-              username: snapshot.val().username
             };
             users.push(user);
           });

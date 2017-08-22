@@ -32,6 +32,7 @@ class Group extends React.Component {
     PostItActions.groupOpened(this.props.group);
     API.getMessages(this.props.group);
     API.getUsersInGroup(this.props.group);
+    API.getUsers();
   }
 
   /**

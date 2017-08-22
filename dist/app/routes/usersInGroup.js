@@ -17,15 +17,14 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var app = (0, _express2.default)();
 
 var usersInGroup = function usersInGroup(app) {
-  app.get('group/:groupId/users', function (req, res) {
+  app.get('/group/:groupId/users', function (req, res) {
     _firebase2.default.auth().onAuthStateChanged(function (user) {
       if (user) {
         var users = [];
         var userRef = _firebase2.default.database().ref('/groups/' + req.params.groupId + '/users').once('value', function (msg) {
           msg.forEach(function (snapshot) {
             var user = {
-              userId: snapshot.key,
-              username: snapshot.val().username
+              userId: snapshot.key
             };
             users.push(user);
           });

@@ -78,6 +78,7 @@ var Group = function (_React$Component) {
       _PostItActions2.default.groupOpened(this.props.group);
       _Api2.default.getMessages(this.props.group);
       _Api2.default.getUsersInGroup(this.props.group);
+      _Api2.default.getUsers();
     }
 
     /**

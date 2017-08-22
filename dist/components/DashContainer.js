@@ -69,7 +69,7 @@ function getAppState() {
     groups: _PostItStore2.default.getUserGroups(),
     selectedGroup: _PostItStore2.default.getOpenedGroup(),
     users: _PostItStore2.default.getUsers(),
-    // usersInGroup: PostItStore.getUsersInGroup(),
+    usersInGroup: _PostItStore2.default.getUsersInGroup(),
     messages: _PostItStore2.default.getMessages()
 
   };
@@ -127,7 +127,7 @@ var DashContainer = function (_React$Component) {
       groups: _PostItStore2.default.getUserGroups(),
       selectedGroup: _PostItStore2.default.getOpenedGroup(),
       users: _PostItStore2.default.getUsers(),
-      // usersInGroup: PostItStore.getUsersInGroup(),
+      usersInGroup: _PostItStore2.default.getUsersInGroup(),
       messages: _PostItStore2.default.getMessages()
 
     };
@@ -150,7 +150,7 @@ var DashContainer = function (_React$Component) {
     value: function componentDidMount() {
       _Api2.default.getUserGroups();
       // API.getUsersInGroup();
-      _Api2.default.getUsers();
+      // API.getUsers();
 
       _PostItStore2.default.addChangeListener(this._onChange.bind(this));
     }

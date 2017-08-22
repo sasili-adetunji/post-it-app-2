@@ -100,7 +100,6 @@ const PostItStore = assign({}, EventEmitter.prototype, {
     users = user;
   },
   setUsersInGroup(user) {
-    console.log('useringroups store');
     usersInGroup = user;
   },
 

@@ -92,7 +92,6 @@ var PostItStore = (0, _objectAssign2.default)({}, _events.EventEmitter.prototype
     users = user;
   },
   setUsersInGroup: function setUsersInGroup(user) {
-    console.log('useringroups store');
     usersInGroup = user;
   },
   setMessages: function setMessages(messages) {
