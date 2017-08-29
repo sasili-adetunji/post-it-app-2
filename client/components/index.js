@@ -64,18 +64,6 @@ class App extends Component {
    */
   componentDidMount() {
     PostItStore.addChangeListener(this._onChange);
-
-        // messaging.requestPermission().
-        // then(function(){
-        //   console.log('Have Permisssion')
-        //   return messaging.getToken();
-        // })
-        // .then(function(token){
-        //   console.log(token)
-        // })
-        // .catch(function(){
-        //   console.log('Error Occured')
-        // })
   }
 
   /**
@@ -90,14 +78,18 @@ class App extends Component {
     e.preventDefault();
     PostItActions.signOutUser();
   }
-
   render() {
+    // console.log('Display Name=====>', this.state.user.displayName);
+    // console.log('Uid=====>', this.state.user.uid);
+    // console.log('email=====>', this.state.user.email);
+
+
     return (
       <div>
         <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
           <AppBar
             title="Post It App" iconElementRight={<FlatButton
-            label="Sign Out" onClick={this.handleClick} />} />
+              label="Sign Out" onClick={this.handleClick} />} />
         </MuiThemeProvider>
         <Switch>
           <PublicRoute path="/" exact component={Login} />

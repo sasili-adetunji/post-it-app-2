@@ -10,7 +10,7 @@ let userGroups = [];
 let userMessages = [];
 let errors = '';
 let success = '';
-const loggedInUser = [];
+let loggedInUser = [];
 const selectedGroup = [];
 const openedGroup = [];
 let isAuthenticated = false;
@@ -40,6 +40,7 @@ const PostItStore = assign({}, EventEmitter.prototype, {
 
   signinUser(user) {
     loggedInUser.push(user);
+    console.log('======> logged ', user);
   },
 
   signOutUser() {
@@ -96,6 +97,11 @@ const PostItStore = assign({}, EventEmitter.prototype, {
   setUserGroups(groups) {
     userGroups = groups;
   },
+
+  setLoggedInUser(user) {
+    loggedInUser = user;
+  },
+
   setUsers(user) {
     users = user;
   },

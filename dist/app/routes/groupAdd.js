@@ -20,13 +20,12 @@ var app = (0, _express2.default)();
 
 var groupAdd = function groupAdd(app) {
   app.post('/group/:groupId/user', function (req, res) {
-    var groupId = req.params.groupId;
+    var groupId = req.body.groupId;
     var newUser = req.body.userId;
     _firebase2.default.auth().onAuthStateChanged(function (user) {
       var groupRef = _firebase2.default.database().ref('groups/' + groupId + '/users/' + newUser + '/').set({
         Id: newUser
       });
-
       var groupNames = _firebase2.default.database().ref('groups/' + groupId).orderByKey().once('value', function (snap) {
         var groupname = snap.val().groupname;
         var userRef = _firebase2.default.database().ref('users/' + newUser + '/groups/' + groupId + '/groupInfo').set({

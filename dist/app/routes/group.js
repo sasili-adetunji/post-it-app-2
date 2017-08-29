@@ -27,10 +27,12 @@ var group = function group(app) {
         groupadmin: user.email
       }).key;
       var groupRef = _firebase2.default.database().ref('groups/' + groupKey + '/users/' + user.uid + '/').set({
-        Id: user.uid
+        groupId: groupKey,
+        groupName: req.body.groupname
       });
       var userRef = _firebase2.default.database().ref('users/' + user.uid + '/groups/' + groupKey + '/groupInfo').set({
-        groupname: groupname
+        userId: user.uid,
+        groupName: req.body.groupname
       }).catch(function (error) {});
     });
   });

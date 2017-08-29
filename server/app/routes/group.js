@@ -15,10 +15,13 @@ const group = (app) => {
       }).key;
       const groupRef = firebase.database().ref(`groups/${groupKey}/users/${user.uid}/`)
           .set({
-            Id: user.uid,
+            groupId: groupKey,
+            groupName: req.body.groupname
           });
-      const userRef = firebase.database().ref(`users/${user.uid}/groups/${groupKey}/groupInfo`).set({
-        groupname
+      const userRef = firebase.database().ref(`users/${user.uid}/groups/${groupKey}/groupInfo`)
+      .set({
+        userId: user.uid,
+        groupName: req.body.groupname
       })
     .catch((error) => {
     });

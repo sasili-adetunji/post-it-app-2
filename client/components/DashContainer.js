@@ -112,9 +112,16 @@ class DashContainer extends React.Component {
    * @memberof DashContainer
    */
   render() {
+    console.log('Display Name=====>', this.state.loggedInUser.displayName);
+    console.log('Uid=====>', this.state.loggedInUser.uid);
+    console.log('email=====>', this.state.loggedInUser.email);
+    localStorage.setItem('user', this.state.loggedInUser);
+
+
     return (
       <div>
         <div className="col-sm-4">
+          <h1> Welcome {this.state.loggedInUser.displayName} </h1>
           <GroupList groups={this.state.groups} /> </div>
         <div className="col-sm-4">
           <MessageList {...this.state} />

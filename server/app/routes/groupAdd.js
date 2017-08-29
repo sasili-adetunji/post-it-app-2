@@ -7,13 +7,12 @@ const app = express();
 
 const groupAdd = (app) => {
   app.post('/group/:groupId/user', (req, res) => {
-    const groupId = req.params.groupId;
+    const groupId = req.body.groupId;
     const newUser = req.body.userId;
     firebase.auth().onAuthStateChanged((user) => {
       const groupRef = firebase.database().ref(`groups/${groupId}/users/${newUser}/`).set({
         Id: newUser
       });
-
       const groupNames = firebase.database().ref(`groups/${groupId}`).orderByKey()
               .once('value', (snap) => {
                 const groupname = snap.val().groupname;

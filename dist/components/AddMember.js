@@ -32,15 +32,23 @@ var _PostItActions = require('../actions/PostItActions');
 
 var _PostItActions2 = _interopRequireDefault(_PostItActions);
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var _PostItStore = require('../stores/PostItStore');
 
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+var _PostItStore2 = _interopRequireDefault(_PostItStore);
+
+var _lodash = require('lodash');
+
+var _lodash2 = _interopRequireDefault(_lodash);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var userName = void 0;
 
 var style = {
   height: 100,
@@ -70,10 +78,14 @@ var AddMember = function (_React$Component) {
 
     _this.state = {
       groupname: '',
-      userId: ''
+      userId: '',
+      users: _PostItStore2.default.getUsers()
     };
     _this.onChange = _this.onChange.bind(_this);
     _this.onClick = _this.onClick.bind(_this);
+    _this.userName = _this.userName.bind(_this);
+    // this.makeUser = this.makeUser.bind(this);
+    // this.users = this.users.bind(this);
     return _this;
   }
 
@@ -87,7 +99,14 @@ var AddMember = function (_React$Component) {
   _createClass(AddMember, [{
     key: 'onChange',
     value: function onChange(e) {
-      this.setState(_defineProperty({}, e.target.name, e.target.value));
+      e.preventDefault();
+      // this.setState({
+      //   [e.target.name]: e.target.value
+      // });
+      var user = _lodash2.default.map(this.state.users).map(function (x) {
+        console.log(x.username, '???????????');
+        return x.username;
+      });
     }
 
     /**
@@ -107,6 +126,38 @@ var AddMember = function (_React$Component) {
       };
       _PostItActions2.default.addUserToGroup(user);
     }
+  }, {
+    key: 'userName',
+    value: function userName() {
+      console.log('xxxxxxx');
+      var user = _lodash2.default.map(this.state.users).map(function (x) {
+        console.log(x.username, '???????????');
+        return x.username;
+      });
+    }
+  }, {
+    key: 'makeUser',
+    value: function makeUser() {
+      var _this2 = this;
+
+      console.log('xxxxxxx');
+      (function (X) {
+        console.log(X, 'xxxxxxx');
+        return _this2.userName.map(_react2.default.createElement(
+          'option',
+          null,
+          ' ',
+          X,
+          ' '
+        ));
+      });
+    }
+
+    // users() {
+    //   console.log(this.userName.map(this.makeUser), 'usssssssss');
+    //   return this.userName.map(this.makeUser);
+    // }
+
 
     /**
      * renders the addMember components
@@ -120,28 +171,50 @@ var AddMember = function (_React$Component) {
     value: function render() {
       return _react2.default.createElement(
         'div',
-        { style: style },
-        _react2.default.createElement(_Card.CardTitle, { title: 'Add' }),
-        _react2.default.createElement(_TextField2.default, {
-          name: 'groupId', onChange: this.onChange, value: this.state.groupId,
-          floatingLabelText: 'Group ID' }),
-        _react2.default.createElement('br', null),
-        _react2.default.createElement(_TextField2.default, {
-          name: 'userId', onChange: this.onChange, value: this.state.userId,
-          floatingLabelText: 'User ID' }),
-        _react2.default.createElement('br', null),
-        _react2.default.createElement(_RaisedButton2.default, {
-          style: {
-            display: 'block',
-            width: '20px'
-          },
-          onClick: this.onClick,
-          label: 'Add', primary: true })
+        null,
+        _react2.default.createElement(
+          'h1',
+          null,
+          ' Im here guys '
+        ),
+        _react2.default.createElement(
+          'select',
+          null,
+          ' ',
+          this.userName,
+          ' '
+        )
       );
     }
   }]);
 
   return AddMember;
 }(_react2.default.Component);
+
+//     return (
+
+//       <div style={style}>
+//         <CardTitle title="Add" />
+//         <TextField
+//           name="groupId" onChange={this.onChange} value={this.state.groupId}
+//           floatingLabelText="Group ID" /><br />
+//         {/* <TextField
+//           name="userId" onChange={this.onChange} value={this.state.userId}
+//           floatingLabelText="User ID" /><br /> */}
+//         {/* <select onChange={this.onChange}>
+//           <option value="user">{this.userName}</option>
+//         </select> */}
+//         <RaisedButton
+//           style={{
+//             display: 'block',
+//             width: '20px'
+//           }}
+//           onClick={this.onClick}
+//           label="Add" primary />
+//       </div>
+//     );
+//   }
+
+// }
 
 exports.default = AddMember;

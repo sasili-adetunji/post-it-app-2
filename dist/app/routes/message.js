@@ -28,7 +28,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var app = (0, _express2.default)();
 var fb = _firebase2.default.database();
-
 var emails = [];
 var userIds = [];
 var numbers = [];
@@ -58,18 +57,14 @@ var message = function message(app) {
     var priorityLevel = req.body.priorityLevel;
 
     _firebase2.default.auth().onAuthStateChanged(function (user) {
-      _firebase2.default.database().ref('groups/' + groupId + '/messages').push({
-        message: message
-      }).then(function () {
-        _firebase2.default.database().ref('groups/' + groupId + '/users/').once('value', function (snapshot) {
-          snapshot.forEach(function (childSnapShot) {
-            userIds.push(childSnapShot.val().Id);
-          });
+      _firebase2.default.database().ref('groups/' + groupId + '/users/').once('value', function (snapshot) {
+        snapshot.forEach(function (childSnapShot) {
+          userIds.push(childSnapShot.val().Id);
         });
+      }).then(function () {
         userIds.forEach(function (uid) {
           _firebase2.default.database().ref('users/' + uid + '/groups/' + groupId + '/messages').push({
-            message: message,
-            isRead: false
+            message: message
           });
           if (priorityLevel === 'Critical' || priorityLevel === 'Urgent') {
             _firebase2.default.database().ref('users/' + uid + '/').once('value', function (snap) {

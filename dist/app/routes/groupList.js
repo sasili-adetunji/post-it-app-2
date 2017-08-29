@@ -12,6 +12,10 @@ var _firebase = require('firebase');
 
 var _firebase2 = _interopRequireDefault(_firebase);
 
+var _Authenticate = require('../../middleware/Authenticate');
+
+var _Authenticate2 = _interopRequireDefault(_Authenticate);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var app = (0, _express2.default)();

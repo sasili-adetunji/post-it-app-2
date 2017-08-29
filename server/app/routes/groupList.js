@@ -1,5 +1,6 @@
 import express from 'express';
 import firebase from 'firebase';
+import Authenticate from '../../middleware/Authenticate';
 
 const app = express();
 
@@ -18,16 +19,16 @@ const groupList = (app) => {
             groups.push(group);
           });
         })
-.then(() => {
-  res.send({
-    groups,
-  });
-})
-.catch((error) => {
-  res.status(500).send({
-    message: `Error occurred ${error.message}`,
-  });
-});
+        .then(() => {
+          res.send({
+            groups,
+          });
+        })
+        .catch((error) => {
+          res.status(500).send({
+            message: `Error occurred ${error.message}`,
+          });
+        });
       } else {
         res.status(403).send({
           message: 'Please log in to see a list of your groups'

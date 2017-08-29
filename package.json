@@ -9,14 +9,14 @@
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
     "test1": "mocha --timeout 75000 dist/test/apiTest.js",
-    "start": "node ./dist/server.js",
-    "build": "babel server/ -d dist && babel client/ -d dist",
+    "start": "npm run client && npm run build",
+    "client": "webpack",
+    "build": "babel server/ -d dist && npm run server",
     "dev": "webpack-dev-server --hot & npm start",
-    "server": "nodemon --watch server --exec babel-node -- server/server.js",
+    "server": "babel-watch ./dist/server.js",
     "dev1": "babel-watch server/server.js",
     "nodemon": "nodemon server/server.js"
-},
-
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/sasili-adetunji/post-it-app.git"
@@ -55,7 +55,9 @@
     "flux": "^3.1.2",
     "history": "^4.6.1",
     "istanbul": "^0.4.5",
+    "jsonwebtoken": "^7.4.3",
     "jwt-decode": "^2.2.0",
+    "lodash": "^4.17.4",
     "material-ui": "^0.18.5",
     "mocha": "^3.4.2",
     "nexmo": "^2.0.2",

@@ -54,6 +54,7 @@ module.exports = {
       } else {
         PostItActions.receiveSuccess(response.data.message);
         PostItActions.receiveAuthenticatedUser(authuser);
+        PostItStore.setLoggedInUser(response.data.user);
       }
     })
   .catch((error) => {
@@ -134,10 +135,8 @@ module.exports = {
    */
   addUserToGroup(user) {
     axios.post(`/group/${user.groupId}/user`, {
-      email: user.email,
       userId: user.userId,
-      username: user.username,
-      groupname: user.groupName
+      groupId: user.groupId
     }).then((response) => {
       PostItActions.receiveSuccess(response.message);
     })
@@ -173,7 +172,7 @@ module.exports = {
    .then((response) => {
      console.log(response);
      PostItActions.receiveSuccess(response.message);
-     PostItActions.receiveUserGroups(response.data.groups);
+     PostItStore.setUserGroups(response.data.groups);
    })
    .catch((error) => {
      PostItActions.receiveErrors(error.message);
