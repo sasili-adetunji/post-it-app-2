@@ -11,11 +11,11 @@ const usersInGroup = (app) => {
         const userRef = firebase.database().ref(`/groups/${req.params.groupId}/users`).once('value', (msg) => {
           msg.forEach((snapshot) => {
             const user = {
-              userId: snapshot.key,
+              id: snapshot.key,
+              userId: snapshot.val().userId,
             };
             users.push(user);
-          });
-        })
+          })
         .then(() => {
           res.send({
             users
@@ -26,6 +26,7 @@ const usersInGroup = (app) => {
         message: `Error occurred ${error.message}`,
       });
     });
+        });
       } else {
         res.status(403).send({
           message: 'You are not signed in right now! '

@@ -1,6 +1,5 @@
 import axios from 'axios';
-import firebase from 'firebase';
-import { firebaseAuth } from '../../server/config/db';
+import { firebaseAuth, db } from '../../server/config/db';
 import PostItActions from '../actions/PostItActions';
 import PostItStore from '../stores/PostItStore';
 
@@ -27,6 +26,7 @@ module.exports = {
         PostItActions.receiveErrors(response.data.message);
       } else {
         PostItActions.receiveSuccess(response.data.message);
+        localStorage.setItem('user', response.data.user.stsTokenManager.accessToken);
         PostItActions.receiveAuthenticatedUser(authuser);
       }
     })
@@ -53,6 +53,7 @@ module.exports = {
         PostItActions.receiveErrors(response.data.message);
       } else {
         PostItActions.receiveSuccess(response.data.message);
+        localStorage.setItem('user', response.data.user.stsTokenManager.accessToken);
         PostItActions.receiveAuthenticatedUser(authuser);
         PostItStore.setLoggedInUser(response.data.user);
       }
@@ -93,7 +94,7 @@ module.exports = {
         displayName = result.user.displayName;
       })
     .then(() => {
-      firebase.database()
+      db.database()
        .ref('users/').child(uid).set({
          username: displayName,
          email

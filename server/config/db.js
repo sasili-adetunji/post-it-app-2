@@ -1,16 +1,32 @@
 import firebase from 'firebase';
+import dotenv from 'dotenv';
+
+dotenv.config();
+
+const nodeEnv = process.env.NODE_ENV || 'development';
+let prefix = '';
+
+if (nodeEnv === 'test') {
+  prefix = 'TEST_';
+}
 
 const config = {
-  apiKey: 'AIzaSyAPkaQ0wLHWqT_u20dcXLqPENZsmea7mgs',
-  authDomain: 'postit-335c1.firebaseapp.com',
-  databaseURL: 'https://postit-335c1.firebaseio.com',
-  projectId: 'postit-335c1',
-  storageBucket: 'postit-335c1.appspot.com',
-  messagingSenderId: '63329792793'
+  apiKey: process.env[`${prefix}apiKey`],
+  authDomain: process.env[`${prefix}authDomain`],
+  databaseURL: process.env[`${prefix}databaseURL`],
+  projectId: process.env[`${prefix}projectId`],
+  storageBucket: process.env[`${prefix}storageBucket`],
+  messagingSenderId: process.env[`${prefix}messagingSenderId`]
 };
+
+console.log(config);
+
 const db = firebase.initializeApp(config);
-export const firebaseAuth = firebase.auth;
-export const ref = firebase.database().ref();
+
+
+// export const firebaseAuth = firebase.auth;
+// export const ref = firebase.database().ref();
 export default db;
 
 // export const messaging = firebase.messaging
+

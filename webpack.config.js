@@ -1,12 +1,10 @@
-
+require('dotenv').config();
 const path = require('path');
 const webpack = require('webpack');
-
 const debug = process.env.NODE_ENV !== 'production';
 
 const config = {
   entry: './client/index.js',
-
   output: {
     path: path.join(__dirname, './client/public'),
     publicPath: '/',
@@ -51,6 +49,7 @@ const config = {
   },
 
   plugins: debug ? [] : [
+    new webpack.EnvironmentPlugin(Object.keys(process.env)),
     new webpack.optimize.DedupePlugin(),
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.optimize.UglifyJsPlugin({ mangle: false, sourcemap: false }),

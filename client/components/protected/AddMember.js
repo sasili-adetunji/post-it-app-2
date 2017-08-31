@@ -59,7 +59,6 @@ class AddMember extends React.Component {
       groupId: this.props.groupId.groupId
     };
     PostItActions.addUserToGroup(user);
-    console.log('"""', user);
   }
   render() {
     return (

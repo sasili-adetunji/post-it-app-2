@@ -54,7 +54,7 @@ class App extends Component {
       user: PostItStore.getLoggedInUser(),
       errors: PostItStore.getErrors()
     };
-    this._onChange = this._onChange.bind(this);
+    this.onChange = this.onChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
   }
   /**
@@ -63,7 +63,7 @@ class App extends Component {
    * @memberof App
    */
   componentDidMount() {
-    PostItStore.addChangeListener(this._onChange);
+    PostItStore.addChangeListener(this.onChange);
   }
 
   /**
@@ -72,18 +72,13 @@ class App extends Component {
    * @memberof App
    */
   componentWillUnmount() {
-    PostItStore.removeChangeListener(this._onChange);
+    PostItStore.removeChangeListener(this.onChange);
   }
   handleClick(e) {
     e.preventDefault();
     PostItActions.signOutUser();
   }
   render() {
-    // console.log('Display Name=====>', this.state.user.displayName);
-    // console.log('Uid=====>', this.state.user.uid);
-    // console.log('email=====>', this.state.user.email);
-
-
     return (
       <div>
         <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
@@ -113,7 +108,7 @@ class App extends Component {
    *
    * @memberof App
    */
-  _onChange() {
+  onChange() {
     this.setState({
       isAuthenticated: PostItStore.getIsAuthenticated(),
       user: PostItStore.getLoggedInUser(),

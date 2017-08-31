@@ -51,7 +51,6 @@ class Dashboard extends React.Component {
     API.getUserGroups();
     // API.getUsersInGroup();
     API.getUsers();
-
     PostItStore.addChangeListener(this.onChange);
   }
   /**
