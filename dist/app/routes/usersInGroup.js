@@ -34,12 +34,12 @@ var usersInGroup = function usersInGroup(app) {
             users: users
           });
         }).catch(function (error) {
-          res.status(500).send({
+          res.status(500).json({
             message: 'Error occurred ' + error.message
           });
         });
       } else {
-        res.status(403).send({
+        res.status(403).json({
           message: 'You are not signed in right now! '
         });
       }
