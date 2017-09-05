@@ -52,11 +52,13 @@ var nexmo = new _nexmo2.default({
 
 var message = function message(app) {
   app.post('/message', function (req, res) {
-    var message = req.body.message;
-    var groupId = req.body.groupId;
-    var priorityLevel = req.body.priorityLevel;
-    var date = req.body.date;
-    var author = req.body.author;
+    var _req$body = req.body,
+        message = _req$body.message,
+        groupId = _req$body.groupId,
+        priorityLevel = _req$body.priorityLevel,
+        date = _req$body.date,
+        author = _req$body.author;
+
     _firebase2.default.auth().onAuthStateChanged(function (user) {
       var messageKey = _firebase2.default.database().ref('groups/' + groupId + '/messages').push({
         message: message,

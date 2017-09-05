@@ -21,10 +21,12 @@ var app = (0, _express2.default)();
 
 var signup = function signup(app) {
   app.post('/user/signup', function (req, res) {
-    var email = req.body.email,
-        password = req.body.password,
-        username = req.body.username,
-        phoneNumber = req.body.phoneNumber;
+    var _req$body = req.body,
+        email = _req$body.email,
+        password = _req$body.password,
+        username = _req$body.username,
+        phoneNumber = _req$body.phoneNumber;
+
     _firebase2.default.auth().createUserWithEmailAndPassword(email, password).then(function (user) {
       user.updateProfile({
         displayName: username

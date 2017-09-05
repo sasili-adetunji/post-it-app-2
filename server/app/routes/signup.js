@@ -8,10 +8,7 @@ const app = express();
 
 const signup = (app) => {
   app.post('/user/signup', (req, res) => {
-    const email = req.body.email,
-      password = req.body.password,
-      username = req.body.username,
-      phoneNumber = req.body.phoneNumber;
+    const { email, password, username, phoneNumber } = req.body;
     firebase.auth().createUserWithEmailAndPassword(email, password)
     .then((user) => {
       user.updateProfile({

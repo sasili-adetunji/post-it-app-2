@@ -21,10 +21,10 @@ const userMessage = (app) => {
               date: childSnapShot.val().date
             };
             messages.push(message);
-// firebase.database().ref(`users/${user.uid}/groups/${req.params.groupId}/messages/${childSnapShot.key}`);
-      //   .update({
-      //                 isRead: true
-      //               })
+            firebase.database().ref(`groups/${req.params.groupId}/messages/${childSnapShot.key}/readUsers`)
+              .set({
+                readusers: user.displayName
+              });
           });
         })
         .then(() => {

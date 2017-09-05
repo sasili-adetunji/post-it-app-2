@@ -23844,6 +23844,7 @@ var AddMember = function (_React$Component) {
         userName: this.state.userName,
         groupId: this.props.groupId.groupId
       };
+      // console.log(user, 'yyyyyyyy')
       _PostItActions2.default.addUserToGroup(user);
     }
   }, {

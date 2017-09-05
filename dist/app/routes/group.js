@@ -20,8 +20,10 @@ var app = (0, _express2.default)();
 
 var group = function group(app) {
   app.post('/group', function (req, res) {
-    var groupname = req.body.groupname;
-    var username = req.body.username;
+    var _req$body = req.body,
+        groupname = _req$body.groupname,
+        username = _req$body.username;
+
     _firebase2.default.auth().onAuthStateChanged(function (user) {
       var groupKey = _firebase2.default.database().ref('groups/').push({
         groupname: groupname,
@@ -33,7 +35,7 @@ var group = function group(app) {
       });
       var userRef = _firebase2.default.database().ref('users/' + user.uid + '/groups/' + groupKey + '/groupInfo').set({
         groupId: groupKey,
-        groupName: req.body.groupname
+        groupName: groupname
       }).catch(function (error) {});
     });
   });

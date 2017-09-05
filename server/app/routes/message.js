@@ -30,11 +30,7 @@ const nexmo = new Nexmo({
 
 const message = (app) => {
   app.post('/message', (req, res) => {
-    const message = req.body.message;
-    const groupId = req.body.groupId;
-    const priorityLevel = req.body.priorityLevel;
-    const date = req.body.date;
-    const author = req.body.author;
+    const { message, groupId, priorityLevel, date, author } = req.body;
     firebase.auth().onAuthStateChanged((user) => {
       const messageKey = firebase.database().ref(`groups/${groupId}/messages`)
       .push({

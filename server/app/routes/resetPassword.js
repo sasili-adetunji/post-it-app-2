@@ -1,12 +1,13 @@
 // resetpassword route
 
 import express from 'express';
+import firebase from 'firebase';
 
 const app = express();
 
 const resetPassword = (app) => {
   app.post('/user/reset', (req, res) => {
-    const email = req.body.email;
+    const { email } = req.body;
     firebase.auth().sendPasswordResetEmail(email)
   .then(() => {
     res.send({

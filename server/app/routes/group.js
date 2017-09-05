@@ -7,8 +7,7 @@ const app = express();
 
 const group = (app) => {
   app.post('/group', (req, res) => {
-    const groupname = req.body.groupname;
-    const username = req.body.username;
+    const { groupname, username } = req.body;
     firebase.auth().onAuthStateChanged((user) => {
       const groupKey = firebase.database().ref('groups/').push({
         groupname,
@@ -22,7 +21,7 @@ const group = (app) => {
       const userRef = firebase.database().ref(`users/${user.uid}/groups/${groupKey}/groupInfo`)
       .set({
         groupId: groupKey,
-        groupName: req.body.groupname
+        groupName: groupname
       })
     .catch((error) => {
     });

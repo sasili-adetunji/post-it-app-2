@@ -7,8 +7,7 @@ import firebase from 'firebase';
 const app = express();
 const signin = (app) => {
   app.post('/user/signin', (req, res) => {
-    const email = req.body.email;
-    const password = req.body.password;
+    const { email, password } = req.body;
     firebase.auth().signInWithEmailAndPassword(email, password)
   .then((user) => {
     res.send({

@@ -20,8 +20,10 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var app = (0, _express2.default)();
 var signin = function signin(app) {
   app.post('/user/signin', function (req, res) {
-    var email = req.body.email;
-    var password = req.body.password;
+    var _req$body = req.body,
+        email = _req$body.email,
+        password = _req$body.password;
+
     _firebase2.default.auth().signInWithEmailAndPassword(email, password).then(function (user) {
       res.send({
         message: 'Success: you have successfuly signed in.',
