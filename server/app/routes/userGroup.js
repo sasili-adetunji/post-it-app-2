@@ -12,8 +12,8 @@ const userGroup = (app) => {
       .orderByKey().once('value', (snapshot) => {
         snapshot.forEach((childSnapShot) => {
           const group = {
-            groupId: childSnapShot.key,
-            groupname: childSnapShot.val().groupInfo.groupname
+            groupId: childSnapShot.val().groupInfo.groupId,
+            groupname: childSnapShot.val().groupInfo.groupName
           };
           groups.push(group);
         });

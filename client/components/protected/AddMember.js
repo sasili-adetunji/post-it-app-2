@@ -1,6 +1,5 @@
 import React from 'react';
 import lodash from 'lodash';
-
 import PostItStore from '../../stores/PostItStore';
 import PostItActions from '../../actions/PostItActions';
 
@@ -18,7 +17,8 @@ class AddMember extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: '',
+      userName: '',
+      userId: ''
     };
     this.onChange = this.onChange.bind(this);
     this.onClick = this.onClick.bind(this);
@@ -43,10 +43,10 @@ class AddMember extends React.Component {
    * @param {any} e
    * @memberof MessageBox
    */
-  data(username) {
+  data(userName) {
     let n;
-    lodash.map(this.props.user.user).map((x) => {
-      if (username === x.username) {
+    lodash.map(this.props.user).map((x) => {
+      if (userName === x.username) {
         n = x.userId;
       }
     });
@@ -55,7 +55,8 @@ class AddMember extends React.Component {
   onClick(e) {
     e.preventDefault();
     const user = {
-      userId: this.data(this.state.username),
+      userId: this.data(this.state.userName),
+      userName: this.state.userName,
       groupId: this.props.groupId.groupId
     };
     PostItActions.addUserToGroup(user);
@@ -67,7 +68,7 @@ class AddMember extends React.Component {
           <div className="form-group">
             <input
             type="text" className="form-control" placeholder="Add member"
-            name="username" value={this.state.username} onChange={this.onChange} />
+            name="userName" value={this.state.userName} onChange={this.onChange} />
           </div>
           <button onClick={this.onClick} type="submit" className="btn btn-default "><span className="glyphicon glyphicon-plus" /></button>
         </form>

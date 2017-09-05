@@ -34,11 +34,11 @@ class Group extends React.Component {
   render() {
     return (
       <div className="side-menu-container">
-        <ul className="nav navbar-nav">
-          <li onClick={this.onClick}><span className="glyphicon glyphicon-send" />
+        {/* <ul className="nav navbar-nav"> */}
+          <li onClick={this.onClick}>
             { this.props.group.groupname }
           </li>
-        </ul>
+        {/* </ul> */}
       </div>
     );
   }

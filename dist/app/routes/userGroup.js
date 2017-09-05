@@ -24,8 +24,8 @@ var userGroup = function userGroup(app) {
         _firebase2.default.database().ref('users/' + user.uid + '/groups/').orderByKey().once('value', function (snapshot) {
           snapshot.forEach(function (childSnapShot) {
             var group = {
-              groupId: childSnapShot.key,
-              groupname: childSnapShot.val().groupInfo.groupname
+              groupId: childSnapShot.val().groupInfo.groupId,
+              groupname: childSnapShot.val().groupInfo.groupName
             };
             groups.push(group);
           });

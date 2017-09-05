@@ -34,7 +34,7 @@ class MessageList extends React.Component {
                 </div>
               </div>
               {messageNodes}
-              <MessageBox groupId={this.props.selectedGroup[0]} />
+              <MessageBox groupId={this.props.selectedGroup[0]} author={this.props.loggedInUser} />
             </div>
           </div>
         </div>

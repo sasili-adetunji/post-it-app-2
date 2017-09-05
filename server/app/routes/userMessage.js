@@ -16,7 +16,9 @@ const userMessage = (app) => {
             const message = {
               messageId: childSnapShot.key,
               messageText: childSnapShot.val().message,
-              isRead: childSnapShot.val().isRead
+              author: childSnapShot.val().author,
+              priorityLevel: childSnapShot.val().priorityLevel,
+              date: childSnapShot.val().date
             };
             messages.push(message);
 // firebase.database().ref(`users/${user.uid}/groups/${req.params.groupId}/messages/${childSnapShot.key}`);

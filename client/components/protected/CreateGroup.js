@@ -40,7 +40,8 @@ class CreateGroup extends React.Component {
   onClick(e) {
     e.preventDefault();
     const group = {
-      groupname: this.state.groupname
+      groupname: this.state.groupname,
+      username: this.props.userName.displayName
     };
     PostItActions.createGroup(group);
     this.setState({

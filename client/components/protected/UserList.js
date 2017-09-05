@@ -42,8 +42,7 @@ class UserList extends React.Component {
    */
 
   render() {
-    console.log(this.props.users, '(((((((');
-    const userNodes = this.props.users.map((user, i) => {
+    const userNodes = this.props.user.map((user, i) => {
       return (
         <User user={user} key={i} />
       );
@@ -53,7 +52,7 @@ class UserList extends React.Component {
         <nav className="navbar navbar-default" role="navigation" >
           <div className="navbar-header">
             <div className="brand-wrapper">
-              <AddMember groupId={this.props.selectedGroup[0]} user={this.props} />
+              <AddMember groupId={this.props.selectedGroup[0]} user={this.props.usernames} />
             </div>
           </div>
           {userNodes}

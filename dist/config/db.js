@@ -32,8 +32,6 @@ var config = {
   messagingSenderId: process.env[prefix + 'messagingSenderId']
 };
 
-console.log(config);
-
 var db = _firebase2.default.initializeApp(config);
 
 // export const firebaseAuth = firebase.auth;

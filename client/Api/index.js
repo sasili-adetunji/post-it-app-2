@@ -121,6 +121,7 @@ module.exports = {
   createNewGroup(group) {
     axios.post('/group', {
       groupname: group.groupname,
+      username: group.username
     }).then((response) => {
       PostItActions.receiveSuccess(response.message);
     })
@@ -137,7 +138,8 @@ module.exports = {
   addUserToGroup(user) {
     axios.post(`/group/${user.groupId}/user`, {
       userId: user.userId,
-      groupId: user.groupId
+      groupId: user.groupId,
+      userName: user.userName
     }).then((response) => {
       PostItActions.receiveSuccess(response.message);
     })
@@ -155,7 +157,9 @@ module.exports = {
     axios.post('/message', {
       groupId: message.groupId,
       message: message.message,
-      priorityLevel: message.priorityLevel
+      priorityLevel: message.priorityLevel,
+      date: message.date,
+      author: message.author
     }).then((response) => {
       PostItActions.receiveSuccess(response.message);
     })

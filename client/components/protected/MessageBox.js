@@ -1,5 +1,6 @@
 import React from 'react';
 import PostItActions from '../../actions/PostItActions';
+import PostItStore from '../../stores/PostItStore';
 
 
 /**
@@ -16,7 +17,7 @@ class MessageBox extends React.Component {
     super(props);
     this.state = {
       message: '',
-      priorityLevel: ''
+      priorityLevel: '',
     };
     this.onChange = this.onChange.bind(this);
     this.onClick = this.onClick.bind(this);
@@ -30,7 +31,7 @@ class MessageBox extends React.Component {
    */
   onChange(e) {
     this.setState({
-      message: e.target.value
+      [e.target.name]: e.target.value
     });
   }
 
@@ -45,12 +46,14 @@ class MessageBox extends React.Component {
     const message = {
       message: this.state.message,
       groupId: this.props.groupId.groupId,
-      priorityLevel: this.state.priorityLevel
+      priorityLevel: this.state.priorityLevel,
+      date: new Date().toJSON(),
+      author: this.props.author.displayName
     };
     PostItActions.addMessage(message);
     this.setState({
       message: '',
-      priorityLevel: ''
+      date: '',
     });
   }
   render() {
@@ -62,7 +65,7 @@ class MessageBox extends React.Component {
           placeholder="Write your message here..." name="message" value={this.state.message} />
           <select
             placeholder="Priority Level" name="priorityLevel" onChange={this.onChange}
-            className="form-control">
+            className="form-control" value={this.state.priorityLevel} >
             <option value="Normal">Normal</option>
             <option value="Urgent">Urgent</option>
             <option value="Critical">Critical</option>

@@ -8,14 +8,16 @@ const usersInGroup = (app) => {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         const users = [];
-        const userRef = firebase.database().ref(`/groups/${req.params.groupId}/users`).once('value', (msg) => {
+        const userRef = firebase.database().ref(`/groups/${req.params.groupId}/users`)
+        .once('value', (msg) => {
           msg.forEach((snapshot) => {
             const user = {
-              id: snapshot.key,
               userId: snapshot.val().userId,
+              userName: snapshot.val().userName,
             };
             users.push(user);
-          })
+          });
+        })
         .then(() => {
           res.send({
             users
@@ -26,7 +28,6 @@ const usersInGroup = (app) => {
         message: `Error occurred ${error.message}`,
       });
     });
-        });
       } else {
         res.status(403).send({
           message: 'You are not signed in right now! '

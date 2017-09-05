@@ -24,7 +24,7 @@ class GroupList extends React.Component {
         <nav className="navbar navbar-default" role="navigation" >
           <div className="navbar-header">
             <div className="brand-wrapper">
-              <CreateGroup />
+              <CreateGroup userName={this.props.loggedInUser} />
             </div>
           </div>
           {groupNodes}

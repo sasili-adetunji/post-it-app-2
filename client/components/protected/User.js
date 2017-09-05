@@ -20,10 +20,10 @@ class Message extends React.Component {
   render() {
     return (
       <div className="side-menu-container">
-        <ul className="nav navbar-nav">
-          <li><span className="glyphicon glyphicon-user" />
-            {this.props.user.username} </li>
-        </ul>
+        {/* <ul className="nav navbar-nav"> */}
+          <li><span />
+            {this.props.user.userName} </li>
+        {/* </ul> */}
       </div>
     );
   }

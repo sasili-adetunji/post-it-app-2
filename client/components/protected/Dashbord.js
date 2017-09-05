@@ -61,20 +61,20 @@ class Dashboard extends React.Component {
     PostItStore.removeChangeListener(this.onChange);
   }
   render() {
-    console.log(this.props, '---???');
     return (
       <div className="container">
         <h5> Welcome {this.state.loggedInUser.displayName} </h5>
         <div className="row col-md-3">
-          <GroupList {...this.state} />
+          <GroupList {...this.state} loggedInUser={this.state.loggedInUser}
+          groups={this.state.groups} />
           <div>
             <div className="side-body col-md-6">
-              <MessageList {...this.state} />
+              <MessageList {...this.state} loggedInUser={this.state.loggedInUser} />
             </div>
           </div>
         </div>
         <div className="row col-md-3" id="leftsidenav" >
-          <UserList {...this.state} />
+          <UserList {...this.state} user={this.state.users} usernames={this.state.user} />
         </div>
       </div>
     );

@@ -2527,6 +2527,131 @@ exports.default = _Paper2.default;
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _events = __webpack_require__(433);
+
+var _objectAssign = __webpack_require__(18);
+
+var _objectAssign2 = _interopRequireDefault(_objectAssign);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var registeredUser = [];
+var usersInGroup = [];
+var usersNotInGroup = [];
+var users = [];
+var userGroups = [];
+var userMessages = [];
+var errors = '';
+var success = '';
+var loggedInUser = [];
+var selectedGroup = [];
+var openedGroup = [];
+var isAuthenticated = false;
+
+var PostItStore = (0, _objectAssign2.default)({}, _events.EventEmitter.prototype, {
+  registerNewUser: function registerNewUser(user) {
+    registeredUser.push(user);
+  },
+  getRegisteredUser: function getRegisteredUser() {
+    return registeredUser;
+  },
+  addUserToGroup: function addUserToGroup(user) {
+    usersInGroup.push(user);
+  },
+  postMessage: function postMessage(message) {
+    userMessages.push(message);
+  },
+  createNewGroup: function createNewGroup(group) {
+    userGroups.push(group);
+  },
+  signinUser: function signinUser(user) {
+    loggedInUser.push(user);
+    console.log('======> logged ', user);
+  },
+  signOutUser: function signOutUser() {
+    loggedInUser.pop();
+    isAuthenticated = false;
+  },
+  setIsAuthenticated: function setIsAuthenticated(value) {
+    isAuthenticated = value;
+  },
+  receiveErrors: function receiveErrors(error) {
+    console.log(error);
+    errors = error;
+  },
+  receiveSuccess: function receiveSuccess(message) {
+    success = message;
+  },
+  getErrors: function getErrors() {
+    return errors;
+  },
+  getOpenedGroup: function getOpenedGroup() {
+    return selectedGroup;
+  },
+  getLoggedInUser: function getLoggedInUser() {
+    return loggedInUser;
+  },
+  getIsAuthenticated: function getIsAuthenticated() {
+    return isAuthenticated;
+  },
+  getUserGroups: function getUserGroups() {
+    return userGroups;
+  },
+  getUsersInGroup: function getUsersInGroup() {
+    return usersInGroup;
+  },
+  getUsers: function getUsers() {
+    return users;
+  },
+  getMessages: function getMessages() {
+    return userMessages;
+  },
+  getSuccess: function getSuccess() {
+    return success;
+  },
+  setUserGroups: function setUserGroups(groups) {
+    userGroups = groups;
+  },
+  setLoggedInUser: function setLoggedInUser(user) {
+    loggedInUser = user;
+  },
+  setUsers: function setUsers(user) {
+    users = user;
+  },
+  setUsersInGroup: function setUsersInGroup(user) {
+    usersInGroup = user;
+  },
+  setMessages: function setMessages(messages) {
+    userMessages = messages;
+  },
+  setOpenedGroup: function setOpenedGroup(group) {
+    selectedGroup.pop();
+    selectedGroup.push(group);
+  },
+  emitChange: function emitChange() {
+    this.emit('change');
+  },
+  addChangeListener: function addChangeListener(callback) {
+    this.on('change', callback);
+  },
+  removeChangeListener: function removeChangeListener(callback) {
+    this.removeListener('change', callback);
+  }
+});
+
+exports.default = PostItStore;
+
+/***/ }),
+/* 30 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
 /*! @license Firebase v4.2.0
 Build: rev-d6b2db4
 Terms: https://firebase.google.com/terms/ */
@@ -3031,7 +3156,7 @@ _LeafNode.LeafNode.__childrenNodeConstructor = ChildrenNode;
 
 
 /***/ }),
-/* 30 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3072,7 +3197,7 @@ exports.default = {
 };
 
 /***/ }),
-/* 31 */
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3457,7 +3582,7 @@ module.exports = ReactComponentTreeHook;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 32 */
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3765,131 +3890,6 @@ module.exports = {
   trim: trim
 };
 
-
-/***/ }),
-/* 33 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _events = __webpack_require__(433);
-
-var _objectAssign = __webpack_require__(18);
-
-var _objectAssign2 = _interopRequireDefault(_objectAssign);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var registeredUser = [];
-var usersInGroup = [];
-var usersNotInGroup = [];
-var users = [];
-var userGroups = [];
-var userMessages = [];
-var errors = '';
-var success = '';
-var loggedInUser = [];
-var selectedGroup = [];
-var openedGroup = [];
-var isAuthenticated = false;
-
-var PostItStore = (0, _objectAssign2.default)({}, _events.EventEmitter.prototype, {
-  registerNewUser: function registerNewUser(user) {
-    registeredUser.push(user);
-  },
-  getRegisteredUser: function getRegisteredUser() {
-    return registeredUser;
-  },
-  addUserToGroup: function addUserToGroup(user) {
-    usersInGroup.push(user);
-  },
-  postMessage: function postMessage(message) {
-    userMessages.push(message);
-  },
-  createNewGroup: function createNewGroup(group) {
-    userGroups.push(group);
-  },
-  signinUser: function signinUser(user) {
-    loggedInUser.push(user);
-    console.log('======> logged ', user);
-  },
-  signOutUser: function signOutUser() {
-    loggedInUser.pop();
-    isAuthenticated = false;
-  },
-  setIsAuthenticated: function setIsAuthenticated(value) {
-    isAuthenticated = value;
-  },
-  receiveErrors: function receiveErrors(error) {
-    console.log(error);
-    errors = error;
-  },
-  receiveSuccess: function receiveSuccess(message) {
-    success = message;
-  },
-  getErrors: function getErrors() {
-    return errors;
-  },
-  getOpenedGroup: function getOpenedGroup() {
-    return selectedGroup;
-  },
-  getLoggedInUser: function getLoggedInUser() {
-    return loggedInUser;
-  },
-  getIsAuthenticated: function getIsAuthenticated() {
-    return isAuthenticated;
-  },
-  getUserGroups: function getUserGroups() {
-    return userGroups;
-  },
-  getUsersInGroup: function getUsersInGroup() {
-    return usersInGroup;
-  },
-  getUsers: function getUsers() {
-    return users;
-  },
-  getMessages: function getMessages() {
-    return userMessages;
-  },
-  getSuccess: function getSuccess() {
-    return success;
-  },
-  setUserGroups: function setUserGroups(groups) {
-    userGroups = groups;
-  },
-  setLoggedInUser: function setLoggedInUser(user) {
-    loggedInUser = user;
-  },
-  setUsers: function setUsers(user) {
-    users = user;
-  },
-  setUsersInGroup: function setUsersInGroup(user) {
-    usersInGroup = user;
-  },
-  setMessages: function setMessages(messages) {
-    userMessages = messages;
-  },
-  setOpenedGroup: function setOpenedGroup(group) {
-    selectedGroup.pop();
-    selectedGroup.push(group);
-  },
-  emitChange: function emitChange() {
-    this.emit('change');
-  },
-  addChangeListener: function addChangeListener(callback) {
-    this.on('change', callback);
-  },
-  removeChangeListener: function removeChangeListener(callback) {
-    this.removeListener('change', callback);
-  }
-});
-
-exports.default = PostItStore;
 
 /***/ }),
 /* 34 */
@@ -8299,7 +8299,7 @@ var _RenderToLayer = __webpack_require__(304);
 
 var _RenderToLayer2 = _interopRequireDefault(_RenderToLayer);
 
-var _propTypes3 = __webpack_require__(30);
+var _propTypes3 = __webpack_require__(31);
 
 var _propTypes4 = _interopRequireDefault(_propTypes3);
 
@@ -10090,7 +10090,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
 exports.nodeFromJSON = nodeFromJSON;
 
-var _ChildrenNode = __webpack_require__(29);
+var _ChildrenNode = __webpack_require__(30);
 
 var _LeafNode = __webpack_require__(108);
 
@@ -10903,7 +10903,7 @@ var _PostItActions = __webpack_require__(40);
 
 var _PostItActions2 = _interopRequireDefault(_PostItActions);
 
-var _PostItStore = __webpack_require__(33);
+var _PostItStore = __webpack_require__(29);
 
 var _PostItStore2 = _interopRequireDefault(_PostItStore);
 
@@ -11021,7 +11021,8 @@ module.exports = {
    */
   createNewGroup: function createNewGroup(group) {
     _axios2.default.post('/group', {
-      groupname: group.groupname
+      groupname: group.groupname,
+      username: group.username
     }).then(function (response) {
       _PostItActions2.default.receiveSuccess(response.message);
     }).catch(function (error) {
@@ -11038,7 +11039,8 @@ module.exports = {
   addUserToGroup: function addUserToGroup(user) {
     _axios2.default.post('/group/' + user.groupId + '/user', {
       userId: user.userId,
-      groupId: user.groupId
+      groupId: user.groupId,
+      userName: user.userName
     }).then(function (response) {
       _PostItActions2.default.receiveSuccess(response.message);
     }).catch(function (error) {
@@ -11056,7 +11058,9 @@ module.exports = {
     _axios2.default.post('/message', {
       groupId: message.groupId,
       message: message.message,
-      priorityLevel: message.priorityLevel
+      priorityLevel: message.priorityLevel,
+      date: message.date,
+      author: message.author
     }).then(function (response) {
       _PostItActions2.default.receiveSuccess(response.message);
     }).catch(function (error) {
@@ -12796,7 +12800,7 @@ var _keycode = __webpack_require__(37);
 
 var _keycode2 = _interopRequireDefault(_keycode);
 
-var _propTypes3 = __webpack_require__(30);
+var _propTypes3 = __webpack_require__(31);
 
 var _propTypes4 = _interopRequireDefault(_propTypes3);
 
@@ -15439,7 +15443,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {
 
-var utils = __webpack_require__(32);
+var utils = __webpack_require__(33);
 var normalizeHeaderName = __webpack_require__(360);
 
 var DEFAULT_CONTENT_TYPE = {
@@ -17487,7 +17491,7 @@ var _assert = __webpack_require__(14);
 
 var _Change = __webpack_require__(75);
 
-var _ChildrenNode = __webpack_require__(29);
+var _ChildrenNode = __webpack_require__(30);
 
 var _PriorityIndex = __webpack_require__(27);
 
@@ -19635,7 +19639,7 @@ var _Menu = __webpack_require__(119);
 
 var _Menu2 = _interopRequireDefault(_Menu);
 
-var _propTypes3 = __webpack_require__(30);
+var _propTypes3 = __webpack_require__(31);
 
 var _propTypes4 = _interopRequireDefault(_propTypes3);
 
@@ -20044,7 +20048,7 @@ var _transitions = __webpack_require__(13);
 
 var _transitions2 = _interopRequireDefault(_transitions);
 
-var _propTypes3 = __webpack_require__(30);
+var _propTypes3 = __webpack_require__(31);
 
 var _propTypes4 = _interopRequireDefault(_propTypes3);
 
@@ -23471,7 +23475,7 @@ module.exports = lowPriorityWarning;
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {
 
-var utils = __webpack_require__(32);
+var utils = __webpack_require__(33);
 var settle = __webpack_require__(352);
 var buildURL = __webpack_require__(355);
 var parseHeaders = __webpack_require__(361);
@@ -23754,7 +23758,7 @@ var _lodash = __webpack_require__(273);
 
 var _lodash2 = _interopRequireDefault(_lodash);
 
-var _PostItStore = __webpack_require__(33);
+var _PostItStore = __webpack_require__(29);
 
 var _PostItStore2 = _interopRequireDefault(_PostItStore);
 
@@ -23790,7 +23794,8 @@ var AddMember = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, (AddMember.__proto__ || Object.getPrototypeOf(AddMember)).call(this, props));
 
     _this.state = {
-      username: ''
+      userName: '',
+      userId: ''
     };
     _this.onChange = _this.onChange.bind(_this);
     _this.onClick = _this.onClick.bind(_this);
@@ -23821,10 +23826,10 @@ var AddMember = function (_React$Component) {
 
   }, {
     key: 'data',
-    value: function data(username) {
+    value: function data(userName) {
       var n = void 0;
-      _lodash2.default.map(this.props.user.user).map(function (x) {
-        if (username === x.username) {
+      _lodash2.default.map(this.props.user).map(function (x) {
+        if (userName === x.username) {
           n = x.userId;
         }
       });
@@ -23835,7 +23840,8 @@ var AddMember = function (_React$Component) {
     value: function onClick(e) {
       e.preventDefault();
       var user = {
-        userId: this.data(this.state.username),
+        userId: this.data(this.state.userName),
+        userName: this.state.userName,
         groupId: this.props.groupId.groupId
       };
       _PostItActions2.default.addUserToGroup(user);
@@ -23854,7 +23860,7 @@ var AddMember = function (_React$Component) {
             { className: 'form-group' },
             _react2.default.createElement('input', {
               type: 'text', className: 'form-control', placeholder: 'Add member',
-              name: 'username', value: this.state.username, onChange: this.onChange })
+              name: 'userName', value: this.state.userName, onChange: this.onChange })
           ),
           _react2.default.createElement(
             'button',
@@ -23955,7 +23961,7 @@ var MessageList = function (_React$Component) {
                 )
               ),
               messageNodes,
-              _react2.default.createElement(_MessageBox2.default, { groupId: this.props.selectedGroup[0] })
+              _react2.default.createElement(_MessageBox2.default, { groupId: this.props.selectedGroup[0], author: this.props.loggedInUser })
             )
           )
         )
@@ -26789,7 +26795,7 @@ exports.SyncPoint = undefined;
 
 var _CacheNode = __webpack_require__(111);
 
-var _ChildrenNode = __webpack_require__(29);
+var _ChildrenNode = __webpack_require__(30);
 
 var _assert = __webpack_require__(14);
 
@@ -27487,7 +27493,7 @@ var _util = __webpack_require__(15);
 
 var _Index = __webpack_require__(109);
 
-var _ChildrenNode = __webpack_require__(29);
+var _ChildrenNode = __webpack_require__(30);
 
 var _Node = __webpack_require__(35);
 
@@ -28326,7 +28332,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.ViewCache = undefined;
 
-var _ChildrenNode = __webpack_require__(29);
+var _ChildrenNode = __webpack_require__(30);
 
 var _CacheNode = __webpack_require__(111);
 
@@ -28441,7 +28447,7 @@ var _PriorityIndex = __webpack_require__(27);
 
 var _Node = __webpack_require__(35);
 
-var _ChildrenNode = __webpack_require__(29);
+var _ChildrenNode = __webpack_require__(30);
 
 /**
  * Filters nodes by range and uses an IndexFilter to track any changes after filtering the node
@@ -58184,7 +58190,7 @@ module.exports = REACT_ELEMENT_TYPE;
 
 
 var ReactCurrentOwner = __webpack_require__(45);
-var ReactComponentTreeHook = __webpack_require__(31);
+var ReactComponentTreeHook = __webpack_require__(32);
 var ReactElement = __webpack_require__(67);
 
 var checkReactTypeSpec = __webpack_require__(776);
@@ -58682,7 +58688,7 @@ var _FlatButton = __webpack_require__(79);
 
 var _FlatButton2 = _interopRequireDefault(_FlatButton);
 
-var _PostItStore = __webpack_require__(33);
+var _PostItStore = __webpack_require__(29);
 
 var _PostItStore2 = _interopRequireDefault(_PostItStore);
 
@@ -58870,7 +58876,7 @@ module.exports = __webpack_require__(346);
 "use strict";
 
 
-var utils = __webpack_require__(32);
+var utils = __webpack_require__(33);
 var bind = __webpack_require__(206);
 var Axios = __webpack_require__(348);
 var defaults = __webpack_require__(133);
@@ -58994,7 +59000,7 @@ module.exports = CancelToken;
 
 
 var defaults = __webpack_require__(133);
-var utils = __webpack_require__(32);
+var utils = __webpack_require__(33);
 var InterceptorManager = __webpack_require__(349);
 var dispatchRequest = __webpack_require__(350);
 var isAbsoluteURL = __webpack_require__(358);
@@ -59086,7 +59092,7 @@ module.exports = Axios;
 "use strict";
 
 
-var utils = __webpack_require__(32);
+var utils = __webpack_require__(33);
 
 function InterceptorManager() {
   this.handlers = [];
@@ -59145,7 +59151,7 @@ module.exports = InterceptorManager;
 "use strict";
 
 
-var utils = __webpack_require__(32);
+var utils = __webpack_require__(33);
 var transformData = __webpack_require__(353);
 var isCancel = __webpack_require__(204);
 var defaults = __webpack_require__(133);
@@ -59292,7 +59298,7 @@ module.exports = function settle(resolve, reject, response) {
 "use strict";
 
 
-var utils = __webpack_require__(32);
+var utils = __webpack_require__(33);
 
 /**
  * Transform the data for a request or a response
@@ -59362,7 +59368,7 @@ module.exports = btoa;
 "use strict";
 
 
-var utils = __webpack_require__(32);
+var utils = __webpack_require__(33);
 
 function encode(val) {
   return encodeURIComponent(val).
@@ -59458,7 +59464,7 @@ module.exports = function combineURLs(baseURL, relativeURL) {
 "use strict";
 
 
-var utils = __webpack_require__(32);
+var utils = __webpack_require__(33);
 
 module.exports = (
   utils.isStandardBrowserEnv() ?
@@ -59539,7 +59545,7 @@ module.exports = function isAbsoluteURL(url) {
 "use strict";
 
 
-var utils = __webpack_require__(32);
+var utils = __webpack_require__(33);
 
 module.exports = (
   utils.isStandardBrowserEnv() ?
@@ -59614,7 +59620,7 @@ module.exports = (
 "use strict";
 
 
-var utils = __webpack_require__(32);
+var utils = __webpack_require__(33);
 
 module.exports = function normalizeHeaderName(headers, normalizedName) {
   utils.forEach(headers, function processHeader(value, name) {
@@ -59633,7 +59639,7 @@ module.exports = function normalizeHeaderName(headers, normalizedName) {
 "use strict";
 
 
-var utils = __webpack_require__(32);
+var utils = __webpack_require__(33);
 
 /**
  * Parse headers into an object
@@ -59743,7 +59749,7 @@ var _PostItActions = __webpack_require__(40);
 
 var _PostItActions2 = _interopRequireDefault(_PostItActions);
 
-var _PostItStore = __webpack_require__(33);
+var _PostItStore = __webpack_require__(29);
 
 var _PostItStore2 = _interopRequireDefault(_PostItStore);
 
@@ -59974,7 +59980,7 @@ var _PostItActions = __webpack_require__(40);
 
 var _PostItActions2 = _interopRequireDefault(_PostItActions);
 
-var _PostItStore = __webpack_require__(33);
+var _PostItStore = __webpack_require__(29);
 
 var _PostItStore2 = _interopRequireDefault(_PostItStore);
 
@@ -60103,7 +60109,7 @@ var _PostItActions = __webpack_require__(40);
 
 var _PostItActions2 = _interopRequireDefault(_PostItActions);
 
-var _PostItStore = __webpack_require__(33);
+var _PostItStore = __webpack_require__(29);
 
 var _PostItStore2 = _interopRequireDefault(_PostItStore);
 
@@ -60334,7 +60340,7 @@ var _PostItActions = __webpack_require__(40);
 
 var _PostItActions2 = _interopRequireDefault(_PostItActions);
 
-var _PostItStore = __webpack_require__(33);
+var _PostItStore = __webpack_require__(29);
 
 var _PostItStore2 = _interopRequireDefault(_PostItStore);
 
@@ -60567,7 +60573,8 @@ var CreateGroup = function (_React$Component) {
     value: function onClick(e) {
       e.preventDefault();
       var group = {
-        groupname: this.state.groupname
+        groupname: this.state.groupname,
+        username: this.props.userName.displayName
       };
       _PostItActions2.default.createGroup(group);
       this.setState({
@@ -60616,6 +60623,8 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = __webpack_require__(1);
@@ -60626,7 +60635,7 @@ var _Api = __webpack_require__(102);
 
 var _Api2 = _interopRequireDefault(_Api);
 
-var _PostItStore = __webpack_require__(33);
+var _PostItStore = __webpack_require__(29);
 
 var _PostItStore2 = _interopRequireDefault(_PostItStore);
 
@@ -60723,7 +60732,6 @@ var Dashboard = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
-      console.log(this.props, '---???');
       return _react2.default.createElement(
         'div',
         { className: 'container' },
@@ -60737,21 +60745,22 @@ var Dashboard = function (_React$Component) {
         _react2.default.createElement(
           'div',
           { className: 'row col-md-3' },
-          _react2.default.createElement(_GroupList2.default, this.state),
+          _react2.default.createElement(_GroupList2.default, _extends({}, this.state, { loggedInUser: this.state.loggedInUser,
+            groups: this.state.groups })),
           _react2.default.createElement(
             'div',
             null,
             _react2.default.createElement(
               'div',
               { className: 'side-body col-md-6' },
-              _react2.default.createElement(_MessageList2.default, this.state)
+              _react2.default.createElement(_MessageList2.default, _extends({}, this.state, { loggedInUser: this.state.loggedInUser }))
             )
           )
         ),
         _react2.default.createElement(
           'div',
           { className: 'row col-md-3', id: 'leftsidenav' },
-          _react2.default.createElement(_UserList2.default, this.state)
+          _react2.default.createElement(_UserList2.default, _extends({}, this.state, { user: this.state.users, usernames: this.state.user }))
         )
       );
     }
@@ -60787,7 +60796,7 @@ var _PostItActions = __webpack_require__(40);
 
 var _PostItActions2 = _interopRequireDefault(_PostItActions);
 
-var _PostItStore = __webpack_require__(33);
+var _PostItStore = __webpack_require__(29);
 
 var _PostItStore2 = _interopRequireDefault(_PostItStore);
 
@@ -60850,14 +60859,9 @@ var Group = function (_React$Component) {
         'div',
         { className: 'side-menu-container' },
         _react2.default.createElement(
-          'ul',
-          { className: 'nav navbar-nav' },
-          _react2.default.createElement(
-            'li',
-            { onClick: this.onClick },
-            _react2.default.createElement('span', { className: 'glyphicon glyphicon-send' }),
-            this.props.group.groupname
-          )
+          'li',
+          { onClick: this.onClick },
+          this.props.group.groupname
         )
       );
     }
@@ -60889,7 +60893,7 @@ var _CreateGroup = __webpack_require__(367);
 
 var _CreateGroup2 = _interopRequireDefault(_CreateGroup);
 
-var _PostItStore = __webpack_require__(33);
+var _PostItStore = __webpack_require__(29);
 
 var _PostItStore2 = _interopRequireDefault(_PostItStore);
 
@@ -60942,7 +60946,7 @@ var GroupList = function (_React$Component) {
             _react2.default.createElement(
               'div',
               { className: 'brand-wrapper' },
-              _react2.default.createElement(_CreateGroup2.default, null)
+              _react2.default.createElement(_CreateGroup2.default, { userName: this.props.loggedInUser })
             )
           ),
           groupNodes
@@ -61030,8 +61034,11 @@ var Message = function (_React$Component) {
                 ),
                 _react2.default.createElement(
                   "time",
-                  { dateTime: "2009-11-13T20:00" },
-                  "Timothy \u2022 51 min"
+                  null,
+                  " ",
+                  this.props.message.author,
+                  " - ",
+                  this.props.message.date
                 )
               )
             )
@@ -61067,7 +61074,13 @@ var _PostItActions = __webpack_require__(40);
 
 var _PostItActions2 = _interopRequireDefault(_PostItActions);
 
+var _PostItStore = __webpack_require__(29);
+
+var _PostItStore2 = _interopRequireDefault(_PostItStore);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -61112,9 +61125,7 @@ var MessageBox = function (_React$Component) {
   _createClass(MessageBox, [{
     key: 'onChange',
     value: function onChange(e) {
-      this.setState({
-        message: e.target.value
-      });
+      this.setState(_defineProperty({}, e.target.name, e.target.value));
     }
 
     /**
@@ -61131,12 +61142,14 @@ var MessageBox = function (_React$Component) {
       var message = {
         message: this.state.message,
         groupId: this.props.groupId.groupId,
-        priorityLevel: this.state.priorityLevel
+        priorityLevel: this.state.priorityLevel,
+        date: new Date().toJSON(),
+        author: this.props.author.displayName
       };
       _PostItActions2.default.addMessage(message);
       this.setState({
         message: '',
-        priorityLevel: ''
+        date: ''
       });
     }
   }, {
@@ -61155,7 +61168,7 @@ var MessageBox = function (_React$Component) {
             'select',
             {
               placeholder: 'Priority Level', name: 'priorityLevel', onChange: this.onChange,
-              className: 'form-control' },
+              className: 'form-control', value: this.state.priorityLevel },
             _react2.default.createElement(
               'option',
               { value: 'Normal' },
@@ -61244,15 +61257,11 @@ var Message = function (_React$Component) {
         "div",
         { className: "side-menu-container" },
         _react2.default.createElement(
-          "ul",
-          { className: "nav navbar-nav" },
-          _react2.default.createElement(
-            "li",
-            null,
-            _react2.default.createElement("span", { className: "glyphicon glyphicon-user" }),
-            this.props.user.username,
-            " "
-          )
+          "li",
+          null,
+          _react2.default.createElement("span", null),
+          this.props.user.userName,
+          " "
         )
       );
     }
@@ -61288,7 +61297,7 @@ var _User = __webpack_require__(373);
 
 var _User2 = _interopRequireDefault(_User);
 
-var _PostItStore = __webpack_require__(33);
+var _PostItStore = __webpack_require__(29);
 
 var _PostItStore2 = _interopRequireDefault(_PostItStore);
 
@@ -61350,8 +61359,7 @@ var UserList = function (_React$Component) {
   _createClass(UserList, [{
     key: 'render',
     value: function render() {
-      console.log(this.props.users, '(((((((');
-      var userNodes = this.props.users.map(function (user, i) {
+      var userNodes = this.props.user.map(function (user, i) {
         return _react2.default.createElement(_User2.default, { user: user, key: i });
       });
       return _react2.default.createElement(
@@ -61366,7 +61374,7 @@ var UserList = function (_React$Component) {
             _react2.default.createElement(
               'div',
               { className: 'brand-wrapper' },
-              _react2.default.createElement(_AddMember2.default, { groupId: this.props.selectedGroup[0], user: this.props })
+              _react2.default.createElement(_AddMember2.default, { groupId: this.props.selectedGroup[0], user: this.props.usernames })
             )
           ),
           userNodes
@@ -61393,7 +61401,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _flux = __webpack_require__(516);
 
-var _PostItStore = __webpack_require__(33);
+var _PostItStore = __webpack_require__(29);
 
 var _PostItStore2 = _interopRequireDefault(_PostItStore);
 
@@ -61569,8 +61577,6 @@ var config = {
   storageBucket: process.env[prefix + 'storageBucket'],
   messagingSenderId: process.env[prefix + 'messagingSenderId']
 };
-
-console.log(config);
 
 var db = _firebase2.default.initializeApp(config);
 
@@ -66979,7 +66985,7 @@ var _obj = __webpack_require__(17);
 
 var _nodeFromJSON = __webpack_require__(96);
 
-var _ChildrenNode = __webpack_require__(29);
+var _ChildrenNode = __webpack_require__(30);
 
 var _Repo = __webpack_require__(107);
 
@@ -67517,7 +67523,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.SnapshotHolder = undefined;
 
-var _ChildrenNode = __webpack_require__(29);
+var _ChildrenNode = __webpack_require__(30);
 
 /**
  * Mutable object which basically just stores a reference to the "latest" immutable snapshot.
@@ -67576,7 +67582,7 @@ var _util = __webpack_require__(15);
 
 var _AckUserWrite = __webpack_require__(463);
 
-var _ChildrenNode = __webpack_require__(29);
+var _ChildrenNode = __webpack_require__(30);
 
 var _obj = __webpack_require__(17);
 
@@ -68294,7 +68300,7 @@ var _CompoundWrite = __webpack_require__(457);
 
 var _PriorityIndex = __webpack_require__(27);
 
-var _ChildrenNode = __webpack_require__(29);
+var _ChildrenNode = __webpack_require__(30);
 
 /**
  * WriteTree tracks all pending user-initiated writes and has methods to calculate the result of merging them
@@ -71292,7 +71298,7 @@ var _IndexedFilter = __webpack_require__(159);
 
 var _ViewProcessor = __webpack_require__(482);
 
-var _ChildrenNode = __webpack_require__(29);
+var _ChildrenNode = __webpack_require__(30);
 
 var _CacheNode = __webpack_require__(111);
 
@@ -71522,7 +71528,7 @@ var _ChildChangeAccumulator = __webpack_require__(474);
 
 var _Change = __webpack_require__(75);
 
-var _ChildrenNode = __webpack_require__(29);
+var _ChildrenNode = __webpack_require__(30);
 
 var _KeyIndex = __webpack_require__(95);
 
@@ -72052,7 +72058,7 @@ exports.LimitedFilter = undefined;
 
 var _RangedFilter = __webpack_require__(253);
 
-var _ChildrenNode = __webpack_require__(29);
+var _ChildrenNode = __webpack_require__(30);
 
 var _Node = __webpack_require__(35);
 
@@ -82012,7 +82018,7 @@ var _Paper = __webpack_require__(28);
 
 var _Paper2 = _interopRequireDefault(_Paper);
 
-var _propTypes3 = __webpack_require__(30);
+var _propTypes3 = __webpack_require__(31);
 
 var _propTypes4 = _interopRequireDefault(_propTypes3);
 
@@ -82417,7 +82423,7 @@ var _Popover = __webpack_require__(81);
 
 var _Popover2 = _interopRequireDefault(_Popover);
 
-var _propTypes3 = __webpack_require__(30);
+var _propTypes3 = __webpack_require__(31);
 
 var _propTypes4 = _interopRequireDefault(_propTypes3);
 
@@ -88026,7 +88032,7 @@ var _Paper = __webpack_require__(28);
 
 var _Paper2 = _interopRequireDefault(_Paper);
 
-var _propTypes3 = __webpack_require__(30);
+var _propTypes3 = __webpack_require__(31);
 
 var _propTypes4 = _interopRequireDefault(_propTypes3);
 
@@ -88562,7 +88568,7 @@ var _IconButton = __webpack_require__(80);
 
 var _IconButton2 = _interopRequireDefault(_IconButton);
 
-var _propTypes3 = __webpack_require__(30);
+var _propTypes3 = __webpack_require__(31);
 
 var _propTypes4 = _interopRequireDefault(_propTypes3);
 
@@ -89595,7 +89601,7 @@ var _warning = __webpack_require__(19);
 
 var _warning2 = _interopRequireDefault(_warning);
 
-var _propTypes3 = __webpack_require__(30);
+var _propTypes3 = __webpack_require__(31);
 
 var _propTypes4 = _interopRequireDefault(_propTypes3);
 
@@ -90337,7 +90343,7 @@ var _transitions = __webpack_require__(13);
 
 var _transitions2 = _interopRequireDefault(_transitions);
 
-var _propTypes3 = __webpack_require__(30);
+var _propTypes3 = __webpack_require__(31);
 
 var _propTypes4 = _interopRequireDefault(_propTypes3);
 
@@ -90732,7 +90738,7 @@ var _events = __webpack_require__(123);
 
 var _events2 = _interopRequireDefault(_events);
 
-var _propTypes3 = __webpack_require__(30);
+var _propTypes3 = __webpack_require__(31);
 
 var _propTypes4 = _interopRequireDefault(_propTypes3);
 
@@ -91538,7 +91544,7 @@ var _propTypes = __webpack_require__(2);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _propTypes3 = __webpack_require__(30);
+var _propTypes3 = __webpack_require__(31);
 
 var _propTypes4 = _interopRequireDefault(_propTypes3);
 
@@ -91692,7 +91698,7 @@ var _propTypes = __webpack_require__(2);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _propTypes3 = __webpack_require__(30);
+var _propTypes3 = __webpack_require__(31);
 
 var _propTypes4 = _interopRequireDefault(_propTypes3);
 
@@ -104274,7 +104280,7 @@ if (typeof process !== 'undefined' && process.env && process.env.NODE_ENV === 't
   // https://github.com/facebook/react/issues/7240
   // Remove the inline requires when we don't need them anymore:
   // https://github.com/facebook/react/pull/7178
-  ReactComponentTreeHook = __webpack_require__(31);
+  ReactComponentTreeHook = __webpack_require__(32);
 }
 
 function instantiateChild(childInstances, child, name, selfDebugID) {
@@ -104282,7 +104288,7 @@ function instantiateChild(childInstances, child, name, selfDebugID) {
   var keyUnique = childInstances[name] === undefined;
   if (process.env.NODE_ENV !== 'production') {
     if (!ReactComponentTreeHook) {
-      ReactComponentTreeHook = __webpack_require__(31);
+      ReactComponentTreeHook = __webpack_require__(32);
     }
     if (!keyUnique) {
       process.env.NODE_ENV !== 'production' ? warning(false, 'flattenChildren(...): Encountered two children with the same key, ' + '`%s`. Child keys must be unique; when two children share a key, only ' + 'the first child will be used.%s', KeyEscapeUtils.unescape(name), ReactComponentTreeHook.getStackAddendumByID(selfDebugID)) : void 0;
@@ -106949,7 +106955,7 @@ module.exports = ReactDOMInput;
 
 
 var DOMProperty = __webpack_require__(54);
-var ReactComponentTreeHook = __webpack_require__(31);
+var ReactComponentTreeHook = __webpack_require__(32);
 
 var warning = __webpack_require__(12);
 
@@ -107047,7 +107053,7 @@ module.exports = ReactDOMInvalidARIAHook;
 
 
 
-var ReactComponentTreeHook = __webpack_require__(31);
+var ReactComponentTreeHook = __webpack_require__(32);
 
 var warning = __webpack_require__(12);
 
@@ -107919,7 +107925,7 @@ module.exports = {
 
 var DOMProperty = __webpack_require__(54);
 var EventPluginRegistry = __webpack_require__(124);
-var ReactComponentTreeHook = __webpack_require__(31);
+var ReactComponentTreeHook = __webpack_require__(32);
 
 var warning = __webpack_require__(12);
 
@@ -108038,7 +108044,7 @@ module.exports = ReactDOMUnknownPropertyHook;
 
 var ReactInvalidSetStateWarningHook = __webpack_require__(707);
 var ReactHostOperationHistoryHook = __webpack_require__(705);
-var ReactComponentTreeHook = __webpack_require__(31);
+var ReactComponentTreeHook = __webpack_require__(32);
 var ExecutionEnvironment = __webpack_require__(23);
 
 var performanceNow = __webpack_require__(448);
@@ -111372,7 +111378,7 @@ if (typeof process !== 'undefined' && process.env && process.env.NODE_ENV === 't
   // https://github.com/facebook/react/issues/7240
   // Remove the inline requires when we don't need them anymore:
   // https://github.com/facebook/react/pull/7178
-  ReactComponentTreeHook = __webpack_require__(31);
+  ReactComponentTreeHook = __webpack_require__(32);
 }
 
 var loggedTypeFailures = {};
@@ -111414,7 +111420,7 @@ function checkReactTypeSpec(typeSpecs, values, location, componentName, element,
 
         if (process.env.NODE_ENV !== 'production') {
           if (!ReactComponentTreeHook) {
-            ReactComponentTreeHook = __webpack_require__(31);
+            ReactComponentTreeHook = __webpack_require__(32);
           }
           if (debugID !== null) {
             componentStackInfo = ReactComponentTreeHook.getStackAddendumByID(debugID);
@@ -111613,7 +111619,7 @@ if (typeof process !== 'undefined' && process.env && process.env.NODE_ENV === 't
   // https://github.com/facebook/react/issues/7240
   // Remove the inline requires when we don't need them anymore:
   // https://github.com/facebook/react/pull/7178
-  ReactComponentTreeHook = __webpack_require__(31);
+  ReactComponentTreeHook = __webpack_require__(32);
 }
 
 /**
@@ -111629,7 +111635,7 @@ function flattenSingleChildIntoContext(traverseContext, child, name, selfDebugID
     var keyUnique = result[name] === undefined;
     if (process.env.NODE_ENV !== 'production') {
       if (!ReactComponentTreeHook) {
-        ReactComponentTreeHook = __webpack_require__(31);
+        ReactComponentTreeHook = __webpack_require__(32);
       }
       if (!keyUnique) {
         process.env.NODE_ENV !== 'production' ? warning(false, 'flattenChildren(...): Encountered two children with the same key, ' + '`%s`. Child keys must be unique; when two children share a key, only ' + 'the first child will be used.%s', KeyEscapeUtils.unescape(name), ReactComponentTreeHook.getStackAddendumByID(selfDebugID)) : void 0;
@@ -114450,7 +114456,7 @@ if (typeof process !== 'undefined' && process.env && process.env.NODE_ENV === 't
   // https://github.com/facebook/react/issues/7240
   // Remove the inline requires when we don't need them anymore:
   // https://github.com/facebook/react/pull/7178
-  ReactComponentTreeHook = __webpack_require__(31);
+  ReactComponentTreeHook = __webpack_require__(32);
 }
 
 var loggedTypeFailures = {};
@@ -114492,7 +114498,7 @@ function checkReactTypeSpec(typeSpecs, values, location, componentName, element,
 
         if (process.env.NODE_ENV !== 'production') {
           if (!ReactComponentTreeHook) {
-            ReactComponentTreeHook = __webpack_require__(31);
+            ReactComponentTreeHook = __webpack_require__(32);
           }
           if (debugID !== null) {
             componentStackInfo = ReactComponentTreeHook.getStackAddendumByID(debugID);

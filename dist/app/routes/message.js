@@ -55,19 +55,25 @@ var message = function message(app) {
     var message = req.body.message;
     var groupId = req.body.groupId;
     var priorityLevel = req.body.priorityLevel;
-
+    var date = req.body.date;
+    var author = req.body.author;
     _firebase2.default.auth().onAuthStateChanged(function (user) {
-      _firebase2.default.database().ref('groups/' + groupId + '/users/').once('value', function (snapshot) {
+      var messageKey = _firebase2.default.database().ref('groups/' + groupId + '/messages').push({
+        message: message,
+        author: author,
+        date: date,
+        priorityLevel: priorityLevel
+      }).key;
+      var userRef = _firebase2.default.database().ref('groups/' + groupId + '/users/').once('value', function (snapshot) {
         snapshot.forEach(function (childSnapShot) {
-          userIds.push(childSnapShot.val().Id);
-        });
-      }).then(function () {
-        userIds.forEach(function (uid) {
-          _firebase2.default.database().ref('users/' + uid + '/groups/' + groupId + '/messages').push({
-            message: message
+          _firebase2.default.database().ref('users/' + childSnapShot.val().userId + '/groups/' + groupId + '/messages/' + messageKey).set({
+            message: message,
+            author: author,
+            date: date,
+            priorityLevel: priorityLevel
           });
           if (priorityLevel === 'Critical' || priorityLevel === 'Urgent') {
-            _firebase2.default.database().ref('users/' + uid + '/').once('value', function (snap) {
+            _firebase2.default.database().ref('users/' + childSnapShot.val().userId + '/').once('value', function (snap) {
               emails.push(snap.val().email);
               emails.forEach(function (email) {
                 mailOptions.to = email;
@@ -82,7 +88,7 @@ var message = function message(app) {
             });
           }
           if (priorityLevel === 'Critical') {
-            _firebase2.default.database().ref('users/' + uid + '/').once('value', function (msg) {
+            _firebase2.default.database().ref('users/' + childSnapShot.val().userId + '/').once('value', function (msg) {
               numbers.push(msg.val().phoneNumber);
               numbers.forEach(function (number) {
                 nexmo.message.sendSms('PostIt', number, message, function (err, responseData) {

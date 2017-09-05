@@ -33,22 +33,28 @@ const message = (app) => {
     const message = req.body.message;
     const groupId = req.body.groupId;
     const priorityLevel = req.body.priorityLevel;
-
+    const date = req.body.date;
+    const author = req.body.author;
     firebase.auth().onAuthStateChanged((user) => {
-      firebase.database().ref(`groups/${groupId}/users/`)
+      const messageKey = firebase.database().ref(`groups/${groupId}/messages`)
+      .push({
+        message,
+        author,
+        date,
+        priorityLevel,
+      }).key;
+      const userRef = firebase.database().ref(`groups/${groupId}/users/`)
           .once('value', (snapshot) => {
             snapshot.forEach((childSnapShot) => {
-              userIds.push(childSnapShot.val().Id);
-            });
-          })
-          .then(() => {
-            userIds.forEach((uid) => {
-              firebase.database().ref(`users/${uid}/groups/${groupId}/messages`)
-            .push({
-              message
+              firebase.database().ref(`users/${childSnapShot.val().userId}/groups/${groupId}/messages/${messageKey}`)
+            .set({
+              message,
+              author,
+              date,
+              priorityLevel
             });
               if ((priorityLevel === 'Critical') || (priorityLevel === 'Urgent')) {
-                firebase.database().ref(`users/${uid}/`)
+                firebase.database().ref(`users/${childSnapShot.val().userId}/`)
               .once('value', (snap) => {
                 emails.push(snap.val().email);
                 emails.forEach((email) => {
@@ -64,7 +70,7 @@ const message = (app) => {
               });
               }
               if (priorityLevel === 'Critical') {
-                firebase.database().ref(`users/${uid}/`)
+                firebase.database().ref(`users/${childSnapShot.val().userId}/`)
               .once('value', (msg) => {
                 numbers.push(msg.val().phoneNumber);
                 numbers.forEach((number) => {
@@ -74,8 +80,7 @@ const message = (app) => {
                     if (err) {
                       console.log(err);
                     } else {
-                      console.log(responseData)
-;
+                      console.log(responseData);
                     }
                   });
                 });

@@ -24,18 +24,18 @@ var usersInGroup = function usersInGroup(app) {
         var userRef = _firebase2.default.database().ref('/groups/' + req.params.groupId + '/users').once('value', function (msg) {
           msg.forEach(function (snapshot) {
             var user = {
-              id: snapshot.key,
-              userId: snapshot.val().userId
+              userId: snapshot.val().userId,
+              userName: snapshot.val().userName
             };
             users.push(user);
-          }).then(function () {
-            res.send({
-              users: users
-            });
-          }).catch(function (error) {
-            res.status(500).send({
-              message: 'Error occurred ' + error.message
-            });
+          });
+        }).then(function () {
+          res.send({
+            users: users
+          });
+        }).catch(function (error) {
+          res.status(500).send({
+            message: 'Error occurred ' + error.message
           });
         });
       } else {

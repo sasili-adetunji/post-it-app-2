@@ -19,8 +19,6 @@ const config = {
   messagingSenderId: process.env[`${prefix}messagingSenderId`]
 };
 
-console.log(config);
-
 const db = firebase.initializeApp(config);
 
 

@@ -24,7 +24,7 @@ class Message extends React.Component {
             <ul>
               <div className="messages msg_sent">
                 <p> { this.props.message.messageText } </p>
-                <time dateTime="2009-11-13T20:00">Timothy • 51 min</time>
+                <time> { this.props.message.author } - { this.props.message.date }</time>
               </div>
             </ul>
           </div>
