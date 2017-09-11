@@ -28,6 +28,14 @@ const nexmo = new Nexmo({
   apiSecret: 'c88f4f0e7092b986'
 });
 
+/**
+   * post messages to particular group
+   * Route: POST: '/message'
+   * @param {Object} req request object
+   * @param {Object} res response object
+   * @returns {Response} response object
+   */
+
 const message = (app) => {
   app.post('/message', (req, res) => {
     const { message, groupId, priorityLevel, date, author } = req.body;

@@ -4,6 +4,14 @@ import firebase from 'firebase';
 const app = express();
 const fb = firebase.database();
 
+/**
+   * Get users that have read a particular message
+   * Route: GET: group/:messageId/readUsers
+   * @param {Object} req request object
+   * @param {Object} res response object
+   * @returns {Response} response object
+   */
+
 const userReadMessage = (app) => {
   app.get('/group/:messageId/readUsers', (req, res) => {
     // const messageId = req.body.messageId;

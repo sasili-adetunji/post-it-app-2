@@ -4,6 +4,13 @@ import firebase from 'firebase';
 const app = express();
 const fb = firebase.database();
 
+/**
+   * Get messages of a particular user
+   * Route: GET: group/:groupId/messages'
+   * @param {Object} req request object
+   * @param {Object} res response object
+   * @returns {Response} response object
+   */
 
 const userMessage = (app) => {
   app.get('/group/:groupId/messages', (req, res) => {

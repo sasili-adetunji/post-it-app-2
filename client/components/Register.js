@@ -9,8 +9,10 @@ import PostItActions from '../actions/PostItActions';
 import PostItStore from '../stores/PostItStore';
 
 /**
- * Register component.
- * @returns {String} The HTML markup for the register component
+ * 
+ * 
+ * @class Register
+ * @extends {React.Component}
  */
 class Register extends React.Component {
   /**

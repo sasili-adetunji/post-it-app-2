@@ -1,9 +1,14 @@
 import express from 'express';
 import firebase from 'firebase';
-import Authenticate from '../../middleware/Authenticate';
 
 const app = express();
-
+/**
+   * get groups of a particular user
+   * Route: get: '/group'
+   * @param {Object} req request object
+   * @param {Object} res response object
+   * @returns {Response} response object
+   */
 const groupList = (app) => {
   app.get('/group', (req, res) => {
     firebase.auth().onAuthStateChanged((user) => {

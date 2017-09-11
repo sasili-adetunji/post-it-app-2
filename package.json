@@ -4,20 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "webpack": "webpack --config ./webpack.config.js",
-    "test4": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
     "test": "NODE_ENV=test nyc --reporter=text --reporter=html --reporter=lcov mocha --timeout 75000 dist/test/apiTest.js",
     "coverage-report": "cat ./coverage/lcov.info | coveralls",
-    "test1": "NODE_ENV=test mocha --timeout 75000 dist/test/apiTest.js",
-    "start": "npm run client && npm run build",
-    "client": "webpack",
-    "build": "babel server/ -d dist && npm run server",
-    "dev": "webpack-dev-server --hot & npm start",
-    "server": "babel-watch ./dist/server.js",
-    "dev1": "babel-watch server/server.js",
-    "nodemon": "nodemon server/server.js"
+    "test:api": "NODE_ENV=test mocha --timeout 75000 dist/test/apiTest.js",
+    "start": "NODE_ENV=development webpack && babel-node ./server/server.js",
+    "nodemon": "nodemon --watch server --exec babel-node -- server/server.js"
   },
   "repository": {
     "type": "git",

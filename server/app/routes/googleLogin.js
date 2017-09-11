@@ -5,8 +5,16 @@ import express from 'express';
 import firebase from 'firebase';
 import { firebaseAuth } from '../../config/db';
 
-
 const app = express();
+
+/**
+   * google signin
+   * Route: post: '/user/google'
+   * @param {Object} req request object
+   * @param {Object} res response object
+   * @returns {Response} response object
+   */
+
 const googleLogin = (app) => {
   app.post('/user/google', (req, res) => {
     let token,
@@ -15,7 +23,7 @@ const googleLogin = (app) => {
       displayName;
     const provider = new firebase.auth.GoogleAuthProvider();
     provider.addScope('https://www.googleapis.com/auth/plus.login');
-    firebaseAuth().signInWithPopup(provider)
+    firebase.auth().signInWithPopup(provider)
       .then((result) => {
         token = result.credential.accessToken;
         email = result.user.email;
@@ -28,9 +36,12 @@ const googleLogin = (app) => {
          username: displayName,
          email
        });
-      })
+      });
+    res.json({
+      message: 'You have successfully signed in with  Google'
+    })
       .catch((error) => {
-        res.send({
+        res.json({
           message: error.message
         });
       });

@@ -23,6 +23,7 @@ injectTapEventPlugin();
  * @param {any} { component: Component, isAuthenticated, ...rest }
  * @returns {void}
  */
+
 function PrivateRoute({ component: Component, isAuthenticated, ...rest }) {
   return (
     <Route
@@ -33,6 +34,7 @@ function PrivateRoute({ component: Component, isAuthenticated, ...rest }) {
     />
   );
 }
+
 /**
  *
  * @param {any} { component: Component, isAuthenticated, ...rest }

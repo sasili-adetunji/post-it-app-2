@@ -3,6 +3,13 @@ import firebase from 'firebase';
 
 const app = express();
 
+/**
+   * Get users in the a particular group
+   * Route: GET: /group/:groupId/users
+   * @param {Object} req request object
+   * @param {Object} res response object
+   * @returns {Response} response object
+   */
 const usersInGroup = (app) => {
   app.get('/group/:groupId/users', (req, res) => {
     firebase.auth().onAuthStateChanged((user) => {

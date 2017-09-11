@@ -5,6 +5,13 @@ import firebase from 'firebase';
 
 const app = express();
 
+/**
+   * create group
+   * Route: post: '/group'
+   * @param {Object} req request object
+   * @param {Object} res response object
+   * @returns {Response} response object
+   */
 const group = (app) => {
   app.post('/group', (req, res) => {
     const { groupName, userName } = req.body;

@@ -5,6 +5,13 @@ import firebase from 'firebase';
 
 const app = express();
 
+ /**
+   *  signout route
+   * Route: POST: /user/signout
+   * @param {Object} req request object
+   * @param {Object} res response object
+   * @returns {Response} response object
+   */
 const signout = (app) => {
   app.get('/user/signout', (req, res) => {
     firebase.auth().signOut()

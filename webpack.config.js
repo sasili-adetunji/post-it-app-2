@@ -6,7 +6,7 @@ const debug = process.env.NODE_ENV !== 'production';
 const config = {
   entry: './client/index.js',
   output: {
-    path: path.join(__dirname, './client/public'),
+    path: path.join(__dirname, 'client/public'),
     publicPath: '/',
     filename: 'bundle.js',
   },

@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <title>Code coverage report for client/components/protected/Dashbord.js</title>
+    <title>Code coverage report for client/components/protected/MessageList.js</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../../prettify.css" />
     <link rel="stylesheet" href="../../../base.css" />
@@ -16,13 +16,13 @@
 <div class='wrapper'>
   <div class='pad1'>
     <h1>
-      <a href="../../../index.html">All files</a> / <a href="index.html">client/components/protected</a> Dashbord.js
+      <a href="../../../index.html">All files</a> / <a href="index.html">client/components/protected</a> MessageList.js
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
         <span class="strong">0% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>0/1</span>
+        <span class='fraction'>0/4</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
@@ -32,12 +32,12 @@
       <div class='fl pad1y space-right2'>
         <span class="strong">0% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>0/1</span>
+        <span class='fraction'>0/3</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">0% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>0/1</span>
+        <span class='fraction'>0/4</span>
       </div>
     </div>
   </div>
@@ -72,9 +72,43 @@
 27
 28
 29
-30</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -99,37 +133,51 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react';
+import MessageBox from './MessageBox';
+import Message from './Message';
 &nbsp;
-class NavigationMenu extends Component {
+/**
+ * Dashboard component.
+ * @returns {void} The markup for the Dashboard component
+ */
+class MessageList extends React.Component {
+<span class="fstat-no" title="function not covered" >  co</span>nstructor(props) {
+<span class="cstat-no" title="statement not covered" >    super(props);</span>
+  }
+    /**
+     * Creates an instance of Dashboard and renders the components
+     * @memberOf Dashboard
+     * @returns {void} The markup for the Dashboard
+    */
 &nbsp;
 <span class="fstat-no" title="function not covered" >  re</span>nder() {
+    const messageNodes = <span class="cstat-no" title="statement not covered" >this.props.messages.map(<span class="fstat-no" title="function not covered" >(m</span>essage, i) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >      return (</span>
+        &lt;Message message={message} key={i} MessageId={this.props.messages[0]} readUser={this.props.readUsers} /&gt;
+      );
+    });
 <span class="cstat-no" title="statement not covered" >    return (</span>
-      &lt;div className="well well-sm container-fluid "&gt;
-        &lt;div className="row"&gt;
-          &lt;div className="col-md-4 right-align"&gt;
-            &lt;a href="#"&gt;&lt;span className="glyphicon glyphicon-user"&gt;&amp;nbsp;&lt;/span&gt;Welcome&lt;/a&gt;
-          &lt;/div&gt;
-          &lt;div className="row"&gt;
-            &lt;div className="col-md-6" /&gt;
-            &lt;div className="col-md-6 right-align"&gt;
-              &lt;div className="btn-group"&gt;
-                &lt;Link className="space_link" to="/messageboard"&gt;&lt;span /&gt;&lt;b&gt;DASHBOARD &lt;/b&gt;&lt;/Link&gt;
-                &lt;span className="space_link"&gt;&lt;b&gt; | &lt;/b&gt;&lt;/span&gt;
-                &lt;Link className="" to="/addGroup"&gt;&lt;span /&gt;&lt;b&gt; ADD GROUP&lt;/b&gt;&lt;/Link&gt;
+      &lt;div className="container"&gt;
+        &lt;div className="row col-md-6"&gt;
+          
+            &lt;div className="panel"&gt;
+              &lt;div className=" top-bar"&gt;
+                &lt;div className="col-md-8 col-xs-8"&gt;
+                  &lt;h3 className="panel-title"&gt;&lt;span className="glyphicon glyphicon-comment" /&gt;
+                    Group 1 Message &lt;/h3&gt;
+                &lt;/div&gt;
               &lt;/div&gt;
+              {messageNodes}
+              &lt;MessageBox groupId={this.props.selectedGroup[0]} author={this.props.loggedInUser} /&gt;
             &lt;/div&gt;
-          &lt;/div&gt;
+          
         &lt;/div&gt;
       &lt;/div&gt;
     );
   }
 }
-&nbsp;
-export default NavigationMenu;
+export default MessageList;
 &nbsp;</pre></td></tr>
 </table></pre>
 <div class='push'></div><!-- for sticky footer -->

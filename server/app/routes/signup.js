@@ -6,6 +6,14 @@ import firebase from 'firebase';
 
 const app = express();
 
+ /**
+   *  signup route
+   * Route: POST: /user/signup
+   * @param {Object} req request object
+   * @param {Object} res response object
+   * @returns {Response} response object
+   */
+
 const signup = (app) => {
   app.post('/user/signup', (req, res) => {
     const { email, password, userName, phoneNumber } = req.body;

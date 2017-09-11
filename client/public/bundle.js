@@ -42110,6 +42110,7 @@ function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in ob
  * @param {any} { component: Component, isAuthenticated, ...rest }
  * @returns {void}
  */
+
 function PrivateRoute(_ref) {
   var Component = _ref.component,
       isAuthenticated = _ref.isAuthenticated,
@@ -42121,6 +42122,7 @@ function PrivateRoute(_ref) {
     }
   }));
 }
+
 /**
  *
  * @param {any} { component: Component, isAuthenticated, ...rest }
@@ -43401,8 +43403,10 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 /**
- * Register component.
- * @returns {String} The HTML markup for the register component
+ * 
+ * 
+ * @class Register
+ * @extends {React.Component}
  */
 var Register = function (_React$Component) {
   _inherits(Register, _React$Component);
@@ -44485,10 +44489,7 @@ var config = {
 var db = _firebase2.default.initializeApp(config);
 
 var firebaseAuth = exports.firebaseAuth = _firebase2.default.auth;
-// export const ref = firebase.database().ref();
 exports.default = db;
-
-// export const messaging = firebase.messaging
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),

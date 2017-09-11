@@ -3,6 +3,15 @@ import firebase from 'firebase';
 
 const app = express();
 
+
+  /**
+   * Get users in the app
+   * Route: GET: /users/users/
+   * @param {Object} req request object
+   * @param {Object} res response object
+   * @returns {Response} response object
+   */
+
 const usersList = (app) => {
   app.get('/user/users', (req, res) => {
     firebase.auth().onAuthStateChanged((user) => {
