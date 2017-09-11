@@ -83,19 +83,18 @@ class Register extends React.Component {
                 value={this.state.userName} hintText="Username Field"
                 floatingLabelText="Choose Username" /><br />
             <TextField
-                name="email" onChange={this.onChange} value={this.state.email}
-                errorText={this.state.errors} hintText="Email Field"
+                name="email" onChange={this.onChange} value={this.state.email} hintText="Email Field"
                 floatingLabelText="Your Email" /><br />
             <TextField
                 name="password" onChange={this.onChange}
-                value={this.state.password}
-                errorText={this.state.errors} hintText="Password Field"
+                value={this.state.password} hintText="Password Field"
                 floatingLabelText="Choose Password" type="password" /><br />
             <TextField
                 name="phoneNumber" onChange={this.onChange}
                 value={this.state.phoneNumber}
                 hintText="E.g. 23480" floatingLabelText="Phone Number" /><br />
             <br />
+            <span style={{ color: 'red' }} > {PostItStore.getErrors()} </span> <br />
             <p> Already Have an account,<a href="/#/signin"> Login here </a> </p>
             <RaisedButton
                 style={{

@@ -4234,6 +4234,9 @@ var PostItStore = (0, _objectAssign2.default)({}, _events.EventEmitter.prototype
   receiveSuccess: function receiveSuccess(message) {
     success = message;
   },
+  setErrors: function setErrors(error) {
+    errors = error;
+  },
   getErrors: function getErrors() {
     return errors;
   },
@@ -10962,6 +10965,7 @@ module.exports = {
       }
     }).catch(function (error) {
       _PostItActions2.default.receiveErrors(error.message);
+      // PostItStore.setErrors(error.message);
     });
   },
 
@@ -43271,15 +43275,22 @@ var Login = function (_React$Component) {
               title: 'Login Form',
               subtitle: 'To continue using PostIt, you need to login below' }),
             _react2.default.createElement(_TextField2.default, {
-              name: 'email', onChange: this.onChange, value: this.state.email,
-              errorText: this.state.errors, hintText: 'Email Field',
+              name: 'email', onChange: this.onChange, value: this.state.email, hintText: 'Email Field',
               floatingLabelText: 'Your Email' }),
             _react2.default.createElement('br', null),
             _react2.default.createElement(_TextField2.default, {
-              name: 'password', onChange: this.onChange, value: this.state.password,
-              errorText: this.state.errors, hintText: 'Password Field',
+              name: 'password', onChange: this.onChange, value: this.state.password, hintText: 'Password Field',
               floatingLabelText: 'Choose Password', type: 'password' }),
             _react2.default.createElement('br', null),
+            _react2.default.createElement('br', null),
+            _react2.default.createElement(
+              'span',
+              { style: { color: 'red' } },
+              ' ',
+              _PostItStore2.default.getErrors(),
+              ' '
+            ),
+            ' ',
             _react2.default.createElement('br', null),
             _react2.default.createElement(
               'p',
@@ -43484,14 +43495,12 @@ var Register = function (_React$Component) {
               floatingLabelText: 'Choose Username' }),
             _react2.default.createElement('br', null),
             _react2.default.createElement(_TextField2.default, {
-              name: 'email', onChange: this.onChange, value: this.state.email,
-              errorText: this.state.errors, hintText: 'Email Field',
+              name: 'email', onChange: this.onChange, value: this.state.email, hintText: 'Email Field',
               floatingLabelText: 'Your Email' }),
             _react2.default.createElement('br', null),
             _react2.default.createElement(_TextField2.default, {
               name: 'password', onChange: this.onChange,
-              value: this.state.password,
-              errorText: this.state.errors, hintText: 'Password Field',
+              value: this.state.password, hintText: 'Password Field',
               floatingLabelText: 'Choose Password', type: 'password' }),
             _react2.default.createElement('br', null),
             _react2.default.createElement(_TextField2.default, {
@@ -43499,6 +43508,15 @@ var Register = function (_React$Component) {
               value: this.state.phoneNumber,
               hintText: 'E.g. 23480', floatingLabelText: 'Phone Number' }),
             _react2.default.createElement('br', null),
+            _react2.default.createElement('br', null),
+            _react2.default.createElement(
+              'span',
+              { style: { color: 'red' } },
+              ' ',
+              _PostItStore2.default.getErrors(),
+              ' '
+            ),
+            ' ',
             _react2.default.createElement('br', null),
             _react2.default.createElement(
               'p',
@@ -43677,11 +43695,13 @@ var Message = function (_React$Component) {
     key: 'componentDidMount',
     value: function componentDidMount() {
       _Api2.default.getUserReadUsers(this.props.message);
+      // PostItActions.getUserReadUsers(this.props.message);
     }
   }, {
     key: 'onClick',
     value: function onClick() {
       _Api2.default.getUserReadUsers(this.props.message);
+      // PostItActions.getUserReadUsers(this.props.message);
     }
   }, {
     key: 'render',
@@ -43696,6 +43716,8 @@ var Message = function (_React$Component) {
           user
         );
       });
+      console.log(this.props.readUser);
+
       return _react2.default.createElement(
         'div',
         { className: 'panel-body msg_container_base' },
@@ -43725,6 +43747,15 @@ var Message = function (_React$Component) {
                   this.props.message.author,
                   ' on ',
                   this.props.message.date
+                ),
+                ' ',
+                _react2.default.createElement('br', null),
+                _react2.default.createElement(
+                  'time',
+                  null,
+                  ' This message is ',
+                  this.props.message.status,
+                  ' '
                 ),
                 ' ',
                 _react2.default.createElement('br', null),
@@ -44330,6 +44361,7 @@ PostItDispatcher.register(function (action) {
       _PostItStore2.default.emitChange();
       break;
     case _PostItConstants2.default.RECEIVE_READ_USERS:
+      _Api2.default.getUserReadUsers(action.message);
       _PostItStore2.default.setReadUsers(action.user);
       console.log('dispat', action.user);
       _PostItStore2.default.emitChange();

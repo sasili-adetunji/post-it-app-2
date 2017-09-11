@@ -23,9 +23,12 @@ class Message extends React.Component {
 
   componentDidMount() {
     API.getUserReadUsers(this.props.message);
+    // PostItActions.getUserReadUsers(this.props.message);
   }
   onClick() {
     API.getUserReadUsers(this.props.message);
+    // PostItActions.getUserReadUsers(this.props.message);
+
   }
   render() {
     const userNodes = this.props.readUser.map((eachUser, i) => {
@@ -35,6 +38,8 @@ class Message extends React.Component {
         <li style={{ display: 'inline' }} key={i} > {user}</li>
       );
     });
+    console.log(this.props.readUser);
+
     return (
       <div className="panel-body msg_container_base">
         <div className="row msg_container base_sent">
@@ -43,6 +48,7 @@ class Message extends React.Component {
               <div className="messages msg_sent">
                 <p> { this.props.message.messageText } </p>
                 <time> Posted by { this.props.message.author } on { this.props.message.date }</time> <br />
+                <time> This message is {this.props.message.status} </time> <br />
                 <time> Read by <span> { userNodes } </span> </time>
               </div>
             </ul>

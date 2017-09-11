@@ -53,6 +53,7 @@ PostItDispatcher.register((action) => {
       PostItStore.emitChange();
       break;
     case PostItConstants.RECEIVE_READ_USERS:
+      API.getUserReadUsers(action.message);
       PostItStore.setReadUsers(action.user);
       console.log('dispat', action.user);
       PostItStore.emitChange();

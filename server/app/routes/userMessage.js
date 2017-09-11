@@ -45,7 +45,7 @@ const userMessage = (app) => {
 });
       } else {
         res.status(403).send({
-          message: 'Please log in to see a list of your groups'
+          message: 'Please log in to see a list of your messages'
         });
       }
     });

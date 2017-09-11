@@ -60,7 +60,10 @@ const PostItStore = assign({}, EventEmitter.prototype, {
   receiveSuccess(message) {
     success = message;
   },
-
+  setErrors(error) {
+    errors = error;
+},
+  
   getErrors() {
     return errors;
   },

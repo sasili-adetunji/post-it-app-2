@@ -61,6 +61,7 @@ module.exports = {
     })
   .catch((error) => {
     PostItActions.receiveErrors(error.message);
+    // PostItStore.setErrors(error.message);
   });
   },
 

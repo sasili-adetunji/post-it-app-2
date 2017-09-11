@@ -102,14 +102,13 @@ class Login extends React.Component {
               title="Login Form"
               subtitle="To continue using PostIt, you need to login below" />
             <TextField
-              name="email" onChange={this.onChange} value={this.state.email}
-              errorText={this.state.errors} hintText="Email Field"
+              name="email" onChange={this.onChange} value={this.state.email} hintText="Email Field"
               floatingLabelText="Your Email" /><br />
             <TextField
-              name="password" onChange={this.onChange} value={this.state.password}
-              errorText={this.state.errors} hintText="Password Field"
+              name="password" onChange={this.onChange} value={this.state.password} hintText="Password Field"
               floatingLabelText="Choose Password" type="password" /><br />
             <br />
+            <span style={{ color: 'red' }} > {PostItStore.getErrors()} </span> <br />
             <p> Dont Have an account, <a href="/#/signup"> Register here </a> </p>
             <p> Forgot your Password? Enter your Email and <a
             href="/#/signup"

@@ -17,7 +17,7 @@ import userReadMessage from './userReadMessage';
 
 const index = (app) => {
   signup(app);
-  signin(app)
+  signin(app);
   signout(app);
   group(app);
   message(app);
