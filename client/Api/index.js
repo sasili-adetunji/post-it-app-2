@@ -1,4 +1,5 @@
 import axios from 'axios';
+import firebase from 'firebase';
 import { firebaseAuth, db } from '../../server/config/db';
 import PostItActions from '../actions/PostItActions';
 import PostItStore from '../stores/PostItStore';
@@ -14,7 +15,7 @@ module.exports = {
     axios.post('/user/signup', {
       email: user.email,
       password: user.password,
-      username: user.username,
+      userName: user.userName,
       phoneNumber: user.phoneNumber
     })
     .then((response) => {
@@ -68,7 +69,7 @@ module.exports = {
    *
    */
   signoutUser() {
-    axios.post('/user/signout').then((response) => {
+    axios.get('/user/signout').then((response) => {
       PostItActions.receiveSuccess(response.message);
     })
     .catch((error) => {
@@ -78,7 +79,7 @@ module.exports = {
 
   /**
    * api call to login us with google
-   * 
+   *
    */
   googleLogin() {
     let email,
@@ -86,7 +87,7 @@ module.exports = {
       displayName;
     const provider = new firebase.auth.GoogleAuthProvider();
     provider.addScope('https://www.googleapis.com/auth/plus.login');
-    firebaseAuth().signInWithPopup(provider)
+    firebase.auth().signInWithPopup(provider)
       .then((result) => {
         const token = result.credential.accessToken;
         email = result.user.email;
@@ -96,7 +97,7 @@ module.exports = {
     .then(() => {
       db.database()
        .ref('users/').child(uid).set({
-         username: displayName,
+         userName: displayName,
          email
        });
     })
@@ -120,8 +121,8 @@ module.exports = {
    */
   createNewGroup(group) {
     axios.post('/group', {
-      groupname: group.groupname,
-      username: group.username
+      groupName: group.groupName,
+      userName: group.userName
     }).then((response) => {
       PostItActions.receiveSuccess(response.message);
     })
@@ -206,7 +207,6 @@ module.exports = {
   getUsers() {
     axios.get('user/users')
    .then((response) => {
-     console.log(response);
      PostItActions.receiveSuccess(response.message);
      PostItActions.receiveUsers(response.data.users);
    })
@@ -230,6 +230,18 @@ module.exports = {
      PostItActions.receiveErrors(error.message);
    });
   },
+  getUserReadUsers(message) {
+    axios.get(`/group/${message.messageId}/readUsers`)
+    .then((response) => {
+      PostItActions.receiveSuccess(response.message);
+      PostItStore.setReadUsers(response.data.readUsers);
+      // PostItActions.receiveReadUsers(response.data.readUsers);
+    })
+   .catch((error) => {
+     PostItActions.receiveErrors(error.message);
+   });
+  },
+
 
   /**
    * api call to reset password

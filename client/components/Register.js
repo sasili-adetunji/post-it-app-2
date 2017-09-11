@@ -54,7 +54,7 @@ class Register extends React.Component {
     const user = {
       email: this.state.email,
       password: this.state.password,
-      username: this.state.username,
+      userName: this.state.userName,
       phoneNumber: this.state.phoneNumber
 
     };
@@ -80,7 +80,7 @@ class Register extends React.Component {
                 subtitle="To continue using PostIt, you need to register below" />
             <TextField
                 name="username" onChange={this.onChange}
-                value={this.state.username} hintText="Username Field"
+                value={this.state.userName} hintText="Username Field"
                 floatingLabelText="Choose Username" /><br />
             <TextField
                 name="email" onChange={this.onChange} value={this.state.email}

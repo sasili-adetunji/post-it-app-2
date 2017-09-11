@@ -8,24 +8,24 @@ const app = express();
 
 const signup = (app) => {
   app.post('/user/signup', (req, res) => {
-    const { email, password, username, phoneNumber } = req.body;
+    const { email, password, userName, phoneNumber } = req.body;
     firebase.auth().createUserWithEmailAndPassword(email, password)
     .then((user) => {
       user.updateProfile({
-        displayName: username
+        displayName: userName
       });
       firebase.database().ref('users/')
       .child(user.uid).set({
-        username,
+        userName,
         email,
         phoneNumber
       });
-      res.send({ message: `Welcome ${user.email}. You have successfully registered`,
+      res.json({ message: `Welcome ${user.email}. You have successfully registered`,
         user });
     })
     .catch((err) => {
       const errorMessage = err.message;
-      res.send({ message: errorMessage });
+      res.json({ message: errorMessage });
     });
   });
 };

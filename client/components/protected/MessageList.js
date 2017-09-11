@@ -19,15 +19,15 @@ class MessageList extends React.Component {
   render() {
     const messageNodes = this.props.messages.map((message, i) => {
       return (
-        <Message message={message} key={i} />
+        <Message message={message} key={i} MessageId={this.props.messages[0]} readUser={this.props.readUsers} />
       );
     });
     return (
       <div className="container">
-        <div className="row chat-window col-md-6" id="chat_window_1">
-          <div className="col-xs-12 col-md-12">
-            <div className="panel panel-default">
-              <div className="panel-heading top-bar">
+        <div className="row col-md-6">
+          
+            <div className="panel">
+              <div className=" top-bar">
                 <div className="col-md-8 col-xs-8">
                   <h3 className="panel-title"><span className="glyphicon glyphicon-comment" />
                     Group 1 Message </h3>
@@ -36,7 +36,7 @@ class MessageList extends React.Component {
               {messageNodes}
               <MessageBox groupId={this.props.selectedGroup[0]} author={this.props.loggedInUser} />
             </div>
-          </div>
+          
         </div>
       </div>
     );

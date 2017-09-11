@@ -41,8 +41,6 @@ var port = process.env.PORT || 8000;
 app.use(_bodyParser2.default.urlencoded({ extended: true }));
 app.use(_bodyParser2.default.json());
 
-// import the index file which has all the routes
-
 app.use(_express2.default.static(_path2.default.join(__dirname, '../client/public')));
 
 (0, _index2.default)(app, {});

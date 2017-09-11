@@ -61,7 +61,7 @@ class MessageBox extends React.Component {
       <div className="panel-footer">
         <div className="input-group">
           <input
-          onChange={this.onChange} id="btn-input" type="text" className="form-control input-sm chat_input"
+          onChange={this.onChange} id="btn-input" type="text" className="form-control"
           placeholder="Write your message here..." name="message" value={this.state.message} />
           <select
             placeholder="Priority Level" name="priorityLevel" onChange={this.onChange}
@@ -71,7 +71,7 @@ class MessageBox extends React.Component {
             <option value="Critical">Critical</option>
           </select>
           <span className="input-group-btn">
-            <button onClick={this.onClick} className="btn btn-primary btn-sm" id="btn-chat">Send</button>
+            <button onClick={this.onClick} className="btn btn-primary btn-sm">Send</button>
           </span>
         </div>
       </div>

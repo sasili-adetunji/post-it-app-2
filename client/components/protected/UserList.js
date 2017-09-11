@@ -42,6 +42,7 @@ class UserList extends React.Component {
    */
 
   render() {
+    console.log(this.props.usernames, 'userlisttttt');
     const userNodes = this.props.user.map((user, i) => {
       return (
         <User user={user} key={i} />

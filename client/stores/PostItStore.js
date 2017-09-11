@@ -7,6 +7,7 @@ let usersInGroup = [];
 const usersNotInGroup = [];
 let users = [];
 let userGroups = [];
+let readUsers = [];
 let userMessages = [];
 let errors = '';
 let success = '';
@@ -40,11 +41,10 @@ const PostItStore = assign({}, EventEmitter.prototype, {
 
   signinUser(user) {
     loggedInUser.push(user);
-    console.log('======> logged ', user);
   },
 
   signOutUser() {
-    loggedInUser.pop();
+    loggedInUser.length = 0;
     isAuthenticated = false;
   },
 
@@ -66,6 +66,10 @@ const PostItStore = assign({}, EventEmitter.prototype, {
   },
   getOpenedGroup() {
     return selectedGroup;
+  },
+
+  getReadUsers() {
+    return readUsers;
   },
 
   getLoggedInUser() {
@@ -96,6 +100,9 @@ const PostItStore = assign({}, EventEmitter.prototype, {
 
   setUserGroups(groups) {
     userGroups = groups;
+  },
+  setReadUsers(user) {
+    readUsers = user;
   },
 
   setLoggedInUser(user) {

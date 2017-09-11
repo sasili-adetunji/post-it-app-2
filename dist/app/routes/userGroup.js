@@ -25,7 +25,7 @@ var userGroup = function userGroup(app) {
           snapshot.forEach(function (childSnapShot) {
             var group = {
               groupId: childSnapShot.val().groupInfo.groupId,
-              groupname: childSnapShot.val().groupInfo.groupName
+              groupName: childSnapShot.val().groupInfo.groupName
             };
             groups.push(group);
           });

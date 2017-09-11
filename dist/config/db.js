@@ -3,6 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.firebaseAuth = undefined;
 
 var _firebase = require('firebase');
 
@@ -34,7 +35,7 @@ var config = {
 
 var db = _firebase2.default.initializeApp(config);
 
-// export const firebaseAuth = firebase.auth;
+var firebaseAuth = exports.firebaseAuth = _firebase2.default.auth;
 // export const ref = firebase.database().ref();
 exports.default = db;
 

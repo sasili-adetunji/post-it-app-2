@@ -7,15 +7,17 @@ const usersInGroup = (app) => {
   app.get('/group/:groupId/users', (req, res) => {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
+                // create an empty array to hold the users
+
         const users = [];
         const userRef = firebase.database().ref(`/groups/${req.params.groupId}/users`)
         .once('value', (msg) => {
           msg.forEach((snapshot) => {
-            const user = {
+            const userDetails = {
               userId: snapshot.val().userId,
               userName: snapshot.val().userName,
             };
-            users.push(user);
+            users.push(userDetails);
           });
         })
         .then(() => {

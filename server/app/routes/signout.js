@@ -6,10 +6,10 @@ import firebase from 'firebase';
 const app = express();
 
 const signout = (app) => {
-  app.post('/user/signout', (req, res) => {
+  app.get('/user/signout', (req, res) => {
     firebase.auth().signOut()
   .then(() => {
-    res.send({
+    res.json({
       message: 'You have signed out of the Appliction'
     });
   })

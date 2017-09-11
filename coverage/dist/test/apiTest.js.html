@@ -1,0 +1,449 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for dist/test/apiTest.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../prettify.css" />
+    <link rel="stylesheet" href="../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../index.html">All files</a> / <a href="index.html">dist/test</a> apiTest.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>67/67</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>4/4</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>29/29</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>67/67</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">'use strict';
+&nbsp;
+var _assert = require('assert');
+&nbsp;
+var _assert2 = _interopRequireDefault(_assert);
+&nbsp;
+var _chai = require('chai');
+&nbsp;
+var _chai2 = _interopRequireDefault(_chai);
+&nbsp;
+var _chaiHttp = require('chai-http');
+&nbsp;
+var _chaiHttp2 = _interopRequireDefault(_chaiHttp);
+&nbsp;
+var _server = require('../server');
+&nbsp;
+var _server2 = _interopRequireDefault(_server);
+&nbsp;
+function _interopRequireDefault(obj) { return obj &amp;&amp; obj.__esModule ? obj : { default: obj }; }
+&nbsp;
+process.env.NODE_ENV = 'test';
+&nbsp;
+var should = _chai2.default.should();
+var expect = _chai2.default.expect;
+_chai2.default.use(_chaiHttp2.default);
+&nbsp;
+var user = {
+  userName: 'Goodboy',
+  password: 'googleoo',
+  email: 'goodboy@gmail.com',
+  phoneNumber: '08021256793'
+};
+var newUser = {
+  userName: 'Goodgirl',
+  password: 'google123',
+  email: 'goodgirl@gmail.com',
+  phoneNumber: '08021256793'
+};
+var SignIn = {
+  email: 'goodboy@gmail.com',
+  password: 'googleoo'
+};
+&nbsp;
+var group = {
+  groupName: 'Business tips'
+};
+&nbsp;
+describe('PostIt Signup route', function () {
+  it('should not sign up an existing user', function (done) {
+    _chai2.default.request(_server2.default).post('/user/signup').send(user).end(function (err, res) {
+      _assert2.default.equal('The email address is already in use by another account.', res.body.message);
+      res.should.have.status(200);
+      _assert2.default.equal('200', res.statusCode);
+      res.body.should.be.a('object');
+      done();
+    });
+  });
+});
+describe('Sign in route', function () {
+  it('should successfully sign in a user', function (done) {
+    _chai2.default.request(_server2.default).post('/user/signin').send(SignIn).end(function (err, res) {
+      res.body.message.should.equal('Success: you have successfuly signed in.');
+      done();
+    });
+  });
+  it('should ensure that user fills in correct details', function (done) {
+    _chai2.default.request(_server2.default).post('/user/signin').send({ email: 'Olaide@mail.com', password: '' }).end(function (err, res) {
+      res.body.message.should.equal('Error: The email or password of the user is invalid');
+      done();
+    });
+  });
+  it('should fail to sign up user with empty username or password', function (done) {
+    _chai2.default.request(_server2.default).post('/user/signup').send({ userName: 'Olaide', email: 'Olaide@gmail.com', password: '', phoneNumber: '123450971' }).end(function (err, res) {
+      _assert2.default.equal('The password must be 6 characters long or more.', res.body.message);
+      done();
+    });
+  });
+});
+describe('Add group route', function () {
+  it('should ensure a signed in user successfuly add group', function (done) {
+    _chai2.default.request(_server2.default).post('/group').send({
+      groupName: 'A test Group',
+      userName: 'Goodboy'
+    }).end(function (err, res) {
+      _assert2.default.equal('New Group Successfully Created', res.body.message);
+      done();
+    });
+  });
+});
+&nbsp;
+describe('Add user to group route', function () {
+  it('should ensure a signed in user can successfuly add user to group', function (done) {
+    _chai2.default.request(_server2.default).post('/group/-KtfPZnYDzsnNyM3ubdM/user').send({ groupId: '-KtfPZnYDzsnNyM3ubdM', userName: 'Goodboy', userId: '29dFoMH7boWe8NI7O2J7rRA4s4G2' }).end(function (err, res) {
+      _assert2.default.equal('User successfully added', res.body.message);
+      done();
+    });
+  });
+});
+describe('Sign out route', function () {
+  it('should successfuly sign out user', function (done) {
+    _chai2.default.request(_server2.default).get('/user/signout').end(function (err, res) {
+      _assert2.default.equal('You have signed out of the Appliction', res.body.message);
+      done();
+    });
+  });
+});
+describe('Get groups route', function () {
+  it('should successfuly get users groups', function (done) {
+    _chai2.default.request(_server2.default).get('/group').end(function (err, res) {
+      done();
+    });
+  });
+});
+describe('Post message route', function () {
+  it('should successfuly send message to groups', function (done) {
+    _chai2.default.request(_server2.default).post('/message').send({ message: 'A test Message', groupId: '-KtfPZnYDzsnNyM3ubdM', priorityLevel: 'Normal', date: new Date(), author: 'Goodboy' }).end(function (err, res) {
+      _assert2.default.equal('Message Sent successfully to Group', res.body.message);
+      done();
+    });
+  });
+});
+describe('Get user messages route', function () {
+  it('should successfuly get messages of groups', function (done) {
+    _chai2.default.request(_server2.default).get('/group/-KtfPZnYDzsnNyM3ubdM/messages').end(function (err, res) {
+      console.log(res.body);
+      done();
+    });
+  });
+});</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Mon Sep 11 2017 11:34:29 GMT+0100 (WAT)
+</div>
+</div>
+<script src="../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../sorter.js"></script>
+</body>
+</html>

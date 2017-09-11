@@ -18,12 +18,18 @@ const userMessage = (app) => {
               messageText: childSnapShot.val().message,
               author: childSnapShot.val().author,
               priorityLevel: childSnapShot.val().priorityLevel,
-              date: childSnapShot.val().date
+              date: childSnapShot.val().date,
+              status: childSnapShot.val().status
             };
             messages.push(message);
-            firebase.database().ref(`groups/${req.params.groupId}/messages/${childSnapShot.key}/readUsers`)
+            firebase.database().ref(`users/${user.uid}/groups/${req.params.groupId}/messages/${childSnapShot.key}/`)
+              .update({
+                status: 'Read'
+              });
+            firebase.database().ref(`readUsers/${childSnapShot.key}/${user.uid}`)
               .set({
-                readusers: user.displayName
+                userId: user.uid,
+                userName: user.displayName
               });
           });
         })

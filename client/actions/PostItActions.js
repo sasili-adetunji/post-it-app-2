@@ -58,7 +58,13 @@ const PostItActions = {
 
     });
   },
+  receiveReadUsers(user) {
+    PostItDispatcher.dispatch({
+      actionType: PostItConstants.RECEIVE_READ_USERS,
+      user
 
+    });
+  },
   /**
    * create group and dispatches actions
    * @param {any} group

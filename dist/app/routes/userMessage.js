@@ -29,11 +29,16 @@ var userMessage = function userMessage(app) {
               messageText: childSnapShot.val().message,
               author: childSnapShot.val().author,
               priorityLevel: childSnapShot.val().priorityLevel,
-              date: childSnapShot.val().date
+              date: childSnapShot.val().date,
+              status: childSnapShot.val().status
             };
             messages.push(message);
-            _firebase2.default.database().ref('groups/' + req.params.groupId + '/messages/' + childSnapShot.key + '/readUsers').set({
-              readusers: user.displayName
+            _firebase2.default.database().ref('users/' + user.uid + '/groups/' + req.params.groupId + '/messages/' + childSnapShot.key + '/').update({
+              status: 'Read'
+            });
+            _firebase2.default.database().ref('readUsers/' + childSnapShot.key + '/' + user.uid).set({
+              userId: user.uid,
+              userName: user.displayName
             });
           });
         }).then(function () {

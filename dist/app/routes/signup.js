@@ -24,23 +24,23 @@ var signup = function signup(app) {
     var _req$body = req.body,
         email = _req$body.email,
         password = _req$body.password,
-        username = _req$body.username,
+        userName = _req$body.userName,
         phoneNumber = _req$body.phoneNumber;
 
     _firebase2.default.auth().createUserWithEmailAndPassword(email, password).then(function (user) {
       user.updateProfile({
-        displayName: username
+        displayName: userName
       });
       _firebase2.default.database().ref('users/').child(user.uid).set({
-        username: username,
+        userName: userName,
         email: email,
         phoneNumber: phoneNumber
       });
-      res.send({ message: 'Welcome ' + user.email + '. You have successfully registered',
+      res.json({ message: 'Welcome ' + user.email + '. You have successfully registered',
         user: user });
     }).catch(function (err) {
       var errorMessage = err.message;
-      res.send({ message: errorMessage });
+      res.json({ message: errorMessage });
     });
   });
 };

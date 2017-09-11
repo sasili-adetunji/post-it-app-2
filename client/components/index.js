@@ -10,8 +10,11 @@ import PostItStore from '../stores/PostItStore';
 import PostItActions from '../actions/PostItActions';
 import Login from './Login';
 import Register from './Register';
-import Group from './Group';
+import Group from './protected/Group';
 import Dashboard from './protected/Dashbord';
+import CreateGroup from './protected/CreateGroup';
+import MessageBoard from './protected/MessageBoard';
+
 
 injectTapEventPlugin();
 
@@ -97,6 +100,12 @@ class App extends Component {
           <PrivateRoute
             isAuthenticated={this.state.isAuthenticated}
             path="/dashboard" component={Dashboard} />
+          <PrivateRoute
+            isAuthenticated={this.state.isAuthenticated}
+            path="/addgroup" component={CreateGroup} />
+          <PrivateRoute
+            isAuthenticated={this.state.isAuthenticated}
+            path="/messageboard" component={MessageBoard} />
           <Route render={() => <h3>No Match</h3>} />
         </Switch>
       </div>

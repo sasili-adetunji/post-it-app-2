@@ -31,13 +31,12 @@ var groupAdd = function groupAdd(app) {
         userName: userName
       });
       var groupNames = _firebase2.default.database().ref('groups/' + groupId).orderByKey().once('value', function (snap) {
-        var groupname = snap.val().groupname;
+        var groupName = snap.val().groupName;
         var userRef = _firebase2.default.database().ref('users/' + userId + '/groups/' + groupId + '/groupInfo').set({
           groupId: groupId,
-          groupname: groupname
+          groupName: groupName
         });
       });
-
       res.send({
         message: 'User successfully added'
       }).catch(function (error) {

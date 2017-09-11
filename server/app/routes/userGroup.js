@@ -13,7 +13,7 @@ const userGroup = (app) => {
         snapshot.forEach((childSnapShot) => {
           const group = {
             groupId: childSnapShot.val().groupInfo.groupId,
-            groupname: childSnapShot.val().groupInfo.groupName
+            groupName: childSnapShot.val().groupInfo.groupName
           };
           groups.push(group);
         });

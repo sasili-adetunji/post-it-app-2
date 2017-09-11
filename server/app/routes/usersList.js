@@ -7,14 +7,15 @@ const usersList = (app) => {
   app.get('/user/users', (req, res) => {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
+        // create an empty array to hold the users
         const users = [];
         const userRef = firebase.database().ref('users/').once('value', (msg) => {
           msg.forEach((snapshot) => {
-            const user = {
+            const userDetails = {
               userId: snapshot.key,
-              username: snapshot.val().username
+              userName: snapshot.val().username
             };
-            users.push(user);
+            users.push(userDetails);
           });
         })
         .then(() => {
@@ -28,7 +29,7 @@ const usersList = (app) => {
       });
     });
       } else {
-        res.status(403).send({
+        res.status(403).json({
           message: 'You are not signed in right now! '
         });
       }

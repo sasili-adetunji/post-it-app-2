@@ -72,7 +72,8 @@ var message = function message(app) {
             message: message,
             author: author,
             date: date,
-            priorityLevel: priorityLevel
+            priorityLevel: priorityLevel,
+            status: 'Unread'
           });
           if (priorityLevel === 'Critical' || priorityLevel === 'Urgent') {
             _firebase2.default.database().ref('users/' + childSnapShot.val().userId + '/').once('value', function (snap) {

@@ -1,5 +1,6 @@
 import React from 'react';
 import mui from 'material-ui';
+import GoogleButton from 'react-google-button';
 import { Card, CardActions, CardHeader, CardTitle, CardText } from 'material-ui/Card';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -110,7 +111,8 @@ class Login extends React.Component {
               floatingLabelText="Choose Password" type="password" /><br />
             <br />
             <p> Dont Have an account, <a href="/#/signup"> Register here </a> </p>
-            <p> Forgot your Password? Enter your Email and <a href="/#/signup" 
+            <p> Forgot your Password? Enter your Email and <a
+            href="/#/signup"
             onClick={this.onClickReset}> Click here </a> </p>
             <RaisedButton
               style={{
@@ -118,15 +120,14 @@ class Login extends React.Component {
               }}
               label="Login" primary onClick={this.onClick} />
             <div />
-            <FlatButton
-            style={{
-              width: '50%',
-              margin: '0 auto',
-              border: '2px solid',
-              backgroundColor: '#ffd699',
-            }}
-              label="Sign in with Google" primary onClick={this.onClickGoogle}
-            />
+            <br />
+            <div className="row">
+              <center>
+                <GoogleButton
+              onClick={this.onClickGoogle}
+              />
+              </center>
+            </div>
           </Card>
         </MuiThemeProvider>
       </div>

@@ -20,14 +20,15 @@ var usersList = function usersList(app) {
   app.get('/user/users', function (req, res) {
     _firebase2.default.auth().onAuthStateChanged(function (user) {
       if (user) {
+        // create an empty array to hold the users
         var users = [];
         var userRef = _firebase2.default.database().ref('users/').once('value', function (msg) {
           msg.forEach(function (snapshot) {
-            var user = {
+            var userDetails = {
               userId: snapshot.key,
-              username: snapshot.val().username
+              userName: snapshot.val().username
             };
-            users.push(user);
+            users.push(userDetails);
           });
         }).then(function () {
           res.send({
@@ -39,7 +40,7 @@ var usersList = function usersList(app) {
           });
         });
       } else {
-        res.status(403).send({
+        res.status(403).json({
           message: 'You are not signed in right now! '
         });
       }

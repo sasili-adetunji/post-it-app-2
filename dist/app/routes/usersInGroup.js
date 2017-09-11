@@ -20,14 +20,16 @@ var usersInGroup = function usersInGroup(app) {
   app.get('/group/:groupId/users', function (req, res) {
     _firebase2.default.auth().onAuthStateChanged(function (user) {
       if (user) {
+        // create an empty array to hold the users
+
         var users = [];
         var userRef = _firebase2.default.database().ref('/groups/' + req.params.groupId + '/users').once('value', function (msg) {
           msg.forEach(function (snapshot) {
-            var user = {
+            var userDetails = {
               userId: snapshot.val().userId,
               userName: snapshot.val().userName
             };
-            users.push(user);
+            users.push(userDetails);
           });
         }).then(function () {
           res.send({

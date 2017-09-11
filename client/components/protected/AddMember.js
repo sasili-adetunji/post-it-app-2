@@ -46,7 +46,7 @@ class AddMember extends React.Component {
   data(userName) {
     let n;
     lodash.map(this.props.user).map((x) => {
-      if (userName === x.username) {
+      if (userName === x.userName) {
         n = x.userId;
       }
     });
@@ -59,7 +59,6 @@ class AddMember extends React.Component {
       userName: this.state.userName,
       groupId: this.props.groupId.groupId
     };
-    // console.log(user, 'yyyyyyyy')
     PostItActions.addUserToGroup(user);
   }
   render() {

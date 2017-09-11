@@ -37,7 +37,7 @@ const message = (app) => {
         message,
         author,
         date,
-        priorityLevel,
+        priorityLevel
       }).key;
       const userRef = firebase.database().ref(`groups/${groupId}/users/`)
           .once('value', (snapshot) => {
@@ -47,7 +47,8 @@ const message = (app) => {
               message,
               author,
               date,
-              priorityLevel
+              priorityLevel,
+              status: 'Unread'
             });
               if ((priorityLevel === 'Critical') || (priorityLevel === 'Urgent')) {
                 firebase.database().ref(`users/${childSnapShot.val().userId}/`)

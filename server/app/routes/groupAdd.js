@@ -15,17 +15,15 @@ const groupAdd = (app) => {
       });
       const groupNames = firebase.database().ref(`groups/${groupId}`).orderByKey()
               .once('value', (snap) => {
-                const groupname = snap.val().groupname;
+                const groupName = snap.val().groupName;
                 const userRef = firebase.database().ref(`users/${userId}/groups/${groupId}/groupInfo`).set({
                   groupId,
-                  groupname
+                  groupName
                 });
               });
-
       res.send({
         message: 'User successfully added',
       })
-
      .catch((error) => {
        res.status(500).send({
          message: `Error occurred ${error.message}`,
