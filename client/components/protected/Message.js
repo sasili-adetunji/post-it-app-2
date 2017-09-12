@@ -4,7 +4,7 @@ import PostItActions from '../../actions/PostItActions';
 
 
 /**
- *
+ * createa Message components
  *
  * @class Message
  * @extends {React.Component}
@@ -14,21 +14,14 @@ class Message extends React.Component {
     super(props);
     this.onClick = this.onClick.bind(this);
   }
-  /**
-   *
-   * renders the message components
-   * @returns {void}
-   * @memberof Message
-   */
 
   componentDidMount() {
     API.getUserReadUsers(this.props.message);
     // PostItActions.getUserReadUsers(this.props.message);
   }
   onClick() {
+    // PostItActions.receiveReadUsers(this.props.message);
     API.getUserReadUsers(this.props.message);
-    // PostItActions.getUserReadUsers(this.props.message);
-
   }
   render() {
     const userNodes = this.props.readUser.map((eachUser, i) => {
@@ -38,8 +31,6 @@ class Message extends React.Component {
         <li style={{ display: 'inline' }} key={i} > {user}</li>
       );
     });
-    console.log(this.props.readUser);
-
     return (
       <div className="panel-body msg_container_base">
         <div className="row msg_container base_sent">
@@ -47,7 +38,8 @@ class Message extends React.Component {
             <ul onClick={this.onClick} >
               <div className="messages msg_sent">
                 <p> { this.props.message.messageText } </p>
-                <time> Posted by { this.props.message.author } on { this.props.message.date }</time> <br />
+                <time> Posted by { this.props.message.author } on
+                  { this.props.message.date }</time> <br />
                 <time> This message is {this.props.message.status} </time> <br />
                 <time> Read by <span> { userNodes } </span> </time>
               </div>

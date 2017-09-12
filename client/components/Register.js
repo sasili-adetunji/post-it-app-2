@@ -8,9 +8,9 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import PostItActions from '../actions/PostItActions';
 import PostItStore from '../stores/PostItStore';
 
+
 /**
- * 
- * 
+ * Creates Register components
  * @class Register
  * @extends {React.Component}
  */
@@ -99,9 +99,7 @@ class Register extends React.Component {
             <span style={{ color: 'red' }} > {PostItStore.getErrors()} </span> <br />
             <p> Already Have an account,<a href="/#/signin"> Login here </a> </p>
             <RaisedButton
-                style={{
-                  display: 'block',
-                }} onClick={this.onClick}
+                style={{ display: 'block' }} onClick={this.onClick}
                 onTouchTap={this.handleTouchTap}
                 label="Sign Up" primary />
           </Card>

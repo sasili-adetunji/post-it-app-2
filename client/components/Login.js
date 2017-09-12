@@ -9,17 +9,13 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import PostItActions from '../actions/PostItActions';
 import PostItStore from '../stores/PostItStore';
 
-/**
- * Login component.
- * @returns {String} The HTML markup for the login component
- */
 
+/**
+ * creates Login componets
+ * @class Login
+ * @extends {React.Component}
+ */
 class Login extends React.Component {
-  /**
-   * Creates an instance of Login.
-   * @param {object} props
-   * @memberOf Login
-   */
   constructor(props) {
     super(props);
     this.state = {
@@ -105,8 +101,9 @@ class Login extends React.Component {
               name="email" onChange={this.onChange} value={this.state.email} hintText="Email Field"
               floatingLabelText="Your Email" /><br />
             <TextField
-              name="password" onChange={this.onChange} value={this.state.password} hintText="Password Field"
-              floatingLabelText="Choose Password" type="password" /><br />
+              name="password" onChange={this.onChange} value={this.state.password} 
+              hintText="Password Field" floatingLabelText="Choose Password" 
+              type="password" /><br />
             <br />
             <span style={{ color: 'red' }} > {PostItStore.getErrors()} </span> <br />
             <p> Dont Have an account, <a href="/#/signup"> Register here </a> </p>
@@ -114,11 +111,8 @@ class Login extends React.Component {
             href="/#/signup"
             onClick={this.onClickReset}> Click here </a> </p>
             <RaisedButton
-              style={{
-                display: 'block',
-              }}
+              style={{ display: 'block' }}
               label="Login" primary onClick={this.onClick} />
-            <div />
             <br />
             <div className="row">
               <center>

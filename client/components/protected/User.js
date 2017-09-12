@@ -1,22 +1,18 @@
 import React from 'react';
 
+
 /**
- *
+ * creates message components
  * @class Message
  * @extends {React.Component}
  */
 class Message extends React.Component {
-  constructor(props) {
-    super(props);
-  }
 
   /**
-   *
-   * renders the message components
-   * @returns {void}
+   * renders message components
+   * @returns { void }
    * @memberof Message
    */
-
   render() {
     return (
       <div className="side-menu-container">

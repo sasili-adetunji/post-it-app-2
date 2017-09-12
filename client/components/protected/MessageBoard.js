@@ -4,31 +4,15 @@ import PostItStore from '../../stores/PostItStore';
 import GroupList from './GroupList';
 import UserList from './UserList';
 import MessageList from './MessageList';
-import NavigationMenu from './Dashbord';
 
-function getAppState() {
-  return {
-    loggedInUser: PostItStore.getLoggedInUser(),
-    groups: PostItStore.getUserGroups(),
-    messages: PostItStore.getMessages(),
-    users: PostItStore.getUsersInGroup(),
-    selectedGroup: PostItStore.getOpenedGroup(),
-    user: PostItStore.getUsers(),
-    readUsers: PostItStore.getReadUsers(),
-
-  };
-}
 
 /**
- * Dashboard component.
- * @returns {void} The markup for the Dashboard component
+ * creates dashboard components
+ * 
+ * @class Dashboard
+ * @extends {React.Component}
  */
 class Dashboard extends React.Component {
-  /**
-   * Creates an instance of Dashboard and renders the components
-   * @memberOf Dashboard
-   * @returns {void} The markup for the Dashboard
-  */
   constructor(props) {
     super(props);
     this.state = {
@@ -45,40 +29,50 @@ class Dashboard extends React.Component {
   }
 
   onChange() {
-    this.setState(getAppState());
+    this.setState({
+      loggedInUser: PostItStore.getLoggedInUser(),
+      groups: PostItStore.getUserGroups(),
+      messages: PostItStore.getMessages(),
+      users: PostItStore.getUsersInGroup(),
+      selectedGroup: PostItStore.getOpenedGroup(),
+      user: PostItStore.getUsers(),
+      readUsers: PostItStore.getReadUsers()
+    });
   }
-  /**
-   * adds change listener, get users and usergroups from API
-   * @memberof DashContainer
-   */
+
   componentDidMount() {
     API.getUserGroups();
-    // API.getUsersInGroup();
     API.getUsers();
     PostItStore.addChangeListener(this.onChange);
   }
-  /**
-   * removes changelistener
-   * @memberof DashContainer
-   */
+
   componentUnmount() {
     PostItStore.removeChangeListener(this.onChange);
   }
   render() {
+ /**
+   * renders the dashboard componets
+   *
+   * @returns { void }
+   * @memberof Dashboard
+   */
     return (
-      <div className="container">
-        <NavigationMenu />
-        <h5> Welcome {this.state.loggedInUser.displayName} </h5>
-        <div className="row col-md-3">
-          <GroupList {...this.state} loggedInUser={this.state.loggedInUser}
-          groups={this.state.groups} />
-            <div className="side-body col-md-6">
-              <MessageList {...this.state} loggedInUser={this.state.loggedInUser}
+      <div>
+        <div><h5> Welcome {this.state.loggedInUser.displayName} </h5></div>
+        <div className="row">
+          <div className="col-md-3">
+            <GroupList
+              {...this.state} loggedInUser={this.state.loggedInUser}
+              groups={this.state.groups} />
+          </div>
+          <div className="col-md-6">
+            <MessageList
+              {...this.state} loggedInUser={this.state.loggedInUser}
               readUsers={this.state.readUsers} />
-            </div>
-        </div>
-        <div className="row col-md-3" id="leftsidenav" >
-          <UserList {...this.state} user={this.state.users} usernames={this.state.user} />
+          </div>
+          <div className="col-md-3" id="" >
+            <UserList {...this.state} user={this.state.users} usernames={this.state.user} />
+          </div>
         </div>
       </div>
     );

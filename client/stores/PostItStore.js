@@ -53,7 +53,6 @@ const PostItStore = assign({}, EventEmitter.prototype, {
   },
 
   receiveErrors(error) {
-    console.log(error);
     errors = error;
   },
 
@@ -62,8 +61,7 @@ const PostItStore = assign({}, EventEmitter.prototype, {
   },
   setErrors(error) {
     errors = error;
-},
-  
+  },
   getErrors() {
     return errors;
   },

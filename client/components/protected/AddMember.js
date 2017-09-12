@@ -5,15 +5,12 @@ import PostItActions from '../../actions/PostItActions';
 
 
 /**
- * Dashboard component.
- * @returns {void} The markup for the Dashboard component
+ * creates addmember components
+ *
+ * @class AddMember
+ * @extends {React.Component}
  */
 class AddMember extends React.Component {
-    /**
-     * Creates an instance of Dashboard and renders the components
-     * @memberOf Dashboard
-     * @returns {void} The markup for the Dashboard
-    */
   constructor(props) {
     super(props);
     this.state = {
@@ -25,12 +22,6 @@ class AddMember extends React.Component {
     this.data = this.data.bind(this);
   }
 
-  /**
-   * monitors the state of the components state
-   *
-   * @param {any} e
-   * @memberof MessageBox
-   */
   onChange(e) {
     this.setState({
       [e.target.name]: e.target.value
@@ -38,10 +29,11 @@ class AddMember extends React.Component {
   }
 
   /**
-   * makes an action call to post message
+   * function that get userid from username
    *
-   * @param {any} e
-   * @memberof MessageBox
+   * @param {any} userName
+   * @returns
+   * @memberof AddMember
    */
   data(userName) {
     let n;
@@ -61,16 +53,23 @@ class AddMember extends React.Component {
     };
     PostItActions.addUserToGroup(user);
   }
+  /**
+   *
+   * renders add member components
+   * @returns { void }
+   * @memberof AddMember
+   */
   render() {
     return (
       <div className="panel-body">
         <form className="navbar-form" role="search">
           <div className="form-group">
             <input
-            type="text" className="form-control" placeholder="Add member"
-            name="userName" value={this.state.userName} onChange={this.onChange} />
+              type="text" className="form-control" placeholder="Add member"
+              name="userName" value={this.state.userName} onChange={this.onChange} />
           </div>
-          <button onClick={this.onClick} type="submit" className="btn btn-default "><span className="glyphicon glyphicon-plus" /></button>
+          <button onClick={this.onClick} type="submit" className="btn btn-default ">
+            <span className="glyphicon glyphicon-plus" /></button>
         </form>
       </div>
     );

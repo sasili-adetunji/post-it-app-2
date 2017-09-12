@@ -4,15 +4,18 @@ import PostItStore from '../../stores/PostItStore';
 
 
 /**
- * Dashboard component.
- * @returns {void} The markup for the Dashboard component
+ * creates messagebox components
+ *
+ * @class MessageBox
+ * @extends {React.Component}
  */
 class MessageBox extends React.Component {
-    /**
-     * Creates an instance of Dashboard and renders the components
-     * @memberOf Dashboard
-     * @returns {void} The markup for the Dashboard
-    */
+
+  /**
+   * Creates an instance of MessageBox.
+   * @param {any} props
+   * @memberof MessageBox
+   */
   constructor(props) {
     super(props);
     this.state = {
@@ -24,9 +27,8 @@ class MessageBox extends React.Component {
   }
 
   /**
-   * monitors the state of the components state
    *
-   * @param {any} e
+   * @param {any} e 
    * @memberof MessageBox
    */
   onChange(e) {
@@ -36,9 +38,9 @@ class MessageBox extends React.Component {
   }
 
   /**
-   * makes an action call to post message
    *
-   * @param {any} e
+   *
+   * @param {any} e 
    * @memberof MessageBox
    */
   onClick(e) {
@@ -56,13 +58,20 @@ class MessageBox extends React.Component {
       date: '',
     });
   }
+  /**
+   *
+   * renders the messagebox components
+   * @returns { void }
+   * @memberof MessageBox
+   */
   render() {
+
     return (
-      <div className="panel-footer">
         <div className="input-group">
           <input
           onChange={this.onChange} id="btn-input" type="text" className="form-control"
           placeholder="Write your message here..." name="message" value={this.state.message} />
+          <div />
           <select
             placeholder="Priority Level" name="priorityLevel" onChange={this.onChange}
             className="form-control" value={this.state.priorityLevel} >
@@ -74,7 +83,6 @@ class MessageBox extends React.Component {
             <button onClick={this.onClick} className="btn btn-primary btn-sm">Send</button>
           </span>
         </div>
-      </div>
     );
   }
 }

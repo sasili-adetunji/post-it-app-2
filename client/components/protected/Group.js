@@ -4,11 +4,11 @@ import PostItActions from '../../actions/PostItActions';
 import PostItStore from '../../stores/PostItStore';
 import AddMember from './AddMember';
 import API from '../../Api';
-import NavigationMenu from './Dashbord';
 
 
 /**
- * Group components
+ * creates Group components
+ *
  * @class Group
  * @extends {React.Component}
  */
@@ -18,12 +18,6 @@ class Group extends React.Component {
     this.onClick = this.onClick.bind(this);
   }
 
-  /**
-   * renders the group components
-   *
-   * @returns {void}
-   * @memberof Group
-   */
   onClick() {
     const groupId = {
       groupId: this.props.group.groupId,
@@ -33,11 +27,13 @@ class Group extends React.Component {
     PostItActions.groupOpened(this.props.group);
     API.getUsersInGroup(this.props.group);
     API.getUsers();
-    // API.getUserReadUsers(this.props.group, this.props.MessageId);
   }
-  // componentWillReceiveProps(MessageId) {
-  //   API.getUserReadUsers(this.props.group, this.props.MessageId);
-  // }
+  /**
+   * renders group componenets
+   *
+   * @returns { void }
+   * @memberof Group
+   */
   render() {
     return (
       <div className="side-menu-container">

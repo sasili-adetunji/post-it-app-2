@@ -6,11 +6,13 @@
   "scripts": {
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
-    "test": "NODE_ENV=test nyc --reporter=text --reporter=html --reporter=lcov mocha --timeout 75000 dist/test/apiTest.js",
+    "test": "NODE_ENV=test nyc --reporter=text --reporter=html --reporter=lcov mocha --timeout 75000 --compilers js:babel-register",
     "coverage-report": "cat ./coverage/lcov.info | coveralls",
-    "test:api": "NODE_ENV=test mocha --timeout 75000 dist/test/apiTest.js",
+    "test:api": "NODE_ENV=test mocha --timeout 75000 --compilers js:babel-register server/test/apiTest.js",
     "start": "NODE_ENV=development webpack && babel-node ./server/server.js",
-    "nodemon": "nodemon --watch server --exec babel-node -- server/server.js"
+    "nodemon": "nodemon --watch server --exec babel-node -- server/server.js",
+    "dev": "webpack-dev-server --hot & npm start"
+    
   },
   "repository": {
     "type": "git",

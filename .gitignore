@@ -2,3 +2,5 @@
 **/.env
 npm debug-log
 .DS_Store
+.vscode
+serviceAccountKey.json

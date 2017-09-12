@@ -3,15 +3,13 @@ import PostItActions from '../../actions/PostItActions';
 
 
 /**
- * Dashboard component.
- * @returns {void} The markup for the Dashboard component
+ * create creategroup components
+ *
+ * @class CreateGroup
+ * @extends {React.Component}
  */
 class CreateGroup extends React.Component {
-    /**
-     * Creates an instance of Dashboard and renders the components
-     * @memberOf Dashboard
-     * @returns {void} The markup for the Dashboard
-    */
+
   constructor(props) {
     super(props);
     this.state = {
@@ -20,23 +18,12 @@ class CreateGroup extends React.Component {
     this.onChange = this.onChange.bind(this);
     this.onClick = this.onClick.bind(this);
   }
-  /**
-   * monitors the state of the components and change the state
-   *
-   * @param {any} e
-   * @memberof CreateGroup
-   */
+
   onChange(e) {
     this.setState({
       groupName: e.target.value
     });
   }
-  /**
-   * makes an action call to create group
-   *
-   * @param {any} e
-   * @memberof CreateGroup
-   */
   onClick(e) {
     e.preventDefault();
     const group = {

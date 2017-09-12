@@ -61,7 +61,6 @@ module.exports = {
     })
   .catch((error) => {
     PostItActions.receiveErrors(error.message);
-    // PostItStore.setErrors(error.message);
   });
   },
 
@@ -72,6 +71,7 @@ module.exports = {
   signoutUser() {
     axios.get('/user/signout').then((response) => {
       PostItActions.receiveSuccess(response.message);
+      localStorage.removeItem('user');
     })
     .catch((error) => {
       PostItActions.receiveErrors(error.message);
@@ -177,7 +177,6 @@ module.exports = {
   getUserGroups() {
     axios.get('user/groups')
    .then((response) => {
-     console.log(response);
      PostItActions.receiveSuccess(response.message);
      PostItStore.setUserGroups(response.data.groups);
    })
@@ -231,12 +230,19 @@ module.exports = {
      PostItActions.receiveErrors(error.message);
    });
   },
+
+
+  /**
+   * api call to get read users
+   *
+   * @param {any} message
+   */
   getUserReadUsers(message) {
     axios.get(`/group/${message.messageId}/readUsers`)
     .then((response) => {
       PostItActions.receiveSuccess(response.message);
-      PostItStore.setReadUsers(response.data.readUsers);
       // PostItActions.receiveReadUsers(response.data.readUsers);
+      PostItStore.setReadUsers(response.data.readUsers);
     })
    .catch((error) => {
      PostItActions.receiveErrors(error.message);
