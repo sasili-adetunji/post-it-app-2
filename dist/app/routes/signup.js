@@ -19,26 +19,36 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var app = (0, _express2.default)();
 
+/**
+  *  signup route
+  * Route: POST: /user/signup
+  * @param {Object} req request object
+  * @param {Object} res response object
+  * @returns {Response} response object
+  */
+
 var signup = function signup(app) {
   app.post('/user/signup', function (req, res) {
-    var email = req.body.email,
-        password = req.body.password,
-        username = req.body.username,
-        phoneNumber = req.body.phoneNumber;
+    var _req$body = req.body,
+        email = _req$body.email,
+        password = _req$body.password,
+        userName = _req$body.userName,
+        phoneNumber = _req$body.phoneNumber;
+
     _firebase2.default.auth().createUserWithEmailAndPassword(email, password).then(function (user) {
       user.updateProfile({
-        displayName: username
+        displayName: userName
       });
       _firebase2.default.database().ref('users/').child(user.uid).set({
-        username: username,
+        userName: userName,
         email: email,
         phoneNumber: phoneNumber
       });
-      res.send({ message: 'Welcome ' + user.email + '. You have successfully registered',
+      res.json({ message: 'Welcome ' + user.email + '. You have successfully registered',
         user: user });
     }).catch(function (err) {
       var errorMessage = err.message;
-      res.send({ message: errorMessage });
+      res.json({ message: errorMessage });
     });
   });
 };

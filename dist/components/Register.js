@@ -49,8 +49,9 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 /**
- * Register component.
- * @returns {String} The HTML markup for the register component
+ * Creates Register components
+ * @class Register
+ * @extends {React.Component}
  */
 var Register = function (_React$Component) {
   _inherits(Register, _React$Component);
@@ -105,7 +106,7 @@ var Register = function (_React$Component) {
       var user = {
         email: this.state.email,
         password: this.state.password,
-        username: this.state.username,
+        userName: this.state.userName,
         phoneNumber: this.state.phoneNumber
 
       };
@@ -139,18 +140,16 @@ var Register = function (_React$Component) {
               subtitle: 'To continue using PostIt, you need to register below' }),
             _react2.default.createElement(_TextField2.default, {
               name: 'username', onChange: this.onChange,
-              value: this.state.username, hintText: 'Username Field',
+              value: this.state.userName, hintText: 'Username Field',
               floatingLabelText: 'Choose Username' }),
             _react2.default.createElement('br', null),
             _react2.default.createElement(_TextField2.default, {
-              name: 'email', onChange: this.onChange, value: this.state.email,
-              errorText: this.state.errors, hintText: 'Email Field',
+              name: 'email', onChange: this.onChange, value: this.state.email, hintText: 'Email Field',
               floatingLabelText: 'Your Email' }),
             _react2.default.createElement('br', null),
             _react2.default.createElement(_TextField2.default, {
               name: 'password', onChange: this.onChange,
-              value: this.state.password,
-              errorText: this.state.errors, hintText: 'Password Field',
+              value: this.state.password, hintText: 'Password Field',
               floatingLabelText: 'Choose Password', type: 'password' }),
             _react2.default.createElement('br', null),
             _react2.default.createElement(_TextField2.default, {
@@ -158,6 +157,15 @@ var Register = function (_React$Component) {
               value: this.state.phoneNumber,
               hintText: 'E.g. 23480', floatingLabelText: 'Phone Number' }),
             _react2.default.createElement('br', null),
+            _react2.default.createElement('br', null),
+            _react2.default.createElement(
+              'span',
+              { style: { color: 'red' } },
+              ' ',
+              _PostItStore2.default.getErrors(),
+              ' '
+            ),
+            ' ',
             _react2.default.createElement('br', null),
             _react2.default.createElement(
               'p',
@@ -171,9 +179,7 @@ var Register = function (_React$Component) {
               ' '
             ),
             _react2.default.createElement(_RaisedButton2.default, {
-              style: {
-                display: 'block'
-              }, onClick: this.onClick,
+              style: { display: 'block' }, onClick: this.onClick,
               onTouchTap: this.handleTouchTap,
               label: 'Sign Up', primary: true })
           )

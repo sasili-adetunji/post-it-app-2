@@ -18,10 +18,17 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var app = (0, _express2.default)();
 
+/**
+  *  signout route
+  * Route: POST: /user/signout
+  * @param {Object} req request object
+  * @param {Object} res response object
+  * @returns {Response} response object
+  */
 var signout = function signout(app) {
-  app.post('/user/signout', function (req, res) {
+  app.get('/user/signout', function (req, res) {
     _firebase2.default.auth().signOut().then(function () {
-      res.send({
+      res.json({
         message: 'You have signed out of the Appliction'
       });
     }).catch(function (err) {

@@ -74,7 +74,13 @@ var PostItActions = {
 
     });
   },
+  receiveReadUsers: function receiveReadUsers(user) {
+    _PostItDispatcher2.default.dispatch({
+      actionType: _PostItConstants2.default.RECEIVE_READ_USERS,
+      user: user
 
+    });
+  },
 
   /**
    * create group and dispatches actions

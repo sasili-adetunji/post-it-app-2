@@ -1,7 +1,8 @@
 import axios from 'axios';
 import firebase from 'firebase';
-import { firebaseAuth } from '../../server/config/db';
+import { firebaseAuth, db } from '../../server/config/db';
 import PostItActions from '../actions/PostItActions';
+import PostItStore from '../stores/PostItStore';
 
 module.exports = {
 
@@ -14,7 +15,7 @@ module.exports = {
     axios.post('/user/signup', {
       email: user.email,
       password: user.password,
-      username: user.username,
+      userName: user.userName,
       phoneNumber: user.phoneNumber
     })
     .then((response) => {
@@ -26,6 +27,7 @@ module.exports = {
         PostItActions.receiveErrors(response.data.message);
       } else {
         PostItActions.receiveSuccess(response.data.message);
+        localStorage.setItem('user', response.data.user.stsTokenManager.accessToken);
         PostItActions.receiveAuthenticatedUser(authuser);
       }
     })
@@ -52,7 +54,9 @@ module.exports = {
         PostItActions.receiveErrors(response.data.message);
       } else {
         PostItActions.receiveSuccess(response.data.message);
+        localStorage.setItem('user', response.data.user.stsTokenManager.accessToken);
         PostItActions.receiveAuthenticatedUser(authuser);
+        PostItStore.setLoggedInUser(response.data.user);
       }
     })
   .catch((error) => {
@@ -65,8 +69,9 @@ module.exports = {
    *
    */
   signoutUser() {
-    axios.post('/user/signout').then((response) => {
+    axios.get('/user/signout').then((response) => {
       PostItActions.receiveSuccess(response.message);
+      localStorage.removeItem('user');
     })
     .catch((error) => {
       PostItActions.receiveErrors(error.message);
@@ -75,7 +80,7 @@ module.exports = {
 
   /**
    * api call to login us with google
-   * 
+   *
    */
   googleLogin() {
     let email,
@@ -83,7 +88,7 @@ module.exports = {
       displayName;
     const provider = new firebase.auth.GoogleAuthProvider();
     provider.addScope('https://www.googleapis.com/auth/plus.login');
-    firebaseAuth().signInWithPopup(provider)
+    firebase.auth().signInWithPopup(provider)
       .then((result) => {
         const token = result.credential.accessToken;
         email = result.user.email;
@@ -91,9 +96,9 @@ module.exports = {
         displayName = result.user.displayName;
       })
     .then(() => {
-      firebase.database()
+      db.database()
        .ref('users/').child(uid).set({
-         username: displayName,
+         userName: displayName,
          email
        });
     })
@@ -117,7 +122,8 @@ module.exports = {
    */
   createNewGroup(group) {
     axios.post('/group', {
-      groupname: group.groupname,
+      groupName: group.groupName,
+      userName: group.userName
     }).then((response) => {
       PostItActions.receiveSuccess(response.message);
     })
@@ -133,10 +139,9 @@ module.exports = {
    */
   addUserToGroup(user) {
     axios.post(`/group/${user.groupId}/user`, {
-      email: user.email,
       userId: user.userId,
-      username: user.username,
-      groupname: user.groupName
+      groupId: user.groupId,
+      userName: user.userName
     }).then((response) => {
       PostItActions.receiveSuccess(response.message);
     })
@@ -154,7 +159,9 @@ module.exports = {
     axios.post('/message', {
       groupId: message.groupId,
       message: message.message,
-      priorityLevel: message.priorityLevel
+      priorityLevel: message.priorityLevel,
+      date: message.date,
+      author: message.author
     }).then((response) => {
       PostItActions.receiveSuccess(response.message);
     })
@@ -170,9 +177,8 @@ module.exports = {
   getUserGroups() {
     axios.get('user/groups')
    .then((response) => {
-     console.log(response);
      PostItActions.receiveSuccess(response.message);
-     PostItActions.receiveUserGroups(response.data.groups);
+     PostItStore.setUserGroups(response.data.groups);
    })
    .catch((error) => {
      PostItActions.receiveErrors(error.message);
@@ -180,13 +186,27 @@ module.exports = {
   },
 
   /**
+   * api call to get list of all the users in a group
+   *
+   */
+  getUsersInGroup(group) {
+    axios.get(`/group/${group.groupId}/users`)
+   .then((response) => {
+     PostItActions.receiveSuccess(response.message);
+     PostItStore.setUsersInGroup(response.data.users);
+    //  PostItActions.receiveUsersInGroup(response.data.users);
+   })
+   .catch((error) => {
+     PostItActions.receiveErrors(error.message);
+   });
+  },
+  /**
    * api call to get list of all the users in the App
    *
    */
   getUsers() {
     axios.get('user/users')
    .then((response) => {
-     console.log(response);
      PostItActions.receiveSuccess(response.message);
      PostItActions.receiveUsers(response.data.users);
    })
@@ -210,6 +230,25 @@ module.exports = {
      PostItActions.receiveErrors(error.message);
    });
   },
+
+
+  /**
+   * api call to get read users
+   *
+   * @param {any} message
+   */
+  getUserReadUsers(message) {
+    axios.get(`/group/${message.messageId}/readUsers`)
+    .then((response) => {
+      PostItActions.receiveSuccess(response.message);
+      // PostItActions.receiveReadUsers(response.data.readUsers);
+      PostItStore.setReadUsers(response.data.readUsers);
+    })
+   .catch((error) => {
+     PostItActions.receiveErrors(error.message);
+   });
+  },
+
 
   /**
    * api call to reset password

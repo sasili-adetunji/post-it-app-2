@@ -14,6 +14,10 @@ var _materialUi = require('material-ui');
 
 var _materialUi2 = _interopRequireDefault(_materialUi);
 
+var _reactGoogleButton = require('react-google-button');
+
+var _reactGoogleButton2 = _interopRequireDefault(_reactGoogleButton);
+
 var _Card = require('material-ui/Card');
 
 var _TextField = require('material-ui/TextField');
@@ -51,18 +55,13 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 /**
- * Login component.
- * @returns {String} The HTML markup for the login component
+ * creates Login componets
+ * @class Login
+ * @extends {React.Component}
  */
-
 var Login = function (_React$Component) {
   _inherits(Login, _React$Component);
 
-  /**
-   * Creates an instance of Login.
-   * @param {object} props
-   * @memberOf Login
-   */
   function Login(props) {
     _classCallCheck(this, Login);
 
@@ -167,15 +166,23 @@ var Login = function (_React$Component) {
               title: 'Login Form',
               subtitle: 'To continue using PostIt, you need to login below' }),
             _react2.default.createElement(_TextField2.default, {
-              name: 'email', onChange: this.onChange, value: this.state.email,
-              errorText: this.state.errors, hintText: 'Email Field',
+              name: 'email', onChange: this.onChange, value: this.state.email, hintText: 'Email Field',
               floatingLabelText: 'Your Email' }),
             _react2.default.createElement('br', null),
             _react2.default.createElement(_TextField2.default, {
               name: 'password', onChange: this.onChange, value: this.state.password,
-              errorText: this.state.errors, hintText: 'Password Field',
-              floatingLabelText: 'Choose Password', type: 'password' }),
+              hintText: 'Password Field', floatingLabelText: 'Choose Password',
+              type: 'password' }),
             _react2.default.createElement('br', null),
+            _react2.default.createElement('br', null),
+            _react2.default.createElement(
+              'span',
+              { style: { color: 'red' } },
+              ' ',
+              _PostItStore2.default.getErrors(),
+              ' '
+            ),
+            ' ',
             _react2.default.createElement('br', null),
             _react2.default.createElement(
               'p',
@@ -194,27 +201,28 @@ var Login = function (_React$Component) {
               ' Forgot your Password? Enter your Email and ',
               _react2.default.createElement(
                 'a',
-                { href: '/#/signup',
+                {
+                  href: '/#/signup',
                   onClick: this.onClickReset },
                 ' Click here '
               ),
               ' '
             ),
             _react2.default.createElement(_RaisedButton2.default, {
-              style: {
-                display: 'block'
-              },
+              style: { display: 'block' },
               label: 'Login', primary: true, onClick: this.onClick }),
-            _react2.default.createElement('div', null),
-            _react2.default.createElement(_FlatButton2.default, {
-              style: {
-                width: '50%',
-                margin: '0 auto',
-                border: '2px solid',
-                backgroundColor: '#ffd699'
-              },
-              label: 'Sign in with Google', primary: true, onClick: this.onClickGoogle
-            })
+            _react2.default.createElement('br', null),
+            _react2.default.createElement(
+              'div',
+              { className: 'row' },
+              _react2.default.createElement(
+                'center',
+                null,
+                _react2.default.createElement(_reactGoogleButton2.default, {
+                  onClick: this.onClickGoogle
+                })
+              )
+            )
           )
         )
       );

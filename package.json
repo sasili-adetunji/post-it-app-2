@@ -4,19 +4,16 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "webpack": "webpack --config ./webpack.config.js",
-    "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
-    "test1": "mocha --timeout 75000 dist/test/apiTest.js",
-    "start": "node ./dist/server.js",
-    "build": "babel server/ -d dist && babel client/ -d dist",
-    "dev": "webpack-dev-server --hot & npm start",
-    "server": "nodemon --watch server --exec babel-node -- server/server.js",
-    "dev1": "babel-watch server/server.js",
-    "nodemon": "nodemon server/server.js"
-},
-
+    "test": "NODE_ENV=test nyc --reporter=text --reporter=html --reporter=lcov mocha --timeout 75000 --compilers js:babel-register",
+    "coverage-report": "cat ./coverage/lcov.info | coveralls",
+    "test:api": "NODE_ENV=test mocha --timeout 75000 --compilers js:babel-register server/test/apiTest.js",
+    "start": "NODE_ENV=development webpack && babel-node ./server/server.js",
+    "nodemon": "nodemon --watch server --exec babel-node -- server/server.js",
+    "dev": "webpack-dev-server --hot & npm start"
+    
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/sasili-adetunji/post-it-app.git"
@@ -55,7 +52,9 @@
     "flux": "^3.1.2",
     "history": "^4.6.1",
     "istanbul": "^0.4.5",
+    "jsonwebtoken": "^7.4.3",
     "jwt-decode": "^2.2.0",
+    "lodash": "^4.17.4",
     "material-ui": "^0.18.5",
     "mocha": "^3.4.2",
     "nexmo": "^2.0.2",
@@ -71,6 +70,7 @@
     "react-addons": "^0.9.1-deprecated",
     "react-addons-test-utils": "~15.6.0",
     "react-dom": "^15.5.4",
+    "react-google-button": "^0.3.0",
     "react-router": "^0.13.3",
     "react-router-dom": "^4.1.1",
     "react-tap-event-plugin": "2.0.1",
@@ -83,8 +83,11 @@
     "webpack-dev-server": "^2.4.5"
   },
   "devDependencies": {
+    "assert": "^1.4.1",
     "babel-plugin-transform-decorators-legacy": "^1.3.4",
     "babel-preset-es2015": "^6.24.1",
+    "chai": "^4.1.2",
+    "chai-http": "^3.0.0",
     "enzyme": "^2.9.1",
     "eslint": "^3.19.0",
     "eslint-config-airbnb": "^15.0.1",

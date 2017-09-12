@@ -17,6 +17,7 @@ var usersInGroup = [];
 var usersNotInGroup = [];
 var users = [];
 var userGroups = [];
+var readUsers = [];
 var userMessages = [];
 var errors = '';
 var success = '';
@@ -45,24 +46,29 @@ var PostItStore = (0, _objectAssign2.default)({}, _events.EventEmitter.prototype
     loggedInUser.push(user);
   },
   signOutUser: function signOutUser() {
-    loggedInUser.pop();
+    loggedInUser.length = 0;
     isAuthenticated = false;
   },
   setIsAuthenticated: function setIsAuthenticated(value) {
     isAuthenticated = value;
   },
   receiveErrors: function receiveErrors(error) {
-    console.log(error);
     errors = error;
   },
   receiveSuccess: function receiveSuccess(message) {
     success = message;
+  },
+  setErrors: function setErrors(error) {
+    errors = error;
   },
   getErrors: function getErrors() {
     return errors;
   },
   getOpenedGroup: function getOpenedGroup() {
     return selectedGroup;
+  },
+  getReadUsers: function getReadUsers() {
+    return readUsers;
   },
   getLoggedInUser: function getLoggedInUser() {
     return loggedInUser;
@@ -72,6 +78,9 @@ var PostItStore = (0, _objectAssign2.default)({}, _events.EventEmitter.prototype
   },
   getUserGroups: function getUserGroups() {
     return userGroups;
+  },
+  getUsersInGroup: function getUsersInGroup() {
+    return usersInGroup;
   },
   getUsers: function getUsers() {
     return users;
@@ -85,8 +94,17 @@ var PostItStore = (0, _objectAssign2.default)({}, _events.EventEmitter.prototype
   setUserGroups: function setUserGroups(groups) {
     userGroups = groups;
   },
+  setReadUsers: function setReadUsers(user) {
+    readUsers = user;
+  },
+  setLoggedInUser: function setLoggedInUser(user) {
+    loggedInUser = user;
+  },
   setUsers: function setUsers(user) {
     users = user;
+  },
+  setUsersInGroup: function setUsersInGroup(user) {
+    usersInGroup = user;
   },
   setMessages: function setMessages(messages) {
     userMessages = messages;

@@ -2,7 +2,13 @@ import express from 'express';
 import firebase from 'firebase';
 
 const app = express();
-
+/**
+   * get groups of a particular user
+   * Route: get: '/group'
+   * @param {Object} req request object
+   * @param {Object} res response object
+   * @returns {Response} response object
+   */
 const groupList = (app) => {
   app.get('/group', (req, res) => {
     firebase.auth().onAuthStateChanged((user) => {
@@ -18,16 +24,16 @@ const groupList = (app) => {
             groups.push(group);
           });
         })
-.then(() => {
-  res.send({
-    groups,
-  });
-})
-.catch((error) => {
-  res.status(500).send({
-    message: `Error occurred ${error.message}`,
-  });
-});
+        .then(() => {
+          res.send({
+            groups,
+          });
+        })
+        .catch((error) => {
+          res.status(500).send({
+            message: `Error occurred ${error.message}`,
+          });
+        });
       } else {
         res.status(403).send({
           message: 'Please log in to see a list of your groups'

@@ -52,6 +52,15 @@ PostItDispatcher.register((action) => {
       PostItStore.setMessages(action.messages);
       PostItStore.emitChange();
       break;
+    case PostItConstants.RECEIVE_READ_USERS:
+      API.getUserReadUsers(action.user);
+      PostItStore.setReadUsers(action.user);
+      PostItStore.emitChange();
+      break;
+    case PostItConstants.RECEIVE_USERS_IN_GROUPS:
+      PostItStore.setUsersInGroup(action.groups);
+      PostItStore.emitChange();
+      break;
 
     case PostItConstants.RECEIVE_USER_GROUPS:
       PostItStore.setUserGroups(action.groups);

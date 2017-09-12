@@ -3,6 +3,14 @@ import firebase from 'firebase';
 
 const app = express();
 
+ /**
+   *  get groups of a particular user
+   * Route: GET: /user/groups
+   * @param {Object} req request object
+   * @param {Object} res response object
+   * @returns {Response} response object
+   */
+
 const userGroup = (app) => {
   app.get('/user/groups', (req, res) => {
     firebase.auth().onAuthStateChanged((user) => {
@@ -12,8 +20,8 @@ const userGroup = (app) => {
       .orderByKey().once('value', (snapshot) => {
         snapshot.forEach((childSnapShot) => {
           const group = {
-            groupId: childSnapShot.key,
-            groupname: childSnapShot.val().groupInfo.groupname
+            groupId: childSnapShot.val().groupInfo.groupId,
+            groupName: childSnapShot.val().groupInfo.groupName
           };
           groups.push(group);
         });

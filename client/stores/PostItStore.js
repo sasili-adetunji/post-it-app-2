@@ -3,14 +3,15 @@ import assign from 'object-assign';
 
 
 const registeredUser = [];
-const usersInGroup = [];
+let usersInGroup = [];
 const usersNotInGroup = [];
 let users = [];
 let userGroups = [];
+let readUsers = [];
 let userMessages = [];
 let errors = '';
 let success = '';
-const loggedInUser = [];
+let loggedInUser = [];
 const selectedGroup = [];
 const openedGroup = [];
 let isAuthenticated = false;
@@ -43,7 +44,7 @@ const PostItStore = assign({}, EventEmitter.prototype, {
   },
 
   signOutUser() {
-    loggedInUser.pop();
+    loggedInUser.length = 0;
     isAuthenticated = false;
   },
 
@@ -52,19 +53,24 @@ const PostItStore = assign({}, EventEmitter.prototype, {
   },
 
   receiveErrors(error) {
-    console.log(error);
     errors = error;
   },
 
   receiveSuccess(message) {
     success = message;
   },
-
+  setErrors(error) {
+    errors = error;
+  },
   getErrors() {
     return errors;
   },
   getOpenedGroup() {
     return selectedGroup;
+  },
+
+  getReadUsers() {
+    return readUsers;
   },
 
   getLoggedInUser() {
@@ -78,6 +84,10 @@ const PostItStore = assign({}, EventEmitter.prototype, {
   getUserGroups() {
     return userGroups;
   },
+  getUsersInGroup() {
+    return usersInGroup;
+  },
+
   getUsers() {
     return users;
   },
@@ -92,8 +102,19 @@ const PostItStore = assign({}, EventEmitter.prototype, {
   setUserGroups(groups) {
     userGroups = groups;
   },
+  setReadUsers(user) {
+    readUsers = user;
+  },
+
+  setLoggedInUser(user) {
+    loggedInUser = user;
+  },
+
   setUsers(user) {
     users = user;
+  },
+  setUsersInGroup(user) {
+    usersInGroup = user;
   },
 
   setMessages(messages) {

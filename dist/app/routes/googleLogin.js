@@ -16,7 +16,17 @@ var _db = require('../../config/db');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var app = (0, _express2.default)(); // google route
+var app = (0, _express2.default)();
+
+/**
+   * google signin
+   * Route: post: '/user/google'
+   * @param {Object} req request object
+   * @param {Object} res response object
+   * @returns {Response} response object
+   */
+
+// google route
 // using firebase authentication method
 
 var googleLogin = function googleLogin(app) {
@@ -27,7 +37,7 @@ var googleLogin = function googleLogin(app) {
         displayName = void 0;
     var provider = new _firebase2.default.auth.GoogleAuthProvider();
     provider.addScope('https://www.googleapis.com/auth/plus.login');
-    (0, _db.firebaseAuth)().signInWithPopup(provider).then(function (result) {
+    _firebase2.default.auth().signInWithPopup(provider).then(function (result) {
       token = result.credential.accessToken;
       email = result.user.email;
       uid = result.user.uid;
@@ -37,8 +47,11 @@ var googleLogin = function googleLogin(app) {
         username: displayName,
         email: email
       });
+    });
+    res.json({
+      message: 'You have successfully signed in with  Google'
     }).catch(function (error) {
-      res.send({
+      res.json({
         message: error.message
       });
     });

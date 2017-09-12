@@ -5,27 +5,32 @@ import firebase from 'firebase';
 
 const app = express();
 
+/**
+   * add member to a particular group
+   * Route: post: '/group/:groupId/user'
+   * @param {Object} req request object
+   * @param {Object} res response object
+   * @returns {Response} response object
+   */
 const groupAdd = (app) => {
   app.post('/group/:groupId/user', (req, res) => {
-    const groupId = req.params.groupId;
-    const newUser = req.body.userId;
+    const { groupId, userId, userName } = req.body;
     firebase.auth().onAuthStateChanged((user) => {
-      const groupRef = firebase.database().ref(`groups/${groupId}/users/${newUser}/`).set({
-        Id: newUser
+      const groupRef = firebase.database().ref(`groups/${groupId}/users/${userId}/`).set({
+        userId,
+        userName
       });
-
       const groupNames = firebase.database().ref(`groups/${groupId}`).orderByKey()
               .once('value', (snap) => {
-                const groupname = snap.val().groupname;
-                const userRef = firebase.database().ref(`users/${newUser}/groups/${groupId}/groupInfo`).set({
-                  groupname
+                const groupName = snap.val().groupName;
+                const userRef = firebase.database().ref(`users/${userId}/groups/${groupId}/groupInfo`).set({
+                  groupId,
+                  groupName
                 });
               });
-
       res.send({
         message: 'User successfully added',
       })
-
      .catch((error) => {
        res.status(500).send({
          message: `Error occurred ${error.message}`,

@@ -54,13 +54,17 @@ var _Register = require('./Register');
 
 var _Register2 = _interopRequireDefault(_Register);
 
-var _Group = require('./Group');
+var _Group = require('./protected/Group');
 
 var _Group2 = _interopRequireDefault(_Group);
 
-var _Dashbord = require('./protected/Dashbord');
+var _CreateGroup = require('./protected/CreateGroup');
 
-var _Dashbord2 = _interopRequireDefault(_Dashbord);
+var _CreateGroup2 = _interopRequireDefault(_CreateGroup);
+
+var _MessageBoard = require('./protected/MessageBoard');
+
+var _MessageBoard2 = _interopRequireDefault(_MessageBoard);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -75,10 +79,11 @@ function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in ob
 (0, _reactTapEventPlugin2.default)();
 
 /**
- * function that returns route then
+ * function that returns private routes
  * @param {any} { component: Component, isAuthenticated, ...rest }
  * @returns {void}
  */
+
 function PrivateRoute(_ref) {
   var Component = _ref.component,
       isAuthenticated = _ref.isAuthenticated,
@@ -90,8 +95,9 @@ function PrivateRoute(_ref) {
     }
   }));
 }
+
 /**
- *
+ * function that returns piblic routes
  * @param {any} { component: Component, isAuthenticated, ...rest }
  * @returns {void}
  */
@@ -102,10 +108,16 @@ function PublicRoute(_ref2) {
 
   return _react2.default.createElement(_reactRouterDom.Route, _extends({}, rest, {
     render: function render(props) {
-      return isAuthenticated === false ? _react2.default.createElement(Component, props) : _react2.default.createElement(_reactRouterDom.Redirect, { to: '/dashboard' });
+      return isAuthenticated === false ? _react2.default.createElement(Component, props) : _react2.default.createElement(_reactRouterDom.Redirect, { to: '/messageboard' });
     }
   }));
 }
+
+/**
+ * create the app componets
+ * @class App
+ * @extends {Component}
+ */
 
 var App = function (_Component) {
   _inherits(App, _Component);
@@ -116,16 +128,13 @@ var App = function (_Component) {
     var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
 
     _this.state = {
-      isAuthenticated: _PostItStore2.default.getIsAuthenticated(),
-      user: _PostItStore2.default.getLoggedInUser(),
-      errors: _PostItStore2.default.getErrors()
+      isAuthenticated: _PostItStore2.default.getIsAuthenticated()
     };
-    _this._onChange = _this._onChange.bind(_this);
+    _this.onChange = _this.onChange.bind(_this);
     _this.handleClick = _this.handleClick.bind(_this);
     return _this;
   }
   /**
-   *  adds changeListener from the store
    *
    * @memberof App
    */
@@ -134,19 +143,7 @@ var App = function (_Component) {
   _createClass(App, [{
     key: 'componentDidMount',
     value: function componentDidMount() {
-      _PostItStore2.default.addChangeListener(this._onChange);
-
-      // messaging.requestPermission().
-      // then(function(){
-      //   console.log('Have Permisssion')
-      //   return messaging.getToken();
-      // })
-      // .then(function(token){
-      //   console.log(token)
-      // })
-      // .catch(function(){
-      //   console.log('Error Occured')
-      // })
+      _PostItStore2.default.addChangeListener(this.onChange);
     }
 
     /**
@@ -158,7 +155,7 @@ var App = function (_Component) {
   }, {
     key: 'componentWillUnmount',
     value: function componentWillUnmount() {
-      _PostItStore2.default.removeChangeListener(this._onChange);
+      _PostItStore2.default.removeChangeListener(this.onChange);
     }
   }, {
     key: 'handleClick',
@@ -191,7 +188,7 @@ var App = function (_Component) {
             path: '/signup', component: _Register2.default }),
           _react2.default.createElement(PrivateRoute, {
             isAuthenticated: this.state.isAuthenticated,
-            path: '/dashboard', component: _Dashbord2.default }),
+            path: '/messageboard', component: _MessageBoard2.default }),
           _react2.default.createElement(_reactRouterDom.Route, { render: function render() {
               return _react2.default.createElement(
                 'h3',
@@ -204,18 +201,15 @@ var App = function (_Component) {
     }
 
     /**
-     * monitors changes of the components
      *
      * @memberof App
      */
 
   }, {
-    key: '_onChange',
-    value: function _onChange() {
+    key: 'onChange',
+    value: function onChange() {
       this.setState({
-        isAuthenticated: _PostItStore2.default.getIsAuthenticated(),
-        user: _PostItStore2.default.getLoggedInUser(),
-        errors: _PostItStore2.default.getErrors()
+        isAuthenticated: _PostItStore2.default.getIsAuthenticated()
       });
     }
   }]);

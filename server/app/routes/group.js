@@ -5,20 +5,34 @@ import firebase from 'firebase';
 
 const app = express();
 
+/**
+   * create group
+   * Route: post: '/group'
+   * @param {Object} req request object
+   * @param {Object} res response object
+   * @returns {Response} response object
+   */
 const group = (app) => {
   app.post('/group', (req, res) => {
-    const groupname = req.body.groupname;
+    const { groupName, userName } = req.body;
     firebase.auth().onAuthStateChanged((user) => {
       const groupKey = firebase.database().ref('groups/').push({
-        groupname,
-        groupadmin: user.email,
+        groupName,
+        groupAdmin: user.email,
       }).key;
-      const groupRef = firebase.database().ref(`groups/${groupKey}/users/${user.uid}/`)
+      const groupRef = firebase.database().ref(`groups/${groupKey}/users/${user.uid}`)
           .set({
-            Id: user.uid,
+            userId: user.uid,
+            userName
           });
-      const userRef = firebase.database().ref(`users/${user.uid}/groups/${groupKey}/groupInfo`).set({
-        groupname
+      const userRef = firebase.database().ref(`users/${user.uid}/groups/${groupKey}/groupInfo`)
+      .set({
+        groupId: groupKey,
+        groupName
+      });
+      res.json({
+        message: 'New Group Successfully Created',
+        group: groupName
       })
     .catch((error) => {
     });

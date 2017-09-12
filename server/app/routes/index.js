@@ -11,6 +11,8 @@ import userGroup from './userGroup';
 import userMessage from './userMessage';
 import googleLogin from './googleLogin';
 import resetPassword from './resetPassword';
+import usersInGroup from './usersInGroup';
+import userReadMessage from './userReadMessage';
 
 
 const index = (app) => {
@@ -26,5 +28,7 @@ const index = (app) => {
   userGroup(app);
   googleLogin(app);
   resetPassword(app);
+  usersInGroup(app);
+  userReadMessage(app);
 };
 export default index;

@@ -28,7 +28,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var app = (0, _express2.default)();
 var fb = _firebase2.default.database();
-
 var emails = [];
 var userIds = [];
 var numbers = [];
@@ -51,28 +50,41 @@ var nexmo = new _nexmo2.default({
   apiSecret: 'c88f4f0e7092b986'
 });
 
+/**
+   * post messages to particular group
+   * Route: POST: '/message'
+   * @param {Object} req request object
+   * @param {Object} res response object
+   * @returns {Response} response object
+   */
+
 var message = function message(app) {
   app.post('/message', function (req, res) {
-    var message = req.body.message;
-    var groupId = req.body.groupId;
-    var priorityLevel = req.body.priorityLevel;
+    var _req$body = req.body,
+        message = _req$body.message,
+        groupId = _req$body.groupId,
+        priorityLevel = _req$body.priorityLevel,
+        date = _req$body.date,
+        author = _req$body.author;
 
     _firebase2.default.auth().onAuthStateChanged(function (user) {
-      _firebase2.default.database().ref('groups/' + groupId + '/messages').push({
-        message: message
-      }).then(function () {
-        _firebase2.default.database().ref('groups/' + groupId + '/users/').once('value', function (snapshot) {
-          snapshot.forEach(function (childSnapShot) {
-            userIds.push(childSnapShot.val().Id);
-          });
-        });
-        userIds.forEach(function (uid) {
-          _firebase2.default.database().ref('users/' + uid + '/groups/' + groupId + '/messages').push({
+      var messageKey = _firebase2.default.database().ref('groups/' + groupId + '/messages').push({
+        message: message,
+        author: author,
+        date: date,
+        priorityLevel: priorityLevel
+      }).key;
+      var userRef = _firebase2.default.database().ref('groups/' + groupId + '/users/').once('value', function (snapshot) {
+        snapshot.forEach(function (childSnapShot) {
+          _firebase2.default.database().ref('users/' + childSnapShot.val().userId + '/groups/' + groupId + '/messages/' + messageKey).set({
             message: message,
-            isRead: false
+            author: author,
+            date: date,
+            priorityLevel: priorityLevel,
+            status: 'Unread'
           });
           if (priorityLevel === 'Critical' || priorityLevel === 'Urgent') {
-            _firebase2.default.database().ref('users/' + uid + '/').once('value', function (snap) {
+            _firebase2.default.database().ref('users/' + childSnapShot.val().userId + '/').once('value', function (snap) {
               emails.push(snap.val().email);
               emails.forEach(function (email) {
                 mailOptions.to = email;
@@ -87,7 +99,7 @@ var message = function message(app) {
             });
           }
           if (priorityLevel === 'Critical') {
-            _firebase2.default.database().ref('users/' + uid + '/').once('value', function (msg) {
+            _firebase2.default.database().ref('users/' + childSnapShot.val().userId + '/').once('value', function (msg) {
               numbers.push(msg.val().phoneNumber);
               numbers.forEach(function (number) {
                 nexmo.message.sendSms('PostIt', number, message, function (err, responseData) {

@@ -15,7 +15,13 @@ var _firebase2 = _interopRequireDefault(_firebase);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var app = (0, _express2.default)();
-
+/**
+   * get groups of a particular user
+   * Route: get: '/group'
+   * @param {Object} req request object
+   * @param {Object} res response object
+   * @returns {Response} response object
+   */
 var groupList = function groupList(app) {
   app.get('/group', function (req, res) {
     _firebase2.default.auth().onAuthStateChanged(function (user) {

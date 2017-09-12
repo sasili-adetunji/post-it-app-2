@@ -14,6 +14,10 @@ var _PostItActions = require('../actions/PostItActions');
 
 var _PostItActions2 = _interopRequireDefault(_PostItActions);
 
+var _PostItStore = require('../stores/PostItStore');
+
+var _PostItStore2 = _interopRequireDefault(_PostItStore);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 module.exports = {
@@ -27,7 +31,7 @@ module.exports = {
     _axios2.default.post('/user/signup', {
       email: user.email,
       password: user.password,
-      username: user.username,
+      userName: user.userName,
       phoneNumber: user.phoneNumber
     }).then(function (response) {
       var authuser = {
@@ -38,6 +42,7 @@ module.exports = {
         _PostItActions2.default.receiveErrors(response.data.message);
       } else {
         _PostItActions2.default.receiveSuccess(response.data.message);
+        localStorage.setItem('user', response.data.user.stsTokenManager.accessToken);
         _PostItActions2.default.receiveAuthenticatedUser(authuser);
       }
     }).catch(function (error) {
@@ -64,7 +69,9 @@ module.exports = {
         _PostItActions2.default.receiveErrors(response.data.message);
       } else {
         _PostItActions2.default.receiveSuccess(response.data.message);
+        localStorage.setItem('user', response.data.user.stsTokenManager.accessToken);
         _PostItActions2.default.receiveAuthenticatedUser(authuser);
+        _PostItStore2.default.setLoggedInUser(response.data.user);
       }
     }).catch(function (error) {
       _PostItActions2.default.receiveErrors(error.message);
@@ -77,8 +84,9 @@ module.exports = {
    *
    */
   signoutUser: function signoutUser() {
-    _axios2.default.post('/user/signout').then(function (response) {
+    _axios2.default.get('/user/signout').then(function (response) {
       _PostItActions2.default.receiveSuccess(response.message);
+      localStorage.removeItem('user');
     }).catch(function (error) {
       _PostItActions2.default.receiveErrors(error.message);
     });
@@ -87,7 +95,7 @@ module.exports = {
 
   /**
    * api call to login us with google
-   * 
+   *
    */
   googleLogin: function googleLogin() {
     var email = void 0,
@@ -95,14 +103,14 @@ module.exports = {
         displayName = void 0;
     var provider = new _firebase2.default.auth.GoogleAuthProvider();
     provider.addScope('https://www.googleapis.com/auth/plus.login');
-    (0, _db.firebaseAuth)().signInWithPopup(provider).then(function (result) {
+    _firebase2.default.auth().signInWithPopup(provider).then(function (result) {
       var token = result.credential.accessToken;
       email = result.user.email;
       uid = result.user.uid;
       displayName = result.user.displayName;
     }).then(function () {
-      _firebase2.default.database().ref('users/').child(uid).set({
-        username: displayName,
+      _db.db.database().ref('users/').child(uid).set({
+        userName: displayName,
         email: email
       });
     }).then(function () {
@@ -125,7 +133,8 @@ module.exports = {
    */
   createNewGroup: function createNewGroup(group) {
     _axios2.default.post('/group', {
-      groupname: group.groupname
+      groupName: group.groupName,
+      userName: group.userName
     }).then(function (response) {
       _PostItActions2.default.receiveSuccess(response.message);
     }).catch(function (error) {
@@ -141,10 +150,9 @@ module.exports = {
    */
   addUserToGroup: function addUserToGroup(user) {
     _axios2.default.post('/group/' + user.groupId + '/user', {
-      email: user.email,
       userId: user.userId,
-      username: user.username,
-      groupname: user.groupName
+      groupId: user.groupId,
+      userName: user.userName
     }).then(function (response) {
       _PostItActions2.default.receiveSuccess(response.message);
     }).catch(function (error) {
@@ -162,7 +170,9 @@ module.exports = {
     _axios2.default.post('/message', {
       groupId: message.groupId,
       message: message.message,
-      priorityLevel: message.priorityLevel
+      priorityLevel: message.priorityLevel,
+      date: message.date,
+      author: message.author
     }).then(function (response) {
       _PostItActions2.default.receiveSuccess(response.message);
     }).catch(function (error) {
@@ -177,9 +187,8 @@ module.exports = {
    */
   getUserGroups: function getUserGroups() {
     _axios2.default.get('user/groups').then(function (response) {
-      console.log(response);
       _PostItActions2.default.receiveSuccess(response.message);
-      _PostItActions2.default.receiveUserGroups(response.data.groups);
+      _PostItStore2.default.setUserGroups(response.data.groups);
     }).catch(function (error) {
       _PostItActions2.default.receiveErrors(error.message);
     });
@@ -187,12 +196,25 @@ module.exports = {
 
 
   /**
+   * api call to get list of all the users in a group
+   *
+   */
+  getUsersInGroup: function getUsersInGroup(group) {
+    _axios2.default.get('/group/' + group.groupId + '/users').then(function (response) {
+      _PostItActions2.default.receiveSuccess(response.message);
+      _PostItStore2.default.setUsersInGroup(response.data.users);
+      //  PostItActions.receiveUsersInGroup(response.data.users);
+    }).catch(function (error) {
+      _PostItActions2.default.receiveErrors(error.message);
+    });
+  },
+
+  /**
    * api call to get list of all the users in the App
    *
    */
   getUsers: function getUsers() {
     _axios2.default.get('user/users').then(function (response) {
-      console.log(response);
       _PostItActions2.default.receiveSuccess(response.message);
       _PostItActions2.default.receiveUsers(response.data.users);
     }).catch(function (error) {
@@ -210,6 +232,22 @@ module.exports = {
     _axios2.default.get('/group/' + group.groupId + '/messages').then(function (response) {
       _PostItActions2.default.receiveSuccess(response.message);
       _PostItActions2.default.receiveMessages(response.data.messages);
+    }).catch(function (error) {
+      _PostItActions2.default.receiveErrors(error.message);
+    });
+  },
+
+
+  /**
+   * api call to get read users
+   *
+   * @param {any} message
+   */
+  getUserReadUsers: function getUserReadUsers(message) {
+    _axios2.default.get('/group/' + message.messageId + '/readUsers').then(function (response) {
+      _PostItActions2.default.receiveSuccess(response.message);
+      // PostItActions.receiveReadUsers(response.data.readUsers);
+      _PostItStore2.default.setReadUsers(response.data.readUsers);
     }).catch(function (error) {
       _PostItActions2.default.receiveErrors(error.message);
     });

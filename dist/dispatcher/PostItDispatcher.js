@@ -68,6 +68,15 @@ PostItDispatcher.register(function (action) {
       _PostItStore2.default.setMessages(action.messages);
       _PostItStore2.default.emitChange();
       break;
+    case _PostItConstants2.default.RECEIVE_READ_USERS:
+      _Api2.default.getUserReadUsers(action.user);
+      _PostItStore2.default.setReadUsers(action.user);
+      _PostItStore2.default.emitChange();
+      break;
+    case _PostItConstants2.default.RECEIVE_USERS_IN_GROUPS:
+      _PostItStore2.default.setUsersInGroup(action.groups);
+      _PostItStore2.default.emitChange();
+      break;
 
     case _PostItConstants2.default.RECEIVE_USER_GROUPS:
       _PostItStore2.default.setUserGroups(action.groups);

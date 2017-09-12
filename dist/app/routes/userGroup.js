@@ -16,6 +16,14 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var app = (0, _express2.default)();
 
+/**
+  *  get groups of a particular user
+  * Route: GET: /user/groups
+  * @param {Object} req request object
+  * @param {Object} res response object
+  * @returns {Response} response object
+  */
+
 var userGroup = function userGroup(app) {
   app.get('/user/groups', function (req, res) {
     _firebase2.default.auth().onAuthStateChanged(function (user) {
@@ -24,8 +32,8 @@ var userGroup = function userGroup(app) {
         _firebase2.default.database().ref('users/' + user.uid + '/groups/').orderByKey().once('value', function (snapshot) {
           snapshot.forEach(function (childSnapShot) {
             var group = {
-              groupId: childSnapShot.key,
-              groupname: childSnapShot.val().groupInfo.groupname
+              groupId: childSnapShot.val().groupInfo.groupId,
+              groupName: childSnapShot.val().groupInfo.groupName
             };
             groups.push(group);
           });

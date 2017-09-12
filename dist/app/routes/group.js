@@ -18,19 +18,35 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var app = (0, _express2.default)();
 
+/**
+   * create group
+   * Route: post: '/group'
+   * @param {Object} req request object
+   * @param {Object} res response object
+   * @returns {Response} response object
+   */
 var group = function group(app) {
   app.post('/group', function (req, res) {
-    var groupname = req.body.groupname;
+    var _req$body = req.body,
+        groupName = _req$body.groupName,
+        userName = _req$body.userName;
+
     _firebase2.default.auth().onAuthStateChanged(function (user) {
       var groupKey = _firebase2.default.database().ref('groups/').push({
-        groupname: groupname,
-        groupadmin: user.email
+        groupName: groupName,
+        groupAdmin: user.email
       }).key;
-      var groupRef = _firebase2.default.database().ref('groups/' + groupKey + '/users/' + user.uid + '/').set({
-        Id: user.uid
+      var groupRef = _firebase2.default.database().ref('groups/' + groupKey + '/users/' + user.uid).set({
+        userId: user.uid,
+        userName: userName
       });
       var userRef = _firebase2.default.database().ref('users/' + user.uid + '/groups/' + groupKey + '/groupInfo').set({
-        groupname: groupname
+        groupId: groupKey,
+        groupName: groupName
+      });
+      res.json({
+        message: 'New Group Successfully Created',
+        group: groupName
       }).catch(function (error) {});
     });
   });

@@ -52,6 +52,14 @@ var _resetPassword = require('./resetPassword');
 
 var _resetPassword2 = _interopRequireDefault(_resetPassword);
 
+var _usersInGroup = require('./usersInGroup');
+
+var _usersInGroup2 = _interopRequireDefault(_usersInGroup);
+
+var _userReadMessage = require('./userReadMessage');
+
+var _userReadMessage2 = _interopRequireDefault(_userReadMessage);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 // import all the route into a single index file
@@ -68,5 +76,7 @@ var index = function index(app) {
   (0, _userGroup2.default)(app);
   (0, _googleLogin2.default)(app);
   (0, _resetPassword2.default)(app);
+  (0, _usersInGroup2.default)(app);
+  (0, _userReadMessage2.default)(app);
 };
 exports.default = index;

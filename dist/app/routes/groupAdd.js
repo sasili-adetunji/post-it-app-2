@@ -18,22 +18,32 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var app = (0, _express2.default)();
 
+/**
+   * add member to a particular group
+   * Route: post: '/group/:groupId/user'
+   * @param {Object} req request object
+   * @param {Object} res response object
+   * @returns {Response} response object
+   */
 var groupAdd = function groupAdd(app) {
   app.post('/group/:groupId/user', function (req, res) {
-    var groupId = req.params.groupId;
-    var newUser = req.body.userId;
-    _firebase2.default.auth().onAuthStateChanged(function (user) {
-      var groupRef = _firebase2.default.database().ref('groups/' + groupId + '/users/' + newUser + '/').set({
-        Id: newUser
-      });
+    var _req$body = req.body,
+        groupId = _req$body.groupId,
+        userId = _req$body.userId,
+        userName = _req$body.userName;
 
+    _firebase2.default.auth().onAuthStateChanged(function (user) {
+      var groupRef = _firebase2.default.database().ref('groups/' + groupId + '/users/' + userId + '/').set({
+        userId: userId,
+        userName: userName
+      });
       var groupNames = _firebase2.default.database().ref('groups/' + groupId).orderByKey().once('value', function (snap) {
-        var groupname = snap.val().groupname;
-        var userRef = _firebase2.default.database().ref('users/' + newUser + '/groups/' + groupId + '/groupInfo').set({
-          groupname: groupname
+        var groupName = snap.val().groupName;
+        var userRef = _firebase2.default.database().ref('users/' + userId + '/groups/' + groupId + '/groupInfo').set({
+          groupId: groupId,
+          groupName: groupName
         });
       });
-
       res.send({
         message: 'User successfully added'
       }).catch(function (error) {

@@ -4,11 +4,19 @@
 import express from 'express';
 import firebase from 'firebase';
 
+
+  /**
+   *  signin route
+   * Route: POST: /users/signin
+   * @param {Object} req request object
+   * @param {Object} res response object
+   * @returns {Response} response object
+   */
+
 const app = express();
 const signin = (app) => {
   app.post('/user/signin', (req, res) => {
-    const email = req.body.email;
-    const password = req.body.password;
+    const { email, password } = req.body;
     firebase.auth().signInWithEmailAndPassword(email, password)
   .then((user) => {
     res.send({

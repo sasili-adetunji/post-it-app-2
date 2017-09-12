@@ -6,29 +6,34 @@ import firebase from 'firebase';
 
 const app = express();
 
+ /**
+   *  signup route
+   * Route: POST: /user/signup
+   * @param {Object} req request object
+   * @param {Object} res response object
+   * @returns {Response} response object
+   */
+
 const signup = (app) => {
   app.post('/user/signup', (req, res) => {
-    const email = req.body.email,
-      password = req.body.password,
-      username = req.body.username,
-      phoneNumber = req.body.phoneNumber;
+    const { email, password, userName, phoneNumber } = req.body;
     firebase.auth().createUserWithEmailAndPassword(email, password)
     .then((user) => {
       user.updateProfile({
-        displayName: username
+        displayName: userName
       });
       firebase.database().ref('users/')
       .child(user.uid).set({
-        username,
+        userName,
         email,
         phoneNumber
       });
-      res.send({ message: `Welcome ${user.email}. You have successfully registered`,
+      res.json({ message: `Welcome ${user.email}. You have successfully registered`,
         user });
     })
     .catch((err) => {
       const errorMessage = err.message;
-      res.send({ message: errorMessage });
+      res.json({ message: errorMessage });
     });
   });
 };

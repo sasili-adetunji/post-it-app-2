@@ -8,9 +8,11 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import PostItActions from '../actions/PostItActions';
 import PostItStore from '../stores/PostItStore';
 
+
 /**
- * Register component.
- * @returns {String} The HTML markup for the register component
+ * Creates Register components
+ * @class Register
+ * @extends {React.Component}
  */
 class Register extends React.Component {
   /**
@@ -54,7 +56,7 @@ class Register extends React.Component {
     const user = {
       email: this.state.email,
       password: this.state.password,
-      username: this.state.username,
+      userName: this.state.userName,
       phoneNumber: this.state.phoneNumber
 
     };
@@ -80,27 +82,24 @@ class Register extends React.Component {
                 subtitle="To continue using PostIt, you need to register below" />
             <TextField
                 name="username" onChange={this.onChange}
-                value={this.state.username} hintText="Username Field"
+                value={this.state.userName} hintText="Username Field"
                 floatingLabelText="Choose Username" /><br />
             <TextField
-                name="email" onChange={this.onChange} value={this.state.email}
-                errorText={this.state.errors} hintText="Email Field"
+                name="email" onChange={this.onChange} value={this.state.email} hintText="Email Field"
                 floatingLabelText="Your Email" /><br />
             <TextField
                 name="password" onChange={this.onChange}
-                value={this.state.password}
-                errorText={this.state.errors} hintText="Password Field"
+                value={this.state.password} hintText="Password Field"
                 floatingLabelText="Choose Password" type="password" /><br />
             <TextField
                 name="phoneNumber" onChange={this.onChange}
                 value={this.state.phoneNumber}
                 hintText="E.g. 23480" floatingLabelText="Phone Number" /><br />
             <br />
+            <span style={{ color: 'red' }} > {PostItStore.getErrors()} </span> <br />
             <p> Already Have an account,<a href="/#/signin"> Login here </a> </p>
             <RaisedButton
-                style={{
-                  display: 'block',
-                }} onClick={this.onClick}
+                style={{ display: 'block' }} onClick={this.onClick}
                 onTouchTap={this.handleTouchTap}
                 label="Sign Up" primary />
           </Card>

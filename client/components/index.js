@@ -10,16 +10,18 @@ import PostItStore from '../stores/PostItStore';
 import PostItActions from '../actions/PostItActions';
 import Login from './Login';
 import Register from './Register';
-import Group from './Group';
-import Dashboard from './protected/Dashbord';
+import Group from './protected/Group';
+import CreateGroup from './protected/CreateGroup';
+import MessageBoard from './protected/MessageBoard';
 
 injectTapEventPlugin();
 
 /**
- * function that returns route then
+ * function that returns private routes
  * @param {any} { component: Component, isAuthenticated, ...rest }
  * @returns {void}
  */
+
 function PrivateRoute({ component: Component, isAuthenticated, ...rest }) {
   return (
     <Route
@@ -30,8 +32,9 @@ function PrivateRoute({ component: Component, isAuthenticated, ...rest }) {
     />
   );
 }
+
 /**
- *
+ * function that returns piblic routes
  * @param {any} { component: Component, isAuthenticated, ...rest }
  * @returns {void}
  */
@@ -39,43 +42,34 @@ function PublicRoute({ component: Component, isAuthenticated, ...rest }) {
   return (
     <Route
       {...rest}
-      render={props => isAuthenticated === false
+      render={props  => isAuthenticated === false
         ? <Component {...props} />
-        : <Redirect to="/dashboard" />}
+        : <Redirect to="/messageboard" />}
     />
   );
 }
 
+
+/**
+ * create the app componets
+ * @class App
+ * @extends {Component}
+ */
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       isAuthenticated: PostItStore.getIsAuthenticated(),
-      user: PostItStore.getLoggedInUser(),
-      errors: PostItStore.getErrors()
     };
-    this._onChange = this._onChange.bind(this);
+    this.onChange = this.onChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
   }
   /**
-   *  adds changeListener from the store
    *
    * @memberof App
    */
   componentDidMount() {
-    PostItStore.addChangeListener(this._onChange);
-
-        // messaging.requestPermission().
-        // then(function(){
-        //   console.log('Have Permisssion')
-        //   return messaging.getToken();
-        // })
-        // .then(function(token){
-        //   console.log(token)
-        // })
-        // .catch(function(){
-        //   console.log('Error Occured')
-        // })
+    PostItStore.addChangeListener(this.onChange);
   }
 
   /**
@@ -84,20 +78,19 @@ class App extends Component {
    * @memberof App
    */
   componentWillUnmount() {
-    PostItStore.removeChangeListener(this._onChange);
+    PostItStore.removeChangeListener(this.onChange);
   }
   handleClick(e) {
     e.preventDefault();
     PostItActions.signOutUser();
   }
-
   render() {
     return (
       <div>
         <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
           <AppBar
             title="Post It App" iconElementRight={<FlatButton
-            label="Sign Out" onClick={this.handleClick} />} />
+              label="Sign Out" onClick={this.handleClick} />} />
         </MuiThemeProvider>
         <Switch>
           <PublicRoute path="/" exact component={Login} />
@@ -109,7 +102,7 @@ class App extends Component {
             path="/signup" component={Register} />
           <PrivateRoute
             isAuthenticated={this.state.isAuthenticated}
-            path="/dashboard" component={Dashboard} />
+            path="/messageboard" component={MessageBoard} />
           <Route render={() => <h3>No Match</h3>} />
         </Switch>
       </div>
@@ -117,15 +110,12 @@ class App extends Component {
   }
 
   /**
-   * monitors changes of the components
    *
    * @memberof App
    */
-  _onChange() {
+  onChange() {
     this.setState({
       isAuthenticated: PostItStore.getIsAuthenticated(),
-      user: PostItStore.getLoggedInUser(),
-      errors: PostItStore.getErrors()
     });
   }
 }

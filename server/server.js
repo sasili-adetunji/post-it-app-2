@@ -16,8 +16,6 @@ const port = process.env.PORT || 8000;
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-// import the index file which has all the routes
-
 app.use(express.static(path.join(__dirname, '../client/public')));
 
 routes(app, {});
