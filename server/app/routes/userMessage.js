@@ -14,10 +14,10 @@ const fb = firebase.database();
 
 const userMessage = (app) => {
   app.get('/group/:groupId/messages', (req, res) => {
-    firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
-        const messages = [];
-        firebase.database().ref(`users/${user.uid}/groups/${req.params.groupId}/messages/`)
+    const user = firebase.auth().currentUser;
+    if (user) {
+      const messages = [];
+      firebase.database().ref(`users/${user.uid}/groups/${req.params.groupId}/messages/`)
         .orderByKey().once('value', (snapshot) => {
           snapshot.forEach((childSnapShot) => {
             const message = {
@@ -45,17 +45,16 @@ const userMessage = (app) => {
             messages
           });
         })
-.catch((error) => {
-  res.status(500).send({
-    message: `Error occurred ${error.message}`,
-  });
-});
-      } else {
-        res.status(403).send({
-          message: 'Please log in to see a list of your messages'
+        .catch((error) => {
+          res.status(500).send({
+            message: `Error occurred ${error.message}`,
+          });
         });
-      }
-    });
+    } else {
+      res.status(403).send({
+        message: 'Please log in to see a list of your messages'
+      });
+    }
   });
 };
 

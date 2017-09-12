@@ -15,28 +15,33 @@ const app = express();
 const group = (app) => {
   app.post('/group', (req, res) => {
     const { groupName, userName } = req.body;
-    firebase.auth().onAuthStateChanged((user) => {
+    const user = firebase.auth().currentUser;
+    if (user) {
       const groupKey = firebase.database().ref('groups/').push({
         groupName,
         groupAdmin: user.email,
       }).key;
       const groupRef = firebase.database().ref(`groups/${groupKey}/users/${user.uid}`)
-          .set({
-            userId: user.uid,
-            userName
-          });
+        .set({
+          userId: user.uid,
+          userName
+        });
       const userRef = firebase.database().ref(`users/${user.uid}/groups/${groupKey}/groupInfo`)
-      .set({
-        groupId: groupKey,
-        groupName
-      });
+        .set({
+          groupId: groupKey,
+          groupName
+        });
       res.json({
         message: 'New Group Successfully Created',
         group: groupName
       })
-    .catch((error) => {
-    });
-    });
+        .catch((error) => {
+        });
+    } else {
+      res.status(403).send({
+        message: 'Please log in to post to groups'
+      });
+    }
   });
 };
 

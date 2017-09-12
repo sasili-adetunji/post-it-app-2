@@ -26,32 +26,32 @@ var app = (0, _express2.default)();
 
 var userGroup = function userGroup(app) {
   app.get('/user/groups', function (req, res) {
-    _firebase2.default.auth().onAuthStateChanged(function (user) {
-      if (user) {
-        var groups = [];
-        _firebase2.default.database().ref('users/' + user.uid + '/groups/').orderByKey().once('value', function (snapshot) {
-          snapshot.forEach(function (childSnapShot) {
-            var group = {
-              groupId: childSnapShot.val().groupInfo.groupId,
-              groupName: childSnapShot.val().groupInfo.groupName
-            };
-            groups.push(group);
-          });
-        }).then(function () {
-          res.send({
-            groups: groups
-          });
-        }).catch(function (error) {
-          res.status(500).send({
-            message: 'Error occurred ' + error.message
-          });
+
+    var user = _firebase2.default.auth().currentUser;
+    if (user) {
+      var groups = [];
+      _firebase2.default.database().ref('users/' + user.uid + '/groups/').orderByKey().once('value', function (snapshot) {
+        snapshot.forEach(function (childSnapShot) {
+          var group = {
+            groupId: childSnapShot.val().groupInfo.groupId,
+            groupName: childSnapShot.val().groupInfo.groupName
+          };
+          groups.push(group);
         });
-      } else {
-        res.status(403).send({
-          message: 'You are not signed in right now! '
+      }).then(function () {
+        res.send({
+          groups: groups
         });
-      }
-    });
+      }).catch(function (error) {
+        res.status(500).send({
+          message: 'Error occurred ' + error.message
+        });
+      });
+    } else {
+      res.status(403).send({
+        message: 'You are not signed in right now! '
+      });
+    }
   });
 };
 
