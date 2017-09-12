@@ -9,10 +9,10 @@
     "test": "NODE_ENV=test nyc --reporter=text --reporter=html --reporter=lcov mocha --timeout 75000 --compilers js:babel-register",
     "coverage-report": "cat ./coverage/lcov.info | coveralls",
     "test:api": "NODE_ENV=test mocha --timeout 75000 --compilers js:babel-register server/test/apiTest.js",
+    "build": "babel server/ -d dist && babel client/ -d dist",
     "start": "NODE_ENV=development webpack && babel-node ./server/server.js",
     "nodemon": "nodemon --watch server --exec babel-node -- server/server.js",
     "dev": "webpack-dev-server --hot & npm start"
-    
   },
   "repository": {
     "type": "git",
@@ -52,6 +52,7 @@
     "flux": "^3.1.2",
     "history": "^4.6.1",
     "istanbul": "^0.4.5",
+    "jquery": "^3.2.1",
     "jsonwebtoken": "^7.4.3",
     "jwt-decode": "^2.2.0",
     "lodash": "^4.17.4",
@@ -79,6 +80,7 @@
     "should": "^11.2.1",
     "style-loader": "^0.18.1",
     "supertest": "^3.0.0",
+    "toastr": "^2.1.2",
     "webpack": "^2.6.1",
     "webpack-dev-server": "^2.4.5"
   },

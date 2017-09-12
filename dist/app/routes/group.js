@@ -31,7 +31,8 @@ var group = function group(app) {
         groupName = _req$body.groupName,
         userName = _req$body.userName;
 
-    _firebase2.default.auth().onAuthStateChanged(function (user) {
+    var user = _firebase2.default.auth().currentUser;
+    if (user) {
       var groupKey = _firebase2.default.database().ref('groups/').push({
         groupName: groupName,
         groupAdmin: user.email
@@ -48,7 +49,11 @@ var group = function group(app) {
         message: 'New Group Successfully Created',
         group: groupName
       }).catch(function (error) {});
-    });
+    } else {
+      res.status(403).send({
+        message: 'Please log in to post to groups'
+      });
+    }
   });
 };
 

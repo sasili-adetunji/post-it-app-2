@@ -39,7 +39,7 @@ var signup = function signup(app) {
       user.updateProfile({
         displayName: userName
       });
-      _firebase2.default.database().ref('users/').child(user.uid).set({
+      _firebase2.default.database().ref('users/' + user.uid).set({
         userName: userName,
         email: email,
         phoneNumber: phoneNumber

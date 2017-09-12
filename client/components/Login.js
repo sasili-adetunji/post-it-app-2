@@ -101,8 +101,8 @@ class Login extends React.Component {
               name="email" onChange={this.onChange} value={this.state.email} hintText="Email Field"
               floatingLabelText="Your Email" /><br />
             <TextField
-              name="password" onChange={this.onChange} value={this.state.password} 
-              hintText="Password Field" floatingLabelText="Choose Password" 
+              name="password" onChange={this.onChange} value={this.state.password}
+              hintText="Password Field" floatingLabelText="Choose Password"
               type="password" /><br />
             <br />
             <span style={{ color: 'red' }} > {PostItStore.getErrors()} </span> <br />

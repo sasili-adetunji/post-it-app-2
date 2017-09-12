@@ -12,12 +12,12 @@ const app = express();
    */
 const usersInGroup = (app) => {
   app.get('/group/:groupId/users', (req, res) => {
-    firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
-                // create an empty array to hold the users
+    const user = firebase.auth().currentUser;
+    if (user) {
+      // create an empty array to hold the users
 
-        const users = [];
-        const userRef = firebase.database().ref(`/groups/${req.params.groupId}/users`)
+      const users = [];
+      const userRef = firebase.database().ref(`/groups/${req.params.groupId}/users`)
         .once('value', (msg) => {
           msg.forEach((snapshot) => {
             const userDetails = {
@@ -32,17 +32,16 @@ const usersInGroup = (app) => {
             users
           });
         })
-    .catch((error) => {
-      res.status(500).json({
-        message: `Error occurred ${error.message}`,
-      });
-    });
-      } else {
-        res.status(403).json({
-          message: 'You are not signed in right now! '
+        .catch((error) => {
+          res.status(500).json({
+            message: `Error occurred ${error.message}`,
+          });
         });
-      }
-    });
+    } else {
+      res.status(403).json({
+        message: 'You are not signed in right now! '
+      });
+    }
   });
 };
 

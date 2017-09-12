@@ -24,33 +24,32 @@ var app = (0, _express2.default)();
    */
 var groupList = function groupList(app) {
   app.get('/group', function (req, res) {
-    _firebase2.default.auth().onAuthStateChanged(function (user) {
-      if (user) {
-        var groupRef = _firebase2.default.database().ref('users/' + user.uid + '/groups/');
-        var groups = [];
-        groupRef.orderByKey().once('value', function (snapshot) {
-          snapshot.forEach(function (childSnapShot) {
-            var group = {
-              groupId: childSnapShot.key,
-              groupname: childSnapShot.val().groupname
-            };
-            groups.push(group);
-          });
-        }).then(function () {
-          res.send({
-            groups: groups
-          });
-        }).catch(function (error) {
-          res.status(500).send({
-            message: 'Error occurred ' + error.message
-          });
+    var user = _firebase2.default.auth().currentUser;
+    if (user) {
+      var groupRef = _firebase2.default.database().ref('users/' + user.uid + '/groups/');
+      var groups = [];
+      groupRef.orderByKey().once('value', function (snapshot) {
+        snapshot.forEach(function (childSnapShot) {
+          var group = {
+            groupId: childSnapShot.key,
+            groupname: childSnapShot.val().groupname
+          };
+          groups.push(group);
         });
-      } else {
-        res.status(403).send({
-          message: 'Please log in to see a list of your groups'
+      }).then(function () {
+        res.send({
+          groups: groups
         });
-      }
-    });
+      }).catch(function (error) {
+        res.status(500).send({
+          message: 'Error occurred ' + error.message
+        });
+      });
+    } else {
+      res.status(403).send({
+        message: 'Please log in to see a list of your groups'
+      });
+    }
   });
 };
 

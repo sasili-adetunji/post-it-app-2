@@ -23,7 +23,7 @@ class Register extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: '',
+      userName: '',
       email: '',
       password: '',
       phoneNumber: '',
@@ -81,7 +81,7 @@ class Register extends React.Component {
                 title="Signup Form"
                 subtitle="To continue using PostIt, you need to register below" />
             <TextField
-                name="username" onChange={this.onChange}
+                name="userName" onChange={this.onChange}
                 value={this.state.userName} hintText="Username Field"
                 floatingLabelText="Choose Username" /><br />
             <TextField

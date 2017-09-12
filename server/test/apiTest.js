@@ -123,18 +123,18 @@ describe('Get groups route', () => {
     });
   });
 });
-describe('Post message route', () => {
-  it('should successfuly send message to groups', (done) => {
-    chai.request(app)
-    .post('/message')
-    .send({ message: 'A test Message', groupId: '-KtfPZnYDzsnNyM3ubdM', priorityLevel: 'Normal', date: new Date(), author: 'Goodboy' })
-    .end((err, res) => {
-      assert.equal('Message Sent successfully to Group',
-          res.body.message);
-      done();
-    });
-  });
-});
+// describe('Post message route', () => {
+//   it('should successfuly send message to groups', (done) => {
+//     chai.request(app)
+//     .post('/message')
+//     .send({ message: 'A test Message', groupId: '-KtfPZnYDzsnNyM3ubdM', priorityLevel: 'Normal', date: new Date(), author: 'Goodboy' })
+//     .end((err, res) => {
+//       assert.equal('Message Sent successfully to Group',
+//           res.body.message);
+//       done();
+//     });
+//   });
+// });
 describe('Get user messages route', () => {
   it('should successfuly get messages of groups', (done) => {
     chai.request(app)

@@ -50,6 +50,7 @@ class Dashboard extends React.Component {
     PostItStore.removeChangeListener(this.onChange);
   }
   render() {
+    console.log(this.state)
  /**
    * renders the dashboard componets
    *

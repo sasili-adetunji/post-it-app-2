@@ -67,7 +67,8 @@ var message = function message(app) {
         date = _req$body.date,
         author = _req$body.author;
 
-    _firebase2.default.auth().onAuthStateChanged(function (user) {
+    var user = _firebase2.default.auth().currentUser;
+    if (user) {
       var messageKey = _firebase2.default.database().ref('groups/' + groupId + '/messages').push({
         message: message,
         author: author,
@@ -119,7 +120,11 @@ var message = function message(app) {
           message: 'Error occurred ' + error.message
         });
       });
-    });
+    } else {
+      res.status(403).send({
+        message: 'Please log in to see a list of your groups'
+      });
+    }
   });
 };
 

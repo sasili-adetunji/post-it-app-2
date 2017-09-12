@@ -32,24 +32,23 @@ var groupAdd = function groupAdd(app) {
         userId = _req$body.userId,
         userName = _req$body.userName;
 
-    _firebase2.default.auth().onAuthStateChanged(function (user) {
-      var groupRef = _firebase2.default.database().ref('groups/' + groupId + '/users/' + userId + '/').set({
-        userId: userId,
-        userName: userName
+    var user = _firebase2.default.auth().currentUser;
+    var groupRef = _firebase2.default.database().ref('groups/' + groupId + '/users/' + userId + '/').set({
+      userId: userId,
+      userName: userName
+    });
+    var groupNames = _firebase2.default.database().ref('groups/' + groupId).orderByKey().once('value', function (snap) {
+      var groupName = snap.val().groupName;
+      var userRef = _firebase2.default.database().ref('users/' + userId + '/groups/' + groupId + '/groupInfo').set({
+        groupId: groupId,
+        groupName: groupName
       });
-      var groupNames = _firebase2.default.database().ref('groups/' + groupId).orderByKey().once('value', function (snap) {
-        var groupName = snap.val().groupName;
-        var userRef = _firebase2.default.database().ref('users/' + userId + '/groups/' + groupId + '/groupInfo').set({
-          groupId: groupId,
-          groupName: groupName
-        });
-      });
-      res.send({
-        message: 'User successfully added'
-      }).catch(function (error) {
-        res.status(500).send({
-          message: 'Error occurred ' + error.message
-        });
+    });
+    res.send({
+      message: 'User successfully added'
+    }).catch(function (error) {
+      res.status(500).send({
+        message: 'Error occurred ' + error.message
       });
     });
   });
