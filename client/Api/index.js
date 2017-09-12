@@ -28,6 +28,7 @@ module.exports = {
       } else {
         PostItActions.receiveSuccess(response.data.message);
         localStorage.setItem('user', response.data.user.stsTokenManager.accessToken);
+        PostItStore.setLoggedInUser(response.data.user);
         PostItActions.receiveAuthenticatedUser(authuser);
       }
     })

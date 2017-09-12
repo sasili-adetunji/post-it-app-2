@@ -22,8 +22,8 @@ const signup = (app) => {
       user.updateProfile({
         displayName: userName
       });
-      firebase.database().ref('users/')
-      .child(user.uid).set({
+      firebase.database().ref(`users/${user.uid}`)
+      .set({
         userName,
         email,
         phoneNumber
