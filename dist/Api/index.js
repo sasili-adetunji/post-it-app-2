@@ -43,6 +43,7 @@ module.exports = {
       } else {
         _PostItActions2.default.receiveSuccess(response.data.message);
         localStorage.setItem('user', response.data.user.stsTokenManager.accessToken);
+        _PostItStore2.default.setLoggedInUser(response.data.user);
         _PostItActions2.default.receiveAuthenticatedUser(authuser);
       }
     }).catch(function (error) {

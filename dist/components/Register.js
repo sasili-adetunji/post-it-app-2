@@ -67,7 +67,7 @@ var Register = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, (Register.__proto__ || Object.getPrototypeOf(Register)).call(this, props));
 
     _this.state = {
-      username: '',
+      userName: '',
       email: '',
       password: '',
       phoneNumber: '',
@@ -139,7 +139,7 @@ var Register = function (_React$Component) {
               title: 'Signup Form',
               subtitle: 'To continue using PostIt, you need to register below' }),
             _react2.default.createElement(_TextField2.default, {
-              name: 'username', onChange: this.onChange,
+              name: 'userName', onChange: this.onChange,
               value: this.state.userName, hintText: 'Username Field',
               floatingLabelText: 'Choose Username' }),
             _react2.default.createElement('br', null),

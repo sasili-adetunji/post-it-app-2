@@ -96,6 +96,7 @@ var Dashboard = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
+      console.log(this.state);
       /**
         * renders the dashboard componets
         *

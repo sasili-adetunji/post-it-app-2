@@ -28,31 +28,30 @@ var fb = _firebase2.default.database();
 var userReadMessage = function userReadMessage(app) {
   app.get('/group/:messageId/readUsers', function (req, res) {
     // const messageId = req.body.messageId;
-    _firebase2.default.auth().onAuthStateChanged(function (user) {
-      if (user) {
-        var readUsers = [];
-        _firebase2.default.database().ref('readUsers/' + req.params.messageId).orderByKey().once('value', function (snapshot) {
-          snapshot.forEach(function (childSnapShot) {
-            var userDetails = {
-              userName: childSnapShot.val().userName
-            };
-            readUsers.push(userDetails);
-          });
-        }).then(function () {
-          res.json({
-            readUsers: readUsers
-          });
-        }).catch(function (error) {
-          res.status(500).json({
-            message: 'Error occurred ' + error.message
-          });
+    var user = _firebase2.default.auth().currentUser;
+    if (user) {
+      var readUsers = [];
+      _firebase2.default.database().ref('readUsers/' + req.params.messageId).orderByKey().once('value', function (snapshot) {
+        snapshot.forEach(function (childSnapShot) {
+          var userDetails = {
+            userName: childSnapShot.val().userName
+          };
+          readUsers.push(userDetails);
         });
-      } else {
-        res.status(403).json({
-          message: 'Please log in to see a list of users that read messages'
+      }).then(function () {
+        res.json({
+          readUsers: readUsers
         });
-      }
-    });
+      }).catch(function (error) {
+        res.status(500).json({
+          message: 'Error occurred ' + error.message
+        });
+      });
+    } else {
+      res.status(403).json({
+        message: 'Please log in to see a list of users that read messages'
+      });
+    }
   });
 };
 
