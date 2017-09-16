@@ -103,17 +103,6 @@ describe('Add user to group route', () => {
     });
   });
 });
-describe('Sign out route', () => {
-  it('should successfuly sign out user', (done) => {
-    chai.request(app)
-    .get('/user/signout')
-    .end((err, res) => {
-      assert.equal('You have signed out of the Appliction',
-          res.body.message);
-      done();
-    });
-  });
-});
 describe('Get groups route', () => {
   it('should successfuly get users groups', (done) => {
     chai.request(app)
@@ -123,23 +112,35 @@ describe('Get groups route', () => {
     });
   });
 });
-// describe('Post message route', () => {
-//   it('should successfuly send message to groups', (done) => {
-//     chai.request(app)
-//     .post('/message')
-//     .send({ message: 'A test Message', groupId: '-KtfPZnYDzsnNyM3ubdM', priorityLevel: 'Normal', date: new Date(), author: 'Goodboy' })
-//     .end((err, res) => {
-//       assert.equal('Message Sent successfully to Group',
-//           res.body.message);
-//       done();
-//     });
-//   });
-// });
+describe('Post message route', () => {
+  it('should successfuly send message to groups', (done) => {
+    chai.request(app)
+    .post('/message')
+    .send({ message: 'A test Message', groupId: '-KtfPZnYDzsnNyM3ubdM', priorityLevel: 'Normal', date: new Date(), author: 'Goodboy', status: 'Unread' })
+    .end((err, res) => {
+      assert.equal('Message Sent successfully to Group',
+          res.body.message);
+      done();
+    });
+  });
+});
 describe('Get user messages route', () => {
   it('should successfuly get messages of groups', (done) => {
     chai.request(app)
     .get('/group/-KtfPZnYDzsnNyM3ubdM/messages')
     .end((err, res) => {
+      done();
+    });
+  });
+});
+
+describe('Sign out route', () => {
+  it('should successfuly sign out user', (done) => {
+    chai.request(app)
+    .get('/user/signout')
+    .end((err, res) => {
+      assert.equal('You have signed out of the Appliction',
+          res.body.message);
       done();
     });
   });

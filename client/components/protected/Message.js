@@ -32,14 +32,14 @@ class Message extends React.Component {
       );
     });
     return (
-      <div className="panel-body msg_container_base">
+      <div className="msg_container_base">
         <div className="row msg_container base_sent">
           <div className="col-md-10 col-xs-10">
             <ul onClick={this.onClick} >
               <div className="messages msg_sent">
                 <p> { this.props.message.messageText } </p>
-                <time> Posted by { this.props.message.author } on
-                  { this.props.message.date }</time> <br />
+                <time> Posted by { this.props.message.author } on { this.props.message.date }</time>
+                <br />
                 <time> This message is {this.props.message.status} </time> <br />
                 <time> Read by <span> { userNodes } </span> </time>
               </div>

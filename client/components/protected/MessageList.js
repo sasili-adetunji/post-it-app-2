@@ -29,12 +29,11 @@ class MessageList extends React.Component {
       <div>
         <div className=" top-bar">
           <div className="col-md-8 col-xs-8">
-            <h3 className="panel-title"><span className="glyphicon glyphicon-comment" />
-              Group 1 Message </h3>
+            <h4><span className="glyphicon glyphicon-comment" /> </h4>
           </div>
         </div>
         {messageNodes}
-        <div> </div>
+        <div> <h5> send Message to Group </h5> </div>
         <MessageBox groupId={this.props.selectedGroup[0]} author={this.props.loggedInUser} />
       </div>
     );

@@ -5,8 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test:watch": "jest --watch",
+    "test:client": "jest",
     "test:coverage": "jest --coverage",
-    "test": "NODE_ENV=test nyc --reporter=text --reporter=html --reporter=lcov mocha --timeout 75000 --compilers js:babel-register",
+    "test1": "NODE_ENV=test nyc --reporter=text --reporter=html --reporter=lcov mocha --timeout 75000 --compilers js:babel-register",
     "coverage-report": "cat ./coverage/lcov.info | coveralls",
     "test:api": "NODE_ENV=test mocha --timeout 75000 --compilers js:babel-register server/test/apiTest.js",
     "build": "babel server/ -d dist && babel client/ -d dist",
@@ -29,6 +30,7 @@
     "axios": "^0.16.2",
     "babel-cli": "^6.24.1",
     "babel-core": "^6.24.1",
+    "babel-jest": "^21.0.2",
     "babel-loader": "^7.0.0",
     "babel-plugin-react-html-attrs": "^2.0.0",
     "babel-plugin-transform-class-properties": "^6.24.1",

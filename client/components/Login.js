@@ -61,9 +61,9 @@ class Login extends React.Component {
    * @returns {void}
    * @memberOf Login
 */
-  onClickGoogle(e) {
-    e.preventDefault();
-    PostItActions.googleLogin();
+  onClickGoogle(googleUser) {
+    const idToken = googleUser.getAuthResponse().id_token;
+    PostItActions.googleLogin(idToken);
   }
 /**
    * Makes an action call to reset password
@@ -79,6 +79,7 @@ class Login extends React.Component {
       };
     PostItActions.resetPassword(email);
   }
+
 /**
    * @returns {String} The HTML markup for the Login
    * @memberOf Login

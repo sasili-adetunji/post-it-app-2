@@ -50,7 +50,6 @@ class Dashboard extends React.Component {
     PostItStore.removeChangeListener(this.onChange);
   }
   render() {
-    console.log(this.state)
  /**
    * renders the dashboard componets
    *
@@ -59,9 +58,9 @@ class Dashboard extends React.Component {
    */
     return (
       <div>
-        <div><h5> Welcome {this.state.loggedInUser.displayName} </h5></div>
+        <div className="welcome"><h5> Welcome {this.state.loggedInUser.displayName} </h5></div>
         <div className="row">
-          <div className="col-md-3">
+          <div className="col-md-3" >
             <GroupList
               {...this.state} loggedInUser={this.state.loggedInUser}
               groups={this.state.groups} />

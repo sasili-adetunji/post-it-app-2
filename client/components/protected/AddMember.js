@@ -15,7 +15,8 @@ class AddMember extends React.Component {
     super(props);
     this.state = {
       userName: '',
-      userId: ''
+      userId: '',
+      error: ''
     };
     this.onChange = this.onChange.bind(this);
     this.onClick = this.onClick.bind(this);
@@ -40,6 +41,8 @@ class AddMember extends React.Component {
     lodash.map(this.props.user).map((x) => {
       if (userName === x.userName) {
         n = x.userId;
+      } else {
+        return null;
       }
     });
     return n;
@@ -51,7 +54,18 @@ class AddMember extends React.Component {
       userName: this.state.userName,
       groupId: this.props.groupId.groupId
     };
-    PostItActions.addUserToGroup(user);
+    if (!user.userId) {
+      this.setState({
+        error: 'This User does not exist',
+        userName: ''
+      });
+    } else {
+      this.setState({
+        error: '',
+        userName: ''
+      });
+      PostItActions.addUserToGroup(user);
+    }
   }
   /**
    *
@@ -71,6 +85,8 @@ class AddMember extends React.Component {
           <button onClick={this.onClick} type="submit" className="btn btn-default ">
             <span className="glyphicon glyphicon-plus" /></button>
         </form>
+        <br />
+        <span style={{ color: 'red' }} > {this.state.error} </span> <br />
       </div>
     );
   }

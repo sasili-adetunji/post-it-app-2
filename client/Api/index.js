@@ -1,6 +1,6 @@
 import axios from 'axios';
 import firebase from 'firebase';
-import { firebaseAuth, db } from '../../server/config/db';
+import { db } from '../../server/config/db';
 import PostItActions from '../actions/PostItActions';
 import PostItStore from '../stores/PostItStore';
 
@@ -83,39 +83,20 @@ module.exports = {
    * api call to login us with google
    *
    */
-  googleLogin() {
-    let email,
-      uid,
-      displayName;
-    const provider = new firebase.auth.GoogleAuthProvider();
-    provider.addScope('https://www.googleapis.com/auth/plus.login');
-    firebase.auth().signInWithPopup(provider)
-      .then((result) => {
-        const token = result.credential.accessToken;
-        email = result.user.email;
-        uid = result.user.uid;
-        displayName = result.user.displayName;
-      })
-    .then(() => {
-      db.database()
-       .ref('users/').child(uid).set({
-         userName: displayName,
-         email
-       });
+  googleLogin(idToken) {
+    axios.post('/user/google', idToken)
+    .then((response) => {
+      console.log(response);
+      // PostItActions.receiveSuccess(response.message);
+      // PostItActions.receiveAuthenticatedUser(authuser);
+      // PostItStore.setLoggedInUser(response.data.user);
     })
-    .then(() => {
-      const authuser = {
-        email,
-        isAuthenticated: true
-      };
-      PostItActions.receiveSuccess({ message: 'Success: you have successfuly signed in.' });
-      PostItActions.receiveAuthenticatedUser(authuser);
-    })
-      .catch((error) => {
-        PostItActions.receiveErrors(error.message);
-      });
-  },
+    .catch((error) => {
+      console.log(error);
 
+      // PostItActions.receiveErrors(error.message);
+    });
+  },
   /**
    * api call to create new group from the route
    *

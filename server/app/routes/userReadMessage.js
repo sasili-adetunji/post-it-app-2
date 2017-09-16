@@ -19,14 +19,14 @@ const userReadMessage = (app) => {
     if (user) {
       const readUsers = [];
       firebase.database().ref(`readUsers/${req.params.messageId}`)
-        .orderByKey().once('value', (snapshot) => {
-          snapshot.forEach((childSnapShot) => {
-            const userDetails = {
-              userName: childSnapShot.val().userName,
-            };
-            readUsers.push(userDetails);
-          });
-        })
+      .orderByChild('userName').once('value', (snapshot) => {
+        snapshot.forEach((childSnapShot) => {
+          const userDetails = {
+            userName: childSnapShot.val().userName,
+          };
+          readUsers.push(userDetails);
+        });
+      })
         .then(() => {
           res.json({
             readUsers

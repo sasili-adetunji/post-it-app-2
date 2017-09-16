@@ -22,7 +22,7 @@ const usersList = (app) => {
         msg.forEach((snapshot) => {
           const userDetails = {
             userId: snapshot.key,
-            userName: snapshot.val().username
+            userName: snapshot.val().userName
           };
           users.push(userDetails);
         });

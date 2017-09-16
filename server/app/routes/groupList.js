@@ -30,12 +30,12 @@ const groupList = (app) => {
           });
         })
         .catch((error) => {
-          res.status(500).send({
+          res.status(500).json({
             message: `Error occurred ${error.message}`,
           });
         });
     } else {
-      res.status(403).send({
+      res.status(403).json({
         message: 'Please log in to see a list of your groups'
       });
     }
