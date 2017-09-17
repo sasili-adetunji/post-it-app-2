@@ -43052,7 +43052,7 @@ var Login = function (_React$Component) {
       email: '',
       password: '',
       isAuthenticated: _PostItStore2.default.getIsAuthenticated(),
-      errors: _PostItStore2.default.getErrors()
+      errors: ''
     };
     _this.onChange = _this.onChange.bind(_this);
     _this.onClick = _this.onClick.bind(_this);
@@ -43089,7 +43089,14 @@ var Login = function (_React$Component) {
         email: this.state.email,
         password: this.state.password
       };
-      _PostItActions2.default.login(user);
+
+      if (!user.email || !user.password) {
+        this.setState({
+          errors: 'Please enter a valid email and password'
+        });
+      } else {
+        _PostItActions2.default.login(user);
+      }
     }
     /**
        * Makes an action call to log a user with google
@@ -43161,6 +43168,8 @@ var Login = function (_React$Component) {
               'span',
               { style: { color: 'red' } },
               ' ',
+              this.state.errors,
+              '  ',
               _PostItStore2.default.getErrors(),
               ' '
             ),
@@ -43295,7 +43304,7 @@ var Register = function (_React$Component) {
       password: '',
       phoneNumber: '',
       isAuthenticated: _PostItStore2.default.getIsAuthenticated(),
-      errors: _PostItStore2.default.getErrors()
+      errors: ''
     };
 
     _this.onChange = _this.onChange.bind(_this);
@@ -43331,9 +43340,14 @@ var Register = function (_React$Component) {
         password: this.state.password,
         userName: this.state.userName,
         phoneNumber: this.state.phoneNumber
-
       };
-      _PostItActions2.default.registerUser(user);
+      if (!user.email || !user.password || !user.userName) {
+        this.setState({
+          errors: 'Please enter valid details'
+        });
+      } else {
+        _PostItActions2.default.registerUser(user);
+      }
     }
     /**
        * @returns {String} The HTML markup for the Login
@@ -43384,6 +43398,8 @@ var Register = function (_React$Component) {
             _react2.default.createElement(
               'span',
               { style: { color: 'red' } },
+              ' ',
+              this.state.errors,
               ' ',
               _PostItStore2.default.getErrors(),
               ' '

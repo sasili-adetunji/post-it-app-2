@@ -22,7 +22,7 @@ class Login extends React.Component {
       email: '',
       password: '',
       isAuthenticated: PostItStore.getIsAuthenticated(),
-      errors: PostItStore.getErrors()
+      errors: ''
     };
     this.onChange = this.onChange.bind(this);
     this.onClick = this.onClick.bind(this);
@@ -53,7 +53,14 @@ class Login extends React.Component {
       email: this.state.email,
       password: this.state.password
     };
-    PostItActions.login(user);
+
+    if ((!user.email) || (!user.password)) {
+      this.setState({
+        errors: 'Please enter a valid email and password'
+      });
+    } else {
+      PostItActions.login(user);
+    }
   }
 /**
    * Makes an action call to log a user with google
@@ -106,7 +113,7 @@ class Login extends React.Component {
               hintText="Password Field" floatingLabelText="Choose Password"
               type="password" /><br />
             <br />
-            <span style={{ color: 'red' }} > {PostItStore.getErrors()} </span> <br />
+            <span style={{ color: 'red' }} > {this.state.errors}  {PostItStore.getErrors()} </span> <br />
             <p> Dont Have an account, <a href="/#/signup"> Register here </a> </p>
             <p> Forgot your Password? Enter your Email and <a
             href="/#/signup"

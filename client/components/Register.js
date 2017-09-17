@@ -28,7 +28,7 @@ class Register extends React.Component {
       password: '',
       phoneNumber: '',
       isAuthenticated: PostItStore.getIsAuthenticated(),
-      errors: PostItStore.getErrors()
+      errors: ''
     };
 
     this.onChange = this.onChange.bind(this);
@@ -58,9 +58,14 @@ class Register extends React.Component {
       password: this.state.password,
       userName: this.state.userName,
       phoneNumber: this.state.phoneNumber
-
     };
-    PostItActions.registerUser(user);
+    if ((!user.email) || (!user.password) || (!user.userName)) {
+      this.setState({
+        errors: 'Please enter valid details'
+      });
+    } else {
+      PostItActions.registerUser(user);
+    }
   }
 /**
    * @returns {String} The HTML markup for the Login
@@ -96,7 +101,7 @@ class Register extends React.Component {
                 value={this.state.phoneNumber}
                 hintText="E.g. 23480" floatingLabelText="Phone Number" /><br />
             <br />
-            <span style={{ color: 'red' }} > {PostItStore.getErrors()} </span> <br />
+            <span style={{ color: 'red' }} > {this.state.errors} {PostItStore.getErrors()} </span> <br />
             <p> Already Have an account,<a href="/#/signin"> Login here </a> </p>
             <RaisedButton
                 style={{ display: 'block' }} onClick={this.onClick}

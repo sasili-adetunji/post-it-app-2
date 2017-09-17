@@ -134,10 +134,11 @@
 .side-menu-container { 
     color:#044851;
     padding-left: 5px;
-
-
   }
 .headerlist {
   padding-left: 5px;
   
+}
+.error {
+  color: 'red';
 }
