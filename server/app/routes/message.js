@@ -3,6 +3,9 @@ import firebase from 'firebase';
 import nodemailer from 'nodemailer';
 import smtpTransport from 'nodemailer-smtp-transport';
 import Nexmo from 'nexmo';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const app = express();
 const fb = firebase.database();
@@ -13,19 +16,19 @@ const numbers = [];
 const transporter = nodemailer.createTransport(smtpTransport({
   service: 'gmail',
   auth: {
-    user: 'sasil.adetunji@gmail.com',
-    pass: 'olanrewaju2012?'
+    user: process.env.user,
+    pass: process.env.pass
   }
 }));
 
 const mailOptions = {
-  from: 'sasil.adetunji@gmail.com',
+  from: process.env.user,
   subject: 'A new message from PostIt',
 };
 
 const nexmo = new Nexmo({
-  apiKey: 'a4e15f2c',
-  apiSecret: 'c88f4f0e7092b986'
+  apiKey: process.env.nexmoApiKey,
+  apiSecret: process.env.nexmoApiSecret
 });
 
 /**

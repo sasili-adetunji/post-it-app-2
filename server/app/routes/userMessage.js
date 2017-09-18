@@ -17,31 +17,31 @@ const userMessage = (app) => {
     const user = firebase.auth().currentUser;
     if (user) {
       const messages = [];
-      firebase.database().ref(`users/${user.uid}/groups/${req.params.groupId}/messages/`)
-        .orderByKey().once('value', (snapshot) => {
-          snapshot.forEach((childSnapShot) => {
-            const message = {
-              messageId: childSnapShot.key,
-              messageText: childSnapShot.val().message,
-              author: childSnapShot.val().author,
-              priorityLevel: childSnapShot.val().priorityLevel,
-              date: childSnapShot.val().date,
-              status: childSnapShot.val().status
-            };
-            messages.push(message);
-            firebase.database().ref(`users/${user.uid}/groups/${req.params.groupId}/messages/${childSnapShot.key}/`)
-              .update({
-                status: 'Read'
-              });
-            firebase.database().ref(`readUsers/${childSnapShot.key}/${user.uid}`)
-              .set({
-                userId: user.uid,
-                userName: user.displayName
-              });
-          });
-        })
+      const messageRef = firebase.database().ref(`users/${user.uid}/groups/${req.params.groupId}/messages/`);
+      messageRef.once('value', (snapshot) => {
+        snapshot.forEach((childSnapShot) => {
+          const message = {
+            messageId: childSnapShot.key,
+            messageText: childSnapShot.val().message,
+            author: childSnapShot.val().author,
+            priorityLevel: childSnapShot.val().priorityLevel,
+            date: childSnapShot.val().date,
+            status: childSnapShot.val().status
+          };
+          messages.push(message);
+          firebase.database().ref(`users/${user.uid}/groups/${req.params.groupId}/messages/${childSnapShot.key}/`)
+            .update({
+              status: 'Read'
+            });
+          firebase.database().ref(`readUsers/${childSnapShot.key}/${user.uid}`)
+            .set({
+              userId: user.uid,
+              userName: user.displayName
+            });
+        });
+      })
         .then(() => {
-          res.json({
+          res.status(200).json({
             messages
           });
         })

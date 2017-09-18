@@ -4,6 +4,14 @@ import { db } from '../../server/config/db';
 import PostItActions from '../actions/PostItActions';
 import PostItStore from '../stores/PostItStore';
 
+const config = {
+  apiKey: 'IzaSyAPkaQ0wLHWqT_u20dcXLqPENZsmea7mgs',
+  authDomain: 'authDomain=postit-335c1.firebaseapp.com',
+  databaseURL: 'https://postit-335c1.firebaseio.com',
+  projectId: 'postit-335c1',
+  storageBucket: 'postit-335c1.appspot.com',
+  messagingSenderId: '63329792793'
+};
 module.exports = {
 
   /**
@@ -19,17 +27,10 @@ module.exports = {
       phoneNumber: user.phoneNumber
     })
     .then((response) => {
-      const authuser = {
-        email: user.email,
-        isAuthenticated: true
-      };
       if ((response.data.message === 'The email address is badly formatted.') || (response.data.message === 'The email address is already in use by another account.')) {
         PostItActions.receiveErrors(response.data.message);
       } else {
         PostItActions.receiveSuccess(response.data.message);
-        localStorage.setItem('user', response.data.user.stsTokenManager.accessToken);
-        PostItStore.setLoggedInUser(response.data.user);
-        PostItActions.receiveAuthenticatedUser(authuser);
       }
     })
   .catch((error) => {
@@ -56,8 +57,8 @@ module.exports = {
       } else {
         PostItActions.receiveSuccess(response.data.message);
         localStorage.setItem('user', response.data.user.stsTokenManager.accessToken);
-        PostItActions.receiveAuthenticatedUser(authuser);
         PostItStore.setLoggedInUser(response.data.user);
+        PostItActions.receiveAuthenticatedUser(authuser);
       }
     })
   .catch((error) => {
@@ -71,7 +72,7 @@ module.exports = {
    */
   signoutUser() {
     axios.get('/user/signout').then((response) => {
-      PostItActions.receiveSuccess(response.message);
+      PostItActions.receiveSuccess(response.data.message);
       localStorage.removeItem('user');
     })
     .catch((error) => {
@@ -84,18 +85,22 @@ module.exports = {
    *
    */
   googleLogin(idToken) {
-    axios.post('/user/google', idToken)
-    .then((response) => {
-      console.log(response);
-      // PostItActions.receiveSuccess(response.message);
-      // PostItActions.receiveAuthenticatedUser(authuser);
-      // PostItStore.setLoggedInUser(response.data.user);
-    })
-    .catch((error) => {
-      console.log(error);
+    const provider = new firebase.auth.GoogleAuthProvider();
+    provider.addScope('https://www.googleapis.com/auth/plus.login');
+    firebase.auth().signInWithPopup(provider);
 
-      // PostItActions.receiveErrors(error.message);
-    });
+    // axios.post('/user/google', idToken)
+    // .then((response) => {
+    //   console.log(response);
+    //   // PostItActions.receiveSuccess(response.message);
+    //   // PostItActions.receiveAuthenticatedUser(authuser);
+    //   // PostItStore.setLoggedInUser(response.data.user);
+    // })
+    // .catch((error) => {
+    //   console.log(error);
+
+    //   // PostItActions.receiveErrors(error.message);
+    // });
   },
   /**
    * api call to create new group from the route
@@ -206,7 +211,7 @@ module.exports = {
     axios.get(`/group/${group.groupId}/messages`)
     .then((response) => {
       PostItActions.receiveSuccess(response.message);
-      PostItActions.receiveMessages(response.data.messages);
+      PostItStore.setMessages(response.data.messages);
     })
    .catch((error) => {
      PostItActions.receiveErrors(error.message);

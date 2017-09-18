@@ -13,6 +13,8 @@ import Register from './Register';
 import Group from './protected/Group';
 import CreateGroup from './protected/CreateGroup';
 import MessageBoard from './protected/MessageBoard';
+import MessageList from './protected/MessageList';
+
 
 injectTapEventPlugin();
 
@@ -104,6 +106,9 @@ class App extends Component {
           <PrivateRoute
             isAuthenticated={this.state.isAuthenticated}
             path="/messageboard" component={MessageBoard} />
+          <PrivateRoute
+            isAuthenticated={this.state.isAuthenticated}
+            path="/messageboard/:groupId" component={MessageList} />
           <Route render={() => <h3>No Match</h3>} />
         </Switch>
       </div>

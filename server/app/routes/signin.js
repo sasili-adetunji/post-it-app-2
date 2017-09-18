@@ -19,7 +19,7 @@ const signin = (app) => {
     const { email, password } = req.body;
     firebase.auth().signInWithEmailAndPassword(email, password)
   .then((user) => {
-    res.send({
+    res.status(200).json({
       message: 'Success: you have successfuly signed in.',
       user
     });

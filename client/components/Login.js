@@ -1,7 +1,8 @@
 import React from 'react';
 import mui from 'material-ui';
+import { Link } from 'react-router-dom';
 import GoogleButton from 'react-google-button';
-import { Card, CardActions, CardHeader, CardTitle, CardText } from 'material-ui/Card';
+import { Card, CardTitle } from 'material-ui/Card';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
@@ -21,7 +22,6 @@ class Login extends React.Component {
     this.state = {
       email: '',
       password: '',
-      isAuthenticated: PostItStore.getIsAuthenticated(),
       errors: ''
     };
     this.onChange = this.onChange.bind(this);
@@ -95,38 +95,31 @@ class Login extends React.Component {
     return (
       <div>
         <MuiThemeProvider >
-          <Card style={{
-            maxWidth: '800px',
-            margin: '30px auto',
-            padding: '50px',
-            textAlign: 'center'
-          }}>
+          <Card className="card" >
             <CardTitle
-              style={{ textAlign: 'center' }}
               title="Login Form"
               subtitle="To continue using PostIt, you need to login below" />
             <TextField
-              name="email" onChange={this.onChange} value={this.state.email} hintText="Email Field"
+              name="email" onChange={this.onChange} value={this.state.email}
               floatingLabelText="Your Email" /><br />
             <TextField
               name="password" onChange={this.onChange} value={this.state.password}
-              hintText="Password Field" floatingLabelText="Choose Password"
+              floatingLabelText="Your Password"
               type="password" /><br />
             <br />
-            <span style={{ color: 'red' }} > {this.state.errors}  {PostItStore.getErrors()} </span> <br />
-            <p> Dont Have an account, <a href="/#/signup"> Register here </a> </p>
+            <span className="error"> {this.state.errors}. {PostItStore.getErrors()} </span> <br />
+            <p> Already Have an account,<Link to="/signup"> Register here </Link> </p>
+
             <p> Forgot your Password? Enter your Email and <a
             href="/#/signup"
             onClick={this.onClickReset}> Click here </a> </p>
             <RaisedButton
-              style={{ display: 'block' }}
               label="Login" primary onClick={this.onClick} />
+            <br />
             <br />
             <div className="row">
               <center>
-                <GoogleButton
-              onClick={this.onClickGoogle}
-              />
+                <GoogleButton onClick={this.onClickGoogle} />
               </center>
             </div>
           </Card>

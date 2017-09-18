@@ -26,9 +26,7 @@
 }
 .navbar-nav li a {
   padding: 15px;
-}
-.navbar-nav li a .glyphicon {
-  padding-right: 10px;
+  text-align: center;
 }
 .brand-name-wrapper {
   min-height: 50px;
@@ -75,10 +73,10 @@
 }
 
 .msg_container_base{
-  background: #e5e5e5;
+  /* background: #e5e5e5; */
   margin: 0;
   padding: 0 10px 10px;
-  max-height:300px;
+  /* max-height:300px; */
 }
 .top-bar {
   color: white;
@@ -118,21 +116,22 @@
 .msg_sent > time{
     float: right;
 }
- #leftsidenav{
-    margin-left: 610px;
-} 
 .col-md-3 {
   background-color: #b1b4b5;
+  height: 600px;
+  overflow: scroll;
 }
 .col-md-6 {
   background-color: #00bcd4;
+  height: 600px;
+  overflow: scroll;
 }
 .welcome {
-  padding-left: 5px;
+  padding-left: 15px;
   color: indianred;
 }
 .side-menu-container { 
-    color:#044851;
+    color:#eaf5f9;
     padding-left: 5px;
   }
 .headerlist {
@@ -140,5 +139,29 @@
   
 }
 .error {
-  color: 'red';
+  color: red;
+}
+
+.card {
+  max-width: 800px;
+  margin: 30px auto;
+  padding: 50px;
+  text-align: center;
+}
+
+.side-menu-container li {
+  text-align: center;
+  color: #0e0f0f;
+  text-decoration: blueviolet;
+}
+
+.headerlist {
+  text-align: center;
+}
+
+/* .input-group {
+  height: 100px;
+} */
+.success {
+  color: green;
 }

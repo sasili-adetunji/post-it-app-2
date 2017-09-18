@@ -22,7 +22,7 @@ class GroupList extends React.Component {
         <div>
           <CreateGroup userName={this.props.loggedInUser} />
         </div>
-        <div className="headerlist"> <h5> My groups </h5> </div>
+        <div className="headerlist"> <h4> My groups </h4> </div>
         {groupNodes}
       </div>
     );

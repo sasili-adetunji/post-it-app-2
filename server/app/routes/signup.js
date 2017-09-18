@@ -28,7 +28,7 @@ const signup = (app) => {
         email,
         phoneNumber
       });
-      res.json({ message: `Welcome ${user.email}. You have successfully registered`,
+      res.status(200).json({ message: `Welcome ${user.email}. You have successfully registered. You can proceed to login now`,
         user });
     })
     .catch((err) => {

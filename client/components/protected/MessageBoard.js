@@ -58,19 +58,19 @@ class Dashboard extends React.Component {
    */
     return (
       <div>
-        <div className="welcome"><h5> Welcome {this.state.loggedInUser.displayName} </h5></div>
+        <div className="welcome"><h4> Welcome {this.state.loggedInUser.displayName} </h4></div>
         <div className="row">
           <div className="col-md-3" >
             <GroupList
               {...this.state} loggedInUser={this.state.loggedInUser}
-              groups={this.state.groups} />
+               />
           </div>
           <div className="col-md-6">
             <MessageList
               {...this.state} loggedInUser={this.state.loggedInUser}
               readUsers={this.state.readUsers} />
           </div>
-          <div className="col-md-3" id="" >
+          <div className="col-md-3">
             <UserList {...this.state} user={this.state.users} usernames={this.state.user} />
           </div>
         </div>

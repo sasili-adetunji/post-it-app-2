@@ -25,20 +25,22 @@ const group = (app) => {
         .set({
           userId: user.uid,
           userName
-        });
-      const userRef = firebase.database().ref(`users/${user.uid}/groups/${groupKey}/groupInfo`)
+        })
+        .then(() => {
+          const userRef = firebase.database().ref(`users/${user.uid}/groups/${groupKey}/groupInfo`)
         .set({
           groupId: groupKey,
           groupName
         });
-      res.json({
-        message: 'New Group Successfully Created',
-        group: groupName
-      })
+          res.status(200).json({
+            message: 'New Group Successfully Created',
+            group: groupName
+          });
+        })
         .catch((error) => {
         });
     } else {
-      res.status(403).send({
+      res.status(403).json({
         message: 'Please log in to post to groups'
       });
     }

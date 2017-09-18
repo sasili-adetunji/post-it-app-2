@@ -76,6 +76,7 @@ class AddMember extends React.Component {
   render() {
     return (
       <div className="panel-body">
+        <h6> To add a member, type in the username of the member </h6>
         <form className="navbar-form" role="search">
           <div className="form-group">
             <input
@@ -86,7 +87,7 @@ class AddMember extends React.Component {
             <span className="glyphicon glyphicon-plus" /></button>
         </form>
         <br />
-        <span style={{ color: 'red' }} > {this.state.error} </span> <br />
+        <span className="error" > {this.state.error} </span> <br />
       </div>
     );
   }
