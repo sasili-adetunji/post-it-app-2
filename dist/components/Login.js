@@ -14,6 +14,8 @@ var _materialUi = require('material-ui');
 
 var _materialUi2 = _interopRequireDefault(_materialUi);
 
+var _reactRouterDom = require('react-router-dom');
+
 var _reactGoogleButton = require('react-google-button');
 
 var _reactGoogleButton2 = _interopRequireDefault(_reactGoogleButton);
@@ -70,8 +72,7 @@ var Login = function (_React$Component) {
     _this.state = {
       email: '',
       password: '',
-      isAuthenticated: _PostItStore2.default.getIsAuthenticated(),
-      errors: _PostItStore2.default.getErrors()
+      errors: ''
     };
     _this.onChange = _this.onChange.bind(_this);
     _this.onClick = _this.onClick.bind(_this);
@@ -108,7 +109,14 @@ var Login = function (_React$Component) {
         email: this.state.email,
         password: this.state.password
       };
-      _PostItActions2.default.login(user);
+
+      if (!user.email || !user.password) {
+        this.setState({
+          errors: 'Please enter a valid email and password'
+        });
+      } else {
+        _PostItActions2.default.login(user);
+      }
     }
     /**
        * Makes an action call to log a user with google
@@ -119,9 +127,9 @@ var Login = function (_React$Component) {
 
   }, {
     key: 'onClickGoogle',
-    value: function onClickGoogle(e) {
-      e.preventDefault();
-      _PostItActions2.default.googleLogin();
+    value: function onClickGoogle(googleUser) {
+      var idToken = googleUser.getAuthResponse().id_token;
+      _PostItActions2.default.googleLogin(idToken);
     }
     /**
        * Makes an action call to reset password
@@ -139,6 +147,7 @@ var Login = function (_React$Component) {
       };
       _PostItActions2.default.resetPassword(email);
     }
+
     /**
        * @returns {String} The HTML markup for the Login
        * @memberOf Login
@@ -155,30 +164,26 @@ var Login = function (_React$Component) {
           null,
           _react2.default.createElement(
             _Card.Card,
-            { style: {
-                maxWidth: '800px',
-                margin: '30px auto',
-                padding: '50px',
-                textAlign: 'center'
-              } },
+            { className: 'card' },
             _react2.default.createElement(_Card.CardTitle, {
-              style: { textAlign: 'center' },
               title: 'Login Form',
               subtitle: 'To continue using PostIt, you need to login below' }),
             _react2.default.createElement(_TextField2.default, {
-              name: 'email', onChange: this.onChange, value: this.state.email, hintText: 'Email Field',
+              name: 'email', onChange: this.onChange, value: this.state.email,
               floatingLabelText: 'Your Email' }),
             _react2.default.createElement('br', null),
             _react2.default.createElement(_TextField2.default, {
               name: 'password', onChange: this.onChange, value: this.state.password,
-              hintText: 'Password Field', floatingLabelText: 'Choose Password',
+              floatingLabelText: 'Your Password',
               type: 'password' }),
             _react2.default.createElement('br', null),
             _react2.default.createElement('br', null),
             _react2.default.createElement(
               'span',
-              { style: { color: 'red' } },
+              { className: 'error' },
               ' ',
+              this.state.errors,
+              '. ',
               _PostItStore2.default.getErrors(),
               ' '
             ),
@@ -187,10 +192,10 @@ var Login = function (_React$Component) {
             _react2.default.createElement(
               'p',
               null,
-              ' Dont Have an account, ',
+              ' Already Have an account,',
               _react2.default.createElement(
-                'a',
-                { href: '/#/signup' },
+                _reactRouterDom.Link,
+                { to: '/signup' },
                 ' Register here '
               ),
               ' '
@@ -209,8 +214,8 @@ var Login = function (_React$Component) {
               ' '
             ),
             _react2.default.createElement(_RaisedButton2.default, {
-              style: { display: 'block' },
               label: 'Login', primary: true, onClick: this.onClick }),
+            _react2.default.createElement('br', null),
             _react2.default.createElement('br', null),
             _react2.default.createElement(
               'div',
@@ -218,9 +223,7 @@ var Login = function (_React$Component) {
               _react2.default.createElement(
                 'center',
                 null,
-                _react2.default.createElement(_reactGoogleButton2.default, {
-                  onClick: this.onClickGoogle
-                })
+                _react2.default.createElement(_reactGoogleButton2.default, { onClick: this.onClickGoogle })
               )
             )
           )

@@ -28,7 +28,7 @@ class MessageBox extends React.Component {
 
   /**
    *
-   * @param {any} e 
+   * @param {any} e
    * @memberof MessageBox
    */
   onChange(e) {
@@ -40,7 +40,7 @@ class MessageBox extends React.Component {
   /**
    *
    *
-   * @param {any} e 
+   * @param {any} e
    * @memberof MessageBox
    */
   onClick(e) {
@@ -65,24 +65,27 @@ class MessageBox extends React.Component {
    * @memberof MessageBox
    */
   render() {
-
     return (
-        <div className="input-group">
-          <input
-          onChange={this.onChange} id="btn-input" type="text" className="form-control"
+      <div className="input-group">
+        <div> <h4> Send Message to Group </h4> </div>
+        <textarea
+rows="2" onChange={this.onChange} id="btn-input"
+        type="text" className="form-control"
           placeholder="Write your message here..." name="message" value={this.state.message} />
-          <div />
-          <select
+        <div />
+        <select
             placeholder="Priority Level" name="priorityLevel" onChange={this.onChange}
             className="form-control" value={this.state.priorityLevel} >
-            <option value="Normal">Normal</option>
-            <option value="Urgent">Urgent</option>
-            <option value="Critical">Critical</option>
-          </select>
-          <span className="input-group-btn">
+          <option value="Normal">Normal</option>
+          <option value="Urgent">Urgent</option>
+          <option value="Critical">Critical</option>
+        </select>
+        <span className="input-group-btn">
+          <div>
             <button onClick={this.onClick} className="btn btn-primary btn-sm">Send</button>
-          </span>
-        </div>
+          </div>
+        </span>
+      </div>
     );
   }
 }

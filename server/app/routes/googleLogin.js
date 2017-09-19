@@ -36,12 +36,11 @@ const googleLogin = (app) => {
          username: displayName,
          email
        });
-      });
-    res.json({
-      message: 'You have successfully signed in with  Google'
-    })
-      .catch((error) => {
         res.json({
+          message: 'You have successfully signed in with  Google' });
+      })
+      .catch((error) => {
+        res.status(500).json({
           message: error.message
         });
       });

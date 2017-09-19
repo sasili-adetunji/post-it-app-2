@@ -56,6 +56,7 @@ var UserList = function (_React$Component) {
      * @returns { void }
      * @memberof UserList
      */
+
     value: function render() {
       var userNodes = this.props.user.map(function (user, i) {
         return _react2.default.createElement(_User2.default, { user: user, key: i });
@@ -67,6 +68,17 @@ var UserList = function (_React$Component) {
           'div',
           null,
           _react2.default.createElement(_AddMember2.default, { groupId: this.props.selectedGroup[0], user: this.props.usernames })
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'headerlist' },
+          ' ',
+          _react2.default.createElement(
+            'h4',
+            null,
+            ' Members '
+          ),
+          ' '
         ),
         userNodes
       );

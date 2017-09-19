@@ -33,7 +33,7 @@ var signin = function signin(app) {
         password = _req$body.password;
 
     _firebase2.default.auth().signInWithEmailAndPassword(email, password).then(function (user) {
-      res.send({
+      res.status(200).json({
         message: 'Success: you have successfuly signed in.',
         user: user
       });

@@ -24,7 +24,13 @@ var _nexmo = require('nexmo');
 
 var _nexmo2 = _interopRequireDefault(_nexmo);
 
+var _dotenv = require('dotenv');
+
+var _dotenv2 = _interopRequireDefault(_dotenv);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+_dotenv2.default.config();
 
 var app = (0, _express2.default)();
 var fb = _firebase2.default.database();
@@ -35,19 +41,19 @@ var numbers = [];
 var transporter = _nodemailer2.default.createTransport((0, _nodemailerSmtpTransport2.default)({
   service: 'gmail',
   auth: {
-    user: 'sasil.adetunji@gmail.com',
-    pass: 'olanrewaju2012?'
+    user: process.env.user,
+    pass: process.env.pass
   }
 }));
 
 var mailOptions = {
-  from: 'sasil.adetunji@gmail.com',
+  from: process.env.user,
   subject: 'A new message from PostIt'
 };
 
 var nexmo = new _nexmo2.default({
-  apiKey: 'a4e15f2c',
-  apiSecret: 'c88f4f0e7092b986'
+  apiKey: process.env.nexmoApiKey,
+  apiSecret: process.env.nexmoApiSecret
 });
 
 /**
@@ -114,14 +120,14 @@ var message = function message(app) {
             });
           }
         });
-        res.send({ message: 'Message Sent successfully to Group' });
+        res.status(200).json({ message: 'Message Sent successfully to Group' });
       }).catch(function (error) {
-        res.status(500).send({
+        res.status(500).json({
           message: 'Error occurred ' + error.message
         });
       });
     } else {
-      res.status(403).send({
+      res.status(403).json({
         message: 'Please log in to see a list of your groups'
       });
     }

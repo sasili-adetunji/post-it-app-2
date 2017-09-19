@@ -49,7 +49,13 @@ var Message = function (_React$Component) {
           "li",
           null,
           _react2.default.createElement("span", null),
-          this.props.user.userName,
+          _react2.default.createElement(
+            "b",
+            null,
+            " ",
+            this.props.user.userName,
+            " "
+          ),
           " "
         )
       );

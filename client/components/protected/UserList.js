@@ -16,6 +16,8 @@ class UserList extends React.Component {
    * @returns { void }
    * @memberof UserList
    */
+
+   
   render() {
     const userNodes = this.props.user.map((user, i) => {
       return (
@@ -27,6 +29,7 @@ class UserList extends React.Component {
         <div>
           <AddMember groupId={this.props.selectedGroup[0]} user={this.props.usernames} />
         </div>
+        <div className="headerlist"> <h4> Members </h4> </div>
         {userNodes}
       </div>
     );

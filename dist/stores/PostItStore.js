@@ -17,6 +17,7 @@ var usersInGroup = [];
 var usersNotInGroup = [];
 var users = [];
 var userGroups = [];
+var groupsUser = [];
 var readUsers = [];
 var userMessages = [];
 var errors = '';
@@ -85,14 +86,23 @@ var PostItStore = (0, _objectAssign2.default)({}, _events.EventEmitter.prototype
   getUsers: function getUsers() {
     return users;
   },
+  getGroups: function getGroups() {
+    return userGroups;
+  },
   getMessages: function getMessages() {
     return userMessages;
   },
   getSuccess: function getSuccess() {
     return success;
   },
+  addGroups: function addGroups(groups) {
+    groupsUser.concat(groups);
+  },
   setUserGroups: function setUserGroups(groups) {
-    userGroups = groups;
+    groupsUser = groups;
+  },
+  getGroupsUser: function getGroupsUser() {
+    return groupsUser;
   },
   setReadUsers: function setReadUsers(user) {
     readUsers = user;

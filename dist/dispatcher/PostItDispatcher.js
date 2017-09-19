@@ -36,7 +36,7 @@ PostItDispatcher.register(function (action) {
 
     case _PostItConstants2.default.CREATE_GROUP:
       _Api2.default.createNewGroup(action.group);
-      _PostItStore2.default.createNewGroup(action.group);
+      // PostItStore.createNewGroup(action.group);
       _PostItStore2.default.emitChange();
       break;
 

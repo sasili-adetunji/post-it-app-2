@@ -31,7 +31,7 @@ var userReadMessage = function userReadMessage(app) {
     var user = _firebase2.default.auth().currentUser;
     if (user) {
       var readUsers = [];
-      _firebase2.default.database().ref('readUsers/' + req.params.messageId).orderByKey().once('value', function (snapshot) {
+      _firebase2.default.database().ref('readUsers/' + req.params.messageId).orderByChild('userName').once('value', function (snapshot) {
         snapshot.forEach(function (childSnapShot) {
           var userDetails = {
             userName: childSnapShot.val().userName

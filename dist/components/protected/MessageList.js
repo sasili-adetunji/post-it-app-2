@@ -14,6 +14,10 @@ var _MessageBox = require('./MessageBox');
 
 var _MessageBox2 = _interopRequireDefault(_MessageBox);
 
+var _Api = require('../../Api');
+
+var _Api2 = _interopRequireDefault(_Api);
+
 var _Message = require('./Message');
 
 var _Message2 = _interopRequireDefault(_Message);
@@ -44,7 +48,6 @@ var MessageList = function (_React$Component) {
   _createClass(MessageList, [{
     key: 'render',
 
-
     /**
      *
      * renders messagelist components
@@ -54,11 +57,26 @@ var MessageList = function (_React$Component) {
     value: function render() {
       var _this2 = this;
 
-      var messageNodes = this.props.messages.map(function (message, i) {
-        return _react2.default.createElement(_Message2.default, {
-          message: message, key: i, MessageId: _this2.props.messages[0],
-          readUser: _this2.props.readUsers });
-      });
+      var messageNodes = null;
+      if (this.props.selectedGroup.length === 0) {
+        messageNodes = _react2.default.createElement(
+          'h4',
+          null,
+          ' No Group Selected '
+        );
+      } else if (this.props.messages.length === 0) {
+        messageNodes = _react2.default.createElement(
+          'h4',
+          null,
+          ' No Message in Group '
+        );
+      } else {
+        messageNodes = this.props.messages.map(function (message, i) {
+          return _react2.default.createElement(_Message2.default, {
+            message: message, key: i, MessageId: _this2.props.messages[0],
+            readUser: _this2.props.readUsers });
+        });
+      }
       return _react2.default.createElement(
         'div',
         null,
@@ -69,19 +87,15 @@ var MessageList = function (_React$Component) {
             'div',
             { className: 'col-md-8 col-xs-8' },
             _react2.default.createElement(
-              'h3',
-              { className: 'panel-title' },
+              'h4',
+              null,
               _react2.default.createElement('span', { className: 'glyphicon glyphicon-comment' }),
-              'Group 1 Message '
+              ' '
             )
           )
         ),
         messageNodes,
-        _react2.default.createElement(
-          'div',
-          null,
-          ' '
-        ),
+        _react2.default.createElement('div', null),
         _react2.default.createElement(_MessageBox2.default, { groupId: this.props.selectedGroup[0], author: this.props.loggedInUser })
       );
     }

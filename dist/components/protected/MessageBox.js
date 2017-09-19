@@ -58,7 +58,7 @@ var MessageBox = function (_React$Component) {
 
   /**
    *
-   * @param {any} e 
+   * @param {any} e
    * @memberof MessageBox
    */
 
@@ -72,7 +72,7 @@ var MessageBox = function (_React$Component) {
     /**
      *
      *
-     * @param {any} e 
+     * @param {any} e
      * @memberof MessageBox
      */
 
@@ -103,12 +103,23 @@ var MessageBox = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
-
       return _react2.default.createElement(
         'div',
         { className: 'input-group' },
-        _react2.default.createElement('input', {
-          onChange: this.onChange, id: 'btn-input', type: 'text', className: 'form-control',
+        _react2.default.createElement(
+          'div',
+          null,
+          ' ',
+          _react2.default.createElement(
+            'h4',
+            null,
+            ' Send Message to Group '
+          ),
+          ' '
+        ),
+        _react2.default.createElement('textarea', {
+          rows: '2', onChange: this.onChange, id: 'btn-input',
+          type: 'text', className: 'form-control',
           placeholder: 'Write your message here...', name: 'message', value: this.state.message }),
         _react2.default.createElement('div', null),
         _react2.default.createElement(
@@ -136,9 +147,13 @@ var MessageBox = function (_React$Component) {
           'span',
           { className: 'input-group-btn' },
           _react2.default.createElement(
-            'button',
-            { onClick: this.onClick, className: 'btn btn-primary btn-sm' },
-            'Send'
+            'div',
+            null,
+            _react2.default.createElement(
+              'button',
+              { onClick: this.onClick, className: 'btn btn-primary btn-sm' },
+              'Send'
+            )
           )
         )
       );

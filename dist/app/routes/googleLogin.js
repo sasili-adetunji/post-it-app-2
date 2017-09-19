@@ -47,11 +47,10 @@ var googleLogin = function googleLogin(app) {
         username: displayName,
         email: email
       });
-    });
-    res.json({
-      message: 'You have successfully signed in with  Google'
-    }).catch(function (error) {
       res.json({
+        message: 'You have successfully signed in with  Google' });
+    }).catch(function (error) {
+      res.status(500).json({
         message: error.message
       });
     });

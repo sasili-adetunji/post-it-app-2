@@ -34,7 +34,7 @@ var usersList = function usersList(app) {
         msg.forEach(function (snapshot) {
           var userDetails = {
             userId: snapshot.key,
-            userName: snapshot.val().username
+            userName: snapshot.val().userName
           };
           users.push(userDetails);
         });

@@ -48,7 +48,8 @@ var AddMember = function (_React$Component) {
 
     _this.state = {
       userName: '',
-      userId: ''
+      userId: '',
+      error: ''
     };
     _this.onChange = _this.onChange.bind(_this);
     _this.onClick = _this.onClick.bind(_this);
@@ -77,6 +78,8 @@ var AddMember = function (_React$Component) {
       _lodash2.default.map(this.props.user).map(function (x) {
         if (userName === x.userName) {
           n = x.userId;
+        } else {
+          return null;
         }
       });
       return n;
@@ -90,7 +93,18 @@ var AddMember = function (_React$Component) {
         userName: this.state.userName,
         groupId: this.props.groupId.groupId
       };
-      _PostItActions2.default.addUserToGroup(user);
+      if (!user.userId) {
+        this.setState({
+          error: 'This User does not exist',
+          userName: ''
+        });
+      } else {
+        this.setState({
+          error: '',
+          userName: ''
+        });
+        _PostItActions2.default.addUserToGroup(user);
+      }
     }
     /**
      *
@@ -106,6 +120,11 @@ var AddMember = function (_React$Component) {
         'div',
         { className: 'panel-body' },
         _react2.default.createElement(
+          'h6',
+          null,
+          ' To add a member, type in the username of the member '
+        ),
+        _react2.default.createElement(
           'form',
           { className: 'navbar-form', role: 'search' },
           _react2.default.createElement(
@@ -120,7 +139,17 @@ var AddMember = function (_React$Component) {
             { onClick: this.onClick, type: 'submit', className: 'btn btn-default ' },
             _react2.default.createElement('span', { className: 'glyphicon glyphicon-plus' })
           )
-        )
+        ),
+        _react2.default.createElement('br', null),
+        _react2.default.createElement(
+          'span',
+          { className: 'error' },
+          ' ',
+          this.state.error,
+          ' '
+        ),
+        ' ',
+        _react2.default.createElement('br', null)
       );
     }
   }]);

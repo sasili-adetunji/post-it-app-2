@@ -28,10 +28,6 @@ var _message = require('./message');
 
 var _message2 = _interopRequireDefault(_message);
 
-var _groupList = require('./groupList');
-
-var _groupList2 = _interopRequireDefault(_groupList);
-
 var _usersList = require('./usersList');
 
 var _usersList2 = _interopRequireDefault(_usersList);
@@ -62,7 +58,6 @@ var _userReadMessage2 = _interopRequireDefault(_userReadMessage);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-// import all the route into a single index file
 var index = function index(app) {
   (0, _signup2.default)(app);
   (0, _signin2.default)(app);
@@ -71,12 +66,11 @@ var index = function index(app) {
   (0, _message2.default)(app);
   (0, _groupAdd2.default)(app);
   (0, _usersList2.default)(app);
-  (0, _groupList2.default)(app);
   (0, _userMessage2.default)(app);
   (0, _userGroup2.default)(app);
   (0, _googleLogin2.default)(app);
   (0, _resetPassword2.default)(app);
   (0, _usersInGroup2.default)(app);
   (0, _userReadMessage2.default)(app);
-};
+}; // import all the route into a single index file
 exports.default = index;

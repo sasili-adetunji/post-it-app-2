@@ -27,6 +27,7 @@ var app = (0, _express2.default)();
    */
 var group = function group(app) {
   app.post('/group', function (req, res) {
+    var groups = [];
     var _req$body = req.body,
         groupName = _req$body.groupName,
         userName = _req$body.userName;
@@ -40,17 +41,24 @@ var group = function group(app) {
       var groupRef = _firebase2.default.database().ref('groups/' + groupKey + '/users/' + user.uid).set({
         userId: user.uid,
         userName: userName
-      });
-      var userRef = _firebase2.default.database().ref('users/' + user.uid + '/groups/' + groupKey + '/groupInfo').set({
-        groupId: groupKey,
-        groupName: groupName
-      });
-      res.json({
-        message: 'New Group Successfully Created',
-        group: groupName
+      }).then(function () {
+        var groupDetails = {
+          groupName: groupName,
+          groupId: groupKey
+        };
+        groups.push(groupDetails);
+      }).then(function () {
+        var userRef = _firebase2.default.database().ref('users/' + user.uid + '/groups/' + groupKey + '/groupInfo').set({
+          groupId: groupKey,
+          groupName: groupName
+        });
+        res.status(200).json({
+          message: 'New Group Successfully Created',
+          groups: groups
+        });
       }).catch(function (error) {});
     } else {
-      res.status(403).send({
+      res.status(403).json({
         message: 'Please log in to post to groups'
       });
     }

@@ -22,6 +22,10 @@ var _Group = require('./Group');
 
 var _Group2 = _interopRequireDefault(_Group);
 
+var _Api = require('../../Api');
+
+var _Api2 = _interopRequireDefault(_Api);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -39,13 +43,41 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var GroupList = function (_React$Component) {
   _inherits(GroupList, _React$Component);
 
-  function GroupList() {
+  function GroupList(props) {
     _classCallCheck(this, GroupList);
 
-    return _possibleConstructorReturn(this, (GroupList.__proto__ || Object.getPrototypeOf(GroupList)).apply(this, arguments));
+    var _this = _possibleConstructorReturn(this, (GroupList.__proto__ || Object.getPrototypeOf(GroupList)).call(this, props));
+
+    _this.state = {
+      groups: _PostItStore2.default.getGroupsUser()
+    };
+    _this.onChange = _this.onChange.bind(_this);
+    return _this;
   }
 
   _createClass(GroupList, [{
+    key: 'onChange',
+    value: function onChange() {
+      this.setState({
+        groups: _PostItStore2.default.getGroupsUser()
+      });
+    }
+  }, {
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      _PostItStore2.default.addChangeListener(this.onChange);
+    }
+  }, {
+    key: 'componentWillReceiveProps',
+    value: function componentWillReceiveProps() {
+      _Api2.default.getUserGroups();
+    }
+  }, {
+    key: 'componentUnmount',
+    value: function componentUnmount() {
+      _PostItStore2.default.removeChangeListener(this.onChange);
+    }
+  }, {
     key: 'render',
     value: function render() {
       var groupNodes = this.props.groups.map(function (group, i) {
@@ -58,6 +90,17 @@ var GroupList = function (_React$Component) {
           'div',
           null,
           _react2.default.createElement(_CreateGroup2.default, { userName: this.props.loggedInUser })
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'headerlist' },
+          ' ',
+          _react2.default.createElement(
+            'h4',
+            null,
+            ' My groups '
+          ),
+          ' '
         ),
         groupNodes
       );

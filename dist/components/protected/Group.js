@@ -10,6 +10,8 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
+var _reactRouterDom = require('react-router-dom');
+
 var _MessageList = require('./MessageList');
 
 var _MessageList2 = _interopRequireDefault(_MessageList);
@@ -59,14 +61,10 @@ var Group = function (_React$Component) {
   _createClass(Group, [{
     key: 'onClick',
     value: function onClick() {
-      var groupId = {
-        groupId: this.props.group.groupId,
-        messageId: this.props.MessageId
-      };
       _Api2.default.getMessages(this.props.group);
       _PostItActions2.default.groupOpened(this.props.group);
       _Api2.default.getUsersInGroup(this.props.group);
-      _Api2.default.getUsers();
+      _Api2.default.getUserGroups();
     }
     /**
      * renders group componenets
@@ -82,9 +80,21 @@ var Group = function (_React$Component) {
         'div',
         { className: 'side-menu-container' },
         _react2.default.createElement(
-          'li',
-          { onClick: this.onClick },
-          this.props.group.groupName
+          'a',
+          null,
+          ' ',
+          _react2.default.createElement(
+            'li',
+            { onClick: this.onClick },
+            _react2.default.createElement(
+              'b',
+              null,
+              ' ',
+              this.props.group.groupName,
+              ' '
+            )
+          ),
+          ' '
         )
       );
     }

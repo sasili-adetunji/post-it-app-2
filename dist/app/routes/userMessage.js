@@ -30,7 +30,8 @@ var userMessage = function userMessage(app) {
     var user = _firebase2.default.auth().currentUser;
     if (user) {
       var messages = [];
-      _firebase2.default.database().ref('users/' + user.uid + '/groups/' + req.params.groupId + '/messages/').orderByKey().once('value', function (snapshot) {
+      var messageRef = _firebase2.default.database().ref('users/' + user.uid + '/groups/' + req.params.groupId + '/messages/');
+      messageRef.once('value', function (snapshot) {
         snapshot.forEach(function (childSnapShot) {
           var message = {
             messageId: childSnapShot.key,
@@ -50,16 +51,16 @@ var userMessage = function userMessage(app) {
           });
         });
       }).then(function () {
-        res.send({
+        res.status(200).json({
           messages: messages
         });
       }).catch(function (error) {
-        res.status(500).send({
+        res.status(500).json({
           message: 'Error occurred ' + error.message
         });
       });
     } else {
-      res.status(403).send({
+      res.status(403).json({
         message: 'Please log in to see a list of your messages'
       });
     }

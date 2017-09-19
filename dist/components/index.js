@@ -66,6 +66,10 @@ var _MessageBoard = require('./protected/MessageBoard');
 
 var _MessageBoard2 = _interopRequireDefault(_MessageBoard);
 
+var _MessageList = require('./protected/MessageList');
+
+var _MessageList2 = _interopRequireDefault(_MessageList);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -144,6 +148,7 @@ var App = function (_Component) {
     key: 'componentDidMount',
     value: function componentDidMount() {
       _PostItStore2.default.addChangeListener(this.onChange);
+      var use = localStorage.getItem('user');
     }
 
     /**
@@ -189,6 +194,9 @@ var App = function (_Component) {
           _react2.default.createElement(PrivateRoute, {
             isAuthenticated: this.state.isAuthenticated,
             path: '/messageboard', component: _MessageBoard2.default }),
+          _react2.default.createElement(PrivateRoute, {
+            isAuthenticated: this.state.isAuthenticated,
+            path: '/messageboard/:groupId', component: _MessageList2.default }),
           _react2.default.createElement(_reactRouterDom.Route, { render: function render() {
               return _react2.default.createElement(
                 'h3',

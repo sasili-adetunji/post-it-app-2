@@ -56,7 +56,7 @@ var Dashboard = function (_React$Component) {
 
     _this.state = {
       loggedInUser: _PostItStore2.default.getLoggedInUser(),
-      groups: _PostItStore2.default.getUserGroups(),
+      groups: _PostItStore2.default.getGroupsUser(),
       messages: _PostItStore2.default.getMessages(),
       users: _PostItStore2.default.getUsersInGroup(),
       selectedGroup: _PostItStore2.default.getOpenedGroup(),
@@ -73,7 +73,7 @@ var Dashboard = function (_React$Component) {
     value: function onChange() {
       this.setState({
         loggedInUser: _PostItStore2.default.getLoggedInUser(),
-        groups: _PostItStore2.default.getUserGroups(),
+        groups: _PostItStore2.default.getGroupsUser(),
         messages: _PostItStore2.default.getMessages(),
         users: _PostItStore2.default.getUsersInGroup(),
         selectedGroup: _PostItStore2.default.getOpenedGroup(),
@@ -96,7 +96,6 @@ var Dashboard = function (_React$Component) {
   }, {
     key: 'render',
     value: function render() {
-      console.log(this.state);
       /**
         * renders the dashboard componets
         *
@@ -108,9 +107,9 @@ var Dashboard = function (_React$Component) {
         null,
         _react2.default.createElement(
           'div',
-          null,
+          { className: 'welcome' },
           _react2.default.createElement(
-            'h5',
+            'h4',
             null,
             ' Welcome ',
             this.state.loggedInUser.displayName,
@@ -123,8 +122,8 @@ var Dashboard = function (_React$Component) {
           _react2.default.createElement(
             'div',
             { className: 'col-md-3' },
-            _react2.default.createElement(_GroupList2.default, _extends({}, this.state, { loggedInUser: this.state.loggedInUser,
-              groups: this.state.groups }))
+            _react2.default.createElement(_GroupList2.default, _extends({}, this.state, { loggedInUser: this.state.loggedInUser, groups: this.state.groups
+            }))
           ),
           _react2.default.createElement(
             'div',
@@ -134,7 +133,7 @@ var Dashboard = function (_React$Component) {
           ),
           _react2.default.createElement(
             'div',
-            { className: 'col-md-3', id: '' },
+            { className: 'col-md-3' },
             _react2.default.createElement(_UserList2.default, _extends({}, this.state, { user: this.state.users, usernames: this.state.user }))
           )
         )

@@ -53,13 +53,13 @@ var Message = function (_React$Component) {
   }, {
     key: 'onClick',
     value: function onClick() {
-      // PostItActions.receiveReadUsers(this.props.message);
       _Api2.default.getUserReadUsers(this.props.message);
     }
   }, {
     key: 'render',
     value: function render() {
-      var userNodes = this.props.readUser.map(function (eachUser, i) {
+      var userNodes = null;
+      userNodes = this.props.readUser.map(function (eachUser, i) {
         var user = [];
         user.push(eachUser.userName);
         return _react2.default.createElement(
@@ -71,7 +71,7 @@ var Message = function (_React$Component) {
       });
       return _react2.default.createElement(
         'div',
-        { className: 'panel-body msg_container_base' },
+        { className: 'msg_container_base' },
         _react2.default.createElement(
           'div',
           { className: 'row msg_container base_sent' },
@@ -96,10 +96,9 @@ var Message = function (_React$Component) {
                   null,
                   ' Posted by ',
                   this.props.message.author,
-                  ' on',
+                  ' on ',
                   this.props.message.date
                 ),
-                ' ',
                 _react2.default.createElement('br', null),
                 _react2.default.createElement(
                   'time',

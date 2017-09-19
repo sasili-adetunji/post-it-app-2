@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import MessageList from './MessageList';
 import PostItActions from '../../actions/PostItActions';
 import PostItStore from '../../stores/PostItStore';
@@ -19,14 +20,11 @@ class Group extends React.Component {
   }
 
   onClick() {
-    const groupId = {
-      groupId: this.props.group.groupId,
-      messageId: this.props.MessageId
-    };
     API.getMessages(this.props.group);
     PostItActions.groupOpened(this.props.group);
     API.getUsersInGroup(this.props.group);
-    API.getUsers();
+    API.getUserGroups();
+
   }
   /**
    * renders group componenets
@@ -37,10 +35,10 @@ class Group extends React.Component {
   render() {
     return (
       <div className="side-menu-container">
-          <li onClick={this.onClick}>
-            { this.props.group.groupName }
-          </li>
-        </div>
+        <a> <li onClick={this.onClick}>
+         <b> { this.props.group.groupName } </b>
+        </li> </a>
+      </div>
     );
   }
 }

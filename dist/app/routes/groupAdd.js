@@ -33,24 +33,31 @@ var groupAdd = function groupAdd(app) {
         userName = _req$body.userName;
 
     var user = _firebase2.default.auth().currentUser;
-    var groupRef = _firebase2.default.database().ref('groups/' + groupId + '/users/' + userId + '/').set({
-      userId: userId,
-      userName: userName
-    });
-    var groupNames = _firebase2.default.database().ref('groups/' + groupId).orderByKey().once('value', function (snap) {
-      var groupName = snap.val().groupName;
-      var userRef = _firebase2.default.database().ref('users/' + userId + '/groups/' + groupId + '/groupInfo').set({
-        groupId: groupId,
-        groupName: groupName
+    if (user) {
+      var groupRef = _firebase2.default.database().ref('groups/' + groupId + '/users/' + userId + '/').set({
+        userId: userId,
+        userName: userName
+      }).then(function () {
+        var groupNames = _firebase2.default.database().ref('groups/' + groupId).orderByKey().once('value', function (snap) {
+          var groupName = snap.val().groupName;
+          var userRef = _firebase2.default.database().ref('users/' + userId + '/groups/' + groupId + '/groupInfo').set({
+            groupId: groupId,
+            groupName: groupName
+          });
+        });
+        res.status(200).json({
+          message: 'User successfully added'
+        });
+      }).catch(function (error) {
+        res.status(500).send({
+          message: 'Error occurred ' + error.message
+        });
       });
-    });
-    res.send({
-      message: 'User successfully added'
-    }).catch(function (error) {
-      res.status(500).send({
-        message: 'Error occurred ' + error.message
+    } else {
+      res.status(403).json({
+        message: 'Please log in to post to groups'
       });
-    });
+    }
   });
 };
 

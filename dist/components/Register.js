@@ -71,8 +71,7 @@ var Register = function (_React$Component) {
       email: '',
       password: '',
       phoneNumber: '',
-      isAuthenticated: _PostItStore2.default.getIsAuthenticated(),
-      errors: _PostItStore2.default.getErrors()
+      errors: ''
     };
 
     _this.onChange = _this.onChange.bind(_this);
@@ -108,9 +107,14 @@ var Register = function (_React$Component) {
         password: this.state.password,
         userName: this.state.userName,
         phoneNumber: this.state.phoneNumber
-
       };
-      _PostItActions2.default.registerUser(user);
+      if (!user.email || !user.password || !user.userName) {
+        this.setState({
+          errors: 'Please enter valid details'
+        });
+      } else {
+        _PostItActions2.default.registerUser(user);
+      }
     }
     /**
        * @returns {String} The HTML markup for the Login
@@ -128,39 +132,42 @@ var Register = function (_React$Component) {
           null,
           _react2.default.createElement(
             _Card.Card,
-            { style: {
-                maxWidth: '800px',
-                margin: '30px auto',
-                padding: '50px',
-                textAlign: 'center'
-              } },
+            { className: 'card' },
             _react2.default.createElement(_Card.CardTitle, {
-              style: { textAlign: 'center' },
               title: 'Signup Form',
               subtitle: 'To continue using PostIt, you need to register below' }),
-            _react2.default.createElement(_TextField2.default, {
-              name: 'userName', onChange: this.onChange,
-              value: this.state.userName, hintText: 'Username Field',
-              floatingLabelText: 'Choose Username' }),
+            _react2.default.createElement(
+              'span',
+              { className: 'success' },
+              ' ',
+              _PostItStore2.default.getSuccess(),
+              ' '
+            ),
+            ' ',
             _react2.default.createElement('br', null),
             _react2.default.createElement(_TextField2.default, {
-              name: 'email', onChange: this.onChange, value: this.state.email, hintText: 'Email Field',
+              name: 'userName', onChange: this.onChange,
+              value: this.state.userName, floatingLabelText: 'Choose Username' }),
+            _react2.default.createElement('br', null),
+            _react2.default.createElement(_TextField2.default, {
+              name: 'email', onChange: this.onChange, value: this.state.email,
               floatingLabelText: 'Your Email' }),
             _react2.default.createElement('br', null),
             _react2.default.createElement(_TextField2.default, {
               name: 'password', onChange: this.onChange,
-              value: this.state.password, hintText: 'Password Field',
+              value: this.state.password,
               floatingLabelText: 'Choose Password', type: 'password' }),
             _react2.default.createElement('br', null),
             _react2.default.createElement(_TextField2.default, {
               name: 'phoneNumber', onChange: this.onChange,
-              value: this.state.phoneNumber,
-              hintText: 'E.g. 23480', floatingLabelText: 'Phone Number' }),
+              floatingLabelText: 'Phone Number' }),
             _react2.default.createElement('br', null),
             _react2.default.createElement('br', null),
             _react2.default.createElement(
               'span',
-              { style: { color: 'red' } },
+              { className: 'error' },
+              ' ',
+              this.state.errors,
               ' ',
               _PostItStore2.default.getErrors(),
               ' '
@@ -172,14 +179,14 @@ var Register = function (_React$Component) {
               null,
               ' Already Have an account,',
               _react2.default.createElement(
-                'a',
-                { href: '/#/signin' },
+                _reactRouterDom.Link,
+                { to: '/signin' },
                 ' Login here '
               ),
               ' '
             ),
             _react2.default.createElement(_RaisedButton2.default, {
-              style: { display: 'block' }, onClick: this.onClick,
+              onClick: this.onClick,
               onTouchTap: this.handleTouchTap,
               label: 'Sign Up', primary: true })
           )

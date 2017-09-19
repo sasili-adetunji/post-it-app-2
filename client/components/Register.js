@@ -1,7 +1,7 @@
 import React from 'react';
 import mui from 'material-ui';
-import { Redirect, browserHistory } from 'react-router-dom';
-import { Card, CardActions, CardHeader, CardTitle, CardText } from 'material-ui/Card';
+import { Link } from 'react-router-dom';
+import { Card, CardTitle } from 'material-ui/Card';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -27,8 +27,7 @@ class Register extends React.Component {
       email: '',
       password: '',
       phoneNumber: '',
-      isAuthenticated: PostItStore.getIsAuthenticated(),
-      errors: PostItStore.getErrors()
+      errors: ''
     };
 
     this.onChange = this.onChange.bind(this);
@@ -58,9 +57,14 @@ class Register extends React.Component {
       password: this.state.password,
       userName: this.state.userName,
       phoneNumber: this.state.phoneNumber
-
     };
-    PostItActions.registerUser(user);
+    if ((!user.email) || (!user.password) || (!user.userName)) {
+      this.setState({
+        errors: 'Please enter valid details'
+      });
+    } else {
+      PostItActions.registerUser(user);
+    }
   }
 /**
    * @returns {String} The HTML markup for the Login
@@ -70,38 +74,31 @@ class Register extends React.Component {
     return (
       <div>
         <MuiThemeProvider >
-          <Card style={{
-            maxWidth: '800px',
-            margin: '30px auto',
-            padding: '50px',
-            textAlign: 'center'
-          }}>
+          <Card className="card" >
             <CardTitle
-                style={{ textAlign: 'center' }}
                 title="Signup Form"
                 subtitle="To continue using PostIt, you need to register below" />
+            <span className="success"> {PostItStore.getSuccess()} </span> <br />
             <TextField
                 name="userName" onChange={this.onChange}
-                value={this.state.userName} hintText="Username Field"
-                floatingLabelText="Choose Username" /><br />
+                value={this.state.userName} floatingLabelText="Choose Username" /><br />
             <TextField
-                name="email" onChange={this.onChange} value={this.state.email} hintText="Email Field"
+                name="email" onChange={this.onChange} value={this.state.email}
                 floatingLabelText="Your Email" /><br />
             <TextField
                 name="password" onChange={this.onChange}
-                value={this.state.password} hintText="Password Field"
+                value={this.state.password}
                 floatingLabelText="Choose Password" type="password" /><br />
             <TextField
                 name="phoneNumber" onChange={this.onChange}
-                value={this.state.phoneNumber}
-                hintText="E.g. 23480" floatingLabelText="Phone Number" /><br />
+                floatingLabelText="Phone Number" /><br />
             <br />
-            <span style={{ color: 'red' }} > {PostItStore.getErrors()} </span> <br />
-            <p> Already Have an account,<a href="/#/signin"> Login here </a> </p>
+            <span className="error"> {this.state.errors} {PostItStore.getErrors()} </span> <br />
+            <p> Already Have an account,<Link to="/signin"> Login here </Link> </p>
             <RaisedButton
-                style={{ display: 'block' }} onClick={this.onClick}
-                onTouchTap={this.handleTouchTap}
-                label="Sign Up" primary />
+              onClick={this.onClick}
+              onTouchTap={this.handleTouchTap}
+              label="Sign Up" primary />
           </Card>
         </MuiThemeProvider>
       </div>

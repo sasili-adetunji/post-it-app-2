@@ -44,7 +44,7 @@ var signup = function signup(app) {
         email: email,
         phoneNumber: phoneNumber
       });
-      res.json({ message: 'Welcome ' + user.email + '. You have successfully registered',
+      res.status(200).json({ message: 'Welcome ' + user.email + '. You have successfully registered. You can proceed to login now',
         user: user });
     }).catch(function (err) {
       var errorMessage = err.message;

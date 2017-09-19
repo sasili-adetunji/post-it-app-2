@@ -20,6 +20,14 @@ var _PostItStore2 = _interopRequireDefault(_PostItStore);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+var config = {
+  apiKey: 'IzaSyAPkaQ0wLHWqT_u20dcXLqPENZsmea7mgs',
+  authDomain: 'authDomain=postit-335c1.firebaseapp.com',
+  databaseURL: 'https://postit-335c1.firebaseio.com',
+  projectId: 'postit-335c1',
+  storageBucket: 'postit-335c1.appspot.com',
+  messagingSenderId: '63329792793'
+};
 module.exports = {
 
   /**
@@ -34,17 +42,10 @@ module.exports = {
       userName: user.userName,
       phoneNumber: user.phoneNumber
     }).then(function (response) {
-      var authuser = {
-        email: user.email,
-        isAuthenticated: true
-      };
       if (response.data.message === 'The email address is badly formatted.' || response.data.message === 'The email address is already in use by another account.') {
         _PostItActions2.default.receiveErrors(response.data.message);
       } else {
         _PostItActions2.default.receiveSuccess(response.data.message);
-        localStorage.setItem('user', response.data.user.stsTokenManager.accessToken);
-        _PostItStore2.default.setLoggedInUser(response.data.user);
-        _PostItActions2.default.receiveAuthenticatedUser(authuser);
       }
     }).catch(function (error) {
       _PostItActions2.default.receiveErrors(error.message);
@@ -71,8 +72,8 @@ module.exports = {
       } else {
         _PostItActions2.default.receiveSuccess(response.data.message);
         localStorage.setItem('user', response.data.user.stsTokenManager.accessToken);
-        _PostItActions2.default.receiveAuthenticatedUser(authuser);
         _PostItStore2.default.setLoggedInUser(response.data.user);
+        _PostItActions2.default.receiveAuthenticatedUser(authuser);
       }
     }).catch(function (error) {
       _PostItActions2.default.receiveErrors(error.message);
@@ -86,7 +87,7 @@ module.exports = {
    */
   signoutUser: function signoutUser() {
     _axios2.default.get('/user/signout').then(function (response) {
-      _PostItActions2.default.receiveSuccess(response.message);
+      _PostItActions2.default.receiveSuccess(response.data.message);
       localStorage.removeItem('user');
     }).catch(function (error) {
       _PostItActions2.default.receiveErrors(error.message);
@@ -98,34 +99,24 @@ module.exports = {
    * api call to login us with google
    *
    */
-  googleLogin: function googleLogin() {
-    var email = void 0,
-        uid = void 0,
-        displayName = void 0;
+  googleLogin: function googleLogin(idToken) {
     var provider = new _firebase2.default.auth.GoogleAuthProvider();
     provider.addScope('https://www.googleapis.com/auth/plus.login');
-    _firebase2.default.auth().signInWithPopup(provider).then(function (result) {
-      var token = result.credential.accessToken;
-      email = result.user.email;
-      uid = result.user.uid;
-      displayName = result.user.displayName;
-    }).then(function () {
-      _db.db.database().ref('users/').child(uid).set({
-        userName: displayName,
-        email: email
-      });
-    }).then(function () {
-      var authuser = {
-        email: email,
-        isAuthenticated: true
-      };
-      _PostItActions2.default.receiveSuccess({ message: 'Success: you have successfuly signed in.' });
-      _PostItActions2.default.receiveAuthenticatedUser(authuser);
-    }).catch(function (error) {
-      _PostItActions2.default.receiveErrors(error.message);
-    });
-  },
+    _firebase2.default.auth().signInWithPopup(provider);
 
+    // axios.post('/user/google', idToken)
+    // .then((response) => {
+    //   console.log(response);
+    //   // PostItActions.receiveSuccess(response.message);
+    //   // PostItActions.receiveAuthenticatedUser(authuser);
+    //   // PostItStore.setLoggedInUser(response.data.user);
+    // })
+    // .catch((error) => {
+    //   console.log(error);
+
+    //   // PostItActions.receiveErrors(error.message);
+    // });
+  },
 
   /**
    * api call to create new group from the route
@@ -138,6 +129,7 @@ module.exports = {
       userName: group.userName
     }).then(function (response) {
       _PostItActions2.default.receiveSuccess(response.message);
+      _PostItStore2.default.addGroups(response.data.groups);
     }).catch(function (error) {
       _PostItActions2.default.receiveErrors(error.message);
     });
@@ -232,7 +224,7 @@ module.exports = {
   getMessages: function getMessages(group) {
     _axios2.default.get('/group/' + group.groupId + '/messages').then(function (response) {
       _PostItActions2.default.receiveSuccess(response.message);
-      _PostItActions2.default.receiveMessages(response.data.messages);
+      _PostItStore2.default.setMessages(response.data.messages);
     }).catch(function (error) {
       _PostItActions2.default.receiveErrors(error.message);
     });
