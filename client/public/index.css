@@ -124,7 +124,6 @@
 .col-md-6 {
   background-color: #00bcd4;
   height: 600px;
-  overflow: scroll;
 }
 .welcome {
   padding-left: 15px;
@@ -164,4 +163,18 @@
 } */
 .success {
   color: green;
+}
+.message_area {
+    position: fixed;
+    bottom: 30px;
+    display: table;
+    border-collapse: separate;
+    width: 600px;
+}
+.message_box {
+  height: 200px;
+  }
+.message_list {
+  height: 400px;
+  overflow: scroll;
 }

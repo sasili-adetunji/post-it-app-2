@@ -33,14 +33,17 @@ class MessageList extends React.Component {
     }
     return (
       <div>
+        <div className="message_list">
         <div className=" top-bar">
           <div className="col-md-8 col-xs-8">
             <h4><span className="glyphicon glyphicon-comment" /> </h4>
           </div>
         </div>
         {messageNodes}
-        <div />
+        </div>
+      <div className="message_box">
         <MessageBox groupId={this.props.selectedGroup[0]} author={this.props.loggedInUser} />
+        </div>
       </div>
     );
   }

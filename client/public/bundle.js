@@ -15590,21 +15590,28 @@ var MessageList = function (_React$Component) {
         null,
         _react2.default.createElement(
           'div',
-          { className: ' top-bar' },
+          { className: 'message_list' },
           _react2.default.createElement(
             'div',
-            { className: 'col-md-8 col-xs-8' },
+            { className: ' top-bar' },
             _react2.default.createElement(
-              'h4',
-              null,
-              _react2.default.createElement('span', { className: 'glyphicon glyphicon-comment' }),
-              ' '
+              'div',
+              { className: 'col-md-8 col-xs-8' },
+              _react2.default.createElement(
+                'h4',
+                null,
+                _react2.default.createElement('span', { className: 'glyphicon glyphicon-comment' }),
+                ' '
+              )
             )
-          )
+          ),
+          messageNodes
         ),
-        messageNodes,
-        _react2.default.createElement('div', null),
-        _react2.default.createElement(_MessageBox2.default, { groupId: this.props.selectedGroup[0], author: this.props.loggedInUser })
+        _react2.default.createElement(
+          'div',
+          { className: 'message_box' },
+          _react2.default.createElement(_MessageBox2.default, { groupId: this.props.selectedGroup[0], author: this.props.loggedInUser })
+        )
       );
     }
   }]);
@@ -43999,7 +44006,7 @@ var MessageBox = function (_React$Component) {
     value: function render() {
       return _react2.default.createElement(
         'div',
-        { className: 'input-group' },
+        { className: 'input-group message_area' },
         _react2.default.createElement(
           'div',
           null,
