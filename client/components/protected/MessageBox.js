@@ -66,7 +66,7 @@ class MessageBox extends React.Component {
    */
   render() {
     return (
-      <div className="input-group">
+      <div className="input-group message_area">
         <div> <h4> Send Message to Group </h4> </div>
         <textarea
 rows="2" onChange={this.onChange} id="btn-input"
