@@ -8,6 +8,7 @@ if (localStorage.getItem('user')) {
   PostItStore.setIsAuthenticated(true);
 }
 
+
 ReactDOM.render(
   <BrowserRouter basename="/#">
     <App />

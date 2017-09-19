@@ -23,6 +23,8 @@ class Group extends React.Component {
     API.getMessages(this.props.group);
     PostItActions.groupOpened(this.props.group);
     API.getUsersInGroup(this.props.group);
+    API.getUserGroups();
+
   }
   /**
    * renders group componenets
@@ -34,7 +36,7 @@ class Group extends React.Component {
     return (
       <div className="side-menu-container">
         <a> <li onClick={this.onClick}>
-          { this.props.group.groupName }
+         <b> { this.props.group.groupName } </b>
         </li> </a>
       </div>
     );

@@ -6,7 +6,8 @@ const registeredUser = [];
 let usersInGroup = [];
 const usersNotInGroup = [];
 let users = [];
-let userGroups = [];
+const userGroups = [];
+let groupsUser = [];
 let readUsers = [];
 let userMessages = [];
 let errors = '';
@@ -103,8 +104,16 @@ const PostItStore = assign({}, EventEmitter.prototype, {
     return success;
   },
 
+  addGroups(groups) {
+    groupsUser.concat(groups);
+  },
+
   setUserGroups(groups) {
-    userGroups = groups;
+    groupsUser = groups;
+  },
+
+  getGroupsUser() {
+    return groupsUser;
   },
   setReadUsers(user) {
     readUsers = user;

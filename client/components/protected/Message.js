@@ -20,7 +20,6 @@ class Message extends React.Component {
     // PostItActions.getUserReadUsers(this.props.message);
   }
   onClick() {
-    // PostItActions.receiveReadUsers(this.props.message);
     API.getUserReadUsers(this.props.message);
   }
   render() {

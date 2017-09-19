@@ -20,7 +20,7 @@ PostItDispatcher.register((action) => {
 
     case PostItConstants.CREATE_GROUP:
       API.createNewGroup(action.group);
-      PostItStore.createNewGroup(action.group);
+      // PostItStore.createNewGroup(action.group);
       PostItStore.emitChange();
       break;
 

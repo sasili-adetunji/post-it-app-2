@@ -113,6 +113,7 @@ module.exports = {
       userName: group.userName
     }).then((response) => {
       PostItActions.receiveSuccess(response.message);
+      PostItStore.addGroups(response.data.groups);
     })
     .catch((error) => {
       PostItActions.receiveErrors(error.message);
