@@ -23650,22 +23650,30 @@ var AddMember = function (_React$Component) {
     key: 'onClick',
     value: function onClick(e) {
       e.preventDefault();
+      if (!this.props.groupId) {
+        this.setState({
+          error: 'Kindly select a group first',
+          userName: ''
+        });
+        return true;
+      }
       var user = {
         userId: this.data(this.state.userName),
         userName: this.state.userName,
         groupId: this.props.groupId.groupId
       };
+
       if (!user.userId) {
         this.setState({
           error: 'This User does not exist',
           userName: ''
         });
       } else {
+        _PostItActions2.default.addUserToGroup(user);
         this.setState({
           error: '',
           userName: ''
         });
-        _PostItActions2.default.addUserToGroup(user);
       }
     }
     /**
@@ -42134,7 +42142,7 @@ var App = function (_Component) {
           { muiTheme: (0, _getMuiTheme2.default)(_darkBaseTheme2.default) },
           _react2.default.createElement(_AppBar2.default, {
             title: 'Post It App', iconElementRight: _react2.default.createElement(_FlatButton2.default, {
-              label: 'Sign Out', onClick: this.handleClick }) })
+              label: 'Log Out', onClick: this.handleClick }) })
         ),
         _react2.default.createElement(
           _reactRouterDom.Switch,
@@ -43152,6 +43160,11 @@ var Login = function (_React$Component) {
         });
       } else {
         _PostItActions2.default.login(user);
+        this.setState({
+          email: '',
+          password: '',
+          errors: ''
+        });
       }
     }
     /**
@@ -43219,7 +43232,7 @@ var Login = function (_React$Component) {
               { className: 'error' },
               ' ',
               this.state.errors,
-              '. ',
+              ' ',
               _PostItStore2.default.getErrors(),
               ' '
             ),
@@ -43394,6 +43407,13 @@ var Register = function (_React$Component) {
         });
       } else {
         _PostItActions2.default.registerUser(user);
+        this.setState({
+          userName: '',
+          email: '',
+          password: '',
+          phoneNumber: '',
+          errors: ''
+        });
       }
     }
     /**
@@ -43538,7 +43558,6 @@ var GroupList = function (_React$Component) {
     _this.state = {
       groups: _PostItStore2.default.getGroupsUser()
     };
-    _this.onChange = _this.onChange.bind(_this);
     return _this;
   }
 
@@ -43550,23 +43569,27 @@ var GroupList = function (_React$Component) {
       });
     }
   }, {
-    key: 'componentDidMount',
-    value: function componentDidMount() {
-      _PostItStore2.default.addChangeListener(this.onChange);
-    }
-  }, {
     key: 'componentWillReceiveProps',
     value: function componentWillReceiveProps() {
       _Api2.default.getUserGroups();
     }
   }, {
-    key: 'componentUnmount',
-    value: function componentUnmount() {
-      _PostItStore2.default.removeChangeListener(this.onChange);
-    }
-  }, {
     key: 'render',
     value: function render() {
+      var header = null;
+      if (this.props.groups.length < 1) {
+        header = _react2.default.createElement(
+          'h4',
+          null,
+          ' No Group yet '
+        );
+      } else {
+        header = _react2.default.createElement(
+          'h4',
+          null,
+          ' My groups '
+        );
+      }
       var groupNodes = this.props.groups.map(function (group, i) {
         return _react2.default.createElement(_Group2.default, { group: group, key: i });
       });
@@ -43582,11 +43605,7 @@ var GroupList = function (_React$Component) {
           'div',
           { className: 'headerlist' },
           ' ',
-          _react2.default.createElement(
-            'h4',
-            null,
-            ' My groups '
-          ),
+          header,
           ' '
         ),
         groupNodes
@@ -43870,8 +43889,13 @@ var Dashboard = function (_React$Component) {
           _react2.default.createElement(
             'div',
             { className: 'col-md-3' },
-            _react2.default.createElement(_GroupList2.default, _extends({}, this.state, { loggedInUser: this.state.loggedInUser, groups: this.state.groups
-            }))
+            _react2.default.createElement(
+              'div',
+              null,
+              _react2.default.createElement(_GroupList2.default, {
+                selectedGroup: this.state.selectedGroup, groups: this.state.groups,
+                loggedInUser: this.state.loggedInUser })
+            )
           ),
           _react2.default.createElement(
             'div',
@@ -43882,7 +43906,11 @@ var Dashboard = function (_React$Component) {
           _react2.default.createElement(
             'div',
             { className: 'col-md-3' },
-            _react2.default.createElement(_UserList2.default, _extends({}, this.state, { user: this.state.users, usernames: this.state.user }))
+            _react2.default.createElement(
+              'div',
+              null,
+              _react2.default.createElement(_UserList2.default, _extends({}, this.state, { user: this.state.users, usernames: this.state.user }))
+            )
           )
         )
       );
@@ -43950,7 +43978,8 @@ var MessageBox = function (_React$Component) {
 
     _this.state = {
       message: '',
-      priorityLevel: ''
+      priorityLevel: '',
+      error: ''
     };
     _this.onChange = _this.onChange.bind(_this);
     _this.onClick = _this.onClick.bind(_this);
@@ -43981,18 +44010,26 @@ var MessageBox = function (_React$Component) {
     key: 'onClick',
     value: function onClick(e) {
       e.preventDefault();
-      var message = {
-        message: this.state.message,
-        groupId: this.props.groupId.groupId,
-        priorityLevel: this.state.priorityLevel,
-        date: new Date().toJSON(),
-        author: this.props.author.displayName
-      };
-      _PostItActions2.default.addMessage(message);
-      this.setState({
-        message: '',
-        date: ''
-      });
+      if (!this.props.groupId) {
+        this.setState({
+          error: 'Please kindly select a group first',
+          message: ''
+        });
+      } else {
+        var message = {
+          message: this.state.message,
+          groupId: this.props.groupId.groupId,
+          priorityLevel: this.state.priorityLevel,
+          date: new Date().toJSON(),
+          author: this.props.author.displayName
+        };
+        _PostItActions2.default.addMessage(message);
+        this.setState({
+          message: '',
+          date: '',
+          error: ''
+        });
+      }
     }
     /**
      *
@@ -44056,7 +44093,17 @@ var MessageBox = function (_React$Component) {
               'Send'
             )
           )
-        )
+        ),
+        _react2.default.createElement('br', null),
+        _react2.default.createElement(
+          'span',
+          { className: 'error' },
+          ' ',
+          this.state.error,
+          ' '
+        ),
+        ' ',
+        _react2.default.createElement('br', null)
       );
     }
   }]);

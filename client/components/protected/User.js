@@ -16,8 +16,8 @@ class Message extends React.Component {
   render() {
     return (
       <div className="side-menu-container">
-          <li><span />
-           <b> {this.props.user.userName} </b> </li>
+        <li><span />
+          <b> {this.props.user.userName} </b> </li>
       </div>
     );
   }

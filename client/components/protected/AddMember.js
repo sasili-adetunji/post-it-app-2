@@ -49,22 +49,30 @@ class AddMember extends React.Component {
   }
   onClick(e) {
     e.preventDefault();
+    if (!this.props.groupId) {
+      this.setState({
+        error: 'Kindly select a group first',
+        userName: ''
+      });
+      return true;
+    }
     const user = {
       userId: this.data(this.state.userName),
       userName: this.state.userName,
       groupId: this.props.groupId.groupId
     };
+
     if (!user.userId) {
       this.setState({
         error: 'This User does not exist',
         userName: ''
       });
     } else {
+      PostItActions.addUserToGroup(user);
       this.setState({
         error: '',
         userName: ''
       });
-      PostItActions.addUserToGroup(user);
     }
   }
   /**

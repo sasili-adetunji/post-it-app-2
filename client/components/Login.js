@@ -29,24 +29,24 @@ class Login extends React.Component {
     this.onClickGoogle = this.onClickGoogle.bind(this);
     this.onClickReset = this.onClickReset.bind(this);
   }
-/**
-   * Monitors changes in the components and change the state
-   * @param {object} e
-   * @returns {void}
-   * @memberOf Login
-*/
+  /**
+     * Monitors changes in the components and change the state
+     * @param {object} e
+     * @returns {void}
+     * @memberOf Login
+  */
   onChange(e) {
     this.setState({
       [e.target.name]: e.target.value
     });
   }
 
-/**
-   * Makes an action call to log a user with email and password
-   * @param {object} e
-   * @returns {void}
-   * @memberOf Login
-*/
+  /**
+     * Makes an action call to log a user with email and password
+     * @param {object} e
+     * @returns {void}
+     * @memberOf Login
+  */
   onClick(e) {
     e.preventDefault();
     const user = {
@@ -60,24 +60,29 @@ class Login extends React.Component {
       });
     } else {
       PostItActions.login(user);
+      this.setState({
+        email: '',
+        password: '',
+        errors: ''
+      });
     }
   }
-/**
-   * Makes an action call to log a user with google
-   * @param {object} e
-   * @returns {void}
-   * @memberOf Login
-*/
+  /**
+     * Makes an action call to log a user with google
+     * @param {object} e
+     * @returns {void}
+     * @memberOf Login
+  */
   onClickGoogle(googleUser) {
     const idToken = googleUser.getAuthResponse().id_token;
     PostItActions.googleLogin(idToken);
   }
-/**
-   * Makes an action call to reset password
-   * @param {object} e
-   * @returns {void}
-   * @memberOf Login
-*/
+  /**
+     * Makes an action call to reset password
+     * @param {object} e
+     * @returns {void}
+     * @memberOf Login
+  */
   onClickReset(e) {
     e.preventDefault();
     const email =
@@ -87,10 +92,10 @@ class Login extends React.Component {
     PostItActions.resetPassword(email);
   }
 
-/**
-   * @returns {String} The HTML markup for the Login
-   * @memberOf Login
-   */
+  /**
+     * @returns {String} The HTML markup for the Login
+     * @memberOf Login
+     */
   render() {
     return (
       <div>
@@ -107,12 +112,12 @@ class Login extends React.Component {
               floatingLabelText="Your Password"
               type="password" /><br />
             <br />
-            <span className="error"> {this.state.errors}. {PostItStore.getErrors()} </span> <br />
+            <span className="error"> {this.state.errors} {PostItStore.getErrors()} </span> <br />
             <p> Already Have an account,<Link to="/signup"> Register here </Link> </p>
 
             <p> Forgot your Password? Enter your Email and <a
-            href="/#/signup"
-            onClick={this.onClickReset}> Click here </a> </p>
+              href="/#/signup"
+              onClick={this.onClickReset}> Click here </a> </p>
             <RaisedButton
               label="Login" primary onClick={this.onClick} />
             <br />

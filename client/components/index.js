@@ -93,7 +93,7 @@ class App extends Component {
         <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
           <AppBar
             title="Post It App" iconElementRight={<FlatButton
-              label="Sign Out" onClick={this.handleClick} />} />
+              label="Log Out" onClick={this.handleClick} />} />
         </MuiThemeProvider>
         <Switch>
           <PublicRoute path="/" exact component={Login} />

@@ -17,7 +17,6 @@ class UserList extends React.Component {
    * @memberof UserList
    */
 
-   
   render() {
     const userNodes = this.props.user.map((user, i) => {
       return (

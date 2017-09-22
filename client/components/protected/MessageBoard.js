@@ -50,28 +50,31 @@ class Dashboard extends React.Component {
     PostItStore.removeChangeListener(this.onChange);
   }
   render() {
- /**
-   * renders the dashboard componets
-   *
-   * @returns { void }
-   * @memberof Dashboard
-   */
+    /**
+      * renders the dashboard componets
+      *
+      * @returns { void }
+      * @memberof Dashboard
+      */
     return (
       <div>
         <div className="welcome"><h4> Welcome {this.state.loggedInUser.displayName} </h4></div>
         <div className="row">
           <div className="col-md-3" >
-            <GroupList
-              {...this.state} loggedInUser={this.state.loggedInUser} groups={this.state.groups}
-               />
+            <div>
+              <GroupList
+                selectedGroup={this.state.selectedGroup} groups={this.state.groups}
+                loggedInUser={this.state.loggedInUser} />
+            </div>
           </div>
           <div className="col-md-6">
-            <MessageList
-              {...this.state} loggedInUser={this.state.loggedInUser}
+            <MessageList {...this.state} loggedInUser={this.state.loggedInUser}
               readUsers={this.state.readUsers} />
           </div>
           <div className="col-md-3">
-            <UserList {...this.state} user={this.state.users} usernames={this.state.user} />
+            <div>
+              <UserList {...this.state} user={this.state.users} usernames={this.state.user} />
+            </div>
           </div>
         </div>
       </div>

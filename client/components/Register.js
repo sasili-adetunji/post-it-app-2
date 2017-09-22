@@ -33,23 +33,23 @@ class Register extends React.Component {
     this.onChange = this.onChange.bind(this);
     this.onClick = this.onClick.bind(this);
   }
-/**
-   * Monitors changes in the components and change the state
-   * @param {object} e
-   * @returns {void}
-   * @memberOf Register
-*/
+  /**
+     * Monitors changes in the components and change the state
+     * @param {object} e
+     * @returns {void}
+     * @memberOf Register
+  */
   onChange(e) {
     this.setState({
       [e.target.name]: e.target.value
     });
   }
-/**
-   * Makes an action call to register a user with email and password
-   * @param {object} e
-   * @returns {void}
-   * @memberOf Register
-*/
+  /**
+     * Makes an action call to register a user with email and password
+     * @param {object} e
+     * @returns {void}
+     * @memberOf Register
+  */
   onClick(e) {
     e.preventDefault();
     const user = {
@@ -64,34 +64,41 @@ class Register extends React.Component {
       });
     } else {
       PostItActions.registerUser(user);
+      this.setState({
+        userName: '',
+        email: '',
+        password: '',
+        phoneNumber: '',
+        errors: ''
+      });
     }
   }
-/**
-   * @returns {String} The HTML markup for the Login
-   * @memberOf Login
-*/
+  /**
+     * @returns {String} The HTML markup for the Login
+     * @memberOf Login
+  */
   render() {
     return (
       <div>
         <MuiThemeProvider >
           <Card className="card" >
             <CardTitle
-                title="Signup Form"
-                subtitle="To continue using PostIt, you need to register below" />
+              title="Signup Form"
+              subtitle="To continue using PostIt, you need to register below" />
             <span className="success"> {PostItStore.getSuccess()} </span> <br />
             <TextField
-                name="userName" onChange={this.onChange}
-                value={this.state.userName} floatingLabelText="Choose Username" /><br />
+              name="userName" onChange={this.onChange}
+              value={this.state.userName} floatingLabelText="Choose Username" /><br />
             <TextField
-                name="email" onChange={this.onChange} value={this.state.email}
-                floatingLabelText="Your Email" /><br />
+              name="email" onChange={this.onChange} value={this.state.email}
+              floatingLabelText="Your Email" /><br />
             <TextField
-                name="password" onChange={this.onChange}
-                value={this.state.password}
-                floatingLabelText="Choose Password" type="password" /><br />
+              name="password" onChange={this.onChange}
+              value={this.state.password}
+              floatingLabelText="Choose Password" type="password" /><br />
             <TextField
-                name="phoneNumber" onChange={this.onChange}
-                floatingLabelText="Phone Number" /><br />
+              name="phoneNumber" onChange={this.onChange}
+              floatingLabelText="Phone Number" /><br />
             <br />
             <span className="error"> {this.state.errors} {PostItStore.getErrors()} </span> <br />
             <p> Already Have an account,<Link to="/signin"> Login here </Link> </p>

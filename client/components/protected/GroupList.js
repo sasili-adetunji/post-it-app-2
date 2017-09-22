@@ -17,7 +17,6 @@ class GroupList extends React.Component {
     this.state = {
       groups: PostItStore.getGroupsUser(),
     };
-    this.onChange = this.onChange.bind(this);
   }
 
   onChange() {
@@ -26,18 +25,17 @@ class GroupList extends React.Component {
     });
   }
 
-  componentDidMount() {
-    PostItStore.addChangeListener(this.onChange);
-  }
   componentWillReceiveProps() {
     API.getUserGroups();
   }
 
-  componentUnmount() {
-    PostItStore.removeChangeListener(this.onChange);
-  }
-
   render() {
+    let header = null;
+    if (this.props.groups.length < 1) {
+      header = (<h4> No Group yet </h4>);
+    } else {
+      header = (<h4> My groups </h4>);
+    }
     const groupNodes = this.props.groups.map((group, i) => {
       return (
         <Group group={group} key={i} />
@@ -48,7 +46,7 @@ class GroupList extends React.Component {
         <div>
           <CreateGroup userName={this.props.loggedInUser} />
         </div>
-        <div className="headerlist"> <h4> My groups </h4> </div>
+        <div className="headerlist"> {header} </div>
         {groupNodes}
       </div>
     );

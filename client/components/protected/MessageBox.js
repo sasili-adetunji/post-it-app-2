@@ -21,6 +21,7 @@ class MessageBox extends React.Component {
     this.state = {
       message: '',
       priorityLevel: '',
+      error: ''
     };
     this.onChange = this.onChange.bind(this);
     this.onClick = this.onClick.bind(this);
@@ -45,18 +46,26 @@ class MessageBox extends React.Component {
    */
   onClick(e) {
     e.preventDefault();
-    const message = {
-      message: this.state.message,
-      groupId: this.props.groupId.groupId,
-      priorityLevel: this.state.priorityLevel,
-      date: new Date().toJSON(),
-      author: this.props.author.displayName
-    };
-    PostItActions.addMessage(message);
-    this.setState({
-      message: '',
-      date: '',
-    });
+    if (!this.props.groupId) {
+      this.setState({
+        error: 'Please kindly select a group first',
+        message: ''
+      });
+    } else {
+      const message = {
+        message: this.state.message,
+        groupId: this.props.groupId.groupId,
+        priorityLevel: this.state.priorityLevel,
+        date: new Date().toJSON(),
+        author: this.props.author.displayName
+      };
+      PostItActions.addMessage(message);
+      this.setState({
+        message: '',
+        date: '',
+        error: ''
+      });
+    }
   }
   /**
    *
@@ -69,13 +78,13 @@ class MessageBox extends React.Component {
       <div className="input-group message_area">
         <div> <h4> Send Message to Group </h4> </div>
         <textarea
-rows="2" onChange={this.onChange} id="btn-input"
-        type="text" className="form-control"
+          rows="2" onChange={this.onChange} id="btn-input"
+          type="text" className="form-control"
           placeholder="Write your message here..." name="message" value={this.state.message} />
         <div />
         <select
-            placeholder="Priority Level" name="priorityLevel" onChange={this.onChange}
-            className="form-control" value={this.state.priorityLevel} >
+          placeholder="Priority Level" name="priorityLevel" onChange={this.onChange}
+          className="form-control" value={this.state.priorityLevel} >
           <option value="Normal">Normal</option>
           <option value="Urgent">Urgent</option>
           <option value="Critical">Critical</option>
@@ -85,6 +94,8 @@ rows="2" onChange={this.onChange} id="btn-input"
             <button onClick={this.onClick} className="btn btn-primary btn-sm">Send</button>
           </div>
         </span>
+        <br />
+        <span className="error" > {this.state.error} </span> <br />
       </div>
     );
   }
