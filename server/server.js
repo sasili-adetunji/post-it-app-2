@@ -4,7 +4,7 @@ import express from 'express';
 import path from 'path';
 import firebase from 'firebase';
 import bodyParser from 'body-parser';
-import db from './config/db';
+// import db from './config/db';
 import routes from './app/routes/index';
 
 const app = express();
@@ -18,7 +18,7 @@ app.use(bodyParser.json());
 
 app.use(express.static(path.join(__dirname, '../client/public')));
 
-routes(app, {});
+routes(app);
 
 app.listen(port, () => {
   console.log(`You are listening on ${port}`);

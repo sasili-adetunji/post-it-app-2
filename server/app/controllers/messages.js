@@ -1,4 +1,3 @@
-import express from 'express';
 import firebase from 'firebase';
 import nodemailer from 'nodemailer';
 import smtpTransport from 'nodemailer-smtp-transport';
@@ -7,8 +6,6 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-const app = express();
-const fb = firebase.database();
 const emails = [];
 const userIds = [];
 const numbers = [];
@@ -31,16 +28,9 @@ const nexmo = new Nexmo({
   apiSecret: process.env.nexmoApiSecret
 });
 
-/**
-   * post messages to particular group
-   * Route: POST: '/message'
-   * @param {Object} req request object
-   * @param {Object} res response object
-   * @returns {Response} response object
-   */
 
-const message = (app) => {
-  app.post('/message', (req, res) => {
+export default {
+  message(req, res) {
     const { message, groupId, priorityLevel, date, author } = req.body;
     const user = firebase.auth().currentUser;
     if (user) {
@@ -104,11 +94,81 @@ const message = (app) => {
           });
         });
     } else {
-      res.status(403).json({
+      res.status(401).json({
         message: 'Please log in to see a list of your groups'
       });
     }
-  });
+  },
+  userMessage(req, res) {
+    const user = firebase.auth().currentUser;
+    if (user) {
+      const messages = [];
+      const messageRef = firebase.database().ref(`users/${user.uid}/groups/${req.params.groupId}/messages/`);
+      messageRef.once('value', (snapshot) => {
+        snapshot.forEach((childSnapShot) => {
+          const message = {
+            messageId: childSnapShot.key,
+            messageText: childSnapShot.val().message,
+            author: childSnapShot.val().author,
+            priorityLevel: childSnapShot.val().priorityLevel,
+            date: childSnapShot.val().date,
+            status: childSnapShot.val().status
+          };
+          messages.push(message);
+          firebase.database().ref(`users/${user.uid}/groups/${req.params.groupId}/messages/${childSnapShot.key}/`)
+            .update({
+              status: 'Read'
+            });
+          firebase.database().ref(`readUsers/${childSnapShot.key}/${user.uid}`)
+            .set({
+              userId: user.uid,
+              userName: user.displayName
+            });
+        });
+      })
+        .then(() => {
+          res.status(200).json({
+            messages
+          });
+        })
+        .catch((error) => {
+          res.status(500).json({
+            message: `Error occurred ${error.message}`,
+          });
+        });
+    } else {
+      res.status(401).json({
+        message: 'Please log in to see a list of your messages'
+      });
+    }
+  },
+  userReadMessage(req, res) {
+    const user = firebase.auth().currentUser;
+    if (user) {
+      const readUsers = [];
+      firebase.database().ref(`readUsers/${req.params.messageId}`)
+      .orderByChild('userName').once('value', (snapshot) => {
+        snapshot.forEach((childSnapShot) => {
+          const userDetails = {
+            userName: childSnapShot.val().userName,
+          };
+          readUsers.push(userDetails);
+        });
+      })
+        .then(() => {
+          res.json({
+            readUsers
+          });
+        })
+        .catch((error) => {
+          res.status(500).json({
+            message: 'Error occurred',
+          });
+        });
+    } else {
+      res.status(401).json({
+        message: 'Please log in to see a list of users that read messages'
+      });
+    }
+  }
 };
-
-export default message;

@@ -73,9 +73,8 @@ class Login extends React.Component {
      * @returns {void}
      * @memberOf Login
   */
-  onClickGoogle(googleUser) {
-    const idToken = googleUser.getAuthResponse().id_token;
-    PostItActions.googleLogin(idToken);
+  onClickGoogle() {
+    PostItActions.googleLogin();
   }
   /**
      * Makes an action call to reset password

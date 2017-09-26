@@ -1,17 +1,8 @@
 import axios from 'axios';
 import firebase from 'firebase';
-import { db } from '../../server/config/db';
 import PostItActions from '../actions/PostItActions';
 import PostItStore from '../stores/PostItStore';
 
-const config = {
-  apiKey: 'IzaSyAPkaQ0wLHWqT_u20dcXLqPENZsmea7mgs',
-  authDomain: 'authDomain=postit-335c1.firebaseapp.com',
-  databaseURL: 'https://postit-335c1.firebaseio.com',
-  projectId: 'postit-335c1',
-  storageBucket: 'postit-335c1.appspot.com',
-  messagingSenderId: '63329792793'
-};
 module.exports = {
 
   /**
@@ -26,16 +17,16 @@ module.exports = {
       userName: user.userName,
       phoneNumber: user.phoneNumber
     })
-    .then((response) => {
-      if ((response.data.message === 'The email address is badly formatted.') || (response.data.message === 'The email address is already in use by another account.')) {
-        PostItActions.receiveErrors(response.data.message);
-      } else {
-        PostItActions.receiveSuccess(response.data.message);
-      }
-    })
-  .catch((error) => {
-    PostItActions.receiveErrors(error.message);
-  });
+      .then((response) => {
+        if ((response.data.message === 'The email address is badly formatted.') || (response.data.message === 'The email address is already in use by another account.')) {
+          PostItActions.receiveErrors(response.data.message);
+        } else {
+          PostItActions.receiveSuccess(response.data.message);
+        }
+      })
+      .catch((error) => {
+        PostItActions.receiveErrors(error.message);
+      });
   },
 
   /**
@@ -61,9 +52,9 @@ module.exports = {
         PostItActions.receiveAuthenticatedUser(authuser);
       }
     })
-  .catch((error) => {
-    PostItActions.receiveErrors(error.message);
-  });
+      .catch((error) => {
+        PostItActions.receiveErrors(error.message);
+      });
   },
 
   /**
@@ -75,32 +66,18 @@ module.exports = {
       PostItActions.receiveSuccess(response.data.message);
       localStorage.removeItem('user');
     })
-    .catch((error) => {
-      PostItActions.receiveErrors(error.message);
-    });
+      .catch((error) => {
+        PostItActions.receiveErrors(error.message);
+      });
   },
 
   /**
    * api call to login us with google
    *
    */
-  googleLogin(idToken) {
-    const provider = new firebase.auth.GoogleAuthProvider();
-    provider.addScope('https://www.googleapis.com/auth/plus.login');
-    firebase.auth().signInWithPopup(provider);
-
-    // axios.post('/user/google', idToken)
-    // .then((response) => {
-    //   console.log(response);
-    //   // PostItActions.receiveSuccess(response.message);
-    //   // PostItActions.receiveAuthenticatedUser(authuser);
-    //   // PostItStore.setLoggedInUser(response.data.user);
-    // })
-    // .catch((error) => {
-    //   console.log(error);
-
-    //   // PostItActions.receiveErrors(error.message);
-    // });
+  googleLogin() {
+    const provider = new firebase.auth().GoogleAuthProvider();
+    return firebase.auth().signInWithPopup(provider);
   },
   /**
    * api call to create new group from the route
@@ -115,9 +92,9 @@ module.exports = {
       PostItActions.receiveSuccess(response.message);
       PostItStore.addGroups(response.data.groups);
     })
-    .catch((error) => {
-      PostItActions.receiveErrors(error.message);
-    });
+      .catch((error) => {
+        PostItActions.receiveErrors(error.message);
+      });
   },
 
   /**
@@ -133,9 +110,9 @@ module.exports = {
     }).then((response) => {
       PostItActions.receiveSuccess(response.message);
     })
-  .catch((error) => {
-    PostItActions.receiveErrors(error.message);
-  });
+      .catch((error) => {
+        PostItActions.receiveErrors(error.message);
+      });
   },
 
   /**
@@ -153,9 +130,9 @@ module.exports = {
     }).then((response) => {
       PostItActions.receiveSuccess(response.message);
     })
-    .catch((error) => {
-      PostItActions.receiveErrors(error.message);
-    });
+      .catch((error) => {
+        PostItActions.receiveErrors(error.message);
+      });
   },
 
   /**
@@ -164,13 +141,13 @@ module.exports = {
    */
   getUserGroups() {
     axios.get('user/groups')
-   .then((response) => {
-     PostItActions.receiveSuccess(response.message);
-     PostItStore.setUserGroups(response.data.groups);
-   })
-   .catch((error) => {
-     PostItActions.receiveErrors(error.message);
-   });
+      .then((response) => {
+        PostItActions.receiveSuccess(response.message);
+        PostItStore.setUserGroups(response.data.groups);
+      })
+      .catch((error) => {
+        PostItActions.receiveErrors(error.message);
+      });
   },
 
   /**
@@ -179,14 +156,14 @@ module.exports = {
    */
   getUsersInGroup(group) {
     axios.get(`/group/${group.groupId}/users`)
-   .then((response) => {
-     PostItActions.receiveSuccess(response.message);
-     PostItStore.setUsersInGroup(response.data.users);
-    //  PostItActions.receiveUsersInGroup(response.data.users);
-   })
-   .catch((error) => {
-     PostItActions.receiveErrors(error.message);
-   });
+      .then((response) => {
+        PostItActions.receiveSuccess(response.message);
+        PostItStore.setUsersInGroup(response.data.users);
+        //  PostItActions.receiveUsersInGroup(response.data.users);
+      })
+      .catch((error) => {
+        PostItActions.receiveErrors(error.message);
+      });
   },
   /**
    * api call to get list of all the users in the App
@@ -194,13 +171,13 @@ module.exports = {
    */
   getUsers() {
     axios.get('user/users')
-   .then((response) => {
-     PostItActions.receiveSuccess(response.message);
-     PostItActions.receiveUsers(response.data.users);
-   })
-   .catch((error) => {
-     PostItActions.receiveErrors(error.message);
-   });
+      .then((response) => {
+        PostItActions.receiveSuccess(response.message);
+        PostItActions.receiveUsers(response.data.users);
+      })
+      .catch((error) => {
+        PostItActions.receiveErrors(error.message);
+      });
   },
 
   /**
@@ -210,13 +187,13 @@ module.exports = {
    */
   getMessages(group) {
     axios.get(`/group/${group.groupId}/messages`)
-    .then((response) => {
-      PostItActions.receiveSuccess(response.message);
-      PostItStore.setMessages(response.data.messages);
-    })
-   .catch((error) => {
-     PostItActions.receiveErrors(error.message);
-   });
+      .then((response) => {
+        PostItActions.receiveSuccess(response.message);
+        PostItStore.setMessages(response.data.messages);
+      })
+      .catch((error) => {
+        PostItActions.receiveErrors(error.message);
+      });
   },
 
 
@@ -227,14 +204,14 @@ module.exports = {
    */
   getUserReadUsers(message) {
     axios.get(`/group/${message.messageId}/readUsers`)
-    .then((response) => {
-      PostItActions.receiveSuccess(response.message);
-      // PostItActions.receiveReadUsers(response.data.readUsers);
-      PostItStore.setReadUsers(response.data.readUsers);
-    })
-   .catch((error) => {
-     PostItActions.receiveErrors(error.message);
-   });
+      .then((response) => {
+        PostItActions.receiveSuccess(response.message);
+        // PostItActions.receiveReadUsers(response.data.readUsers);
+        PostItStore.setReadUsers(response.data.readUsers);
+      })
+      .catch((error) => {
+        PostItActions.receiveErrors(error.message);
+      });
   },
 
 
@@ -247,11 +224,11 @@ module.exports = {
     axios.post('/user/reset', {
       email: email.email
     })
-    .then((response) => {
-      PostItActions.receiveSuccess(response.message);
-    })
-   .catch((error) => {
-     PostItActions.receiveErrors(error.message);
-   });
+      .then((response) => {
+        PostItActions.receiveSuccess(response.message);
+      })
+      .catch((error) => {
+        PostItActions.receiveErrors(error.message);
+      });
   }
 };

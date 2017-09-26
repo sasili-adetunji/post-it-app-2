@@ -3,6 +3,10 @@ const path = require('path');
 const webpack = require('webpack');
 const debug = process.env.NODE_ENV !== 'production';
 
+require('dotenv').config();
+
+const Dotenv = require('dotenv-webpack');
+
 const config = {
   entry: './client/index.js',
   output: {
@@ -53,6 +57,10 @@ const config = {
     new webpack.optimize.DedupePlugin(),
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.optimize.UglifyJsPlugin({ mangle: false, sourcemap: false }),
+    new Dotenv({
+      path: './env',
+      safe: false,
+    })
   ],
 };
 

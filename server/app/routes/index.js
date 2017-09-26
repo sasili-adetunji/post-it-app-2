@@ -1,32 +1,28 @@
-// import all the route into a single index file
-import signup from './signup';
-import signin from './signin';
-import group from './group';
-import groupAdd from './groupAdd';
-import signout from './signout';
-import message from './message';
-import usersList from './usersList';
-import userGroup from './userGroup';
-import userMessage from './userMessage';
-import googleLogin from './googleLogin';
-import resetPassword from './resetPassword';
-import usersInGroup from './usersInGroup';
-import userReadMessage from './userReadMessage';
+import firebase from 'firebase';
+import dotenv from 'dotenv';
+import users from './users';
+import messages from './messages';
+import groups from './groups';
 
+dotenv.config();
 
-const index = (app) => {
-  signup(app);
-  signin(app);
-  signout(app);
-  group(app);
-  message(app);
-  groupAdd(app);
-  usersList(app);
-  userMessage(app);
-  userGroup(app);
-  googleLogin(app);
-  resetPassword(app);
-  usersInGroup(app);
-  userReadMessage(app);
+const nodeEnv = process.env.NODE_ENV || 'development';
+let prefix = '';
+if (nodeEnv === 'test') {
+  prefix = 'TEST_';
+}
+const config = {
+  apiKey: process.env[`${prefix}apiKey`],
+  authDomain: process.env[`${prefix}authDomain`],
+  databaseURL: process.env[`${prefix}databaseURL`],
+  projectId: process.env[`${prefix}projectId`],
+  storageBucket: process.env[`${prefix}storageBucket`],
+  messagingSenderId: process.env[`${prefix}messagingSenderId`]
 };
-export default index;
+firebase.initializeApp(config);
+
+module.exports = (app) => {
+  users(app);
+  groups(app);
+  messages(app);
+};
