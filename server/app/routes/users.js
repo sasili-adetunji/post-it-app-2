@@ -8,7 +8,7 @@ module.exports = (app) => {
   app.post('/user/signin', (req, res) => {
     userControllers.signin(req, res);
   });
-  app.post('/user/signout', (req, res) => {
+  app.get('/user/signout', (req, res) => {
     userControllers.signout(req, res);
   });
   app.post('/user/reset', (req, res) => {

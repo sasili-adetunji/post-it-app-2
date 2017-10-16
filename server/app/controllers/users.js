@@ -42,13 +42,13 @@ export default {
   signout(req, res) {
     firebase.auth().signOut()
       .then(() => {
-        res.json({
-          message: 'You have signed out of the Appliction'
+        res.status(200).json({
+          message: 'You have signed out of the Application'
         });
       })
       .catch((err) => {
         res.status(500).json({
-          message: 'There appear to bewith signing out'
+          message: 'There appear to be error with signing out'
         });
       });
   },
