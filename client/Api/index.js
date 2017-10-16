@@ -62,7 +62,8 @@ module.exports = {
    *
    */
   signoutUser() {
-    axios.get('/user/signout').then((response) => {
+    axios.get('/user/signout')
+    .then((response) => {
       PostItActions.receiveSuccess(response.data.message);
       localStorage.removeItem('user');
     })

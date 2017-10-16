@@ -32,6 +32,7 @@ const nexmo = new Nexmo({
 export default {
   message(req, res) {
     const { message, groupId, priorityLevel, date, author } = req.body;
+    const messages = [];
     const user = firebase.auth().currentUser;
     if (user) {
       const messageKey = firebase.database().ref(`groups/${groupId}/messages`)
@@ -85,8 +86,17 @@ export default {
                   });
                 });
             }
+            const messageDetails = {
+              message,
+              author,
+              date,
+              priorityLevel,
+              status: 'Unread'
+            };
+            messages.push(messageDetails);
           });
-          res.status(200).json({ message: 'Message Sent successfully to Group' });
+          res.status(200).json({ message: 'Message Sent successfully to Group',
+            messages });
         })
         .catch((error) => {
           res.status(500).json({

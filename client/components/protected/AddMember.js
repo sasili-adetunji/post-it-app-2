@@ -18,16 +18,16 @@ class AddMember extends React.Component {
       userId: '',
       error: ''
     };
-    this.onChange = this.onChange.bind(this);
+    // this.onChange = this.onChange.bind(this);
     this.onClick = this.onClick.bind(this);
     this.data = this.data.bind(this);
   }
 
-  onChange(e) {
-    this.setState({
-      [e.target.name]: e.target.value
-    });
-  }
+  // onChange(e) {
+  //   this.setState({
+  //     [e.target.name]: e.target.value
+  //   });
+  // }
 
   /**
    * function that get userid from username
@@ -38,7 +38,7 @@ class AddMember extends React.Component {
    */
   data(userName) {
     let n;
-    lodash.map(this.props.user).map((x) => {
+    lodash.map(this.props.usern).map((x) => {
       if (userName === x.userName) {
         n = x.userId;
       } else {
@@ -49,29 +49,30 @@ class AddMember extends React.Component {
   }
   onClick(e) {
     e.preventDefault();
-    if (!this.props.groupId) {
+    if (!this.props.selected[0]) {
       this.setState({
         error: 'Kindly select a group first',
-        userName: ''
       });
+      this.refs.add.value= '';
       return true;
     }
     const user = {
-      userId: this.data(this.state.userName),
-      userName: this.state.userName,
-      groupId: this.props.groupId.groupId
+      userId: this.data(this.refs.add.value.trim()),
+      userName: this.refs.add.value.trim(),
+      groupId: this.props.selected[0].groupId
     };
 
     if (!user.userId) {
       this.setState({
-        error: 'This User does not exist',
-        userName: ''
+        error: 'This User does not exist'
       });
+      this.refs.add.value= '';
     } else {
-      PostItActions.addUserToGroup(user);
+      // PostItActions.addUserToGroup(user);
+      console.log(user);
+      this.refs.add.value = '';
       this.setState({
-        error: '',
-        userName: ''
+        error: ''
       });
     }
   }
@@ -85,17 +86,18 @@ class AddMember extends React.Component {
     return (
       <div className="panel-body">
         <h6> To add a member, type in the username of the member </h6>
+            <strong className="error"> {this.state.error} </strong> 
         <form className="navbar-form" role="search">
           <div className="form-group">
             <input
-              type="text" className="form-control" placeholder="Add member"
-              name="userName" value={this.state.userName} onChange={this.onChange} />
+              type="text" ref="add" className="form-control" placeholder="Add member"
+              />
           </div>
           <button onClick={this.onClick} type="submit" className="btn btn-default ">
             <span className="glyphicon glyphicon-plus" /></button>
         </form>
         <br />
-        <span className="error" > {this.state.error} </span> <br />
+        {/* <span className="error" > {this.state.error} </span> <br /> */}
       </div>
     );
   }

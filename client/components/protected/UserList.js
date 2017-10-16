@@ -18,18 +18,20 @@ class UserList extends React.Component {
    */
 
   render() {
-    const userNodes = this.props.user.map((user, i) => {
+    const userNodes = this.props.use.map((user, i) => {
       return (
         <User user={user} key={i} />
       );
     });
     return (
-      <div>
-        <div>
+      <div className="userList">
+        {/* <div>
           <AddMember groupId={this.props.selectedGroup[0]} user={this.props.usernames} />
-        </div>
-        <div className="headerlist"> <h4> Members </h4> </div>
+        </div> */}
+        <div className="headerlist"> <h4 className="card-header"> Members </h4> </div>
+        <div className="userList">
         {userNodes}
+        </div>
       </div>
     );
   }

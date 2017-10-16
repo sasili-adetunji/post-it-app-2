@@ -1,6 +1,7 @@
 require('dotenv').config();
 const path = require('path');
 const webpack = require('webpack');
+
 const debug = process.env.NODE_ENV !== 'production';
 
 require('dotenv').config();
@@ -27,7 +28,6 @@ const config = {
     dns: 'empty',
     tls: 'empty'
   },
-
   module: {
     loaders: [
       {
@@ -51,7 +51,6 @@ const config = {
   resolve: {
     extensions: ['*', '.js', '.jsx']
   },
-
   plugins: debug ? [] : [
     new webpack.EnvironmentPlugin(Object.keys(process.env)),
     new webpack.optimize.DedupePlugin(),
@@ -63,5 +62,4 @@ const config = {
     })
   ],
 };
-
 module.exports = config;

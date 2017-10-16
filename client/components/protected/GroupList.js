@@ -31,23 +31,22 @@ class GroupList extends React.Component {
 
   render() {
     let header = null;
-    if (this.props.groups.length < 1) {
+    if (this.props.grou.length < 1) {
       header = (<h4> No Group yet </h4>);
     } else {
-      header = (<h4> My groups </h4>);
+      header = (<h4 className="card-header"> My groups </h4>);
     }
-    const groupNodes = this.props.groups.map((group, i) => {
+    const groupNodes = this.props.grou.map((group, i) => {
       return (
         <Group group={group} key={i} />
       );
     });
     return (
-      <div className="">
-        <div>
-          <CreateGroup userName={this.props.loggedInUser} />
-        </div>
+      <div>
         <div className="headerlist"> {header} </div>
+        <div className="groupList">
         {groupNodes}
+        </div>
       </div>
     );
   }

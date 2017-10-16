@@ -15,25 +15,24 @@ class CreateGroup extends React.Component {
     this.state = {
       groupName: ''
     };
-    this.onChange = this.onChange.bind(this);
+    // this.onChange = this.onChange.bind(this);
     this.onClick = this.onClick.bind(this);
   }
 
-  onChange(e) {
-    this.setState({
-      groupName: e.target.value
-    });
-  }
+  // onChange(e) {
+  //   this.setState({
+  //     groupName: e.target.value
+  //   });
+  // }
   onClick(e) {
     e.preventDefault();
     const group = {
-      groupName: this.state.groupName,
+      groupName: this.refs.groupName.value.trim(),
       userName: this.props.userName.displayName
     };
-    PostItActions.createGroup(group);
-    this.setState({
-      groupName: ''
-    });
+    console.log(group);
+    // PostItActions.createGroup(group);
+    this.refs.groupName.value = '';
   }
   render() {
     return (
@@ -42,7 +41,7 @@ class CreateGroup extends React.Component {
           <div className="form-group">
             <input
             type="text" className="form-control" placeholder="Create Group"
-            name="groupName" onChange={this.onChange} value={this.state.groupName} />
+            ref="groupName" />
           </div>
           <button onClick={this.onClick} type="submit" className="btn btn-default ">
             <span className="glyphicon glyphicon-plus" /></button>

@@ -72,7 +72,6 @@ class App extends Component {
    */
   componentDidMount() {
     PostItStore.addChangeListener(this.onChange);
-    const use = localStorage.getItem('user');
   }
 
   /**

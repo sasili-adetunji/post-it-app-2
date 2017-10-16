@@ -90,7 +90,7 @@
     margin-right:0;
 }
 .messages {
-  background: white;
+   background: white; 
   padding: 10px;
   border-radius: 2px;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
@@ -134,24 +134,27 @@
     padding-left: 5px;
   }
 .headerlist {
-  padding-left: 5px;
+  padding-left: 2px;
+  color: #f2f7f6;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   
 }
 .error {
   color: red;
 }
 
-.card {
+ .card {
   max-width: 800px;
   margin: 30px auto;
   padding: 50px;
   text-align: center;
-}
+} 
 
 .side-menu-container li {
   text-align: center;
   color: #0e0f0f;
-  text-decoration: blueviolet;
+  font-family: Cambria, Cochin, Georgia, Times, Times New Roman, serif;
+  /* text-decoration: blueviolet; */
 }
 
 .headerlist {
@@ -171,10 +174,108 @@
     border-collapse: separate;
     width: 600px;
 }
-.message_box {
+/* .message_box {
   height: 200px;
-  }
+  } */
 .message_list {
   height: 400px;
   overflow: scroll;
+}
+
+ .groups {
+  background-color: #b1b4b5;
+  height: 300px;
+  overflow: scroll;
+} 
+
+  .footer {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 1rem;
+  background-color: #efefef;
+  text-align: center;
+}
+.every {
+height: 500px;
+}
+.sendMessageDiv {
+	margin-top: 4%;
+}
+.sendMessageInput {
+	border: 1px solid #2e353d;
+	padding: 1%;
+}
+
+ /* .footer {
+  padding: 20px;
+  height: 20px;
+  background-color: #f3e5f5;
+}  */
+
+/* .footer {
+    position : absolute;
+    bottom : 0;
+    height : 40px;
+    margin-top : 40px;
+  }  */
+  .container-fluid {
+   min-height:100%;
+   position:relative;
+   background-color: #626363;
+}  
+  #footer {
+   bottom:0;
+   width:100%;
+   height:60px;
+   /* background: lightblue; */
+}
+  #mesa {  
+    height: 590px; 
+    /* background: #eee; */
+    padding-bottom: 60px;
+    overflow-y: scroll;
+
+  }
+      #dash {
+        height: 650px;
+      }
+  .userList {
+   /* background: lightblue; */
+    height: 250px;
+    /* padding-top: 50px; */
+   overflow-y: scroll; 
+} 
+.groupList {
+  /* background: lightblue; */
+ height: 270px;
+   overflow-y: scroll; 
+  /* padding-bottom: 50px; */
+} 
+.createGroup {
+background-color: #75b2ce;
+color: #ffffff;
+
+}
+.addUser {
+background-color: #75b2ce;
+color: #ffffff;  
+}
+
+.messageHeader {
+  text-align: center;
+  margin-top: 300px;
+color: #ffffff; 
+font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.mem {
+  padding-top: 50px;
+}
+#hmtl {
+  padding-bottom: 0px;
+}
+#listing {
+  overflow-y: scroll;
 }

@@ -2,6 +2,7 @@ import React from 'react';
 import MessageBox from './MessageBox';
 import API from '../../Api';
 import Message from './Message';
+import MessageHeader from './MessageHeader';
 
 /**
  * creates a messagelist components
@@ -16,12 +17,13 @@ class MessageList extends React.Component {
    * @returns { void }
    * @memberof MessageList
    */
+
   render() {
     let messageNodes = null;
     if (this.props.selectedGroup.length === 0) {
-      messageNodes = (<h4> No Group Selected </h4>);
+      messageNodes = (<h2 className="messageHeader"> No Group Selected </h2>);
     } else if (this.props.messages.length === 0) {
-      messageNodes = (<h4> No Message in Group </h4>);
+      messageNodes = (<h2 className="messageHeader"> No Message in Group </h2>);
     } else {
       messageNodes = this.props.messages.map((message, i) => {
         return (
@@ -32,19 +34,15 @@ class MessageList extends React.Component {
       });
     }
     return (
-      <div>
-        <div className="message_list">
-          <div className=" top-bar">
-            <div className="col-md-8 col-xs-8">
-              <h4><span className="glyphicon glyphicon-comment" /> </h4>
-            </div>
-          </div>
-          {messageNodes}
-        </div>
-        <div className="message_box">
-          <MessageBox groupId={this.props.selectedGroup[0]} author={this.props.loggedInUser} />
-        </div>
-      </div>
+                     <div>
+                        <div className="viewMessage" id="mesa">
+                            {messageNodes} 
+                        </div>
+                        <div id="footer">
+                       <MessageBox groupId={this.props.selectedGroup[0]} author={this.props.loggedInUser} /> 
+                      </div>
+                    </div>
+            
     );
   }
 }

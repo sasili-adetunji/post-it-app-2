@@ -33,7 +33,7 @@ class Group extends React.Component {
    */
   render() {
     return (
-      <div className="side-menu-container">
+      <div className="side-menu-container list-group-item">
         <a> <li onClick={this.onClick}>
          <b> { this.props.group.groupName } </b>
         </li> </a>
