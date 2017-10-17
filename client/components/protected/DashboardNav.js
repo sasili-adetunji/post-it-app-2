@@ -50,9 +50,6 @@ class DashboardNav extends React.Component {
             <div className="card-block">
                     <a onClick={this.openGroup} className="list-group-item createGroup">Create Group</a>
                  <Modal show={this.state.showCreateGroup} onHide={this.closeGroup}>
-                    <Modal.Header closeButton>
-                        <Modal.Title><h4 className=""> Create Group </h4> </Modal.Title>
-                    </Modal.Header>
                     <Modal.Body>
                          <CreateGroup userName={this.props.loggedInUser}/> 
                     </Modal.Body>
@@ -67,9 +64,6 @@ class DashboardNav extends React.Component {
                                   <div className="card-block mem">
                     <a onClick={this.openGroup1} className="list-group-item addUser">Add member</a>
                  <Modal show={this.state.showAddUser} onHide={this.closeGroup1}>
-                    <Modal.Header closeButton>
-                        <Modal.Title> <h4 className=""> Create Group </h4> </Modal.Title>
-                    </Modal.Header>
                     <Modal.Body>
                     <AddMember {...this.state} selected={this.props.selectedGroup} usern={this.props.usernames} />  
                     </Modal.Body>
@@ -77,7 +71,6 @@ class DashboardNav extends React.Component {
                         <a onClick={this.closeGroup1}> Close</a>
                     </Modal.Footer>
                 </Modal>
-                      {/* <a href="#" className="card-link">Create Group</a> */}
                     </div>
                 <div className="card-block">
                     <UserList {...this.state} use={this.props.user} usern={this.props.usernames} />  

@@ -10,7 +10,6 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import PostItActions from '../actions/PostItActions';
 import PostItStore from '../stores/PostItStore';
 
-
 /**
  * creates Login componets
  * @class Login
@@ -47,13 +46,12 @@ class Login extends React.Component {
      * @returns {void}
      * @memberOf Login
   */
-  onClick(e) {
-    e.preventDefault();
+  onClick(event) {
+    event.preventDefault();
     const user = {
       email: this.state.email,
       password: this.state.password
     };
-
     if ((!user.email) || (!user.password)) {
       this.setState({
         errors: 'Please enter a valid email and password'
@@ -82,8 +80,8 @@ class Login extends React.Component {
      * @returns {void}
      * @memberOf Login
   */
-  onClickReset(e) {
-    e.preventDefault();
+  onClickReset(event) {
+    event.preventDefault();
     const email =
       {
         email: this.state.email

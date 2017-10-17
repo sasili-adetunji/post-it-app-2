@@ -2,6 +2,7 @@ import React from 'react';
 import { Navbar, Nav, NavItem, NavDropdown, MenuItem, Modal } from 'react-bootstrap';
 import API from '../../Api';
 import PostItStore from '../../stores/PostItStore';
+import PostItActions from '../../actions/PostItActions';
 import GroupList from './GroupList';
 import UserList from './UserList';
 import MessageList from './MessageList';
@@ -25,11 +26,12 @@ class Dashboard extends React.Component {
       showAddUser: false,
       loggedInUser: PostItStore.getLoggedInUser(),
       groups: PostItStore.getGroupsUser(),
-      messages: PostItStore.getMessages(),
+      // messages: PostItStore.getGroupsMessages(),
       users: PostItStore.getUsersInGroup(),
       selectedGroup: PostItStore.getOpenedGroup(),
       user: PostItStore.getUsers(),
       readUsers: PostItStore.getReadUsers(),
+      message: PostItStore.getGroupsMessages()
 
     };
     this.onChange = this.onChange.bind(this);
@@ -54,21 +56,24 @@ class Dashboard extends React.Component {
     this.setState({
       loggedInUser: PostItStore.getLoggedInUser(),
       groups: PostItStore.getGroupsUser(),
-      messages: PostItStore.getMessages(),
+      // messages: PostItStore.getGroupsMessages(),
       users: PostItStore.getUsersInGroup(),
       selectedGroup: PostItStore.getOpenedGroup(),
       user: PostItStore.getUsers(),
-      readUsers: PostItStore.getReadUsers()
+      readUsers: PostItStore.getReadUsers(),
+      message: PostItStore.getGroupsMessages()
     });
   }
 
   componentDidMount() {
     API.getUserGroups();
+    // PostItActions.receiveUserGroups();
+
     API.getUsers();
     PostItStore.addChangeListener(this.onChange);
   }
 
-  componentUnmount() {
+  componentWillUnmount() {
     PostItStore.removeChangeListener(this.onChange);
   }
 
@@ -90,7 +95,7 @@ class Dashboard extends React.Component {
              </div>
             <div className="col-xs-9">
                 <MessageList  {...this.state} selectedGroup={this.state.selectedGroup}
-              readUsers={this.state.readUsers} />
+              readUsers={this.state.readUsers} message={this.state.message} />
             </div>
         </div>
     );

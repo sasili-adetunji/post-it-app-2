@@ -47,8 +47,8 @@ class AddMember extends React.Component {
     });
     return n;
   }
-  onClick(e) {
-    e.preventDefault();
+  onClick(event) {
+    event.preventDefault();
     if (!this.props.selected[0]) {
       this.setState({
         error: 'Kindly select a group first',
@@ -68,8 +68,8 @@ class AddMember extends React.Component {
       });
       this.refs.add.value= '';
     } else {
-      // PostItActions.addUserToGroup(user);
-      console.log(user);
+      PostItActions.addUserToGroup(user);
+      // console.log(user);
       this.refs.add.value = '';
       this.setState({
         error: ''
@@ -97,7 +97,6 @@ class AddMember extends React.Component {
             <span className="glyphicon glyphicon-plus" /></button>
         </form>
         <br />
-        {/* <span className="error" > {this.state.error} </span> <br /> */}
       </div>
     );
   }

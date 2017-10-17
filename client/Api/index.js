@@ -2,6 +2,8 @@ import axios from 'axios';
 import firebase from 'firebase';
 import PostItActions from '../actions/PostItActions';
 import PostItStore from '../stores/PostItStore';
+import config from '../../server/app/config/database';
+
 
 module.exports = {
 
@@ -77,8 +79,21 @@ module.exports = {
    *
    */
   googleLogin() {
-    const provider = new firebase.auth().GoogleAuthProvider();
-    return firebase.auth().signInWithPopup(provider);
+    firebase.initializeApp(config);
+    const provider = new firebase.auth.GoogleAuthProvider();
+    firebase.auth().signInWithPopup(provider)
+    .then((response) => {
+      const authuser = {
+        email: response.user.email,
+        isAuthenticated: true
+      };
+      localStorage.setItem('user', response.credential.accessToken);
+      PostItStore.setLoggedInUser(response.user);
+      PostItActions.receiveAuthenticatedUser(authuser);
+    })
+    .catch((error) => {
+      PostItActions.receiveErrors(error);
+    });
   },
   /**
    * api call to create new group from the route
@@ -91,7 +106,7 @@ module.exports = {
       userName: group.userName
     }).then((response) => {
       PostItActions.receiveSuccess(response.message);
-      PostItStore.addGroups(response.data.groups);
+      // PostItStore.addGroups(response.data.groups);
     })
       .catch((error) => {
         PostItActions.receiveErrors(error.message);
@@ -130,6 +145,9 @@ module.exports = {
       author: message.author
     }).then((response) => {
       PostItActions.receiveSuccess(response.message);
+      // console.log(response.data.messages, 'api post message response');
+      // PostItStore.addMessage(response.data.messages);
+      // PostItStore.postMessage(response.data.messages);
     })
       .catch((error) => {
         PostItActions.receiveErrors(error.message);

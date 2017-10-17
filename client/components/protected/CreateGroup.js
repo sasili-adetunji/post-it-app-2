@@ -1,5 +1,6 @@
 import React from 'react';
 import PostItActions from '../../actions/PostItActions';
+import API from '../../Api';
 
 
 /**
@@ -24,14 +25,16 @@ class CreateGroup extends React.Component {
   //     groupName: e.target.value
   //   });
   // }
-  onClick(e) {
-    e.preventDefault();
+  onClick(event) {
+    event.preventDefault();
     const group = {
       groupName: this.refs.groupName.value.trim(),
       userName: this.props.userName.displayName
     };
-    console.log(group);
-    // PostItActions.createGroup(group);
+    // console.log(group);
+    PostItActions.createGroup(group);
+    API.getUserGroups();
+
     this.refs.groupName.value = '';
   }
   render() {

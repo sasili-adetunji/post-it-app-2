@@ -41,11 +41,11 @@ class MessageBox extends React.Component {
   /**
    *
    *
-   * @param {any} e
+   * @param {any} event
    * @memberof MessageBox
    */
-  onClick(e) {
-    e.preventDefault();
+  onClick(event) {
+    event.preventDefault();
     if (!this.props.groupId) {
       this.setState({
         error: 'Please kindly select a group first',
@@ -59,10 +59,9 @@ class MessageBox extends React.Component {
         date: new Date().toJSON(),
         author: this.props.author.displayName
       };
-      console.log(message);
-      // PostItActions.addMessage(message);
+      // console.log(message);
+      PostItActions.addMessage(message);
       this.refs.message.value = '';
-      this.refs.type.value = '';
       this.setState({
         error: ''
       });

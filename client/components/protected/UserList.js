@@ -24,10 +24,7 @@ class UserList extends React.Component {
       );
     });
     return (
-      <div className="userList">
-        {/* <div>
-          <AddMember groupId={this.props.selectedGroup[0]} user={this.props.usernames} />
-        </div> */}
+      <div>
         <div className="headerlist"> <h4 className="card-header"> Members </h4> </div>
         <div className="userList">
         {userNodes}

@@ -243,7 +243,7 @@ height: 500px;
       }
   .userList {
    /* background: lightblue; */
-    height: 250px;
+    height: 200px;
     /* padding-top: 50px; */
    overflow-y: scroll; 
 } 

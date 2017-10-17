@@ -87,10 +87,11 @@ export default {
                 });
             }
             const messageDetails = {
-              message,
+              messageId: messageKey,
+              messageText: message,
               author,
-              date,
               priorityLevel,
+              date,
               status: 'Unread'
             };
             messages.push(messageDetails);

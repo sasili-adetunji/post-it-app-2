@@ -1,4 +1,3 @@
-
 import PostItDispatcher from '../dispatcher/PostItDispatcher';
 import PostItConstants from '../constants/PostItConstants';
 
@@ -96,7 +95,6 @@ const PostItActions = {
     PostItDispatcher.dispatch({
       actionType: PostItConstants.ADD_MESSAGE,
       message
-
     });
   },
 
@@ -131,7 +129,6 @@ const PostItActions = {
     PostItDispatcher.dispatch({
       actionType: PostItConstants.RECEIVE_MESSAGES,
       messages
-
     });
   },
 
@@ -182,6 +179,13 @@ const PostItActions = {
     PostItDispatcher.dispatch({
       actionType: PostItConstants.GROUP_OPENED,
       selectedGroup
+
+    });
+  },
+  recieveUsersInGroups(group) {
+    PostItDispatcher.dispatch({
+      actionType: PostItConstants.RECIEVE_USERS_IN_GROUPS,
+      group
 
     });
   }

@@ -18,7 +18,9 @@ class Group extends React.Component {
     super(props);
     this.onClick = this.onClick.bind(this);
   }
-
+  // componentDidMount() {
+  //   API.getMessages(this.props.group);
+  // }
   onClick() {
     API.getMessages(this.props.group);
     PostItActions.groupOpened(this.props.group);

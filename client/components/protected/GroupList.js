@@ -1,6 +1,7 @@
 import React from 'react';
 import CreateGroup from './CreateGroup';
 import PostItStore from '../../stores/PostItStore';
+import PostItActions from '../../actions/PostItActions';
 import Group from './Group';
 import API from '../../Api';
 
@@ -12,31 +13,18 @@ import API from '../../Api';
  * @extends {React.Component}
  */
 class GroupList extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      groups: PostItStore.getGroupsUser(),
-    };
-  }
-
-  onChange() {
-    this.setState({
-      groups: PostItStore.getGroupsUser(),
-    });
-  }
-
-  componentWillReceiveProps() {
-    API.getUserGroups();
-  }
-
+  // componentDidMount() {
+  //   API.getMessages(this.props.group);
+  //   // PostItStore.getGroupsUser();
+  // }
   render() {
     let header = null;
-    if (this.props.grou.length < 1) {
+    if (PostItStore.getGroupsUser().length < 1) {
       header = (<h4> No Group yet </h4>);
     } else {
       header = (<h4 className="card-header"> My groups </h4>);
     }
-    const groupNodes = this.props.grou.map((group, i) => {
+    const groupNodes = PostItStore.getGroupsUser().map((group, i) => {
       return (
         <Group group={group} key={i} />
       );
@@ -45,7 +33,7 @@ class GroupList extends React.Component {
       <div>
         <div className="headerlist"> {header} </div>
         <div className="groupList">
-        {groupNodes}
+          {groupNodes}
         </div>
       </div>
     );

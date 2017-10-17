@@ -96,16 +96,18 @@ const PostItStore = assign({}, EventEmitter.prototype, {
   getGroups() {
     return userGroups;
   },
-
-  getMessages() {
-    return userMessages;
-  },
   getSuccess() {
     return success;
   },
 
   addGroups(groups) {
     groupsUser.concat(groups);
+  },
+  addMessage(messages) {
+    userMessages.concat(messages);
+  },
+  setMessages(messages) {
+    userMessages = messages;
   },
 
   setUserGroups(groups) {
@@ -115,6 +117,11 @@ const PostItStore = assign({}, EventEmitter.prototype, {
   getGroupsUser() {
     return groupsUser;
   },
+
+  getGroupsMessages() {
+    return userMessages;
+  },
+
   setReadUsers(user) {
     readUsers = user;
   },
@@ -128,10 +135,6 @@ const PostItStore = assign({}, EventEmitter.prototype, {
   },
   setUsersInGroup(user) {
     usersInGroup = user;
-  },
-
-  setMessages(messages) {
-    userMessages = messages;
   },
 
   setOpenedGroup(group) {

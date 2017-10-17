@@ -38,6 +38,7 @@ PostItDispatcher.register((action) => {
 
     case PostItConstants.ADD_MESSAGE:
       API.postMessage(action.message);
+      PostItStore.addMessage(action.message);
       PostItStore.postMessage(action.message);
       PostItStore.emitChange();
       break;
@@ -49,7 +50,8 @@ PostItDispatcher.register((action) => {
       break;
 
     case PostItConstants.RECEIVE_MESSAGES:
-      PostItStore.setMessages(action.messages);
+      API.getMessages(action.groupId);
+      // PostItStore.setMessages(action.messages);
       PostItStore.emitChange();
       break;
     case PostItConstants.RECEIVE_READ_USERS:
@@ -57,12 +59,13 @@ PostItDispatcher.register((action) => {
       PostItStore.setReadUsers(action.user);
       PostItStore.emitChange();
       break;
-    case PostItConstants.RECEIVE_USERS_IN_GROUPS:
+    case PostItConstants.RECIEVE_USERS_IN_GROUPS:
       PostItStore.setUsersInGroup(action.groups);
       PostItStore.emitChange();
       break;
 
     case PostItConstants.RECEIVE_USER_GROUPS:
+      API.getUserGroups();
       PostItStore.setUserGroups(action.groups);
       PostItStore.emitChange();
       break;
