@@ -20,17 +20,14 @@ module.exports = {
       email: user.email,
       password: user.password,
       userName: user.userName,
-      phoneNumber: user.phoneNumber
+      phoneNumber: user.phoneNumber,
     })
       .then((response) => {
-        // if ((response.data.message === 'The email address is badly formatted.') || (response.data.message === 'The email address is already in use by another account.')) {
-        //   PostItActions.receiveErrors(response.data.message);
-        // } else {
         PostItActions.receiveSuccess(response.data.message);
         Alert.success(response.data.message, {
           position: 'top-right',
           effect: 'slide',
-          timeout: '3000'
+          timeout: '3000',
         });
       })
       .catch((error) => {
@@ -38,7 +35,7 @@ module.exports = {
         Alert.error(error.response.data.message, {
           position: 'top-right',
           effect: 'slide',
-          timeout: '3000'
+          timeout: '3000',
         });
       });
   },
@@ -51,23 +48,20 @@ module.exports = {
   signinUser(user) {
     axios.post('/user/signin', {
       email: user.email,
-      password: user.password
+      password: user.password,
     }).then((response) => {
       const authuser = {
         email: user.email,
-        isAuthenticated: true
+        isAuthenticated: true,
       };
-      // if (response.data.message === 'Error: The email or password of the user is invalid') {
-      //   PostItActions.receiveErrors(response.data.message);
-      // } else {
       PostItActions.receiveSuccess(response.data.message);
-      localStorage.setItem('user', response.data.user.stsTokenManager.accessToken);
+      localStorage.setItem('user', response.data.user.stsTokenManager.accessToken); // eslint-disable-line
       PostItStore.setLoggedInUser(response.data.user);
       PostItActions.receiveAuthenticatedUser(authuser);
       Alert.success(response.data.message, {
         position: 'top-right',
         effect: 'slide',
-        timeout: '3000'
+        timeout: '3000',
       });
       // }
     })
@@ -76,7 +70,7 @@ module.exports = {
         Alert.error(error.response.data.message, {
           position: 'top-right',
           effect: 'slide',
-          timeout: '3000'
+          timeout: '3000',
         });
       });
   },
@@ -89,11 +83,11 @@ module.exports = {
     axios.get('/user/signout')
     .then((response) => {
       PostItActions.receiveSuccess(response.data.message);
-      localStorage.removeItem('user');
+      localStorage.removeItem('user'); // eslint-disable-line
       Alert.success(response.data.message, {
         position: 'top-right',
         effect: 'slide',
-        timeout: '3000'
+        timeout: '3000',
       });
     })
       .catch((error) => {
@@ -112,15 +106,15 @@ module.exports = {
     .then((response) => {
       const authuser = {
         email: response.user.email,
-        isAuthenticated: true
+        isAuthenticated: true,
       };
-      localStorage.setItem('user', response.credential.accessToken);
+      localStorage.setItem('user', response.credential.accessToken); // eslint-disable-line
       PostItStore.setLoggedInUser(response.user);
       PostItActions.receiveAuthenticatedUser(authuser);
       Alert.success(response.data.message, {
         position: 'top-right',
         effect: 'slide',
-        timeout: '3000'
+        timeout: '3000',
       });
     })
     .catch((error) => {
@@ -135,14 +129,14 @@ module.exports = {
   createNewGroup(group) {
     axios.post('/group', {
       groupName: group.groupName,
-      userName: group.userName
+      userName: group.userName,
     }).then((response) => {
       PostItActions.receiveSuccess(response.message);
       // PostItStore.addGroups(response.data.groups);
       Alert.success(response.data.message, {
         position: 'top-right',
         effect: 'slide',
-        timeout: '3000'
+        timeout: '3000',
       });
     })
       .catch((error) => {
@@ -150,7 +144,7 @@ module.exports = {
         Alert.error(error.response.data.message, {
           position: 'top-right',
           effect: 'slide',
-          timeout: '3000'
+          timeout: '3000',
         });
       });
   },
@@ -164,7 +158,7 @@ module.exports = {
     axios.post(`/group/${user.groupId}/user`, {
       userId: user.userId,
       groupId: user.groupId,
-      userName: user.userName
+      userName: user.userName,
     }).then((response) => {
       PostItActions.receiveSuccess(response.message);
     })
@@ -184,7 +178,7 @@ module.exports = {
       message: message.message,
       priorityLevel: message.priorityLevel,
       date: message.date,
-      author: message.author
+      author: message.author,
     }).then((response) => {
       PostItActions.receiveSuccess(response.message);
       // console.log(response.data.messages, 'api post message response');
@@ -283,14 +277,14 @@ module.exports = {
    */
   resetPassword(email) {
     axios.post('/user/reset', {
-      email: email.email
+      email: email.email,
     })
       .then((response) => {
         PostItActions.receiveSuccess(response.data.message);
         Alert.success(response.data.message, {
           position: 'bottom-right',
           effect: 'slide',
-          timeout: 'none'
+          timeout: 'none',
         });
       })
       .catch((error) => {
@@ -298,8 +292,8 @@ module.exports = {
         Alert.error(error.response.data.message, {
           position: 'bottom-right',
           effect: 'slide',
-          timeout: 'none'
+          timeout: 'none',
         });
       });
-  }
+  },
 };

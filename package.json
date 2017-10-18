@@ -84,7 +84,6 @@
     "should": "^11.2.1",
     "style-loader": "^0.18.1",
     "supertest": "^3.0.0",
-    "toastr": "^2.1.2",
     "webpack": "^2.6.1",
     "webpack-dev-server": "^2.4.5"
   },

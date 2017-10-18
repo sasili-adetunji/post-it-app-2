@@ -15,11 +15,10 @@ import CreateGroup from './protected/CreateGroup';
 import MessageBoard from './protected/MessageBoard';
 import MessageList from './protected/MessageList';
 
-
 injectTapEventPlugin();
 
-/**
- * function that returns private routes
+
+ /* function that returns private routes
  * @param {any} { component: Component, isAuthenticated, ...rest }
  * @returns {void}
  */
@@ -66,26 +65,42 @@ class App extends Component {
     this.onChange = this.onChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
   }
-  /**
-   *
+   /**
+   * @method componentDidUnmount
+   * @description adds event Listener from the Store
    * @memberof App
-   */
+  */
   componentDidMount() {
     PostItStore.addChangeListener(this.onChange);
   }
 
-  /**
-   * removes change listener from the store
-   *
+ /**
+   * @method componentWillUnmount
+   * @description Removes event Listener from the Store
    * @memberof App
-   */
+  */
   componentWillUnmount() {
     PostItStore.removeChangeListener(this.onChange);
   }
-  handleClick(e) {
-    e.preventDefault();
+/**
+   * @description Makes an action call to signout a user
+   * @param {object} event
+   * @returns {void}
+   * @memberof App
+  */
+  handleClick(event) {
+    event.preventDefault();
     PostItActions.signOutUser();
   }
+
+  /**
+  * @description Route for rendering componets in the main App
+  * 
+  * @export
+  * @class App
+  * @extends {Component}
+  **/
+
   render() {
     return (
       <div>
@@ -114,10 +129,14 @@ class App extends Component {
     );
   }
 
-  /**
-   *
-   * @memberof App
-   */
+   /**
+    * @method onChange
+    * @description Monitors changes in the components and change the state
+    * @memberof App
+    * @param {object}
+    * @returns {void}
+    */
+
   onChange() {
     this.setState({
       isAuthenticated: PostItStore.getIsAuthenticated(),

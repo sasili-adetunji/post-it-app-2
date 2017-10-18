@@ -26,7 +26,6 @@ class Dashboard extends React.Component {
       showAddUser: false,
       loggedInUser: PostItStore.getLoggedInUser(),
       groups: PostItStore.getGroupsUser(),
-      // messages: PostItStore.getGroupsMessages(),
       users: PostItStore.getUsersInGroup(),
       selectedGroup: PostItStore.getOpenedGroup(),
       user: PostItStore.getUsers(),
@@ -52,11 +51,19 @@ class Dashboard extends React.Component {
   openGroup1() {
     this.setState({ showAddUser: true });
   }
+
+/**
+    * @method onChange
+    * @description Monitors changes in the components and change the state
+    * @memberof Dashboard
+    * @param {object}
+    * @returns {void}
+    */
+
   onChange() {
     this.setState({
       loggedInUser: PostItStore.getLoggedInUser(),
       groups: PostItStore.getGroupsUser(),
-      // messages: PostItStore.getGroupsMessages(),
       users: PostItStore.getUsersInGroup(),
       selectedGroup: PostItStore.getOpenedGroup(),
       user: PostItStore.getUsers(),
@@ -65,25 +72,35 @@ class Dashboard extends React.Component {
     });
   }
 
+/**
+   * @method componentDidUnmount
+   * @description adds event Listener from the Store, fetches API call to get users and user groups
+   * @memberof MessageList
+  */
   componentDidMount() {
     API.getUserGroups();
-    // PostItActions.receiveUserGroups();
-
     API.getUsers();
     PostItStore.addChangeListener(this.onChange);
   }
+
+  /**
+   * @method componentWillUnmount
+   * @description removes event Listener from the Store
+   * @memberof Dashboard
+  */
 
   componentWillUnmount() {
     PostItStore.removeChangeListener(this.onChange);
   }
 
+   /**
+   * @method render
+   * Render react component
+   * 
+   * @returns {String} The HTML markup for the MessageList Components
+   * @memberof Dashboard
+   */
   render() {
-    /**
-      * renders the dashboard componets
-      *
-      * @returns { void }
-      * @memberof Dashboard
-      */
     return (
         <div className="container-fluid" id="html">
             <div className="col-xs-3" id="dash">

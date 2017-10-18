@@ -1,21 +1,20 @@
 import React from 'react';
-import AddMember from './AddMember';
 import User from './User';
-import PostItStore from '../../stores/PostItStore';
-import PostItActions from '../../actions/PostItActions';
-
 
 /**
- * creates userlist components
+ * creates userList components
  * @class UserList
  * @extends {React.Component}
  */
 class UserList extends React.Component {
 
-  /** renders the message components
-   * @returns { void }
-   * @memberof UserList
-   */
+   /**
+ * Displays the List of Users in a group
+ * @param props 
+ * @export
+ * @class UserList
+ * @extends {Component}
+ */
 
   render() {
     const userNodes = this.props.use.map((user, i) => {

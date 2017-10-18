@@ -3,9 +3,7 @@
 import express from 'express';
 import expressValidator from 'express-validator';
 import path from 'path';
-import firebase from 'firebase';
 import bodyParser from 'body-parser';
-// import db from './config/db';
 import routes from './app/routes/index';
 
 const app = express();
@@ -22,7 +20,7 @@ app.use(express.static(path.join(__dirname, '../client/public')));
 routes(app);
 
 app.listen(port, () => {
-  console.log(`You are listening on ${port}`);
+  console.log(`You are listening on ${port}`); // eslint-disable-line
 });
 
 export default app;

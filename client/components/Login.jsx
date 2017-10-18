@@ -14,10 +14,14 @@ import PostItActions from '../actions/PostItActions';
 import PostItStore from '../stores/PostItStore';
 
 /**
- * creates Login componets
+ * 
+ * @description gets user data and login a user
+ * @export
+ * @param {object} props
  * @class Login
- * @extends {React.Component}
+ * @extends {Component}
  */
+
 class Login extends React.Component {
   constructor(props) {
     super(props);
@@ -33,34 +37,59 @@ class Login extends React.Component {
     this.onClickGoogle = this.onClickGoogle.bind(this);
     this.onClickReset = this.onClickReset.bind(this);
   }
-  /**
-     * Monitors changes in the components and change the state
-     * @param {object} e
-     * @returns {void}
-     * @memberOf Login
-  */
-  onChange(e) {
+   /**
+    * @method onChange
+    * @description Monitors changes in the components and change the state
+    * @memberof Login
+    * @param {object} event
+    * @returns {void}
+    */
+  onChange(event) {
     this.setState({
-      [e.target.name]: e.target.value
+      [event.target.name]: event.target.value
     });
   }
+
+  /**
+    * @method onError
+    * @description Monitors errors and succes in the components and its state
+    * @memberof Login
+    * @param {object} event
+    * @returns {void}
+    */
+
   onError(e) {
     this.setState({
       errors: PostItStore.getErrors(),
       success: PostItStore.getSuccess()
     });
   }
+
+  /**
+   * @method componentDidMount
+   * @description adds event Listener from the Store
+   * @memberof Login
+  */
+
   componentDidMount() {
     PostItStore.addChangeListener(this.onError);
   }
+
+   /**
+   * @method componentWillUnmount
+   * @description Removes event Listener from the Store
+   * @memberof Login
+  */
+
   componentWillUnmount() {
     PostItStore.removeChangeListener(this.onError);
   }
-  /**
-     * Makes an action call to log a user with email and password
-     * @param {object} e
+
+ /**
+     * @description Makes an action call to Sign in a user with email and password
+     * @param {object} event
      * @returns {void}
-     * @memberOf Login
+     * @memberof Login
   */
   onClick(event) {
     event.preventDefault();
@@ -68,11 +97,6 @@ class Login extends React.Component {
       email: this.state.email,
       password: this.state.password
     };
-    // if ((!user.email) || (!user.password)) {
-    //   this.setState({
-    //     errors: 'Please enter a valid email and password'
-    //   });
-    // } else {
     PostItActions.login(user);
     this.setState({
       email: '',
@@ -80,22 +104,22 @@ class Login extends React.Component {
       errors: '',
       success: ''
     });
-    // }
   }
-  /**
-     * Makes an action call to log a user with google
-     * @param {object} e
+   /**
+     * @description Makes an action call to Sign in a user with with google
+     * @param {object} event
      * @returns {void}
-     * @memberOf Login
+     * @memberof Lofin
   */
-  onClickGoogle() {
+  onClickGoogle(event) {
+    event.preventDefault();
     PostItActions.googleLogin();
   }
   /**
-     * Makes an action call to reset password
-     * @param {object} e
+     * @description Makes an action call to reset password
+     * @param {object} event
      * @returns {void}
-     * @memberOf Login
+     * @memberof Login
   */
   onClickReset(event) {
     event.preventDefault();
@@ -105,10 +129,15 @@ class Login extends React.Component {
       };
     PostItActions.resetPassword(email);
   }
-  /**
-     * @returns {String} The HTML markup for the Login
-     * @memberOf Login
-     */
+
+   /**
+   * @method render
+   * Render react component
+   * 
+   * @returns {String} The HTML markup for the Register
+   * @memberof Register
+   */
+
   render() {
     return (
       <div>

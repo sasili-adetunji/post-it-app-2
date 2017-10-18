@@ -23,24 +23,47 @@ class CreateGroup extends React.Component {
     this.onClick = this.onClick.bind(this);
   }
 
-  onChange(e) {
+  /**
+    * @method onChange
+    * @description Monitors changes in the components and change the state
+    * @memberof CreateGroup
+    * @param {object}
+    * @returns {void}
+    */
+
+  onChange(event) {
     this.setState({
-      groupName: e.target.value
+      groupName: event.target.value
     });
   }
+
+  /**
+     * @description Makes an action call to create a group
+     * @param {object} event
+     * @returns {void}
+     * @memberof CreateGroup
+  */
   onClick(event) {
     event.preventDefault();
     const group = {
       groupName: this.state.groupName,
       userName: this.props.userName.displayName
     };
-    // console.log(group);
     PostItActions.createGroup(group);
     API.getUserGroups();
     this.setState({
       groupName: ''
     });
   }
+
+  /**
+   * @method render
+   * Render react component
+   * 
+   * @returns {String} The HTML markup for the CreateGroup Components
+   * @memberof CreateGroup
+   */
+
   render() {
     return (
       <div className="panel-body">

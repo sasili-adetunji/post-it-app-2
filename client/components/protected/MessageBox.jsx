@@ -13,12 +13,6 @@ import PostItStore from '../../stores/PostItStore';
  * @extends {React.Component}
  */
 class MessageBox extends React.Component {
-
-  /**
-   * Creates an instance of MessageBox.
-   * @param {any} props
-   * @memberof MessageBox
-   */
   constructor(props) {
     super(props);
     this.state = {
@@ -30,11 +24,13 @@ class MessageBox extends React.Component {
     this.onClick = this.onClick.bind(this);
   }
 
-  /**
-   *
-   * @param {any} e
-   * @memberof MessageBox
-   */
+ /**
+    * @method onChange
+    * @description Monitors changes in the components and change the state
+    * @memberof MessageBox
+    * @param {object} event
+    * @returns {void}
+    */
   onChange(e) {
     this.setState({
       [e.target.name]: e.target.value
@@ -42,11 +38,11 @@ class MessageBox extends React.Component {
   }
 
   /**
-   *
-   *
-   * @param {any} event
-   * @memberof MessageBox
-   */
+     * @description Makes an action call to post message to a group
+     * @param {object} event
+     * @returns {void}
+     * @memberof MessageBox
+  */
   onClick(event) {
     event.preventDefault();
     if (!this.props.groupId) {
@@ -62,7 +58,6 @@ class MessageBox extends React.Component {
         date: new Date().toJSON(),
         author: this.props.author.displayName
       };
-      // console.log(message);
       PostItActions.addMessage(message);
       this.setState({
         error: '',
@@ -70,12 +65,14 @@ class MessageBox extends React.Component {
       });
     }
   }
-  /**
-   *
-   * renders the messagebox components
-   * @returns { void }
-   * @memberof MessageBox
+ /**
+   * @method render
+   * Render react component
+   * 
+   * @returns {String} The HTML markup for the MessageList Components
+   * @memberof MessageList
    */
+  
   render() {
     return (
         <div className="sendMessageDiv">

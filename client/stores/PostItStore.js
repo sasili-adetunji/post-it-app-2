@@ -4,7 +4,6 @@ import assign from 'object-assign';
 
 const registeredUser = [];
 let usersInGroup = [];
-const usersNotInGroup = [];
 let users = [];
 const userGroups = [];
 let groupsUser = [];
@@ -14,7 +13,6 @@ let errors = '';
 let success = '';
 let loggedInUser = [];
 const selectedGroup = [];
-const openedGroup = [];
 let isAuthenticated = false;
 
 
@@ -152,7 +150,7 @@ const PostItStore = assign({}, EventEmitter.prototype, {
 
   removeChangeListener(callback) {
     this.removeListener('change', callback);
-  }
+  },
 });
 
 export default PostItStore;

@@ -1,6 +1,20 @@
 import firebase from 'firebase';
 
+/**
+ * controls all message routes
+ * @class
+ */
+
 export default {
+
+     /**
+ * @description: This method creates group for a user
+ * route POST: /group
+ * @param {Object} req request object
+ * @param {Object} res response object
+ * @return {Object} response containing the created group
+ */
+
   group(req, res) {
     const groups = [];
     const { groupName, userName } = req.body;
@@ -16,41 +30,50 @@ export default {
           groupName,
           groupAdmin: user.email,
         }).key;
-        const groupRef = firebase.database().ref(`groups/${groupKey}/users/${user.uid}`)
+        firebase.database().ref(`groups/${groupKey}/users/${user.uid}`)
         .set({
           userId: user.uid,
-          userName
+          userName,
         })
         .then(() => {
           const groupDetails = {
             groupName,
-            groupId: groupKey
+            groupId: groupKey,
           };
           groups.push(groupDetails);
         })
         .then(() => {
-          const userRef = firebase.database().ref(`users/${user.uid}/groups/${groupKey}/groupInfo`)
+          firebase.database().ref(`users/${user.uid}/groups/${groupKey}/groupInfo`)
             .set({
               groupId: groupKey,
-              groupName
+              groupName,
             });
           res.status(200).json({
             message: 'New Group Successfully Created',
-            groups
+            groups,
           });
         })
         .catch((error) => {
           res.status(500).json({
-            message: 'Error occurred',
+            message: `Error occurred ${error.message}`,
           });
         });
       } else {
         res.status(401).json({
-          message: 'Please log in to post to groups'
+          message: 'Please log in to post to groups',
         });
       }
     }
   },
+
+    /**
+ * @description: This method adds a particular user to a group
+ * route POST: /group/:groupId/user
+ * @param {Object} req request object
+ * @param {Object} res response object
+ * @return {Object} response indicating a user successfully added
+ */
+
   groupAdd(req, res) {
     const { groupId, userId, userName } = req.body;
     req.check('groupId', 'Kindly select a group first').notEmpty();
@@ -62,17 +85,17 @@ export default {
     } else {
       const user = firebase.auth().currentUser;
       if (user) {
-        const groupRef = firebase.database().ref(`groups/${groupId}/users/${userId}/`).set({
+        firebase.database().ref(`groups/${groupId}/users/${userId}/`).set({
           userId,
-          userName
+          userName,
         })
         .then(() => {
-          const groupNames = firebase.database().ref(`groups/${groupId}`).orderByKey()
+          firebase.database().ref(`groups/${groupId}`).orderByKey()
             .once('value', (snap) => {
               const groupName = snap.val().groupName;
-              const userRef = firebase.database().ref(`users/${userId}/groups/${groupId}/groupInfo`).set({
+              firebase.database().ref(`users/${userId}/groups/${groupId}/groupInfo`).set({
                 groupId,
-                groupName
+                groupName,
               });
             });
           res.status(200).json({
@@ -86,17 +109,26 @@ export default {
         });
       } else {
         res.status(401).json({
-          message: 'Please log in to post to groups'
+          message: 'Please log in to post to groups',
         });
       }
     }
   },
+
+    /**
+ * @description: This method retrieves all users in  particular group
+ * route GET: /group/:groupId/users
+ * @param {Object} req request object
+ * @param {Object} res response object
+ * @return {Object} response containing list of all users in a group
+ */
+
   usersInGroup(req, res) {
     const user = firebase.auth().currentUser;
     if (user) {
       // create an empty array to hold the users
       const users = [];
-      const userRef = firebase.database().ref(`/groups/${req.params.groupId}/users`)
+      firebase.database().ref(`/groups/${req.params.groupId}/users`)
         .once('value', (msg) => {
           msg.forEach((snapshot) => {
             const userDetails = {
@@ -108,20 +140,28 @@ export default {
         })
         .then(() => {
           res.send({
-            users
+            users,
           });
         })
         .catch((error) => {
           res.status(500).json({
-            message: 'Error occurred',
+            message: `Error occurred ${error.message}`,
           });
         });
     } else {
       res.status(401).json({
-        message: 'You are not signed in right now! '
+        message: 'You are not signed in right now! ',
       });
     }
   },
+
+    /**
+ * @description: This method retrieves all groups a particular user
+ * route GET: /user/groups
+ * @param {Object} req request object
+ * @param {Object} res response object
+ * @return {Object} response containing list of all groups of a particular user
+ */
   userGroup(req, res) {
     const user = firebase.auth().currentUser;
     if (user) {
@@ -131,14 +171,14 @@ export default {
           snapshot.forEach((childSnapShot) => {
             const group = {
               groupId: childSnapShot.val().groupInfo.groupId,
-              groupName: childSnapShot.val().groupInfo.groupName
+              groupName: childSnapShot.val().groupInfo.groupName,
             };
             groups.push(group);
           });
         })
         .then(() => {
           res.send({
-            groups
+            groups,
           });
         })
         .catch((error) => {
@@ -148,7 +188,7 @@ export default {
         });
     } else {
       res.status(401).send({
-        message: 'You are not signed in right now! '
+        message: 'You are not signed in right now! ',
       });
     }
   },

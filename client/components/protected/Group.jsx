@@ -1,9 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import MessageList from './MessageList';
 import PostItActions from '../../actions/PostItActions';
-import PostItStore from '../../stores/PostItStore';
-import AddMember from './AddMember';
 import API from '../../Api';
 
 
@@ -18,9 +14,14 @@ class Group extends React.Component {
     super(props);
     this.onClick = this.onClick.bind(this);
   }
-  // componentDidMount() {
-  //   API.getMessages(this.props.group);
-  // }
+
+   /**
+     * @description Makes an apu call to get group messges, users
+     * @param {object} event
+     * @returns {void}
+     * @memberof CreateGroup
+  */
+
   onClick() {
     API.getMessages(this.props.group);
     PostItActions.groupOpened(this.props.group);
@@ -28,9 +29,10 @@ class Group extends React.Component {
     API.getUserGroups();
   }
   /**
-   * renders group componenets
-   *
-   * @returns { void }
+   * @method render
+   * Render react component
+   * 
+   * @returns {String} The HTML markup for the Group Components
    * @memberof Group
    */
   render() {

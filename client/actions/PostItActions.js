@@ -9,7 +9,7 @@ const PostItActions = {
   login(user) {
     PostItDispatcher.dispatch({
       actionType: PostItConstants.LOGIN_USER,
-      user
+      user,
     });
   },
 
@@ -19,7 +19,7 @@ const PostItActions = {
  */
   googleLogin() {
     PostItDispatcher.dispatch({
-      actionType: PostItConstants.GOOGLE_LOGIN
+      actionType: PostItConstants.GOOGLE_LOGIN,
     });
   },
 
@@ -31,7 +31,7 @@ const PostItActions = {
   registerUser(user) {
     PostItDispatcher.dispatch({
       actionType: PostItConstants.REGISTER_USER,
-      user
+      user,
     });
   },
 
@@ -42,7 +42,7 @@ const PostItActions = {
   receiveErrors(errors) {
     PostItDispatcher.dispatch({
       actionType: PostItConstants.RECEIVE_ERRORS,
-      errors
+      errors,
     });
   },
 
@@ -53,14 +53,14 @@ const PostItActions = {
   receiveSuccess(message) {
     PostItDispatcher.dispatch({
       actionType: PostItConstants.RECEIVE_SUCCESS,
-      message
+      message,
 
     });
   },
   receiveReadUsers(user) {
     PostItDispatcher.dispatch({
       actionType: PostItConstants.RECEIVE_READ_USERS,
-      user
+      user,
 
     });
   },
@@ -71,7 +71,7 @@ const PostItActions = {
   createGroup(group) {
     PostItDispatcher.dispatch({
       actionType: PostItConstants.CREATE_GROUP,
-      group
+      group,
 
     });
   },
@@ -83,7 +83,7 @@ const PostItActions = {
   addUserToGroup(user) {
     PostItDispatcher.dispatch({
       actionType: PostItConstants.ADDUSER_GROUP,
-      user
+      user,
 
     });
   },
@@ -94,7 +94,7 @@ const PostItActions = {
   addMessage(message) {
     PostItDispatcher.dispatch({
       actionType: PostItConstants.ADD_MESSAGE,
-      message
+      message,
     });
   },
 
@@ -105,7 +105,7 @@ const PostItActions = {
   resetPassword(email) {
     PostItDispatcher.dispatch({
       actionType: PostItConstants.RESET_PASSWORD,
-      email
+      email,
 
     });
   },
@@ -116,7 +116,7 @@ const PostItActions = {
    */
   signOutUser() {
     PostItDispatcher.dispatch({
-      actionType: PostItConstants.SIGNOUT_USER
+      actionType: PostItConstants.SIGNOUT_USER,
 
     });
   },
@@ -128,7 +128,7 @@ const PostItActions = {
   receiveMessages(messages) {
     PostItDispatcher.dispatch({
       actionType: PostItConstants.RECEIVE_MESSAGES,
-      messages
+      messages,
     });
   },
 
@@ -139,7 +139,7 @@ const PostItActions = {
   receiveUserGroups(groups) {
     PostItDispatcher.dispatch({
       actionType: PostItConstants.RECEIVE_USER_GROUPS,
-      groups
+      groups,
 
     });
   },
@@ -152,7 +152,7 @@ const PostItActions = {
   receiveUsers(users) {
     PostItDispatcher.dispatch({
       actionType: PostItConstants.RECEIVE_USERS,
-      users
+      users,
 
     });
   },
@@ -165,7 +165,7 @@ const PostItActions = {
   receiveAuthenticatedUser(user) {
     PostItDispatcher.dispatch({
       actionType: PostItConstants.RECEIVE_AUTHENTICATED_USER,
-      user
+      user,
 
     });
   },
@@ -178,17 +178,17 @@ const PostItActions = {
   groupOpened(selectedGroup) {
     PostItDispatcher.dispatch({
       actionType: PostItConstants.GROUP_OPENED,
-      selectedGroup
+      selectedGroup,
 
     });
   },
   recieveUsersInGroups(group) {
     PostItDispatcher.dispatch({
       actionType: PostItConstants.RECIEVE_USERS_IN_GROUPS,
-      group
+      group,
 
     });
-  }
+  },
 };
 
 export default PostItActions;

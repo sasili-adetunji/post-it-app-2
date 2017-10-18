@@ -1,16 +1,33 @@
 import firebase from 'firebase';
 
 
+/**
+ * controls all user routes
+ * @class
+ */
+
 export default {
+  /**
+ * @description: THis method creates a user account
+ * route POST: user/signup
+ * @param {Object} req request object
+ * @param {Object} res response object
+ * @return {Object} response containing the registered user
+ */
+
   signup(req, res) {
     const { email, password, userName, phoneNumber } = req.body;
+
+// validating email, password, phonenumber and username using express-validator
+
     req.check('phoneNumber', 'phone number is required').notEmpty();
     req.check('password', 'Password is required').notEmpty();
     req.check('userName', 'Username is required').notEmpty();
     req.check('password', 'Password must be a mininum of 6 character')
     .isLength(6, 50);
     req.check('email', 'Please put a valid email').isEmail();
-    req.check('phoneNumber', 'Enter a valid phone Number').isMobilePhone('en-NG');
+    req.check('phoneNumber', 'Enter a valid phone Number')
+    .isMobilePhone('en-NG');
 
     const errors = req.validationErrors();
     if (errors) {
@@ -20,28 +37,41 @@ export default {
       firebase.auth().createUserWithEmailAndPassword(email, password)
       .then((user) => {
         user.updateProfile({
-          displayName: userName
+          displayName: userName,
         });
         firebase.database().ref(`users/${user.uid}`)
         .set({
           userName,
           email,
-          phoneNumber
+          phoneNumber,
         });
         res.status(200).json({
-          message: `Welcome ${user.email}. You have successfully registered. You can proceed to login now`,
-          user
+          message: `Welcome ${user.email}. 
+          You have successfully registered. You can proceed to login now`,
+          user,
         });
       })
       .catch((error) => {
         res.status(403).json({
-          message: error.message
+          message: error.message,
         });
       });
     }
   },
+
+   /**
+ * @description: This method controls a user's login
+ * route POST: user/signin
+ * @param {Object} req request object
+ * @param {Object} res response object
+ * @return {Object} response containing the logged-in user
+ */
+
   signin(req, res) {
     const { email, password } = req.body;
+
+// validating email and password using express-validator
+
     req.check('email', 'Email is required').notEmpty();
     req.check('password', 'Password is required').notEmpty();
     req.check('email', 'Please put a valid email').isEmail();
@@ -57,29 +87,45 @@ export default {
       .then((user) => {
         res.status(200).json({
           message: 'Success: you have successfuly signed in.',
-          user
+          user,
         });
       })
       .catch((error) => {
         res.status(403).json({
-          message: error.message
+          message: error.message,
         });
       });
     }
   },
+
+   /**
+ * @description: This method controls a signout
+ * route POST: user/signout
+ * @param {Object} req request object
+ * @param {Object} res response object
+ * @return {Object} response containing the logged-in user
+ */
   signout(req, res) {
     firebase.auth().signOut()
       .then(() => {
         res.status(200).json({
-          message: 'You have signed out of the Application'
+          message: 'You have signed out of the Application',
         });
       })
       .catch((error) => {
         res.status(403).json({
-          message: error.message
+          message: error.message,
         });
       });
   },
+
+   /**
+ * @description: This method controls reset password
+ * route GET: user/reset
+ * @param {Object} req request object
+ * @param {Object} res response object
+ * @return {Object}
+ */
   resetPassword(req, res) {
     const { email } = req.body;
     req.check('email', 'Email is required').notEmpty();
@@ -93,43 +139,51 @@ export default {
       firebase.auth().sendPasswordResetEmail(email)
       .then(() => {
         res.json({
-          message: 'An email has been sent to your email'
+          message: 'An email has been sent to your email',
         });
       })
       .catch((error) => {
         res.status(403).json({
-          message: error.message
+          message: error.message,
         });
       });
     }
   },
+
+   /**
+ * @description: This method retrieves all the users in database
+ * route GET: user/users
+ * @param {Object} req request object
+ * @param {Object} res response object
+ * @return {Object} response containing all the users
+ */
   usersList(req, res) {
     const user = firebase.auth().currentUser;
     if (user) {
       // create an empty array to hold the users
       const users = [];
-      const userRef = firebase.database().ref('users/').once('value', (msg) => {
+      firebase.database().ref('users/').once('value', (msg) => {
         msg.forEach((snapshot) => {
           const userDetails = {
             userId: snapshot.key,
-            userName: snapshot.val().userName
+            userName: snapshot.val().userName,
           };
           users.push(userDetails);
         });
       })
         .then(() => {
           res.send({
-            users
+            users,
           });
         })
         .catch((error) => {
           res.status(500).json({
-            message: 'Error occurred',
+            message: `Error occurred ${error.message}`,
           });
         });
     } else {
       res.status(401).json({
-        message: 'You are not signed in right now! '
+        message: 'You are not signed in right now! ',
       });
     }
   },
@@ -146,17 +200,17 @@ export default {
         email = result.user.email;
         uid = result.user.uid;
         displayName = result.user.displayName;
-        const userRef = firebase.database().ref('users/').child(uid).set({
+        firebase.database().ref('users/').child(uid).set({
           username: displayName,
-          email
+          email,
         });
         res.json({
           message: 'You have successfully signed in with  Google' });
       })
       .catch((error) => {
         res.status(500).json({
-          message: error.message
+          message: error.message,
         });
       });
-  }
+  },
 };

@@ -7,10 +7,11 @@ import AddMember from './AddMember';
 import GroupList from './GroupList';
 import UserList from './UserList';
 import MessageList from './MessageList';
+
 /**
- * creates dashboard components
+ * creates DashboardNav components
  *
- * @class Dashboard
+ * @class DashboardNAv
  * @extends {React.Component}
  */
 class DashboardNav extends React.Component {
@@ -38,13 +39,16 @@ class DashboardNav extends React.Component {
   openGroup1() {
     this.setState({ showAddUser: true });
   }
+
+   /**
+   * @method render
+   * Render react component
+   * 
+   * @returns {String} The HTML markup for the DashboardNav Components
+   * @memberof DashboardNav
+   */
+
   render() {
-    /**
-      * renders the dashboard componets
-      *
-      * @returns { void }
-      * @memberof Dashboard
-      */
     return (
 <div id="sidebar">
             <div className="card-block">

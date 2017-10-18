@@ -12,16 +12,24 @@ import PostItActions from '../../actions/PostItActions';
 class Message extends React.Component {
   constructor(props) {
     super(props);
-    this.onClick = this.onClick.bind(this);
   }
 
+   /**
+   * @method componentDidUnmount
+   * @description makes an api call to get read users
+   * @memberof Message
+  */
   componentDidMount() {
     API.getUserReadUsers(this.props.message);
-    // PostItActions.getUserReadUsers(this.props.message);
   }
-  onClick() {
-    API.getUserReadUsers(this.props.message);
-  }
+
+    /**
+   * @method render
+   * Render react component
+   * 
+   * @returns {String} The HTML markup for the Message Components
+   * @memberof Message
+   */
   render() {
     let userNodes = null;
     userNodes = this.props.readUser.map((eachUser, i) => {
@@ -35,7 +43,7 @@ class Message extends React.Component {
       <div className="msg_container_base">
         <div className="row msg_container base_sent">
           <div className="col-md-10 col-xs-10">
-            <ul onClick={this.onClick} >
+            <ul >
               <div className="messages msg_sent">
                 <p> {this.props.message.messageText} </p>
                 <time> Posted by {this.props.message.author} on {this.props.message.date}</time>

@@ -13,10 +13,15 @@ import API from '../../Api';
  * @extends {React.Component}
  */
 class GroupList extends React.Component {
-  // componentDidMount() {
-  //   API.getMessages(this.props.group);
-  //   // PostItStore.getGroupsUser();
-  // }
+
+
+    /**
+   * @method render
+   * Render react component
+   * 
+   * @returns {String} The HTML markup for the GroupList Components
+   * @memberof GroupList
+   */
   render() {
     let header = null;
     if (PostItStore.getGroupsUser().length < 1) {

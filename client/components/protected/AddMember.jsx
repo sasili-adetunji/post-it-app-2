@@ -26,9 +26,17 @@ class AddMember extends React.Component {
     this.data = this.data.bind(this);
   }
 
-  onChange(e) {
+  /**
+    * @method onChange
+    * @description Monitors changes in the components and change the state
+    * @memberof AddMember
+    * @param {object}
+    * @returns {void}
+    */
+
+  onChange(event) {
     this.setState({
-      [e.target.name]: e.target.value
+      [event.target.name]: event.target.value
     });
   }
 
@@ -50,6 +58,14 @@ class AddMember extends React.Component {
     });
     return n;
   }
+
+   /**
+     * @description Makes an action call to add a member to a group
+     * @param {object} event
+     * @returns {void}
+     * @memberof AddMember
+  */
+
   onClick(event) {
     event.preventDefault();
     if (!this.props.selected[0]) {
@@ -71,17 +87,17 @@ class AddMember extends React.Component {
       });
     } else {
     PostItActions.addUserToGroup(user);
-      // console.log(user);
     this.setState({
       error: '',
       userName: ''
     });
     }
   }
-  /**
-   *
-   * renders add member components
-   * @returns { void }
+ /**
+   * @method render
+   * Render react component
+   * 
+   * @returns {String} The HTML markup for the AddMember Components
    * @memberof AddMember
    */
   render() {

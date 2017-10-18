@@ -1,6 +1,5 @@
 import React from 'react';
 import MessageBox from './MessageBox';
-import API from '../../Api';
 import Message from './Message';
 import PostItStore from '../../stores/PostItStore';
 
@@ -19,28 +18,49 @@ class MessageList extends React.Component {
     };
     this.onChange = this.onChange.bind(this);
   }
+ 
   /**
-   *
-   * renders messagelist components
-   * @returns { void }
-   * @memberof MessageList
-   */
+    * @method onChange
+    * @description Monitors changes in the components and change the state
+    * @memberof MessageList
+    * @param {object} event
+    * @returns {void}
+    */
 
   onChange() {
     this.setState({
       message: PostItStore.getGroupsMessages()
     });
   }
+
+  /**
+   * @method componentDidMount
+   * @description adds event Listener from the Store
+   * @memberof MessageLIST
+  */
+
   componentDidMount() {
     PostItStore.addChangeListener(this.onChange);
   }
 
+  /**
+   * @method componentWillUnmount
+   * @description removes event Listener from the Store
+   * @memberof MessageList
+  */
   componentWillUnmount() {
     PostItStore.removeChangeListener(this.onChange);
   }
 
+  /**
+   * @method render
+   * Render react component
+   * 
+   * @returns {String} The HTML markup for the MessageList Components
+   * @memberof MessageList
+   */
+
   render() {
-    // console.log(PostItStore.getGroupsMessages());
     let messageNodes = null;
     if (this.props.selectedGroup.length === 0) {
       messageNodes = (<h2 className="messageHeader"> No Group Selected </h2>);
