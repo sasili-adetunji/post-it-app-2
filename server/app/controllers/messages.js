@@ -32,17 +32,23 @@ const nexmo = new Nexmo({
 export default {
   message(req, res) {
     const { message, groupId, priorityLevel, date, author } = req.body;
-    const messages = [];
-    const user = firebase.auth().currentUser;
-    if (user) {
-      const messageKey = firebase.database().ref(`groups/${groupId}/messages`)
+    req.check('message', 'Please enter a valid message').notEmpty();
+    const errors = req.validationErrors();
+    if (errors) {
+      const errorMessage = errors[0].msg;
+      res.status(400).json({ errorMessage });
+    } else {
+      const messages = [];
+      const user = firebase.auth().currentUser;
+      if (user) {
+        const messageKey = firebase.database().ref(`groups/${groupId}/messages`)
         .push({
           message,
           author,
           date,
           priorityLevel
         }).key;
-      const userRef = firebase.database().ref(`groups/${groupId}/users/`)
+        const userRef = firebase.database().ref(`groups/${groupId}/users/`)
         .once('value', (snapshot) => {
           snapshot.forEach((childSnapShot) => {
             firebase.database().ref(`users/${childSnapShot.val().userId}/groups/${groupId}/messages/${messageKey}`)
@@ -104,10 +110,11 @@ export default {
             message: `Error occurred ${error.message}`,
           });
         });
-    } else {
-      res.status(401).json({
-        message: 'Please log in to see a list of your groups'
-      });
+      } else {
+        res.status(401).json({
+          message: 'Please log in to send messages to groups'
+        });
+      }
     }
   },
   userMessage(req, res) {

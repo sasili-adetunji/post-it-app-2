@@ -1,5 +1,8 @@
 import React from 'react';
 import lodash from 'lodash';
+import Alert from 'react-s-alert';
+import 'react-s-alert/dist/s-alert-default.css';
+import 'react-s-alert/dist/s-alert-css-effects/slide.css';
 import PostItStore from '../../stores/PostItStore';
 import PostItActions from '../../actions/PostItActions';
 
@@ -61,19 +64,18 @@ class AddMember extends React.Component {
       userName: this.state.userName,
       groupId: this.props.selected[0].groupId
     };
-
     if (!user.userId) {
       this.setState({
         error: 'This User does not exist',
         userName: ''
       });
     } else {
-      PostItActions.addUserToGroup(user);
+    PostItActions.addUserToGroup(user);
       // console.log(user);
-      this.setState({
-        error: '',
-        userName: ''
-      });
+    this.setState({
+      error: '',
+      userName: ''
+    });
     }
   }
   /**
@@ -97,6 +99,7 @@ class AddMember extends React.Component {
           <button onClick={this.onClick} type="submit" className="btn btn-default ">
             <span className="glyphicon glyphicon-plus" /></button>
         </form>
+      <Alert stack={{ limit: 3 }} timeout={5000} />
         <br />
       </div>
     );

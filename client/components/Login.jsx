@@ -3,6 +3,9 @@ import mui from 'material-ui';
 import { Link } from 'react-router-dom';
 import GoogleButton from 'react-google-button';
 import { Card, CardTitle } from 'material-ui/Card';
+import Alert from 'react-s-alert';
+import 'react-s-alert/dist/s-alert-default.css';
+import 'react-s-alert/dist/s-alert-css-effects/slide.css';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
@@ -47,7 +50,6 @@ class Login extends React.Component {
       success: PostItStore.getSuccess()
     });
   }
-
   componentDidMount() {
     PostItStore.addChangeListener(this.onError);
   }
@@ -103,13 +105,11 @@ class Login extends React.Component {
       };
     PostItActions.resetPassword(email);
   }
-
   /**
      * @returns {String} The HTML markup for the Login
      * @memberOf Login
      */
   render() {
-    console.log(this.state.success)
     return (
       <div>
         <MuiThemeProvider >
@@ -117,7 +117,6 @@ class Login extends React.Component {
             <CardTitle
               title="Login Form"
               subtitle="To continue using PostIt, you need to login below" />
-            <span className="success"><strong><h3> {this.state.success} </h3></strong> </span> <br />
             <TextField
               name="email" onChange={this.onChange} value={this.state.email}
               floatingLabelText="Your Email" /><br />
@@ -126,12 +125,11 @@ class Login extends React.Component {
               floatingLabelText="Your Password"
               type="password" /><br />
             <br />
-            <span className="error"> <strong><h4> {this.state.errors}</h4> </strong> </span> <br />
             <p> Already Have an account,<Link to="/signup"> Register here </Link> </p>
-
             <p> Forgot your Password? Enter your Email and <a
               href="/#/signup"
               onClick={this.onClickReset}> Click here </a> </p>
+            <Alert stack={{ limit: 3 }} timeout={3000} />
             <RaisedButton
               label="Login" primary onClick={this.onClick} />
             <br />

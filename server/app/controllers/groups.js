@@ -4,13 +4,19 @@ export default {
   group(req, res) {
     const groups = [];
     const { groupName, userName } = req.body;
-    const user = firebase.auth().currentUser;
-    if (user) {
-      const groupKey = firebase.database().ref('groups/').push({
-        groupName,
-        groupAdmin: user.email,
-      }).key;
-      const groupRef = firebase.database().ref(`groups/${groupKey}/users/${user.uid}`)
+    req.check('groupName', 'Please enter a valid group name').notEmpty();
+    const errors = req.validationErrors();
+    if (errors) {
+      const message = errors[0].msg;
+      res.status(400).json({ message });
+    } else {
+      const user = firebase.auth().currentUser;
+      if (user) {
+        const groupKey = firebase.database().ref('groups/').push({
+          groupName,
+          groupAdmin: user.email,
+        }).key;
+        const groupRef = firebase.database().ref(`groups/${groupKey}/users/${user.uid}`)
         .set({
           userId: user.uid,
           userName
@@ -38,20 +44,28 @@ export default {
             message: 'Error occurred',
           });
         });
-    } else {
-      res.status(401).json({
-        message: 'Please log in to post to groups'
-      });
+      } else {
+        res.status(401).json({
+          message: 'Please log in to post to groups'
+        });
+      }
     }
   },
   groupAdd(req, res) {
     const { groupId, userId, userName } = req.body;
-    const user = firebase.auth().currentUser;
-    if (user) {
-      const groupRef = firebase.database().ref(`groups/${groupId}/users/${userId}/`).set({
-        userId,
-        userName
-      })
+    req.check('groupId', 'Kindly select a group first').notEmpty();
+    req.check('userName', 'This User does not exist').notEmpty();
+    const errors = req.validationErrors();
+    if (errors) {
+      const message = errors[0].msg;
+      res.status(400).json({ message });
+    } else {
+      const user = firebase.auth().currentUser;
+      if (user) {
+        const groupRef = firebase.database().ref(`groups/${groupId}/users/${userId}/`).set({
+          userId,
+          userName
+        })
         .then(() => {
           const groupNames = firebase.database().ref(`groups/${groupId}`).orderByKey()
             .once('value', (snap) => {
@@ -70,10 +84,11 @@ export default {
             message: `Error occurred ${error.message}`,
           });
         });
-    } else {
-      res.status(401).json({
-        message: 'Please log in to post to groups'
-      });
+      } else {
+        res.status(401).json({
+          message: 'Please log in to post to groups'
+        });
+      }
     }
   },
   usersInGroup(req, res) {

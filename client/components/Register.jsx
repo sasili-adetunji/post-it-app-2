@@ -2,6 +2,9 @@ import React from 'react';
 import mui from 'material-ui';
 import { Link } from 'react-router-dom';
 import { Card, CardTitle } from 'material-ui/Card';
+import Alert from 'react-s-alert';
+import 'react-s-alert/dist/s-alert-default.css';
+import 'react-s-alert/dist/s-alert-css-effects/slide.css';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -93,7 +96,7 @@ class Register extends React.Component {
             <CardTitle
               title="Signup Form"
               subtitle="To continue using PostIt, you need to register below" />
-            <span className="success"><strong> <h3> {PostItStore.getSuccess()}</h3> </strong> </span> <br />
+            {/* <span className="success"><strong> <h3> {PostItStore.getSuccess()}</h3> </strong> </span> <br /> */}
             <TextField
               name="userName" onChange={this.onChange}
               value={this.state.userName} floatingLabelText="Choose Username" /><br />
@@ -108,8 +111,8 @@ class Register extends React.Component {
               name="phoneNumber" onChange={this.onChange}
               floatingLabelText="Phone Number" /><br />
             <br />
-            <span className="error"> <strong> <h4> {this.state.errors} </h4> </strong> </span> <br />
             <p> Already Have an account,<Link to="/signin"> Login here </Link> </p>
+             <Alert stack={{ limit: 3 }} timeout={3000} />
             <RaisedButton
               onClick={this.onClick}
               onTouchTap={this.handleTouchTap}

@@ -1,4 +1,7 @@
 import React from 'react';
+import Alert from 'react-s-alert';
+import 'react-s-alert/dist/s-alert-default.css';
+import 'react-s-alert/dist/s-alert-css-effects/slide.css';
 import PostItActions from '../../actions/PostItActions';
 import API from '../../Api';
 
@@ -50,6 +53,7 @@ class CreateGroup extends React.Component {
           <button onClick={this.onClick} type="submit" className="btn btn-default ">
             <span className="glyphicon glyphicon-plus" /></button>
         </form>
+         <Alert stack={{ limit: 3 }} timeout={3000} />
       </div>
     );
   }
