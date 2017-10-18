@@ -1,6 +1,7 @@
 // server file
 
 import express from 'express';
+import expressValidator from 'express-validator';
 import path from 'path';
 import firebase from 'firebase';
 import bodyParser from 'body-parser';
@@ -15,7 +16,7 @@ const port = process.env.PORT || 8000;
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-
+app.use(expressValidator());
 app.use(express.static(path.join(__dirname, '../client/public')));
 
 routes(app);

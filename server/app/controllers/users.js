@@ -4,7 +4,20 @@ import firebase from 'firebase';
 export default {
   signup(req, res) {
     const { email, password, userName, phoneNumber } = req.body;
-    firebase.auth().createUserWithEmailAndPassword(email, password)
+    req.check('phoneNumber', 'phone number is required').notEmpty();
+    req.check('password', 'Password is required').notEmpty();
+    req.check('userName', 'Username is required').notEmpty();
+    req.check('password', 'Password must be a mininum of 6 character')
+    .isLength(6, 50);
+    req.check('email', 'Please put a valid email').isEmail();
+    req.check('phoneNumber', 'Enter a valid phone Number').isMobilePhone('en-NG');
+
+    const errors = req.validationErrors();
+    if (errors) {
+      const message = errors[0].msg;
+      res.status(400).json({ message });
+    } else {
+      firebase.auth().createUserWithEmailAndPassword(email, password)
       .then((user) => {
         user.updateProfile({
           displayName: userName
@@ -20,24 +33,39 @@ export default {
           user
         });
       })
-      .catch((err) => {
-        res.status(500).json({
-          message: 'An error occured'
+      .catch((error) => {
+        res.status(403).json({
+          message: error.message
         });
       });
+    }
   },
   signin(req, res) {
     const { email, password } = req.body;
-    firebase.auth().signInWithEmailAndPassword(email, password)
+    req.check('email', 'Email is required').notEmpty();
+    req.check('password', 'Password is required').notEmpty();
+    req.check('email', 'Please put a valid email').isEmail();
+    req.check('password', 'Password must be a mininum of 6 character')
+    .isLength(6, 50);
+
+    const errors = req.validationErrors();
+    if (errors) {
+      const message = errors[0].msg;
+      res.status(400).json({ message });
+    } else {
+      firebase.auth().signInWithEmailAndPassword(email, password)
       .then((user) => {
         res.status(200).json({
           message: 'Success: you have successfuly signed in.',
           user
         });
       })
-      .catch((err) => {
-        res.send({ message: 'Error: The email or password of the user is invalid' });
+      .catch((error) => {
+        res.status(403).json({
+          message: error.message
+        });
       });
+    }
   },
   signout(req, res) {
     firebase.auth().signOut()
@@ -46,25 +74,34 @@ export default {
           message: 'You have signed out of the Application'
         });
       })
-      .catch((err) => {
-        res.status(500).json({
-          message: 'There appear to be error with signing out'
+      .catch((error) => {
+        res.status(403).json({
+          message: error.message
         });
       });
   },
   resetPassword(req, res) {
     const { email } = req.body;
-    firebase.auth().sendPasswordResetEmail(email)
+    req.check('email', 'Email is required').notEmpty();
+    req.check('email', 'Please put a valid email').isEmail();
+
+    const errors = req.validationErrors();
+    if (errors) {
+      const message = errors[0].msg;
+      res.status(400).json({ message });
+    } else {
+      firebase.auth().sendPasswordResetEmail(email)
       .then(() => {
         res.json({
           message: 'An email has been sent to your email'
         });
       })
-      .catch((err) => {
-        res.status(500).json({
-          message: `There appear to be ${err.message}`
+      .catch((error) => {
+        res.status(403).json({
+          message: error.message
         });
       });
+    }
   },
   usersList(req, res) {
     const user = firebase.auth().currentUser;

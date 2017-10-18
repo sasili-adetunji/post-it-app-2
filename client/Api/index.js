@@ -20,14 +20,13 @@ module.exports = {
       phoneNumber: user.phoneNumber
     })
       .then((response) => {
-        if ((response.data.message === 'The email address is badly formatted.') || (response.data.message === 'The email address is already in use by another account.')) {
-          PostItActions.receiveErrors(response.data.message);
-        } else {
-          PostItActions.receiveSuccess(response.data.message);
-        }
+        // if ((response.data.message === 'The email address is badly formatted.') || (response.data.message === 'The email address is already in use by another account.')) {
+        //   PostItActions.receiveErrors(response.data.message);
+        // } else {
+        PostItActions.receiveSuccess(response.data.message);
       })
       .catch((error) => {
-        PostItActions.receiveErrors(error.message);
+        PostItActions.receiveErrors(error.response.data.message);
       });
   },
 
@@ -45,17 +44,17 @@ module.exports = {
         email: user.email,
         isAuthenticated: true
       };
-      if (response.data.message === 'Error: The email or password of the user is invalid') {
-        PostItActions.receiveErrors(response.data.message);
-      } else {
-        PostItActions.receiveSuccess(response.data.message);
-        localStorage.setItem('user', response.data.user.stsTokenManager.accessToken);
-        PostItStore.setLoggedInUser(response.data.user);
-        PostItActions.receiveAuthenticatedUser(authuser);
-      }
+      // if (response.data.message === 'Error: The email or password of the user is invalid') {
+      //   PostItActions.receiveErrors(response.data.message);
+      // } else {
+      PostItActions.receiveSuccess(response.data.message);
+      localStorage.setItem('user', response.data.user.stsTokenManager.accessToken);
+      PostItStore.setLoggedInUser(response.data.user);
+      PostItActions.receiveAuthenticatedUser(authuser);
+      // }
     })
       .catch((error) => {
-        PostItActions.receiveErrors(error.message);
+        PostItActions.receiveErrors(error.response.data.message);
       });
   },
 
@@ -70,7 +69,7 @@ module.exports = {
       localStorage.removeItem('user');
     })
       .catch((error) => {
-        PostItActions.receiveErrors(error.message);
+        PostItActions.receiveErrors(error.response.data.message);
       });
   },
 
@@ -244,10 +243,10 @@ module.exports = {
       email: email.email
     })
       .then((response) => {
-        PostItActions.receiveSuccess(response.message);
+        PostItActions.receiveSuccess(response.data.message);
       })
       .catch((error) => {
-        PostItActions.receiveErrors(error.message);
+        PostItActions.receiveErrors(error.response.data.message);
       });
   }
 };

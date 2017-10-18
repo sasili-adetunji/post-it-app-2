@@ -21,10 +21,12 @@ class Login extends React.Component {
     this.state = {
       email: '',
       password: '',
-      errors: ''
+      errors: '',
+      success: ''
     };
     this.onChange = this.onChange.bind(this);
     this.onClick = this.onClick.bind(this);
+    this.onError = this.onError.bind(this);
     this.onClickGoogle = this.onClickGoogle.bind(this);
     this.onClickReset = this.onClickReset.bind(this);
   }
@@ -39,7 +41,19 @@ class Login extends React.Component {
       [e.target.name]: e.target.value
     });
   }
+  onError(e) {
+    this.setState({
+      errors: PostItStore.getErrors(),
+      success: PostItStore.getSuccess()
+    });
+  }
 
+  componentDidMount() {
+    PostItStore.addChangeListener(this.onError);
+  }
+  componentWillUnmount() {
+    PostItStore.removeChangeListener(this.onError);
+  }
   /**
      * Makes an action call to log a user with email and password
      * @param {object} e
@@ -52,18 +66,19 @@ class Login extends React.Component {
       email: this.state.email,
       password: this.state.password
     };
-    if ((!user.email) || (!user.password)) {
-      this.setState({
-        errors: 'Please enter a valid email and password'
-      });
-    } else {
-      PostItActions.login(user);
-      this.setState({
-        email: '',
-        password: '',
-        errors: ''
-      });
-    }
+    // if ((!user.email) || (!user.password)) {
+    //   this.setState({
+    //     errors: 'Please enter a valid email and password'
+    //   });
+    // } else {
+    PostItActions.login(user);
+    this.setState({
+      email: '',
+      password: '',
+      errors: '',
+      success: ''
+    });
+    // }
   }
   /**
      * Makes an action call to log a user with google
@@ -94,6 +109,7 @@ class Login extends React.Component {
      * @memberOf Login
      */
   render() {
+    console.log(this.state.success)
     return (
       <div>
         <MuiThemeProvider >
@@ -101,6 +117,7 @@ class Login extends React.Component {
             <CardTitle
               title="Login Form"
               subtitle="To continue using PostIt, you need to login below" />
+            <span className="success"><strong><h3> {this.state.success} </h3></strong> </span> <br />
             <TextField
               name="email" onChange={this.onChange} value={this.state.email}
               floatingLabelText="Your Email" /><br />
@@ -109,7 +126,7 @@ class Login extends React.Component {
               floatingLabelText="Your Password"
               type="password" /><br />
             <br />
-            <span className="error"> {this.state.errors} {PostItStore.getErrors()} </span> <br />
+            <span className="error"> <strong><h4> {this.state.errors}</h4> </strong> </span> <br />
             <p> Already Have an account,<Link to="/signup"> Register here </Link> </p>
 
             <p> Forgot your Password? Enter your Email and <a
