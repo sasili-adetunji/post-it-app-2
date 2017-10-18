@@ -23,7 +23,7 @@ class MessageBox extends React.Component {
       priorityLevel: '',
       error: ''
     };
-    // this.onChange = this.onChange.bind(this);
+    this.onChange = this.onChange.bind(this);
     this.onClick = this.onClick.bind(this);
   }
 
@@ -32,11 +32,11 @@ class MessageBox extends React.Component {
    * @param {any} e
    * @memberof MessageBox
    */
-  // onChange(e) {
-  //   this.setState({
-  //     [e.target.name]: e.target.value
-  //   });
-  // }
+  onChange(e) {
+    this.setState({
+      [e.target.name]: e.target.value
+    });
+  }
 
   /**
    *
@@ -49,21 +49,21 @@ class MessageBox extends React.Component {
     if (!this.props.groupId) {
       this.setState({
         error: 'Please kindly select a group first',
+        message: ''
       });
-      this.refs.message.value = '';
     } else {
       const message = {
-        message: this.refs.message.value.trim(),
+        message: this.state.message,
         groupId: this.props.groupId.groupId,
-        priorityLevel: this.refs.type.value.trim(),
+        priorityLevel: this.state.priorityLevel,
         date: new Date().toJSON(),
         author: this.props.author.displayName
       };
       // console.log(message);
       PostItActions.addMessage(message);
-      this.refs.message.value = '';
       this.setState({
-        error: ''
+        error: '',
+        message: ''
       });
     }
   }
@@ -79,13 +79,15 @@ class MessageBox extends React.Component {
           <strong className="error"> {this.state.error} </strong>
                             <form onSubmit={this.onClick}>
                                 <div className="form-group col-sm-2">
-                                    <select ref="type" className="form-control" id="exampleFormControlSelect1">
+                                    <select name="priorityLevel" className="form-control" id="exampleFormControlSelect1"
+                                     onChange={this.onChange} value={this.state.priorityLevel}>
                                         <option>Normal</option>
                                         <option>Urgent</option>
                                         <option>Critical</option>
                                     </select>
                                 </div>
-                                <input ref='message' className="col-sm-10 sendMessageInput" placeholder='Enter a message' />
+                                <input name='message' className="col-sm-10 sendMessageInput"
+                                 placeholder='Enter a message' onChange={this.onChange} value={this.state.message}/>
                             </form>
                         </div>
     );
