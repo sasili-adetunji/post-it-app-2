@@ -1,4 +1,3 @@
-process.env.NODE_ENV = 'test';
 
 import assert from 'assert';
 import chai from 'chai';
@@ -22,7 +21,6 @@ describe('Signin route', () => {
         assert.equal('Email is required',
           res.body.message);
         res.should.have.status(400);
-        assert.equal('400', res.statusCode);
         res.body.should.be.a('object');
         done();
       });
@@ -39,7 +37,6 @@ describe('Signin route', () => {
         assert.equal('Password is required',
           res.body.message);
         res.should.have.status(400);
-        assert.equal('400', res.statusCode);
         res.body.should.be.a('object');
         done();
       });
@@ -56,7 +53,6 @@ describe('Signin route', () => {
         assert.equal('Please put a valid email',
           res.body.message);
         res.should.have.status(400);
-        assert.equal('400', res.statusCode);
         res.body.should.be.a('object');
         done();
       });
@@ -73,7 +69,6 @@ describe('Signin route', () => {
         assert.equal('Password must be a mininum of 6 character',
           res.body.message);
         res.should.have.status(400);
-        assert.equal('400', res.statusCode);
         res.body.should.be.a('object');
         done();
       });
@@ -90,7 +85,6 @@ describe('Signin route', () => {
         assert.equal('The password is invalid or the user does not have a password.',
           res.body.message);
         res.should.have.status(403);
-        assert.equal('403', res.statusCode);
         res.body.should.be.a('object');
         done();
       });
@@ -107,7 +101,6 @@ describe('Signin route', () => {
         assert.equal('Success: you have successfuly signed in.',
           res.body.message);
         res.should.have.status(200);
-        assert.equal('200', res.statusCode);
         res.body.should.be.a('object');
         done();
       });

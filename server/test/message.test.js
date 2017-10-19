@@ -1,4 +1,3 @@
-// process.env.NODE_ENV = 'test';
 
 import assert from 'assert';
 import chai from 'chai';
@@ -20,7 +19,6 @@ describe('Message Route: ', () => {
           assert.equal('Please enter a valid message',
           res.body.errorMessage);
           res.should.have.status(400);
-          assert.equal('400', res.statusCode);
           res.body.should.be.a('object');
           done();
         });
@@ -37,7 +35,6 @@ describe('Message Route: ', () => {
         assert.equal('Success: you have successfuly signed in.',
           res.body.message);
         res.should.have.status(200);
-        assert.equal('200', res.statusCode);
         res.body.should.be.a('object');
         done();
       });
@@ -57,7 +54,6 @@ describe('Message Route: ', () => {
             assert.equal('Message Sent successfully to Group',
           res.body.message);
             res.should.have.status(200);
-            assert.equal('200', res.statusCode);
             res.body.messages.should.be.a('array');
             res.body.messages.should.be.an.instanceOf(Object);
             done();
@@ -70,7 +66,6 @@ describe('Message Route: ', () => {
         .get('/group/-Kwog-k_NHdynRzt0YfT/messages')
         .end((err, res) => {
           res.should.have.status(200);
-          assert.equal('200', res.statusCode);
           res.body.messages.should.be.a('array');
           res.body.messages.should.be.an.instanceOf(Object);
           done();
@@ -83,7 +78,6 @@ describe('Message Route: ', () => {
         .get('/group/-KwpIpKLZKuaWVAhdFfj/readUsers')
         .end((err, res) => {
           res.should.have.status(200);
-          assert.equal('200', res.statusCode);
           res.body.readUsers.should.be.a('array');
           res.body.readUsers.should.be.an.instanceOf(Object);
           done();

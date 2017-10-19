@@ -1,4 +1,3 @@
-process.env.NODE_ENV = 'test';
 
 import assert from 'assert';
 import chai from 'chai';
@@ -22,7 +21,6 @@ describe('Users list route', () => {
         assert.equal('Success: you have successfuly signed in.',
           res.body.message);
         res.should.have.status(200);
-        assert.equal('200', res.statusCode);
         res.body.should.be.a('object');
         done();
       });
@@ -32,7 +30,6 @@ describe('Users list route', () => {
       .get('/user/users')
       .end((err, res) => {
         res.should.have.status(200);
-        assert.equal('200', res.statusCode);
         res.body.users.should.be.a('array');
         res.body.users.should.be.an.instanceOf(Object);
         done();

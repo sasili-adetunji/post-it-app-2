@@ -1,4 +1,3 @@
-process.env.NODE_ENV = 'test';
 
 import assert from 'assert';
 import chai from 'chai';
@@ -17,7 +16,6 @@ describe('Signout route', () => {
         assert.equal('You have signed out of the Application',
           res.body.message);
         res.should.have.status(200);
-        assert.equal('200', res.statusCode);
         res.body.should.be.a('object');
         done();
       });

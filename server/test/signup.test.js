@@ -1,4 +1,3 @@
-process.env.NODE_ENV = 'test';
 
 import assert from 'assert';
 import chai from 'chai';
@@ -24,7 +23,6 @@ describe('Signup route', () => {
         assert.equal('Email Address is Required',
           res.body.message);
         res.should.have.status(400);
-        assert.equal('400', res.statusCode);
         res.body.should.be.a('object');
         done();
       });
@@ -43,7 +41,6 @@ describe('Signup route', () => {
       .end((err, res) => {
         assert.equal('Username is required',
           res.body.message);
-        res.should.have.status(400);
         assert.equal('400', res.statusCode);
         res.body.should.be.a('object');
         done();
@@ -64,7 +61,6 @@ describe('Signup route', () => {
         assert.equal('Password is required',
           res.body.message);
         res.should.have.status(400);
-        assert.equal('400', res.statusCode);
         res.body.should.be.a('object');
         done();
       });
@@ -84,7 +80,6 @@ describe('Signup route', () => {
         assert.equal('phone number is required',
           res.body.message);
         res.should.have.status(400);
-        assert.equal('400', res.statusCode);
         res.body.should.be.a('object');
         done();
       });
@@ -104,7 +99,6 @@ describe('Signup route', () => {
         assert.equal('Password must be a mininum of 6 character',
           res.body.message);
         res.should.have.status(400);
-        assert.equal('400', res.statusCode);
         res.body.should.be.a('object');
         done();
       });
@@ -124,7 +118,6 @@ describe('Signup route', () => {
         assert.equal('Please put a valid email',
           res.body.message);
         res.should.have.status(400);
-        assert.equal('400', res.statusCode);
         res.body.should.be.a('object');
         done();
       });
@@ -144,7 +137,6 @@ describe('Signup route', () => {
         assert.equal('Enter a valid phone Number',
           res.body.message);
         res.should.have.status(400);
-        assert.equal('400', res.statusCode);
         res.body.should.be.a('object');
         done();
       });
@@ -164,7 +156,6 @@ describe('Signup route', () => {
         assert.equal('The email address is already in use by another account.',
           res.body.message);
         res.should.have.status(403);
-        assert.equal('403', res.statusCode);
         res.body.should.be.a('object');
         done();
       });
@@ -184,7 +175,6 @@ describe('Signup route', () => {
         assert.equal(`Welcome ${newUser.email}. 
           You have successfully registered. You can proceed to login now`,
           res.body.message);
-        res.should.have.status(200);
         assert.equal('200', res.statusCode);
         res.body.should.be.a('object');
         done();

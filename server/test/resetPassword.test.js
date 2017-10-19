@@ -1,4 +1,3 @@
-process.env.NODE_ENV = 'test';
 
 import assert from 'assert';
 import chai from 'chai';
@@ -21,7 +20,6 @@ describe('Reset Password route', () => {
         assert.equal('Email is required',
           res.body.message);
         res.should.have.status(400);
-        assert.equal('400', res.statusCode);
         res.body.should.be.a('object');
         done();
       });
@@ -37,7 +35,6 @@ describe('Reset Password route', () => {
         assert.equal('Please put a valid email',
           res.body.message);
         res.should.have.status(400);
-        assert.equal('400', res.statusCode);
         res.body.should.be.a('object');
         done();
       });
@@ -53,7 +50,6 @@ describe('Reset Password route', () => {
         assert.equal('There is no user record corresponding to this identifier. The user may have been deleted.',
           res.body.message);
         res.should.have.status(403);
-        assert.equal('403', res.statusCode);
         res.body.should.be.a('object');
         done();
       });
@@ -69,7 +65,6 @@ describe('Reset Password route', () => {
         assert.equal('An email has been sent to your email',
           res.body.message);
         res.should.have.status(200);
-        assert.equal('200', res.statusCode);
         res.body.should.be.a('object');
         done();
       });
