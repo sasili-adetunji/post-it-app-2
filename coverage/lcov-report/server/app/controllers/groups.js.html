@@ -1,0 +1,650 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for server/app/controllers/groups.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../prettify.css" />
+    <link rel="stylesheet" href="../../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../../index.html">All files</a> / <a href="index.html">server/app/controllers</a> groups.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">1.79% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>1/56</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>0/12</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>0/18</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">1.79% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>1/56</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import firebase from 'firebase';
+&nbsp;
+/**
+ * controls all message routes
+ * @class
+ */
+&nbsp;
+export default <span class="fstat-no" title="function not covered" ><span class="fstat-no" title="function not covered" ><span class="fstat-no" title="function not covered" ><span class="fstat-no" title="function not covered" >{</span></span></span></span>
+&nbsp;
+     /**
+ * @description: This method creates group for a user
+ * route POST: /group
+ * @param {Object} req request object
+ * @param {Object} res response object
+ * @return {Object} response containing the created group
+ */
+&nbsp;
+  group(req, res) <span class="cstat-no" title="statement not covered" ></span>{
+    c</span>onst groups = <span class="cstat-no" title="statement not covered" >[];
+    const { groupName, userName } = <span class="cstat-no" title="statement not covered" >req.body;</span>
+<span class="cstat-no" title="statement not covered" >    req.check('groupName', 'Please enter a valid group name').notEmpty();</span>
+    c</span>onst errors = <span class="cstat-no" title="statement not covered" >req.validationErrors();
+<span class="cstat-no" title="statement not covered" >    if (errors) {</span>
+      c</span>onst message = <span class="cstat-no" title="statement not covered" >errors[0].msg;
+<span class="cstat-no" title="statement not covered" >      res.status(400).json({ message });</span>
+    } else {
+      c</span>onst user = <span class="cstat-no" title="statement not covered" >firebase.auth().currentUser;
+<span class="cstat-no" title="statement not covered" >      if (user) {</span>
+        c</span>onst groupKey = <span class="cstat-no" title="statement not covered" >firebase.database().ref('groups/').push({
+          groupName,
+          groupAdmin: user.email,
+        }).key;
+<span class="cstat-no" title="statement not covered" >        firebase.database().ref(`groups/${groupKey}/users/${user.uid}`)</span>
+        .set({
+          userId: user.uid,
+          userName,
+        })
+        .then(<span class="fstat-no" title="function not covered" >() =&gt; </span>{
+          c</span>onst groupDetails = <span class="cstat-no" title="statement not covered" >{
+            groupName,
+            groupId: groupKey,
+          };
+<span class="cstat-no" title="statement not covered" >          groups.push(groupDetails);</span>
+        })
+        .then(<span class="fstat-no" title="function not covered" >() =&gt; </span>{
+<span class="cstat-no" title="statement not covered" >          firebase.database().ref(`users/${user.uid}/groups/${groupKey}/groupInfo`)</span>
+            .set({
+              groupId: groupKey,
+              groupName,
+            });
+<span class="cstat-no" title="statement not covered" >          res.status(200).json({</span>
+            message: 'New Group Successfully Created',
+            groups,
+          });
+        })
+        .catch(<span class="fstat-no" title="function not covered" >(</span>error) =&gt; {
+<span class="cstat-no" title="statement not covered" >          res.status(500).json({</span>
+            message: `Error occurred ${error.message}`,
+          });
+        });
+      } else {
+<span class="cstat-no" title="statement not covered" >        res.status(401).json({</span>
+          message: 'Please log in to post to groups',
+        });
+      }
+    }
+  },
+&nbsp;
+    /**
+ * @description: This method adds a particular user to a group
+ * route POST: /group/:groupId/user
+ * @param {Object} req request object
+ * @param {Object} res response object
+ * @return {Object} response indicating a user successfully added
+ */
+&nbsp;
+  groupAdd(req, res) <span class="cstat-no" title="statement not covered" ></span>{
+    const { groupId, userId, userName } = <span class="cstat-no" title="statement not covered" >req.body;</span>
+<span class="cstat-no" title="statement not covered" >    req.check('groupId', 'Kindly select a group first').notEmpty();</span>
+<span class="cstat-no" title="statement not covered" >    req.check('userName', 'This User does not exist').notEmpty();</span>
+    c</span>onst errors = <span class="cstat-no" title="statement not covered" >req.validationErrors();
+<span class="cstat-no" title="statement not covered" >    if (errors) {</span>
+      c</span>onst message = <span class="cstat-no" title="statement not covered" >errors[0].msg;
+<span class="cstat-no" title="statement not covered" >      res.status(400).json({ message });</span>
+    } else {
+      c</span>onst user = <span class="cstat-no" title="statement not covered" >firebase.auth().currentUser;
+<span class="cstat-no" title="statement not covered" >      if (user) {</span>
+<span class="cstat-no" title="statement not covered" >        firebase.database().ref(`groups/${groupId}/users/${userId}/`).set({</span>
+          userId,
+          userName,
+        })
+        .then(<span class="fstat-no" title="function not covered" >() =&gt; </span>{
+<span class="cstat-no" title="statement not covered" >          firebase.database().ref(`groups/${groupId}`).orderByKey()</span>
+            .once('value', <span class="fstat-no" title="function not covered" >(</span>snap) =&gt; {
+              c</span>onst groupName = <span class="cstat-no" title="statement not covered" >snap.val().groupName;
+<span class="cstat-no" title="statement not covered" >              firebase.database().ref(`users/${userId}/groups/${groupId}/groupInfo`).set({</span>
+                groupId,
+                groupName,
+              });
+            });
+<span class="cstat-no" title="statement not covered" >          res.status(200).json({</span>
+            message: 'User successfully added',
+          });
+        })
+        .catch(<span class="fstat-no" title="function not covered" >(</span>error) =&gt; {
+<span class="cstat-no" title="statement not covered" >          res.status(500).send({</span>
+            message: `Error occurred ${error.message}`,
+          });
+        });
+      } else {
+<span class="cstat-no" title="statement not covered" >        res.status(401).json({</span>
+          message: 'Please log in to post to groups',
+        });
+      }
+    }
+  },
+&nbsp;
+    /**
+ * @description: This method retrieves all users in  particular group
+ * route GET: /group/:groupId/users
+ * @param {Object} req request object
+ * @param {Object} res response object
+ * @return {Object} response containing list of all users in a group
+ */
+&nbsp;
+  usersInGroup(req, res) {
+    c</span>onst user = <span class="cstat-no" title="statement not covered" >firebase.auth().currentUser;
+<span class="cstat-no" title="statement not covered" >    if (user) {</span>
+      // create an empty array to hold the users
+      c</span>onst users = <span class="cstat-no" title="statement not covered" >[];
+<span class="cstat-no" title="statement not covered" >      firebase.database().ref(`/groups/${req.params.groupId}/users`)</span>
+        .once('value', <span class="fstat-no" title="function not covered" >(</span>msg) =&gt; {
+<span class="cstat-no" title="statement not covered" >          msg.forEach(<span class="fstat-no" title="function not covered" >(</span>snapshot) =&gt; {</span>
+            c</span>onst userDetails = <span class="cstat-no" title="statement not covered" >{
+              userId: snapshot.val().userId,
+              userName: snapshot.val().userName,
+            };
+<span class="cstat-no" title="statement not covered" >            users.push(userDetails);</span>
+          });
+        })
+        .then(<span class="fstat-no" title="function not covered" >() =&gt; </span>{
+<span class="cstat-no" title="statement not covered" >          res.send({</span>
+            users,
+          });
+        })
+        .catch(<span class="fstat-no" title="function not covered" >(</span>error) =&gt; {
+<span class="cstat-no" title="statement not covered" >          res.status(500).json({</span>
+            message: `Error occurred ${error.message}`,
+          });
+        });
+    } else {
+<span class="cstat-no" title="statement not covered" >      res.status(401).json({</span>
+        message: 'You are not signed in right now! ',
+      });
+    }
+  },
+&nbsp;
+    /**
+ * @description: This method retrieves all groups a particular user
+ * route GET: /user/groups
+ * @param {Object} req request object
+ * @param {Object} res response object
+ * @return {Object} response containing list of all groups of a particular user
+ */
+  userGroup(req, res) {
+    c</span>onst user = <span class="cstat-no" title="statement not covered" >firebase.auth().currentUser;
+<span class="cstat-no" title="statement not covered" >    if (user) {</span>
+      c</span>onst groups = <span class="cstat-no" title="statement not covered" >[];
+<span class="cstat-no" title="statement not covered" >      firebase.database().ref(`users/${user.uid}/groups/`)</span>
+        .orderByKey().once('value', <span class="fstat-no" title="function not covered" >(</span>snapshot) =&gt; {
+<span class="cstat-no" title="statement not covered" >          snapshot.forEach(<span class="fstat-no" title="function not covered" >(</span>childSnapShot) =&gt; {</span>
+            c</span>onst group = <span class="cstat-no" title="statement not covered" >{
+              groupId: childSnapShot.val().groupInfo.groupId,
+              groupName: childSnapShot.val().groupInfo.groupName,
+            };
+<span class="cstat-no" title="statement not covered" >            groups.push(group);</span>
+          });
+        })
+        .then(<span class="fstat-no" title="function not covered" >() =&gt; </span>{
+<span class="cstat-no" title="statement not covered" >          res.send({</span>
+            groups,
+          });
+        })
+        .catch(<span class="fstat-no" title="function not covered" >(</span>error) =&gt; {
+<span class="cstat-no" title="statement not covered" >          res.status(500).send({</span>
+            message: `Error occurred ${error.message}`,
+          });
+        });
+    } else {
+<span class="cstat-no" title="statement not covered" >      res.status(401).send({</span>
+        message: 'You are not signed in right now! ',
+      });
+    }
+  },
+};
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Thu Oct 19 2017 12:57:10 GMT+0100 (WAT)
+</div>
+</div>
+<script src="../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../sorter.js"></script>
+</body>
+</html>
