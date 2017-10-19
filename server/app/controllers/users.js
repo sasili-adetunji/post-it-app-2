@@ -25,6 +25,7 @@ export default {
     req.check('userName', 'Username is required').notEmpty();
     req.check('password', 'Password must be a mininum of 6 character')
     .isLength(6, 50);
+    req.check('email', 'Email Address is Required').notEmpty();
     req.check('email', 'Please put a valid email').isEmail();
     req.check('phoneNumber', 'Enter a valid phone Number')
     .isMobilePhone('en-NG');

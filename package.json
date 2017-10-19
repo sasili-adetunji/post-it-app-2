@@ -6,8 +6,10 @@
   "scripts": {
     "test:coverage": "jest --coverage",
     "coverage-report": "cat ./coverage/lcov.info | coveralls",
-    "test": "jest",
+    "test2": "jest",
     "test1": "NODE_ENV=test mocha --timeout 75000 --compilers js:babel-register server/test/**.js",
+    "test": "NODE_ENV=test nyc --reporter=html --reporter=text mocha --compilers js:babel-core/register server/test/**.js --timeout 1500000 && npm run coverage-report",
+    "coveralls": "nyc report --reporter=lcov --reporter=text-lcov npm run test",
     "build": "babel server/ -d dist && babel client/ -d dist",
     "start": "NODE_ENV=development webpack && babel-node ./server/server.js",
     "nodemon": "nodemon --watch server --exec babel-node -- server/server.js",

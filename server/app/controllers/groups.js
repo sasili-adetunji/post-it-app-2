@@ -60,7 +60,7 @@ export default {
         });
       } else {
         res.status(401).json({
-          message: 'Please log in to post to groups',
+          message: 'Please log in to create groups',
         });
       }
     }

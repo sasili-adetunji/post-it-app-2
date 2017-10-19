@@ -21,6 +21,6 @@ export default config;
 //   databaseURL: process.env[`${prefix}databaseURL`],
 //   projectId: process.env[`${prefix}projectId`],
 //   storageBucket: process.env[`${prefix}storageBucket`],
-//   messagingSenderId: process.env[`${prefix}messagingSenderId`]
+//   messagingSenderId: process.env[`${prefix}messagingSenderId`],
 // };
 // export default config;
