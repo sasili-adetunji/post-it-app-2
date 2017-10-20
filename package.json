@@ -7,7 +7,6 @@
     "test:coverage": "jest --coverage",
     "coverage-report": "cat ./coverage/lcov.info | coveralls",
     "test:client": "jest __test__",
-    "jest": "jest",
     "test": "nyc --reporter=html --reporter=text --reporter=lcov mocha --compilers js:babel-core/register server/test/**.js --timeout 1500000 && npm run coverage-report",
     "build": "babel server/ -d dist && babel client/ -d dist",
     "start": "webpack && babel-node ./server/server.js",
@@ -109,10 +108,27 @@
     "react-test-renderer": "^16.0.0"
   },
   "jest": {
+    "roots": [
+      "<rootDir>/client/__test__"
+    ],
     "testEnvironment": "node",
-    "unmockedModulePathPatterns": [
+    "moduleFileExtensions": [
+      "js",
+      "jsx"
+    ],
+    "unmockedModulePathPatterns":[
       "react"
     ],
-    "scriptPreprocessor": "/jestPrepocessor.js"
+    "collectCoverage":true,
+    "setupFiles": [
+    "<rootDir>/mock/localStorage"
+    ],
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "/server/test/"
+    ],
+    "coveragePathIgnorePatterns": [
+      "localStorage"
+    ]
   }
 }

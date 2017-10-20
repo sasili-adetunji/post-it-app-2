@@ -56,7 +56,7 @@ describe('Reset Password route', () => {
   });
   it('should return status 200 after successfully sending a reset', (done) => {
     const user = {
-      email: 'wash@email.com',
+      email: 'live@email.com',
     };
     chai.request(app)
       .post('/user/reset')
