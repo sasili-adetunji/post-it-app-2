@@ -2,6 +2,9 @@
 
 [![Coverage Status](https://coveralls.io/repos/github/sasili-adetunji/post-it-app-2/badge.svg?branch=defense-feedback)](https://coveralls.io/github/sasili-adetunji/post-it-app-2?branch=defense-feedback)
 
+[![codecov.io Code Coverage](https://codecov.io/github/sasili-adetunji/post-it-app-2/branch/defense-feedback/graphs/badge.svg)](https://codecov.io/gh/sasili-adetunji/post-it-app-2/branch/defense-feedback)
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-brightgreen.svg)](https://choosealicense.com/licenses/mit/)
 ## PostIt application
 This application allows friends and colleagues to create groups for notifications. This way, one person can post notifications to everyone by sending message once. The app allows people to crete accounts, create groups and add registered users to the groups and send send messages out to these people whenever they want
 ## Features
@@ -19,46 +22,12 @@ This application allows friends and colleagues to create groups for notification
 - Read messages should be marked
 ## Technologies used
   PostIt-app API is built with <a href="https://nodejs.org/">Node.js</a>, <a href="https://www.javascript.com/">JavaScript(ES6)</a>, <a href="https://expressjs.com/">Express</a>, <a href="https://firebase.google.com/">Firebase</a> and <a href="https://facebook.github.io/react/">ReactJs</a> using  <a href="https://facebook.github.io/flux/docs/overview.html"> Flux Architecture </a>
-## API Documentation
-It is a simple RESTful api, which creates users,sign in registered users, create group and add memebrs to a groups.
-use x-www-formurlencoded parameters.
-Methods
+## Limitations
 
-'/user/signup'
-
-	.POST: Create a user
-
-		parameters:
-
-			email: string
-
-			username: string
-
-			password: string
-
-'/user/signin'
-
-	.POST: Sign in user
-
-		parameters:
-
-			email: string
-
-			password: string
-
-'/group'
-
-	.POST: Create a group
-
-		 groupname: string
-        
-'/group/groupId/user'
-      
- 	.POST:Add a user a group
-
-		:
-		
-		
+- Users cannot send picture
+- Users cannot choose to accept invitation request
+- Users cannot exit from a group
+- Users cannot delete a message once sent
 ## Installation
 - Download or clone the app on your local machine
 - Move into local directory ```cd post-it-app-2```
@@ -70,7 +39,13 @@ Methods
 - Run `npm test ` for testing 
 - Run ```npm start ``` and visit ```localhost:8000``` to view the app locally
 ## Author
-This is done by Sasiliyu Adetunji
+This is done by ```Sasiliyu Adetunji```
+
+## License & Copyright
+
+MIT © <a href="https://github.com/sasili-adetuni">Sasiliyu Adetunji </a>
+
+Licensed under the MIT License.
 ## Acknowledgement 
 - Andela 
 - Bootcamp Facilitators 
