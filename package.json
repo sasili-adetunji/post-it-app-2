@@ -6,7 +6,8 @@
   "scripts": {
     "test:coverage": "jest --coverage",
     "coverage-report": "cat ./coverage/lcov.info | coveralls",
-    "test2": "jest",
+    "test:client": "jest __test__",
+    "jest": "jest",
     "test": "nyc --reporter=html --reporter=text mocha --compilers js:babel-core/register server/test/**.js --timeout 1500000 && npm run coverage-report",
     "build": "babel server/ -d dist && babel client/ -d dist",
     "start": "webpack && babel-node ./server/server.js",
@@ -77,13 +78,13 @@
     "react-google-button": "^0.3.0",
     "react-router": "^0.13.3",
     "react-router-dom": "^4.1.1",
-    "react-s-alert": "^1.3.1",
     "react-tap-event-plugin": "2.0.1",
     "rimraf": "^2.6.1",
     "sass-loader": "^6.0.5",
     "should": "^11.2.1",
     "style-loader": "^0.18.1",
     "supertest": "^3.0.0",
+    "toastr": "^2.1.2",
     "webpack": "^2.6.1",
     "webpack-dev-server": "^2.4.5"
   },
@@ -100,7 +101,7 @@
     "eslint-plugin-jsx-a11y": "^5.0.3",
     "eslint-plugin-react": "^7.0.1",
     "extract-text-webpack-plugin": "^2.1.0",
-    "jest": "^20.0.4",
+    "jest": "^21.2.1",
     "nodemon": "^1.11.0",
     "react-addons-test-utils": "^15.6.0",
     "react-dom": "^15.6.2",
@@ -108,6 +109,10 @@
     "react-test-renderer": "^16.0.0"
   },
   "jest": {
-    "testEnvironment": "node"
+    "testEnvironment": "node",
+    "unmockedModulePathPatterns": [
+      "react"
+    ],
+    "scriptPreprocessor": "/jestPrepocessor.js"
   }
 }

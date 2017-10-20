@@ -1,7 +1,4 @@
 import React from 'react';
-import Alert from 'react-s-alert';
-import 'react-s-alert/dist/s-alert-default.css';
-import 'react-s-alert/dist/s-alert-css-effects/slide.css';
 import PostItActions from '../../actions/PostItActions';
 import PostItStore from '../../stores/PostItStore';
 
@@ -89,7 +86,6 @@ class MessageBox extends React.Component {
                                 <input name='message' className="col-sm-10 sendMessageInput"
                                  placeholder='Enter a message' onChange={this.onChange} value={this.state.message}/>
                             </form>
-                             <Alert stack={{ limit: 3 }} timeout={3000} />
                         </div>
     );
   }

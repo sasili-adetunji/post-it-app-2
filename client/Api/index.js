@@ -1,12 +1,9 @@
 import axios from 'axios';
 import firebase from 'firebase';
-import Alert from 'react-s-alert';
-import 'react-s-alert/dist/s-alert-default.css';
-import 'react-s-alert/dist/s-alert-css-effects/slide.css';
+import toastr from 'toastr';
 import PostItActions from '../actions/PostItActions';
 import PostItStore from '../stores/PostItStore';
 import config from '../../server/app/config/database';
-
 
 module.exports = {
 
@@ -24,19 +21,11 @@ module.exports = {
     })
       .then((response) => {
         PostItActions.receiveSuccess(response.data.message);
-        Alert.success(response.data.message, {
-          position: 'top-right',
-          effect: 'slide',
-          timeout: '3000',
-        });
+        toastr.success(response.data.message);
       })
       .catch((error) => {
         PostItActions.receiveErrors(error.response.data.message);
-        Alert.error(error.response.data.message, {
-          position: 'top-right',
-          effect: 'slide',
-          timeout: '3000',
-        });
+        toastr.error(error.response.data.message);
       });
   },
 
@@ -58,20 +47,11 @@ module.exports = {
       localStorage.setItem('user', response.data.user.stsTokenManager.accessToken); // eslint-disable-line
       PostItStore.setLoggedInUser(response.data.user);
       PostItActions.receiveAuthenticatedUser(authuser);
-      Alert.success(response.data.message, {
-        position: 'top-right',
-        effect: 'slide',
-        timeout: '3000',
-      });
-      // }
+      toastr.success(response.data.message);
     })
       .catch((error) => {
         PostItActions.receiveErrors(error.response.data.message);
-        Alert.error(error.response.data.message, {
-          position: 'top-right',
-          effect: 'slide',
-          timeout: '3000',
-        });
+        toastr.error(error.response.data.message);
       });
   },
 
@@ -84,11 +64,7 @@ module.exports = {
     .then((response) => {
       PostItActions.receiveSuccess(response.data.message);
       localStorage.removeItem('user'); // eslint-disable-line
-      Alert.success(response.data.message, {
-        position: 'top-right',
-        effect: 'slide',
-        timeout: '3000',
-      });
+      toastr.success(response.data.message);
     })
       .catch((error) => {
         PostItActions.receiveErrors(error.response.data.message);
@@ -111,11 +87,7 @@ module.exports = {
       localStorage.setItem('user', response.credential.accessToken); // eslint-disable-line
       PostItStore.setLoggedInUser(response.user);
       PostItActions.receiveAuthenticatedUser(authuser);
-      Alert.success(response.data.message, {
-        position: 'top-right',
-        effect: 'slide',
-        timeout: '3000',
-      });
+      toastr.success(response.data.message);
     })
     .catch((error) => {
       PostItActions.receiveErrors(error);
@@ -132,20 +104,11 @@ module.exports = {
       userName: group.userName,
     }).then((response) => {
       PostItActions.receiveSuccess(response.message);
-      // PostItStore.addGroups(response.data.groups);
-      Alert.success(response.data.message, {
-        position: 'top-right',
-        effect: 'slide',
-        timeout: '3000',
-      });
+      toastr.success(response.data.message);
     })
       .catch((error) => {
         PostItActions.receiveErrors(error.message);
-        Alert.error(error.response.data.message, {
-          position: 'top-right',
-          effect: 'slide',
-          timeout: '3000',
-        });
+        toastr.error(error.response.data.message);
       });
   },
 
@@ -181,9 +144,6 @@ module.exports = {
       author: message.author,
     }).then((response) => {
       PostItActions.receiveSuccess(response.message);
-      // console.log(response.data.messages, 'api post message response');
-      // PostItStore.addMessage(response.data.messages);
-      // PostItStore.postMessage(response.data.messages);
     })
       .catch((error) => {
         PostItActions.receiveErrors(error.message);
@@ -281,19 +241,11 @@ module.exports = {
     })
       .then((response) => {
         PostItActions.receiveSuccess(response.data.message);
-        Alert.success(response.data.message, {
-          position: 'bottom-right',
-          effect: 'slide',
-          timeout: 'none',
-        });
+        toastr.success(response.data.message);
       })
       .catch((error) => {
         PostItActions.receiveErrors(error.response.data.message);
-        Alert.error(error.response.data.message, {
-          position: 'bottom-right',
-          effect: 'slide',
-          timeout: 'none',
-        });
+        toastr.error(error.response.data.message);
       });
   },
 };

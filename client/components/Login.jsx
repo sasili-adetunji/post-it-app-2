@@ -3,15 +3,13 @@ import mui from 'material-ui';
 import { Link } from 'react-router-dom';
 import GoogleButton from 'react-google-button';
 import { Card, CardTitle } from 'material-ui/Card';
-import Alert from 'react-s-alert';
-import 'react-s-alert/dist/s-alert-default.css';
-import 'react-s-alert/dist/s-alert-css-effects/slide.css';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import PostItActions from '../actions/PostItActions';
 import PostItStore from '../stores/PostItStore';
+import toastr from 'toastr';
 
 /**
  * 
@@ -158,7 +156,6 @@ class Login extends React.Component {
             <p> Forgot your Password? Enter your Email and <a
               href="/#/signup"
               onClick={this.onClickReset}> Click here </a> </p>
-            <Alert stack={{ limit: 3 }} timeout={3000} />
             <RaisedButton
               label="Login" primary onClick={this.onClick} />
             <br />

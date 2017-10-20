@@ -22,11 +22,16 @@ const config = {
     hot: true,
     port: 8000
   },
+  externals: {
+    cheerio: 'window',
+    'react/lib/ExecutionEnvironment': true,
+    'react/lib/ReactContext': true,
+  },
   node: {
     fs: 'empty',
     net: 'empty',
     dns: 'empty',
-    tls: 'empty'
+    tls: 'empty',
   },
   module: {
     loaders: [
@@ -37,8 +42,8 @@ const config = {
 
         query: {
           presets: ['es2015', 'react', 'stage-0'],
-          plugins: ['react-html-attrs', 'transform-class-properties', 'transform-decorators-legacy']
-        }
+          plugins: ['react-html-attrs', 'transform-class-properties', 'transform-decorators-legacy'],
+        },
       },
       {
         test: /\.css$/,
@@ -49,11 +54,11 @@ const config = {
         test: /\.scss$/,
         exclude: /node_modules/,
         loader: 'style-loader',
-      }
-    ]
+      },
+    ],
   },
   resolve: {
-    extensions: ['*', '.js', '.jsx']
+    extensions: ['*', '.js', '.jsx'],
   },
   plugins: [
     new Dotenv({
@@ -72,8 +77,6 @@ const config = {
   ],
 };
 module.exports = config;
-
-
 
 // require('dotenv').config();
 // const path = require('path');

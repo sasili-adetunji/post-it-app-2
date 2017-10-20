@@ -1,6 +1,7 @@
-[![Build Status](https://travis-ci.org/sasili-adetunji/post-it-app-2.svg?branch=develop)](https://travis-ci.org/sasili-adetunji/post-it-app-2)
+[![Build Status](https://travis-ci.org/sasili-adetunji/post-it-app-2.svg?branch=defense-feedback)](https://travis-ci.org/sasili-adetunji/post-it-app-2)
 
-[![Coverage Status](https://coveralls.io/repos/github/sasili-adetunji/post-it-app-2/badge.svg?branch=develop)](https://coveralls.io/github/sasili-adetunji/post-it-app-2?branch=develop)
+[![Coverage Status](https://coveralls.io/repos/github/sasili-adetunji/post-it-app-2/badge.svg?branch=defense-feedback)](https://coveralls.io/github/sasili-adetunji/post-it-app-2?branch=defense-feedback)
+
 ## PostIt application
 This application allows friends and colleagues to create groups for notifications. This way, one person can post notifications to everyone by sending message once. The app allows people to crete accounts, create groups and add registered users to the groups and send send messages out to these people whenever they want
 ## Features
