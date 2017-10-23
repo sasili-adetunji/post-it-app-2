@@ -1,6 +1,7 @@
 import React from 'react';
 import API from '../../Api';
 import PostItActions from '../../actions/PostItActions';
+import PostItStore from '../../stores/PostItStore';
 
 
 /**
@@ -32,7 +33,7 @@ class Message extends React.Component {
    */
   render() {
     let userNodes = null;
-    userNodes = this.props.readUser.map((eachUser, i) => {
+    userNodes = PostItStore.getReadUsers().map((eachUser, i) => {
       const user = [];
       user.push(eachUser.userName);
       return (

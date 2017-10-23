@@ -7,8 +7,9 @@
     "test:coverage": "jest --coverage",
     "coverage": "nyc report --reporter=text-lcov > coverage.lcov && codecov --token=1ed1c47c-357d-496c-828e-b7b755b088a8",
     "coverage-report": "cat ./coverage/lcov.info | coveralls",
-    "test:client": "jest __test__",
-    "test": "nyc --reporter=html --reporter=text --reporter=lcov mocha --compilers js:babel-core/register server/test/**.js --timeout 1500000 && npm run coverage",
+    "test:client": "jest __test__ && npm run coverage",
+    "test:server": "nyc --reporter=html --reporter=text --reporter=lcov mocha --compilers js:babel-core/register server/test/**.js --timeout 1500000 && npm run coverage",
+    "test": "npm run test:client && npm run test:server",
     "build": "babel server/ -d dist && babel client/ -d dist",
     "start": "webpack && babel-node ./server/server.js",
     "nodemon": "nodemon --watch server --exec babel-node -- server/server.js",
@@ -121,7 +122,7 @@
     "unmockedModulePathPatterns": [
       "react"
     ],
-    "collectCoverage": false,
+    "collectCoverage": true,
     "setupFiles": [
       "<rootDir>/mock/localStorage"
     ],

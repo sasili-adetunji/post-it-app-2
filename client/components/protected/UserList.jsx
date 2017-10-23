@@ -1,5 +1,7 @@
 import React from 'react';
 import User from './User';
+import PostItStore from '../../stores/PostItStore';
+
 
 /**
  * creates userList components
@@ -17,7 +19,7 @@ class UserList extends React.Component {
  */
 
   render() {
-    const userNodes = this.props.use.map((user, i) => {
+    const userNodes = PostItStore.getUsersInGroup().map((user, i) => {
       return (
         <User user={user} key={i} />
       );

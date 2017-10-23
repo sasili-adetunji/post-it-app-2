@@ -1,31 +1,41 @@
-import expect from 'expect';
 import React from 'react';
-import { mount, shallow } from 'enzyme';
+import { shallow, render } from 'enzyme';
 import MessageBoard from '../../components/protected/MessageBoard.jsx';
+import DashboardNav from '../../components/protected/DashboardNav.jsx';
+import MessageList from '../../components/protected/MessageList.jsx';
+
 
 function setup() {
   const props = {
-    onlick: () => {},
-  };
+    onChange: () => {},
+    componentDidMount: () => {},
+    componentWillUnmount: () => {}
 
+  };
   return shallow(<MessageBoard {...props} />);
 }
+
+describe(' Test for MessageBoard Component', () => {
+  it('renders without crashing', () => {
+    shallow(<MessageBoard />);
+  });
+
+  it('renders Dashboad Navigation', () => {
+    const wrapper = shallow(<MessageBoard />);
+    expect(wrapper.find('DashboardNav').length).toEqual(1)
+  });
+  it('renders MessageList components', () => {
+    const wrapper = shallow(<MessageBoard />);
+    expect(wrapper.find('MessageList').length).toEqual(1)
+  });
+});
+
 
 describe('MessageBoard  Test', () => {
   it('should take props', () => {
     const wrapper = setup();
     expect(wrapper.props().onChange).toExist;
-  });
-  it('contains a render method', () => {
-    const wrapper = setup();
-    expect(wrapper.instance().render()).to.be.defined;
-  });
-  it('contains a render method', () => {
-    const wrapper = setup();
-    const components = shallow(<MessageBoard />);
-    const route = components.find('GroupList');
-    console.log(route);
-    // expect(wrapper.instance().render()).to.be.defined;
+    expect(wrapper.props().componentDidMount).toExist;
+    expect(wrapper.props().componentWillUnmount).toExist;
   });
 });
-

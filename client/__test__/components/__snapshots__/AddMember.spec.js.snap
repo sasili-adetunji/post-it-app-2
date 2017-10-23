@@ -1,0 +1,167 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AddMember components should match snapshot test 1`] = `
+ShallowWrapper {
+  "complexSelector": ComplexSelector {
+    "buildPredicate": [Function],
+    "childrenOfNode": [Function],
+    "findWhereUnwrapped": [Function],
+  },
+  "length": 1,
+  "node": <div
+    className="panel-body"
+  >
+    <h6>
+       To add a member, type in the username of the member 
+    </h6>
+    <strong
+      className="error"
+    >
+       
+      
+       
+    </strong>
+    <form
+      className="navbar-form"
+      role="search"
+    >
+      <div
+        className="form-group"
+      >
+        <input
+          className="form-control"
+          name="userName"
+          onChange={[Function]}
+          placeholder="Add member"
+          type="text"
+          value=""
+        />
+      </div>
+      <button
+        className="btn btn-default "
+        onClick={[Function]}
+        type="submit"
+      >
+        <span
+          className="glyphicon glyphicon-plus"
+        />
+      </button>
+    </form>
+    <br />
+  </div>,
+  "nodes": Array [
+    <div
+      className="panel-body"
+    >
+      <h6>
+         To add a member, type in the username of the member 
+      </h6>
+      <strong
+        className="error"
+      >
+         
+        
+         
+      </strong>
+      <form
+        className="navbar-form"
+        role="search"
+      >
+        <div
+          className="form-group"
+        >
+          <input
+            className="form-control"
+            name="userName"
+            onChange={[Function]}
+            placeholder="Add member"
+            type="text"
+            value=""
+          />
+        </div>
+        <button
+          className="btn btn-default "
+          onClick={[Function]}
+          type="submit"
+        >
+          <span
+            className="glyphicon glyphicon-plus"
+          />
+        </button>
+      </form>
+      <br />
+    </div>,
+  ],
+  "options": Object {},
+  "renderer": ReactShallowRenderer {
+    "_context": Object {},
+    "_element": <AddMember />,
+    "_instance": AddMember {
+      "context": Object {},
+      "data": [Function],
+      "onChange": [Function],
+      "onClick": [Function],
+      "props": Object {},
+      "refs": Object {},
+      "state": Object {
+        "error": "",
+        "userId": "",
+        "userName": "",
+      },
+      "updater": Updater {
+        "_renderer": [Circular],
+      },
+    },
+    "_newState": null,
+    "_rendered": <div
+      className="panel-body"
+    >
+      <h6>
+         To add a member, type in the username of the member 
+      </h6>
+      <strong
+        className="error"
+      >
+         
+        
+         
+      </strong>
+      <form
+        className="navbar-form"
+        role="search"
+      >
+        <div
+          className="form-group"
+        >
+          <input
+            className="form-control"
+            name="userName"
+            onChange={[Function]}
+            placeholder="Add member"
+            type="text"
+            value=""
+          />
+        </div>
+        <button
+          className="btn btn-default "
+          onClick={[Function]}
+          type="submit"
+        >
+          <span
+            className="glyphicon glyphicon-plus"
+          />
+        </button>
+      </form>
+      <br />
+    </div>,
+    "_rendering": false,
+    "_updater": Updater {
+      "_renderer": [Circular],
+    },
+    "getRenderOutput": [Function],
+    "render": [Function],
+  },
+  "root": [Circular],
+  "unrendered": <AddMember />,
+}
+`;

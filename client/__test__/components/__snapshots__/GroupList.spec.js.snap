@@ -1,0 +1,79 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`GroupList components should match snapshot test 1`] = `
+ShallowWrapper {
+  "complexSelector": ComplexSelector {
+    "buildPredicate": [Function],
+    "childrenOfNode": [Function],
+    "findWhereUnwrapped": [Function],
+  },
+  "length": 1,
+  "node": <div>
+    <div
+      className="headerlist"
+    >
+       
+      <h4>
+         No Group yet 
+      </h4>
+       
+    </div>
+    <div
+      className="groupList"
+    />
+  </div>,
+  "nodes": Array [
+    <div>
+      <div
+        className="headerlist"
+      >
+         
+        <h4>
+           No Group yet 
+        </h4>
+         
+      </div>
+      <div
+        className="groupList"
+      />
+    </div>,
+  ],
+  "options": Object {},
+  "renderer": ReactShallowRenderer {
+    "_context": Object {},
+    "_element": <GroupList />,
+    "_instance": GroupList {
+      "context": Object {},
+      "props": Object {},
+      "refs": Object {},
+      "state": Object {},
+      "updater": Updater {
+        "_renderer": [Circular],
+      },
+    },
+    "_newState": null,
+    "_rendered": <div>
+      <div
+        className="headerlist"
+      >
+         
+        <h4>
+           No Group yet 
+        </h4>
+         
+      </div>
+      <div
+        className="groupList"
+      />
+    </div>,
+    "_rendering": false,
+    "_updater": Updater {
+      "_renderer": [Circular],
+    },
+    "getRenderOutput": [Function],
+    "render": [Function],
+  },
+  "root": [Circular],
+  "unrendered": <GroupList />,
+}
+`;
