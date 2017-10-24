@@ -15,7 +15,6 @@ function setup() {
   return shallow(<Register {...props} />);
 }
 
-
 describe('Register', () => {
   it('should match snapshot test', () => {
     const component = shallow(<Register />);

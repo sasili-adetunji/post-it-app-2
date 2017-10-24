@@ -117,7 +117,6 @@ const PostItActions = {
   signOutUser() {
     PostItDispatcher.dispatch({
       actionType: PostItConstants.SIGNOUT_USER,
-
     });
   },
 
@@ -166,7 +165,6 @@ const PostItActions = {
     PostItDispatcher.dispatch({
       actionType: PostItConstants.RECEIVE_AUTHENTICATED_USER,
       user,
-
     });
   },
 
@@ -179,14 +177,12 @@ const PostItActions = {
     PostItDispatcher.dispatch({
       actionType: PostItConstants.GROUP_OPENED,
       selectedGroup,
-
     });
   },
   recieveUsersInGroups(group) {
     PostItDispatcher.dispatch({
       actionType: PostItConstants.RECIEVE_USERS_IN_GROUPS,
       group,
-
     });
   },
 };
