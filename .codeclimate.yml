@@ -1,19 +1,23 @@
 engines:
   eslint:
     enabled: true
-    channel: "eslint-3"
-    checks:
-      import/no-unresolved:
-        enabled: false
-      import/extensions:
-        enabled: false
+  checks:
+    import/extensions:
+      enabled: false
+    no-multiple-empty-lines:
+      enabled: true
+    linebreak-style:
+      enabled: true
   duplication:
-    enabled: false
-    config:
-      languages:
+    enabled: true
+  config:
+    languages:
       - javascript
 ratings:
   paths:
-  - "**.js"
+  - "server/*.js"
+  - "server/app/**/*.js"
 exclude_paths:
-- test/
+- server/test/
+- client/__test__
+- dist

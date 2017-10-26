@@ -254,8 +254,8 @@ PostItDispatcher.register((payload) => {
       break;
 
     case PostItConstants.RECEIVE_LOGIN_SUCCESS:
-      // console.log(action.message.user.stsTokenManager.accessToken);
-      // localStorage.setItem('user', action.message.user.stsTokenManager.accessToken); // eslint-disable-line
+      console.log(action.message.user.stsTokenManager.accessToken);
+      localStorage.setItem('user', action.message.user.stsTokenManager.accessToken); // eslint-disable-line
       PostItStore.receiveSuccess(action.message.message);
       PostItStore.setLoggedInUser(action.message.user);
       PostItStore.setIsAuthenticated(true);

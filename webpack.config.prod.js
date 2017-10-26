@@ -3,7 +3,6 @@ const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-
 require('dotenv').config();
 
 const Dotenv = require('dotenv-webpack');
@@ -22,7 +21,6 @@ const config = {
     hot: true,
     port: 8000,
     historyApiFallback: true
-
   },
   externals: {
     cheerio: 'window',
@@ -57,15 +55,27 @@ const config = {
     ],
   },
   resolve: {
-    extensions: ['*', '.js', '.jsx'],
+    extensions: ['.js', '.jsx'],
   },
   plugins: [
     new Dotenv({
       path: './.env',
       safe: false
     }),
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: JSON.stringify('production'),
+      },
+    }),
     new HtmlWebpackPlugin({
       template: './client/public/index.html'
+    }),
+    new webpack.optimize.UglifyJsPlugin({
+      minimize: true,
+      sourceMap: true,
+      compress: {
+        warnings: false
+      }
     }),
     new webpack.NoEmitOnErrorsPlugin(),
   ],
