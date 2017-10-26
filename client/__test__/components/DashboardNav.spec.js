@@ -7,33 +7,28 @@ function setup() {
   const props = {
     onChange: () => {},
     componentDidMount: () => {},
-    componentWillUnmount: () => {}
-
+    componentWillUnmount: () => {},
   };
-  return shallow(<MessageBoard {...props} />);
+  return shallow(<DashboardNav {...props} />);
 }
 
 
 describe(' DashboardNav Component', () => {
+  const component = setup();
   it('renders without crashing', () => {
     shallow(<DashboardNav />);
   });
-
   it('renders Create Group', () => {
-    const wrapper = shallow(<DashboardNav />);
-    expect(wrapper.find('CreateGroup').length).toEqual(1)
+    expect(component.find('CreateGroup').length).toEqual(1);
   });
   it('renders GroupList components', () => {
-    const wrapper = shallow(<DashboardNav />);
-    expect(wrapper.find('GroupList').length).toEqual(1)
+    expect(component.find('GroupList').length).toEqual(1);
   });
   it('renders Add Member components', () => {
-    const wrapper = shallow(<DashboardNav />);
-    expect(wrapper.find('AddMember').length).toEqual(1)
+    expect(component.find('AddMember').length).toEqual(1);
   });
   it('renders UserList components', () => {
-    const wrapper = shallow(<DashboardNav />);
-    expect(wrapper.find('UserList').length).toEqual(1)
+    expect(component.find('UserList').length).toEqual(1);
   });
 });
 

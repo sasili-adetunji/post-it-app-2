@@ -99,12 +99,18 @@ ShallowWrapper {
   "options": Object {},
   "renderer": ReactShallowRenderer {
     "_context": Object {},
-    "_element": <MessageBox />,
+    "_element": <MessageBox
+      onChange={[Function]}
+      onClick={[Function]}
+    />,
     "_instance": MessageBox {
       "context": Object {},
       "onChange": [Function],
       "onClick": [Function],
-      "props": Object {},
+      "props": Object {
+        "onChange": [Function],
+        "onClick": [Function],
+      },
       "refs": Object {},
       "state": Object {
         "error": "",
@@ -167,6 +173,9 @@ ShallowWrapper {
     "render": [Function],
   },
   "root": [Circular],
-  "unrendered": <MessageBox />,
+  "unrendered": <MessageBox
+    onChange={[Function]}
+    onClick={[Function]}
+  />,
 }
 `;

@@ -73,12 +73,18 @@ ShallowWrapper {
   "options": Object {},
   "renderer": ReactShallowRenderer {
     "_context": Object {},
-    "_element": <CreateGroup />,
+    "_element": <CreateGroup
+      onChange={[Function]}
+      onClick={[Function]}
+    />,
     "_instance": CreateGroup {
       "context": Object {},
       "onChange": [Function],
       "onClick": [Function],
-      "props": Object {},
+      "props": Object {
+        "onChange": [Function],
+        "onClick": [Function],
+      },
       "refs": Object {},
       "state": Object {
         "groupName": "",
@@ -126,6 +132,9 @@ ShallowWrapper {
     "render": [Function],
   },
   "root": [Circular],
-  "unrendered": <CreateGroup />,
+  "unrendered": <CreateGroup
+    onChange={[Function]}
+    onClick={[Function]}
+  />,
 }
 `;

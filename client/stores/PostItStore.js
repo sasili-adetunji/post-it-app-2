@@ -1,6 +1,8 @@
 import { EventEmitter } from 'events';
 import assign from 'object-assign';
-
+import PostItConstants from '../constants/PostItConstants';
+import PostItDispatcher from '../dispatcher/PostItDispatcher'; // eslint-disable-line
+import API from '../Api';
 
 const registeredUser = [];
 let usersInGroup = [];
@@ -11,6 +13,7 @@ let readUsers = [];
 let userMessages = [];
 let errors = '';
 let success = '';
+let loginSuccess = '';
 let loggedInUser = [];
 const selectedGroup = [];
 let isAuthenticated = false;
@@ -18,20 +21,20 @@ let isAuthenticated = false;
 
 const PostItStore = assign({}, EventEmitter.prototype, {
 
-  registerNewUser(user) {
-    registeredUser.push(user);
-  },
+  // registerNewUser(user) {
+  //   registeredUser.push(user);
+  // },
 
-  getRegisteredUser() {
-    return registeredUser;
-  },
+  // getRegisteredUser() {
+  //   return registeredUser;
+  // },
 
   addUserToGroup(user) {
     usersInGroup.push(user);
   },
 
   postMessage(message) {
-    userMessages.push(message);
+    userMessages.concat(message);
   },
 
   createNewGroup(group) {
@@ -58,6 +61,9 @@ const PostItStore = assign({}, EventEmitter.prototype, {
   receiveSuccess(message) {
     success = message;
   },
+  receiveLoginSuccess(message) {
+    loginSuccess = message;
+  },
   setErrors(error) {
     errors = error;
   },
@@ -80,13 +86,12 @@ const PostItStore = assign({}, EventEmitter.prototype, {
     return isAuthenticated;
   },
 
-  getUserGroups() {
-    return userGroups;
-  },
+  // getUserGroups() {
+  //   return userGroups;
+  // },
   getUsersInGroup() {
     return usersInGroup;
   },
-
   getUsers() {
     return users;
   },
@@ -97,7 +102,9 @@ const PostItStore = assign({}, EventEmitter.prototype, {
   getSuccess() {
     return success;
   },
-
+  getLoginSuccess() {
+    return loginSuccess;
+  },
   addGroups(groups) {
     groupsUser.concat(groups);
   },
@@ -107,11 +114,9 @@ const PostItStore = assign({}, EventEmitter.prototype, {
   setMessages(messages) {
     userMessages = messages;
   },
-
   setUserGroups(groups) {
     groupsUser = groups;
   },
-
   getGroupsUser() {
     return groupsUser;
   },
@@ -151,6 +156,120 @@ const PostItStore = assign({}, EventEmitter.prototype, {
   removeChangeListener(callback) {
     this.removeListener('change', callback);
   },
+});
+
+PostItDispatcher.register((payload) => {
+  const action = payload.action;
+  switch (action.actionType) {
+    case PostItConstants.REGISTER_USER:
+      API.registerNewUser(action.user);
+      PostItStore.emitChange();
+      break;
+
+    case PostItConstants.LOGIN_USER:
+      API.signinUser(action.user);
+      PostItStore.emitChange();
+      break;
+
+    case PostItConstants.CREATE_GROUP:
+      API.createNewGroup(action.group);
+      // PostItStore.createNewGroup(action.group);
+      PostItStore.emitChange();
+      break;
+
+    case PostItConstants.GOOGLE_LOGIN:
+      API.googleLogin();
+      PostItStore.signinUser(action.token);
+      PostItStore.emitChange();
+      break;
+
+    case PostItConstants.ADDUSER_GROUP:
+      API.addUserToGroup(action.user);
+      PostItStore.addUserToGroup(action.user);
+      PostItStore.emitChange();
+      break;
+
+    case PostItConstants.ADD_MESSAGE:
+      API.postMessage(action.message);
+      PostItStore.addMessage(action.message);
+      // PostItStore.postMessage(action.message);
+      PostItStore.emitChange();
+      break;
+
+    case PostItConstants.SIGNOUT_USER:
+      API.signoutUser();
+      PostItStore.signOutUser();
+      PostItStore.emitChange();
+      break;
+
+    case PostItConstants.RECEIVE_MESSAGES:
+      PostItStore.addMessage(action.messages);
+      // API.getMessages(action.messages);
+      PostItStore.emitChange();
+      break;
+
+    case PostItConstants.GET_USER_MESSAGES:
+      API.getMessages(action.messages);
+      PostItStore.emitChange();
+      break;
+    case PostItConstants.RECEIVE_READ_USERS:
+      API.getUserReadUsers(action.message);
+      PostItStore.setReadUsers(action.user);
+      PostItStore.emitChange();
+      break;
+    case PostItConstants.RECIEVE_USERS_IN_GROUPS:
+      PostItStore.setUsersInGroup(action.groups);
+      PostItStore.emitChange();
+      break;
+
+    case PostItConstants.RECEIVE_USER_GROUPS:
+      API.getUserGroups();
+      PostItStore.setUserGroups(action.groups);
+      PostItStore.emitChange();
+      break;
+
+    case PostItConstants.RECEIVE_USERS:
+      PostItStore.setUsers(action.users);
+      PostItStore.emitChange();
+      break;
+
+    case PostItConstants.RESET_PASSWORD:
+      API.resetPassword(action.email);
+      PostItStore.emitChange();
+      break;
+
+    case PostItConstants.RECEIVE_AUTHENTICATED_USER:
+      PostItStore.setIsAuthenticated(true);
+      PostItStore.emitChange();
+      break;
+
+    case PostItConstants.GROUP_OPENED:
+      PostItStore.setOpenedGroup(action.selectedGroup);
+      PostItStore.emitChange();
+      break;
+
+    case PostItConstants.RECEIVE_SUCCESS:
+      PostItStore.receiveSuccess(action.message);
+      PostItStore.emitChange();
+      break;
+
+    case PostItConstants.RECEIVE_LOGIN_SUCCESS:
+      // console.log(action.message.user.stsTokenManager.accessToken);
+      // localStorage.setItem('user', action.message.user.stsTokenManager.accessToken); // eslint-disable-line
+      PostItStore.receiveSuccess(action.message.message);
+      PostItStore.setLoggedInUser(action.message.user);
+      PostItStore.setIsAuthenticated(true);
+      PostItStore.emitChange();
+      break;
+
+    case PostItConstants.RECEIVE_ERRORS:
+      PostItStore.receiveErrors(action.errors);
+      PostItStore.emitChange();
+      break;
+
+    default:
+  }
+  return true;
 });
 
 export default PostItStore;

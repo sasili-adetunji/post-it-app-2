@@ -54,6 +54,7 @@ ShallowWrapper {
           "groupName": "sasil",
         }
       }
+      onClick={[Function]}
     />,
     "_instance": Group {
       "context": Object {},
@@ -63,6 +64,7 @@ ShallowWrapper {
           "groupId": "UTsUlauteS5nb34huOP6SpvcuocX9vA1",
           "groupName": "sasil",
         },
+        "onClick": [Function],
       },
       "refs": Object {},
       "state": Object {},
@@ -103,6 +105,7 @@ ShallowWrapper {
         "groupName": "sasil",
       }
     }
+    onClick={[Function]}
   />,
 }
 `;

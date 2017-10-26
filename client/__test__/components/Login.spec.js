@@ -8,43 +8,37 @@ function setup() {
     onClick: () => {},
     onChange: () => {},
     onClickReset: () => {},
-    onClickGoogle: () => {}
+    onClickGoogle: () => {},
   };
   return shallow(<Login {...props} />);
 }
 describe('Login', () => {
-   it('should match snapshot test', () => {
-    const component = shallow(<Login />);
-    expect(component).toMatchSnapshot();
-  });
+  const component = setup();
+
+  it('should match snapshot test', () => {
+     expect(component).toMatchSnapshot();
+   });
   it('should render', () => {
-    const component = shallow(<Login />);
     expect(component).toBeDefined();
   });
   it('Should contain two div', () => {
-    const wrapper = shallow(<Login />);
-    expect(wrapper.find('div').length).toEqual(2);
+    expect(component.find('div').length).toEqual(2);
   });
   it('Should contain two p', () => {
-    const wrapper = shallow(<Login />);
-    expect(wrapper.find('p').length).toEqual(2);
+    expect(component.find('p').length).toEqual(2);
   });
   it('Should contain two textfields', () => {
-    const wrapper = shallow(<Login />);
-    expect(wrapper.find('TextField').length).toEqual(2);
+    expect(component.find('TextField').length).toEqual(2);
   });
   it('Should contain a Login Button', () => {
-    const wrapper = shallow(<Login />);
-    expect(wrapper.find('RaisedButton').props().label).toEqual('Login')
-    expect(wrapper.find('RaisedButton').length).toEqual(1);
+    expect(component.find('RaisedButton').props().label).toEqual('Login');
+    expect(component.find('RaisedButton').length).toEqual(1);
   });
   it('Should contain a Google Button', () => {
-    const wrapper = shallow(<Login />);
-    expect(wrapper.find('GoogleButton').props().onClick).toExist
-    expect(wrapper.find('GoogleButton').length).toEqual(1);
+    expect(component.find('GoogleButton').props().onClick).toExist;
+    expect(component.find('GoogleButton').length).toEqual(1);
   });
   it('should call function on click of login submit button', () => {
-    const component = shallow(<Login />);
     const preventDefault = jest.fn();
     component.find('RaisedButton').simulate('click', { preventDefault });
     expect(preventDefault).toBeCalled();
@@ -52,10 +46,10 @@ describe('Login', () => {
 });
 describe('Login  Test', () => {
   it('should take props', () => {
-    const wrapper = setup();
-    expect(wrapper.props().onChange).toExist;
-    expect(wrapper.props().onClick).toExist;
-    expect(wrapper.props().onClickReset).toExist;
-    expect(wrapper.props().onClickGoogle).toExist;
+    const component = setup();
+    expect(component.props().onChange).toExist;
+    expect(component.props().onClick).toExist;
+    expect(component.props().onClickReset).toExist;
+    expect(component.props().onClickGoogle).toExist;
   });
 });

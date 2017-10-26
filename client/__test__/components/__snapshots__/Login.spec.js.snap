@@ -187,7 +187,12 @@ ShallowWrapper {
   "options": Object {},
   "renderer": ReactShallowRenderer {
     "_context": Object {},
-    "_element": <Login />,
+    "_element": <Login
+      onChange={[Function]}
+      onClick={[Function]}
+      onClickGoogle={[Function]}
+      onClickReset={[Function]}
+    />,
     "_instance": Login {
       "context": Object {},
       "onChange": [Function],
@@ -195,7 +200,12 @@ ShallowWrapper {
       "onClickGoogle": [Function],
       "onClickReset": [Function],
       "onError": [Function],
-      "props": Object {},
+      "props": Object {
+        "onChange": [Function],
+        "onClick": [Function],
+        "onClickGoogle": [Function],
+        "onClickReset": [Function],
+      },
       "refs": Object {},
       "state": Object {
         "email": "",
@@ -303,6 +313,11 @@ ShallowWrapper {
     "render": [Function],
   },
   "root": [Circular],
-  "unrendered": <Login />,
+  "unrendered": <Login
+    onChange={[Function]}
+    onClick={[Function]}
+    onClickGoogle={[Function]}
+    onClickReset={[Function]}
+  />,
 }
 `;

@@ -177,29 +177,15 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -212,13 +198,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -233,6 +215,24 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -263,7 +263,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -301,11 +301,11 @@ class AddMember extends React.Component {
     this.state = {
       userName: '',
       userId: '',
-      error: ''
+      error: '',
     };
     this.onChange = this.onChange.bind(this);
     this.onClick = this.onClick.bind(this);
-    this.data = this.data.bind(this);
+    this.changeToUserid = this.changeToUserid.bind(this);
   }
 &nbsp;
   /**
@@ -318,7 +318,7 @@ class AddMember extends React.Component {
 &nbsp;
 <span class="fstat-no" title="function not covered" >  on</span>Change(event) {
 <span class="cstat-no" title="statement not covered" >    this.setState({</span>
-      [event.target.name]: event.target.value
+      [event.target.name]: event.target.value,
     });
   }
 &nbsp;
@@ -329,7 +329,7 @@ class AddMember extends React.Component {
    * @returns
    * @memberof AddMember
    */
-<span class="fstat-no" title="function not covered" >  da</span>ta(userName) {
+<span class="fstat-no" title="function not covered" >  ch</span>angeToUserid(userName) {
     let n;
 <span class="cstat-no" title="statement not covered" >    lodash.map(this.props.usern).map(<span class="fstat-no" title="function not covered" >(x</span>) =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >      if (userName === x.userName) {</span>
@@ -353,32 +353,32 @@ class AddMember extends React.Component {
 <span class="cstat-no" title="statement not covered" >    if (!this.props.selected[0]) {</span>
 <span class="cstat-no" title="statement not covered" >      this.setState({</span>
         error: 'Kindly select a group first',
-        userName: ''
+        userName: '',
       });
 <span class="cstat-no" title="statement not covered" >      return true;</span>
     }
     const user = <span class="cstat-no" title="statement not covered" >{</span>
-      userId: this.data(this.state.userName),
+      userId: this.changeToUserid(this.state.userName),
       userName: this.state.userName,
-      groupId: this.props.selected[0].groupId
+      groupId: this.props.selected[0].groupId,
     };
 <span class="cstat-no" title="statement not covered" >    if (!user.userId) {</span>
 <span class="cstat-no" title="statement not covered" >      this.setState({</span>
         error: 'This User does not exist',
-        userName: ''
+        userName: '',
       });
     } else {
-<span class="cstat-no" title="statement not covered" >    PostItActions.addUserToGroup(user);</span>
-<span class="cstat-no" title="statement not covered" >    this.setState({</span>
-      error: '',
-      userName: ''
-    });
+<span class="cstat-no" title="statement not covered" >      PostItActions.addUserToGroup(user);</span>
+<span class="cstat-no" title="statement not covered" >      this.setState({</span>
+        error: '',
+        userName: '',
+      });
     }
   }
  /**
    * @method render
    * Render react component
-   * 
+   *
    * @returns {String} The HTML markup for the AddMember Components
    * @memberof AddMember
    */
@@ -409,7 +409,7 @@ export default AddMember;
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Tue Oct 24 2017 12:17:16 GMT+0100 (WAT)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Thu Oct 26 2017 09:21:26 GMT+0100 (WAT)
 </div>
 </div>
 <script src="../../../prettify.js"></script>

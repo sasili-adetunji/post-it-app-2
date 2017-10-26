@@ -1,13 +1,14 @@
 import React from 'react';
 import { shallow, render } from 'enzyme';
 import Group from '../../components/protected/Group.jsx';
+import mockApiCall from '../../__mocks__/axios';
 
 
 function setup() {
   const props = {
     onClick: () => {},
   };
- const group = {
+  const group = {
     groupName: 'sasil',
     groupId: 'UTsUlauteS5nb34huOP6SpvcuocX9vA1',
   };
@@ -15,37 +16,39 @@ function setup() {
 }
 
 describe('User components', () => {
-   
- const group = {
+  const group = {
     groupName: 'sasil',
     groupId: 'UTsUlauteS5nb34huOP6SpvcuocX9vA1',
   };
+  const component = setup();
+  beforeEach(() => {
+    jest.mock('axios', () => mockApiCall);
+  });
 
   it('should match snapshot test', () => {
-    const component = shallow(<Group group={group} />);
     expect(component).toMatchSnapshot();
   });
   it('should render', () => {
-    const component = shallow(<Group group={group} />);
     expect(component).toBeDefined();
   });
   it('Should contain one div', () => {
-    const component = shallow(<Group group={group} />);
     expect(component.find('div').length).toEqual(1);
   });
   it('should recieve props', () => {
-    const component = shallow(<Group group={group} />);
     expect(Object.keys(component.props()).length).toBeGreaterThan(0);
   });
   it('should render without throwing an error', () => {
-    const component = shallow(<Group group={group} />);
     expect(component.contains(group.groupName)).toBe(true);
+  });
+  it('should render without throwing an error', () => {
+    expect(component.find('li').length).toEqual(1);
+    expect(component.find('li').simulate('click')).toBeDefined();
   });
 });
 
 describe('Group  Test', () => {
   it('should take props', () => {
-    const wrapper = setup();
-    expect(wrapper.props().onClick).toExist;
+    const component = setup();
+    expect(component.props().onClick).toExist;
   });
 });

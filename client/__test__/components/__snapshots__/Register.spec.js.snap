@@ -195,13 +195,25 @@ ShallowWrapper {
   "options": Object {},
   "renderer": ReactShallowRenderer {
     "_context": Object {},
-    "_element": <Register />,
+    "_element": <Register
+      componentDidMount={[Function]}
+      componentWillUnmount={[Function]}
+      onChange={[Function]}
+      onClick={[Function]}
+      onError={[Function]}
+    />,
     "_instance": Register {
       "context": Object {},
       "onChange": [Function],
       "onClick": [Function],
       "onError": [Function],
-      "props": Object {},
+      "props": Object {
+        "componentDidMount": [Function],
+        "componentWillUnmount": [Function],
+        "onChange": [Function],
+        "onClick": [Function],
+        "onError": [Function],
+      },
       "refs": Object {},
       "state": Object {
         "email": "",
@@ -314,6 +326,12 @@ ShallowWrapper {
     "render": [Function],
   },
   "root": [Circular],
-  "unrendered": <Register />,
+  "unrendered": <Register
+    componentDidMount={[Function]}
+    componentWillUnmount={[Function]}
+    onChange={[Function]}
+    onClick={[Function]}
+    onError={[Function]}
+  />,
 }
 `;

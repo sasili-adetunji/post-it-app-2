@@ -39,18 +39,10 @@ module.exports = {
       email: user.email,
       password: user.password,
     }).then((response) => {
-      const authuser = {
-        email: user.email,
-        isAuthenticated: true,
-      };
-      PostItActions.receiveSuccess(response.data.message);
-      localStorage.setItem('user', response.data.user.stsTokenManager.accessToken); // eslint-disable-line
-      PostItStore.setLoggedInUser(response.data.user);
-      PostItActions.receiveAuthenticatedUser(authuser);
+      PostItActions.receiveLoginSuccess(response.data);
       toastr.success(response.data.message);
     })
       .catch((error) => {
-        PostItActions.receiveErrors(error.response.data.message);
         toastr.error(error.response.data.message);
       });
   },
@@ -143,7 +135,8 @@ module.exports = {
       date: message.date,
       author: message.author,
     }).then((response) => {
-      PostItActions.receiveSuccess(response.message);
+      // PostItStore.addMessage(response.data.messages);
+      PostItActions.receiveMessages(response.data.messages);
     })
       .catch((error) => {
         PostItActions.receiveErrors(error.message);

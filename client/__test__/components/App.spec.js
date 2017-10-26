@@ -15,34 +15,32 @@ function setup() {
 
 
 describe(' Test for App Component', () => {
+  const component = setup();
+
   it('renders without crashing', () => {
     shallow(<App />);
   });
   it('renders AppBar', () => {
-    const wrapper = shallow(<App />);
-    expect(wrapper.find('AppBar').props().title).toEqual('Post It App')
+    expect(component.find('AppBar').props().title).toEqual('Post It App')
   });
   it('renders AppBar', () => {
-    const wrapper = shallow(<App />);
-    expect(wrapper.find('AppBar').props().title).toEqual('Post It App')
+    expect(component.find('AppBar').props().title).toEqual('Post It App');
   });
   it('Should contain one PublicRoute', () => {
-    const wrapper = shallow(<App />);
-    expect(wrapper.find('PublicRoute').length).toEqual(3);
+    expect(component.find('PublicRoute').length).toEqual(3);
   });
   it('Should contain two PrivateRoute', () => {
-    const wrapper = shallow(<App />);
-    expect(wrapper.find('PrivateRoute').length).toEqual(2);
+    expect(component.find('PrivateRoute').length).toEqual(2);
   });
 });
 
 describe('Register  Test', () => {
   it('should take props', () => {
-    const wrapper = setup();
-    expect(wrapper.props().onChange).toExist;
-    expect(wrapper.props().handleClick).toExist;
-    expect(wrapper.props().componentDidMount).toExist;
-    expect(wrapper.props().componentWillUnmount).toExist;
+    const component = setup();
+    expect(component.props().onChange).toExist;
+    expect(component.props().handleClick).toExist;
+    expect(component.props().componentDidMount).toExist;
+    expect(component.props().componentWillUnmount).toExist;
   });
 });
 

@@ -95,13 +95,21 @@ ShallowWrapper {
   "options": Object {},
   "renderer": ReactShallowRenderer {
     "_context": Object {},
-    "_element": <AddMember />,
+    "_element": <AddMember
+      changeToUserid={[Function]}
+      onChange={[Function]}
+      onClick={[Function]}
+    />,
     "_instance": AddMember {
+      "changeToUserid": [Function],
       "context": Object {},
-      "data": [Function],
       "onChange": [Function],
       "onClick": [Function],
-      "props": Object {},
+      "props": Object {
+        "changeToUserid": [Function],
+        "onChange": [Function],
+        "onClick": [Function],
+      },
       "refs": Object {},
       "state": Object {
         "error": "",
@@ -162,6 +170,10 @@ ShallowWrapper {
     "render": [Function],
   },
   "root": [Circular],
-  "unrendered": <AddMember />,
+  "unrendered": <AddMember
+    changeToUserid={[Function]}
+    onChange={[Function]}
+    onClick={[Function]}
+  />,
 }
 `;

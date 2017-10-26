@@ -23,15 +23,16 @@ class Group extends React.Component {
   */
 
   onClick() {
-    API.getMessages(this.props.group);
     PostItActions.groupOpened(this.props.group);
+    PostItActions.getUserMessages(this.props.group);
     API.getUsersInGroup(this.props.group);
     API.getUserGroups();
   }
+
   /**
    * @method render
    * Render react component
-   * 
+   *
    * @returns {String} The HTML markup for the Group Components
    * @memberof Group
    */

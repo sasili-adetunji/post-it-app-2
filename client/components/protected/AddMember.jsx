@@ -16,11 +16,11 @@ class AddMember extends React.Component {
     this.state = {
       userName: '',
       userId: '',
-      error: ''
+      error: '',
     };
     this.onChange = this.onChange.bind(this);
     this.onClick = this.onClick.bind(this);
-    this.data = this.data.bind(this);
+    this.changeToUserid = this.changeToUserid.bind(this);
   }
 
   /**
@@ -33,7 +33,7 @@ class AddMember extends React.Component {
 
   onChange(event) {
     this.setState({
-      [event.target.name]: event.target.value
+      [event.target.name]: event.target.value,
     });
   }
 
@@ -44,7 +44,7 @@ class AddMember extends React.Component {
    * @returns
    * @memberof AddMember
    */
-  data(userName) {
+  changeToUserid(userName) {
     let n;
     lodash.map(this.props.usern).map((x) => {
       if (userName === x.userName) {
@@ -68,32 +68,32 @@ class AddMember extends React.Component {
     if (!this.props.selected[0]) {
       this.setState({
         error: 'Kindly select a group first',
-        userName: ''
+        userName: '',
       });
       return true;
     }
     const user = {
-      userId: this.data(this.state.userName),
+      userId: this.changeToUserid(this.state.userName),
       userName: this.state.userName,
-      groupId: this.props.selected[0].groupId
+      groupId: this.props.selected[0].groupId,
     };
     if (!user.userId) {
       this.setState({
         error: 'This User does not exist',
-        userName: ''
+        userName: '',
       });
     } else {
-    PostItActions.addUserToGroup(user);
-    this.setState({
-      error: '',
-      userName: ''
-    });
+      PostItActions.addUserToGroup(user);
+      this.setState({
+        error: '',
+        userName: '',
+      });
     }
   }
  /**
    * @method render
    * Render react component
-   * 
+   *
    * @returns {String} The HTML markup for the AddMember Components
    * @memberof AddMember
    */

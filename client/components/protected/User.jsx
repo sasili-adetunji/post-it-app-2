@@ -9,7 +9,7 @@ class Message extends React.Component {
 
   /**
  * Displays the List of Users in a group
- * @param props 
+ * @param props
  * @export
  * @class User
  * @extends {Component}

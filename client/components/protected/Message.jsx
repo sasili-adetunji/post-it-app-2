@@ -20,9 +20,9 @@ class Message extends React.Component {
    * @description makes an api call to get read users
    * @memberof Message
   */
-  componentDidMount() {
-    API.getUserReadUsers(this.props.message);
-  }
+  // componentDidMount() {
+  //   API.getUserReadUsers(this.props.message);
+  // }
 
     /**
    * @method render

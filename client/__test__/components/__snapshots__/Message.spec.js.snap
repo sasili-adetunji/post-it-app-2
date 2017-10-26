@@ -104,6 +104,7 @@ ShallowWrapper {
   "renderer": ReactShallowRenderer {
     "_context": Object {},
     "_element": <Message
+      componentDidMount={[Function]}
       message={
         Object {
           "author": "Wash",
@@ -116,6 +117,7 @@ ShallowWrapper {
     "_instance": Message {
       "context": Object {},
       "props": Object {
+        "componentDidMount": [Function],
         "message": Object {
           "author": "Wash",
           "date": "",
@@ -184,6 +186,7 @@ ShallowWrapper {
   },
   "root": [Circular],
   "unrendered": <Message
+    componentDidMount={[Function]}
     message={
       Object {
         "author": "Wash",
