@@ -1,9 +1,7 @@
 import axios from 'axios';
-import firebase from 'firebase';
 import toastr from 'toastr';
 import PostItActions from '../actions/PostItActions';
 import PostItStore from '../stores/PostItStore';
-import config from '../../server/app/config/database';
 
 module.exports = {
 
@@ -39,7 +37,7 @@ module.exports = {
       email: user.email,
       password: user.password,
     }).then((response) => {
-      PostItActions.receiveLoginSuccess(response.data);
+      PostItActions.receiveLoginSuccess(response.data.user);
       toastr.success(response.data.message);
     })
       .catch((error) => {
@@ -67,23 +65,15 @@ module.exports = {
    * api call to login us with google
    *
    */
-  googleLogin() {
-    firebase.initializeApp(config);
-    const provider = new firebase.auth.GoogleAuthProvider();
-    firebase.auth().signInWithPopup(provider)
+  googleLogin(result) {
+    axios.post('/user/google', result)
     .then((response) => {
-      const authuser = {
-        email: response.user.email,
-        isAuthenticated: true,
-      };
-      localStorage.setItem('user', response.credential.accessToken); // eslint-disable-line
-      PostItStore.setLoggedInUser(response.user);
-      PostItActions.receiveAuthenticatedUser(authuser);
+      PostItActions.receiveLoginSuccess(response.data.user);
       toastr.success(response.data.message);
     })
-    .catch((error) => {
-      PostItActions.receiveErrors(error);
-    });
+      .catch((error) => {
+        toastr.error(error.response.data.message);
+      });
   },
   /**
    * api call to create new group from the route

@@ -178,8 +178,8 @@ PostItDispatcher.register((payload) => {
       break;
 
     case PostItConstants.GOOGLE_LOGIN:
-      API.googleLogin();
-      PostItStore.signinUser(action.token);
+      API.googleLogin(action.result);
+      // PostItStore.signinUser(action.token);
       PostItStore.emitChange();
       break;
 
@@ -254,11 +254,10 @@ PostItDispatcher.register((payload) => {
       break;
 
     case PostItConstants.RECEIVE_LOGIN_SUCCESS:
-      console.log(action.message.user.stsTokenManager.accessToken);
-      localStorage.setItem('user', action.message.user.stsTokenManager.accessToken); // eslint-disable-line
-      PostItStore.receiveSuccess(action.message.message);
-      PostItStore.setLoggedInUser(action.message.user);
       PostItStore.setIsAuthenticated(true);
+      PostItStore.receiveSuccess(action.message.message);
+      PostItStore.setLoggedInUser(action.message);
+      localStorage.setItem('user', action.message.stsTokenManager.accessToken); // eslint-disable-line
       PostItStore.emitChange();
       break;
 

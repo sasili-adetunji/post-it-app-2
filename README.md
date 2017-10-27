@@ -1,6 +1,8 @@
 [![Build Status](https://travis-ci.org/sasili-adetunji/post-it-app-2.svg?branch=defense-feedback)](https://travis-ci.org/sasili-adetunji/post-it-app-2)
 [![codecov.io Code Coverage](https://codecov.io/github/sasili-adetunji/post-it-app-2/branch/defense-feedback/graphs/badge.svg)](https://codecov.io/gh/sasili-adetunji/post-it-app-2/branch/defense-feedback)
 [![License: MIT](https://img.shields.io/badge/License-MIT-brightgreen.svg)](https://choosealicense.com/licenses/mit/)
+[![Code Climate](https://codeclimate.com/github/sasili-adetunji/post-it-app-2/badges/gpa.svg)](https://codeclimate.com/github/codeclimate/codeclimate)
+[![Issue Count](https://codeclimate.com/github/sasili-adetunji/post-it-app-2/badges/issue_count.svg)](https://codeclimate.com/github/codeclimate/codeclimate)
 ## PostIt application
 This application allows friends and colleagues to create groups for notifications. This way, one person can post notifications to everyone by sending message once. The app allows people to crete accounts, create groups and add registered users to the groups and send send messages out to these people whenever they want
 ## Features

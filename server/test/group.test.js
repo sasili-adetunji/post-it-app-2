@@ -4,8 +4,8 @@ import chai from 'chai';
 import chaiHttp from 'chai-http';
 import app from '../server';
 
-const should = chai.should();
-const expect = chai.expect;
+chai.should();
+chai.expect();
 chai.use(chaiHttp);
 
 describe('Group Route', () => {

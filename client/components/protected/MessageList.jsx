@@ -36,7 +36,7 @@ class MessageList extends React.Component {
   /**
    * @method componentDidMount
    * @description adds event Listener from the Store
-   * @memberof MessageLIST
+   * @memberof MessageList
   */
 
   componentDidMount() {

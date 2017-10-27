@@ -47,8 +47,8 @@ class DashboardNav extends React.Component {
    * @returns {String} The HTML markup for the DashboardNav Components
    * @memberof DashboardNav
    */
-
   render() {
+    console.log(PostItStore.getUsers());
     return (
 <div id="sidebar">
             <div className="card-block">

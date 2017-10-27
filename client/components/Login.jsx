@@ -1,5 +1,7 @@
 import React from 'react';
+import firebase from 'firebase';
 import mui from 'material-ui';
+import toastr from 'toastr';
 import { Link } from 'react-router-dom';
 import GoogleButton from 'react-google-button';
 import { Card, CardTitle } from 'material-ui/Card';
@@ -9,7 +11,7 @@ import FlatButton from 'material-ui/FlatButton';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import PostItActions from '../actions/PostItActions';
 import PostItStore from '../stores/PostItStore';
-import toastr from 'toastr';
+import config from '../../server/app/config/database';
 
 /**
  * 
@@ -111,7 +113,13 @@ class Login extends React.Component {
   */
   onClickGoogle(event) {
     event.preventDefault();
-    PostItActions.googleLogin();
+    firebase.initializeApp(config);
+    const provider = new firebase.auth.GoogleAuthProvider();
+    provider.addScope('https://www.googleapis.com/auth/plus.login');
+    firebase.auth().signInWithPopup(provider)
+    .then((result) => {
+      PostItActions.googleLogin(result);
+    })
   }
   /**
      * @description Makes an action call to reset password

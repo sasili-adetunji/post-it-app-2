@@ -20,7 +20,6 @@ const config = {
     inline: true,
     hot: true,
     port: 8000,
-    historyApiFallback: true
   },
   externals: {
     cheerio: 'window',

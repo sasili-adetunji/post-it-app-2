@@ -17,7 +17,7 @@ module.exports = (app) => {
   app.get('/user/users', (req, res) => {
     userControllers.usersList(req, res);
   });
-  app.get('/user/google', (req, res) => {
+  app.post('/user/google', (req, res) => {
     userControllers.googleLogin(req, res);
   });
 };

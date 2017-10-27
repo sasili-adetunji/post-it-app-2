@@ -17,9 +17,10 @@ const PostItActions = {
  * signs in user with google & dispatches actions
  * @returns {void}
  */
-  googleLogin() {
+  googleLogin(result) {
     PostItDispatcher.handleViewAction({
       actionType: PostItConstants.GOOGLE_LOGIN,
+      result,
     });
   },
 

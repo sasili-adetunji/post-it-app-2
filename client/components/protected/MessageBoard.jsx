@@ -82,7 +82,6 @@ class Dashboard extends React.Component {
     API.getUsers();
     PostItStore.addChangeListener(this.onChange);
   }
-
   /**
    * @method componentWillUnmount
    * @description removes event Listener from the Store

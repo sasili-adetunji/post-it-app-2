@@ -189,29 +189,33 @@ export default {
     }
   },
   googleLogin(req, res) {
-    let token,
-      email,
-      uid,
-      displayName;
-    const provider = new firebase.auth.GoogleAuthProvider();
-    provider.addScope('https://www.googleapis.com/auth/plus.login');
-    firebase.auth().signInWithPopup(provider)
-      .then((result) => {
-        token = result.credential.accessToken;
-        email = result.user.email;
-        uid = result.user.uid;
-        displayName = result.user.displayName;
-        firebase.database().ref('users/').child(uid).set({
-          username: displayName,
-          email,
+    const result = req.body;
+    const credential = firebase.auth.GoogleAuthProvider.credential(result.credential.idToken);
+
+    firebase.database().ref('users').child(result.user.uid).once('value', (snapshot) => {
+      if (!snapshot.exists()) {
+        firebase.database().ref(`users/${result.user.uid}`)
+        .set({
+          userName: result.user.displayName,
+          email: result.user.email,
+          phoneNumber: result.user.phoneNumber
         });
-        res.json({
-          message: 'You have successfully signed in with  Google' });
-      })
-      .catch((error) => {
-        res.status(500).json({
-          message: error.message,
+        firebase.auth().signInWithCredential(credential)
+        .then((user) => {
+          res.status(200).json({
+            message: 'Success: you have successfuly signed in. with Google',
+            user,
+          });
         });
-      });
+      } else {
+        firebase.auth().signInWithCredential(credential)
+        .then((user) => {
+          res.status(200).json({
+            message: 'Success: you have successfuly signed in. with Google',
+            user,
+          });
+        });
+      }
+    });
   },
 };
