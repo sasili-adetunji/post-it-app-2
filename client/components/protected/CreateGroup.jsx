@@ -1,6 +1,6 @@
 import React from 'react';
 import PostItActions from '../../actions/PostItActions';
-import API from '../../Api';
+import * as API from '../../Api';
 
 
 /**

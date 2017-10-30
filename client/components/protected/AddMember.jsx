@@ -99,7 +99,6 @@ class AddMember extends React.Component {
    * @memberof AddMember
    */
   render() {
-    console.log(PostItStore.getUsers());
     return (
       <div className="panel-body">
         <h6> To add a member, type in the username of the member </h6>

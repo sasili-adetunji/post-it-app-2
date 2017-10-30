@@ -3,7 +3,7 @@ import CreateGroup from './CreateGroup';
 import PostItStore from '../../stores/PostItStore';
 import PostItActions from '../../actions/PostItActions';
 import Group from './Group';
-import API from '../../Api';
+import * as API from '../../Api';
 
 
 /**
@@ -13,6 +13,48 @@ import API from '../../Api';
  * @extends {React.Component}
  */
 class GroupList extends React.Component {
+    constructor(props) {
+    super(props);
+    this.state = {
+      showCreateGroup: false,
+      showAddUser: false,
+      loggedInUser: PostItStore.getLoggedInUser(),
+      groups: PostItStore.getGroupsUser(),
+      users: PostItStore.getUsersInGroup(),
+      selectedGroup: PostItStore.getOpenedGroup(),
+      user: PostItStore.getUsers(),
+      readUsers: PostItStore.getReadUsers(),
+      message: PostItStore.getGroupsMessages(),
+    };
+    this.onChange = this.onChange.bind(this);
+    }
+
+      onChange() {
+    this.setState({
+      users: PostItStore.getUsersInGroup(),
+      selectedGroup: PostItStore.getOpenedGroup(),
+      readUsers: PostItStore.getReadUsers(),
+      message: PostItStore.getGroupsMessages()
+    });
+  }
+
+/**
+   * @method componentDidUnmount
+   * @description adds event Listener from the Store, fetches API call to get users and user groups
+   * @memberof MessageList
+  */
+  componentDidMount() {
+    PostItStore.addChangeListener(this.onChange);
+  }
+  /**
+   * @method componentWillUnmount
+   * @description removes event Listener from the Store
+   * @memberof Dashboard
+  */
+
+  componentWillUnmount() {
+    PostItStore.removeChangeListener(this.onChange);
+  }
 
 
     /**

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Navbar, Nav, NavItem, NavDropdown, MenuItem, Modal } from 'react-bootstrap';
-import API from '../../Api';
+import * as API from '../../Api';
 import PostItStore from '../../stores/PostItStore';
 import PostItActions from '../../actions/PostItActions';
 import GroupList from './GroupList';
@@ -25,13 +25,12 @@ class Dashboard extends React.Component {
       showCreateGroup: false,
       showAddUser: false,
       loggedInUser: PostItStore.getLoggedInUser(),
-      groups: PostItStore.getGroupsUser(),
+      // groups: PostItStore.getGroupsUser(),
       users: PostItStore.getUsersInGroup(),
       selectedGroup: PostItStore.getOpenedGroup(),
       user: PostItStore.getUsers(),
-      readUsers: PostItStore.getReadUsers(),
-      message: PostItStore.getGroupsMessages(),
-
+      // readUsers: PostItStore.getReadUsers(),
+      // message: PostItStore.getGroupsMessages(),
     };
     this.onChange = this.onChange.bind(this);
     this.closeGroup = this.closeGroup.bind(this);
@@ -52,31 +51,31 @@ class Dashboard extends React.Component {
     this.setState({ showAddUser: true });
   }
 
-/**
-    * @method onChange
-    * @description Monitors changes in the components and change the state
-    * @memberof Dashboard
-    * @param {object}
-    * @returns {void}
-    */
+  /**
+      * @method onChange
+      * @description Monitors changes in the components and change the state
+      * @memberof Dashboard
+      * @param {object}
+      * @returns {void}
+      */
 
   onChange() {
     this.setState({
       loggedInUser: PostItStore.getLoggedInUser(),
-      groups: PostItStore.getGroupsUser(),
+      // groups: PostItStore.getGroupsUser(),
       users: PostItStore.getUsersInGroup(),
       selectedGroup: PostItStore.getOpenedGroup(),
       user: PostItStore.getUsers(),
-      readUsers: PostItStore.getReadUsers(),
-      message: PostItStore.getGroupsMessages()
+      // readUsers: PostItStore.getReadUsers(),
+      // message: PostItStore.getGroupsMessages()
     });
   }
 
-/**
-   * @method componentDidUnmount
-   * @description adds event Listener from the Store, fetches API call to get users and user groups
-   * @memberof MessageList
-  */
+  /**
+     * @method componentDidUnmount
+     * @description adds event Listener from the Store, fetches API call to get users and user groups
+     * @memberof MessageList
+    */
   componentDidMount() {
     API.getUserGroups();
     API.getUsers();
@@ -92,28 +91,27 @@ class Dashboard extends React.Component {
     PostItStore.removeChangeListener(this.onChange);
   }
 
-   /**
-   * @method render
-   * Render react component
-   * 
-   * @returns {String} The HTML markup for the MessageList Components
-   * @memberof Dashboard
-   */
+  /**
+  * @method render
+  * Render react component
+  * 
+  * @returns {String} The HTML markup for the MessageList Components
+  * @memberof Dashboard
+  */
   render() {
     return (
-        <div className="container-fluid" id="html">
-            <div className="col-xs-3" id="dash">
-             <DashboardNav
-            user={this.state.users} usernames={this.state.user} userName={this.state.loggedInUser} 
-            selectedGroup={this.state.selectedGroup}
-            groups={this.state.groups} loggedInUser={this.state.loggedInUser}
-             /> 
-             </div>
-            <div className="col-xs-9">
-                <MessageList  {...this.state} selectedGroup={this.state.selectedGroup}
-              readUsers={this.state.readUsers} message={this.state.message} />
-            </div>
+      <div className="container-fluid" id="html">
+        <div className="col-xs-3" id="dash">
+          <DashboardNav
+            user={this.state.users} usernames={this.state.user} userName={this.state.loggedInUser}
+            selectedGroup={this.state.selectedGroup} loggedInUser={this.state.loggedInUser}
+          />
         </div>
+        <div className="col-xs-9">
+          <MessageList selectedGroup={this.state.selectedGroup} loggedInUser={this.state.loggedInUser}
+            readUsers={this.state.readUsers} message={this.state.message} />
+        </div>
+      </div>
     );
   }
 }

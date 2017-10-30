@@ -1,6 +1,7 @@
 import React from 'react';
 import PostItActions from '../../actions/PostItActions';
 import PostItStore from '../../stores/PostItStore';
+import * as API from '../../Api';
 
 
 /**
@@ -56,6 +57,7 @@ class MessageBox extends React.Component {
         author: this.props.author.displayName
       };
       PostItActions.addMessage(message);
+      API.getMessages(this.props.groupId);
       this.setState({
         error: '',
         message: ''

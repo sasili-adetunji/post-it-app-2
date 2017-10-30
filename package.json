@@ -126,7 +126,7 @@
     ],
     "collectCoverage": true,
     "setupFiles": [
-      "<rootDir>/mock/localStorage"
+      "<rootDir>/client/__mocks__/localStorage"
     ],
     "testPathIgnorePatterns": [
       "/node_modules/",

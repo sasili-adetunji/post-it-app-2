@@ -1,5 +1,5 @@
 import React from 'react';
-import API from '../../Api';
+import * as API from '../../Api';
 import PostItActions from '../../actions/PostItActions';
 import PostItStore from '../../stores/PostItStore';
 

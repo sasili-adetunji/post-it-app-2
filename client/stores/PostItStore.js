@@ -2,7 +2,9 @@ import { EventEmitter } from 'events';
 import assign from 'object-assign';
 import PostItConstants from '../constants/PostItConstants';
 import PostItDispatcher from '../dispatcher/PostItDispatcher'; // eslint-disable-line
-import API from '../Api';
+// import API from '../Api';
+import * as API from '../Api';
+
 
 const registeredUser = [];
 let usersInGroup = [];
@@ -108,8 +110,8 @@ const PostItStore = assign({}, EventEmitter.prototype, {
   addGroups(groups) {
     groupsUser.concat(groups);
   },
-  addMessage(messages) {
-    userMessages.concat(messages);
+  addMessage(message) {
+    userMessages.push(message);
   },
   setMessages(messages) {
     userMessages = messages;
@@ -163,94 +165,94 @@ PostItDispatcher.register((payload) => {
   switch (action.actionType) {
     case PostItConstants.REGISTER_USER:
       API.registerNewUser(action.user);
-      PostItStore.emitChange();
+      PostItStore.emitChange('change');
       break;
 
     case PostItConstants.LOGIN_USER:
       API.signinUser(action.user);
-      PostItStore.emitChange();
+      PostItStore.emitChange('change');
       break;
 
     case PostItConstants.CREATE_GROUP:
       API.createNewGroup(action.group);
       // PostItStore.createNewGroup(action.group);
-      PostItStore.emitChange();
+      PostItStore.emitChange('change');
       break;
 
     case PostItConstants.GOOGLE_LOGIN:
       API.googleLogin(action.result);
       // PostItStore.signinUser(action.token);
-      PostItStore.emitChange();
+      PostItStore.emitChange('change');
       break;
 
     case PostItConstants.ADDUSER_GROUP:
       API.addUserToGroup(action.user);
       PostItStore.addUserToGroup(action.user);
-      PostItStore.emitChange();
+      PostItStore.emitChange('change');
       break;
 
     case PostItConstants.ADD_MESSAGE:
       API.postMessage(action.message);
-      PostItStore.addMessage(action.message);
+      // PostItStore.addMessage(action.message);
       // PostItStore.postMessage(action.message);
-      PostItStore.emitChange();
+      PostItStore.emitChange('change');
       break;
 
     case PostItConstants.SIGNOUT_USER:
       API.signoutUser();
       PostItStore.signOutUser();
-      PostItStore.emitChange();
+      PostItStore.emitChange('change');
       break;
 
     case PostItConstants.RECEIVE_MESSAGES:
       PostItStore.addMessage(action.messages);
       // API.getMessages(action.messages);
-      PostItStore.emitChange();
+      PostItStore.emitChange('change');
       break;
 
     case PostItConstants.GET_USER_MESSAGES:
       API.getMessages(action.messages);
-      PostItStore.emitChange();
+      PostItStore.emitChange('change');
       break;
     case PostItConstants.RECEIVE_READ_USERS:
       API.getUserReadUsers(action.message);
       PostItStore.setReadUsers(action.user);
-      PostItStore.emitChange();
+      PostItStore.emitChange('change');
       break;
     case PostItConstants.RECIEVE_USERS_IN_GROUPS:
       PostItStore.setUsersInGroup(action.groups);
-      PostItStore.emitChange();
+      PostItStore.emitChange('change');
       break;
 
     case PostItConstants.RECEIVE_USER_GROUPS:
       API.getUserGroups();
       PostItStore.setUserGroups(action.groups);
-      PostItStore.emitChange();
+      PostItStore.emitChange('change');
       break;
 
     case PostItConstants.RECEIVE_USERS:
       PostItStore.setUsers(action.users);
-      PostItStore.emitChange();
+      PostItStore.emitChange('change');
       break;
 
     case PostItConstants.RESET_PASSWORD:
       API.resetPassword(action.email);
-      PostItStore.emitChange();
+      PostItStore.emitChange('change');
       break;
 
     case PostItConstants.RECEIVE_AUTHENTICATED_USER:
       PostItStore.setIsAuthenticated(true);
-      PostItStore.emitChange();
+      PostItStore.emitChange('change');
       break;
 
     case PostItConstants.GROUP_OPENED:
       PostItStore.setOpenedGroup(action.selectedGroup);
-      PostItStore.emitChange();
+      PostItStore.emitChange('change');
       break;
 
     case PostItConstants.RECEIVE_SUCCESS:
       PostItStore.receiveSuccess(action.message);
-      PostItStore.emitChange();
+      PostItStore.emitChange('change');
       break;
 
     case PostItConstants.RECEIVE_LOGIN_SUCCESS:
@@ -258,12 +260,12 @@ PostItDispatcher.register((payload) => {
       PostItStore.receiveSuccess(action.message.message);
       PostItStore.setLoggedInUser(action.message);
       localStorage.setItem('user', action.message.stsTokenManager.accessToken); // eslint-disable-line
-      PostItStore.emitChange();
+      PostItStore.emitChange('change');
       break;
 
     case PostItConstants.RECEIVE_ERRORS:
       PostItStore.receiveErrors(action.errors);
-      PostItStore.emitChange();
+      PostItStore.emitChange('change');
       break;
 
     default:
