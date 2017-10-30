@@ -19,5 +19,5 @@ ratings:
   - "server/app/**/*.js"
 exclude_paths:
 - server/test/
-- client/__test__
-- dist
+- client/__test__/
+- dist/

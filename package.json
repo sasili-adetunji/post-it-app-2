@@ -10,8 +10,7 @@
     "test:server": "nyc --reporter=html --reporter=text --reporter=lcov mocha --compilers js:babel-core/register server/test/**.js --timeout 1500000",
     "test": "npm run test:client && npm run test:server && npm run coverage",
     "build": "babel server/ -d dist && babel client/ -d dist",
-    "start": "webpack --config ./webpack.config.prod.js && babel-node ./server/server.js",
-    "nodemon": "nodemon --watch server --exec babel-node -- server/server.js"
+    "start": "webpack --config ./webpack.config.prod.js && babel-node ./server/server.js"
   },
   "repository": {
     "type": "git",
