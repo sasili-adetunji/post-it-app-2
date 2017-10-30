@@ -1,18 +1,11 @@
 engines:
   eslint:
     enabled: true
-  checks:
-    import/extensions:
-      enabled: false
-    no-multiple-empty-lines:
-      enabled: true
-    linebreak-style:
-      enabled: true
   duplication:
     enabled: true
-  config:
-    languages:
-      - javascript
+    config:
+      languages:
+        - javascript
 ratings:
   paths:
   - "server/*.js"
@@ -21,3 +14,5 @@ exclude_paths:
 - server/test/
 - client/__test__/
 - dist/
+- coverage
+- node_modules
