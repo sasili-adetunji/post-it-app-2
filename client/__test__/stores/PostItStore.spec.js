@@ -1,9 +1,8 @@
 
 import PostItConstants from '../../constants/PostItConstants';
-import PostItActions from '../../actions/PostItActions';
-import PostItDispatcher from '../../dispatcher/PostItDispatcher';
-import localStorage from '../../../mock/localStorage';
-// import mockApi from '../../../mock/axios.js';
+// import PostItActions from '../../actions/PostItActions';
+// import PostItDispatcher from '../../dispatcher/PostItDispatcher';
+import localStorage from '../../__mocks__/localStorage';
 
 jest.mock('../../dispatcher/PostItDispatcher');
 jest.dontMock('../../stores/PostItStore');
@@ -32,7 +31,7 @@ describe('Message Store', () => {
     PostItStore = require('../../stores/PostItStore').default;     // eslint-disable-line
     PostItDispatcher = require('../../dispatcher/PostItDispatcher').default;    // eslint-disable-line
     callback = PostItDispatcher.register.mock.calls[0][0];
-    spyOnDispatcher = jest.spyOn(PostItDispatcher, 'dispatch');
+    spyOnDispatcher = jest.spyOn(PostItDispatcher, 'handleViewAction');
   });
   it('should register a callback with the dispatcher', () => {
     expect(PostItDispatcher.register.mock.calls.length).toBe(1);

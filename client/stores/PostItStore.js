@@ -2,11 +2,9 @@ import { EventEmitter } from 'events';
 import assign from 'object-assign';
 import PostItConstants from '../constants/PostItConstants';
 import PostItDispatcher from '../dispatcher/PostItDispatcher'; // eslint-disable-line
-// import API from '../Api';
 import * as API from '../Api';
 
 
-const registeredUser = [];
 let usersInGroup = [];
 let users = [];
 const userGroups = [];
@@ -22,14 +20,6 @@ let isAuthenticated = false;
 
 
 const PostItStore = assign({}, EventEmitter.prototype, {
-
-  // registerNewUser(user) {
-  //   registeredUser.push(user);
-  // },
-
-  // getRegisteredUser() {
-  //   return registeredUser;
-  // },
 
   addUserToGroup(user) {
     usersInGroup.push(user);
@@ -88,9 +78,6 @@ const PostItStore = assign({}, EventEmitter.prototype, {
     return isAuthenticated;
   },
 
-  // getUserGroups() {
-  //   return userGroups;
-  // },
   getUsersInGroup() {
     return usersInGroup;
   },

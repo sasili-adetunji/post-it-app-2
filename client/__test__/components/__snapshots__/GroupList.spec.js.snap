@@ -44,9 +44,20 @@ ShallowWrapper {
     "_element": <GroupList />,
     "_instance": GroupList {
       "context": Object {},
+      "onChange": [Function],
       "props": Object {},
       "refs": Object {},
-      "state": Object {},
+      "state": Object {
+        "groups": Array [],
+        "loggedInUser": Array [],
+        "message": Array [],
+        "readUsers": Array [],
+        "selectedGroup": Array [],
+        "showAddUser": false,
+        "showCreateGroup": false,
+        "user": Array [],
+        "users": Array [],
+      },
       "updater": Updater {
         "_renderer": [Circular],
       },

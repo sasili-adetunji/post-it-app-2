@@ -2,14 +2,12 @@ import PostItDispatcher from '../../dispatcher/PostItDispatcher';
 import PostItActions from '../../actions/PostItActions';
 import PostItConstants from '../../constants/PostItConstants';
 import PostItStore from '../../stores/PostItStore';
-// import mockApi from '../../../mock/axios';
 
 
 describe('PostIt Actions: ', () => {
   let spyOnDispatcher;
 
   beforeEach(() => {
-    // jest.mock('axios', () => mockApi);
     spyOnDispatcher = jest.spyOn(PostItDispatcher, 'handleViewAction');
   });
 

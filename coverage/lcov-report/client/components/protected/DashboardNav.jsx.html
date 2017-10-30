@@ -20,9 +20,9 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">66.67% </span>
+        <span class="strong">63.64% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>8/12</span>
+        <span class='fraction'>7/11</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
@@ -35,9 +35,9 @@
         <span class='fraction'>2/6</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">66.67% </span>
+        <span class="strong">63.64% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>8/12</span>
+        <span class='fraction'>7/11</span>
       </div>
     </div>
   </div>
@@ -128,8 +128,7 @@
 83
 84
 85
-86
-87</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+86</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -179,7 +178,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -217,7 +215,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react';
 import { Navbar, Nav, NavItem, NavDropdown, MenuItem, Modal } from 'react-bootstrap';
-import API from '../../Api';
+import * as API from '../../Api';
 import PostItStore from '../../stores/PostItStore';
 import CreateGroup from './CreateGroup';
 import AddMember from './AddMember';
@@ -233,72 +231,71 @@ import MessageList from './MessageList';
  */
 class DashboardNav extends React.Component {
     constructor(props) {
-    super(props);
-    this.state = {
-      showCreateGroup: false,
-      showAddUser: false,
+        super(props);
+        this.state = {
+            showCreateGroup: false,
+            showAddUser: false,
 &nbsp;
-    };
-    this.closeGroup = this.closeGroup.bind(this);
-    this.openGroup = this.openGroup.bind(this);
-    this.closeGroup1 = this.closeGroup1.bind(this);
-    this.openGroup1 = this.openGroup1.bind(this);
-  }
-<span class="fstat-no" title="function not covered" >  cl</span>oseGroup() {
-<span class="cstat-no" title="statement not covered" >    this.setState({ showCreateGroup: false });</span>
-  }
-<span class="fstat-no" title="function not covered" >  op</span>enGroup() {
-<span class="cstat-no" title="statement not covered" >    this.setState({ showCreateGroup: true });</span>
-  }
-<span class="fstat-no" title="function not covered" >  cl</span>oseGroup1() {
-<span class="cstat-no" title="statement not covered" >    this.setState({ showAddUser: false });</span>
-  }
-<span class="fstat-no" title="function not covered" >  op</span>enGroup1() {
-<span class="cstat-no" title="statement not covered" >    this.setState({ showAddUser: true });</span>
-  }
+        };
+        this.closeGroup = this.closeGroup.bind(this);
+        this.openGroup = this.openGroup.bind(this);
+        this.closeGroup1 = this.closeGroup1.bind(this);
+        this.openGroup1 = this.openGroup1.bind(this);
+    }
+<span class="fstat-no" title="function not covered" >    cl</span>oseGroup() {
+<span class="cstat-no" title="statement not covered" >        this.setState({ showCreateGroup: false });</span>
+    }
+<span class="fstat-no" title="function not covered" >    op</span>enGroup() {
+<span class="cstat-no" title="statement not covered" >        this.setState({ showCreateGroup: true });</span>
+    }
+<span class="fstat-no" title="function not covered" >    cl</span>oseGroup1() {
+<span class="cstat-no" title="statement not covered" >        this.setState({ showAddUser: false });</span>
+    }
+<span class="fstat-no" title="function not covered" >    op</span>enGroup1() {
+<span class="cstat-no" title="statement not covered" >        this.setState({ showAddUser: true });</span>
+    }
 &nbsp;
-   /**
-   * @method render
-   * Render react component
-   * 
-   * @returns {String} The HTML markup for the DashboardNav Components
-   * @memberof DashboardNav
-   */
-  render() {
-    console.log(PostItStore.getUsers());
-    return (
-&lt;div id="sidebar"&gt;
-            &lt;div className="card-block"&gt;
+    /**
+    * @method render
+    * Render react component
+    * 
+    * @returns {String} The HTML markup for the DashboardNav Components
+    * @memberof DashboardNav
+    */
+    render() {
+        return (
+            &lt;div id="sidebar"&gt;
+                &lt;div className="card-block"&gt;
                     &lt;a onClick={this.openGroup} className="list-group-item createGroup"&gt;Create Group&lt;/a&gt;
-                 &lt;Modal show={this.state.showCreateGroup} onHide={this.closeGroup}&gt;
-                    &lt;Modal.Body&gt;
-                         &lt;CreateGroup userName={this.props.loggedInUser}/&gt; 
-                    &lt;/Modal.Body&gt;
-                    &lt;Modal.Footer&gt;
-                        &lt;a onClick={this.closeGroup}&gt; Close&lt;/a&gt;
-                    &lt;/Modal.Footer&gt;
-                &lt;/Modal&gt;
-                    &lt;/div&gt;
-                &lt;div className="card-block"&gt;
-                   &lt;GroupList selected={this.props.selectedGroup} grou={this.props.groups} /&gt; 
+                    &lt;Modal show={this.state.showCreateGroup} onHide={this.closeGroup}&gt;
+                        &lt;Modal.Body&gt;
+                            &lt;CreateGroup userName={this.props.loggedInUser} /&gt;
+                        &lt;/Modal.Body&gt;
+                        &lt;Modal.Footer&gt;
+                            &lt;a onClick={this.closeGroup}&gt; Close&lt;/a&gt;
+                        &lt;/Modal.Footer&gt;
+                    &lt;/Modal&gt;
                 &lt;/div&gt;
-                                  &lt;div className="card-block mem"&gt;
+                &lt;div className="card-block"&gt;
+                    &lt;GroupList selected={this.props.selectedGroup} /&gt;
+                &lt;/div&gt;
+                &lt;div className="card-block mem"&gt;
                     &lt;a onClick={this.openGroup1} className="list-group-item addUser"&gt;Add member&lt;/a&gt;
-                 &lt;Modal show={this.state.showAddUser} onHide={this.closeGroup1}&gt;
-                    &lt;Modal.Body&gt;
-                    &lt;AddMember {...this.state} selected={this.props.selectedGroup} usern={this.props.usernames} /&gt;  
-                    &lt;/Modal.Body&gt;
-                    &lt;Modal.Footer&gt;
-                        &lt;a onClick={this.closeGroup1}&gt; Close&lt;/a&gt;
-                    &lt;/Modal.Footer&gt;
-                &lt;/Modal&gt;
-                    &lt;/div&gt;
-                &lt;div className="card-block"&gt;
-                    &lt;UserList {...this.state} use={this.props.user} usern={this.props.usernames} /&gt;  
+                    &lt;Modal show={this.state.showAddUser} onHide={this.closeGroup1}&gt;
+                        &lt;Modal.Body&gt;
+                            &lt;AddMember selected={this.props.selectedGroup} usern={this.props.usernames} /&gt;
+                        &lt;/Modal.Body&gt;
+                        &lt;Modal.Footer&gt;
+                            &lt;a onClick={this.closeGroup1}&gt; Close&lt;/a&gt;
+                        &lt;/Modal.Footer&gt;
+                    &lt;/Modal&gt;
                 &lt;/div&gt;
-             &lt;/div&gt;
-                  );
-  }
+                &lt;div className="card-block"&gt;
+                    &lt;UserList use={this.props.user} usern={this.props.usernames} /&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+        );
+    }
 }
 export default DashboardNav;
 &nbsp;</pre></td></tr>
@@ -307,7 +304,7 @@ export default DashboardNav;
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Fri Oct 27 2017 12:15:09 GMT+0100 (WAT)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Mon Oct 30 2017 13:49:20 GMT+0100 (WAT)
 </div>
 </div>
 <script src="../../../prettify.js"></script>
