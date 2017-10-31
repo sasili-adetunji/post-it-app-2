@@ -7,8 +7,6 @@ const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 
 require('dotenv').config();
 
-const Dotenv = require('dotenv-webpack');
-
 const config = {
   entry: './client/index.js',
   output: {
@@ -55,9 +53,9 @@ const config = {
     new UglifyJSPlugin({
       sourceMap: true
     }),
-    new Dotenv({
-      path: './.env',
-      safe: false
+    new webpack.EnvironmentPlugin({
+      NODE_ENV: 'production',
+      DEBUG: false
     }),
     new HtmlWebpackPlugin({
       template: './client/public/index.html'
