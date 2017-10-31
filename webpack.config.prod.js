@@ -1,7 +1,6 @@
 const path = require('path');
 const DotEnvPlugin = require('dotenv-webpack');
 const webpack = require('webpack');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const dotEnvPlugin = new DotEnvPlugin({
@@ -54,7 +53,7 @@ const config = {
     new HtmlWebpackPlugin({
       template: './client/public/index.html'
     }),
-    new UglifyJsPlugin({
+    new webpack.optimize.UglifyJsPlugin({
       minimize: true,
       sourceMap: true,
       compress: {
