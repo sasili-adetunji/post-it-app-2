@@ -30,7 +30,7 @@ class Dashboard extends React.Component {
       selectedGroup: PostItStore.getOpenedGroup(),
       user: PostItStore.getUsers(),
       // readUsers: PostItStore.getReadUsers(),
-      // message: PostItStore.getGroupsMessages(),
+      message: PostItStore.getGroupsMessages(),
     };
     this.onChange = this.onChange.bind(this);
     this.closeGroup = this.closeGroup.bind(this);
@@ -67,7 +67,7 @@ class Dashboard extends React.Component {
       selectedGroup: PostItStore.getOpenedGroup(),
       user: PostItStore.getUsers(),
       // readUsers: PostItStore.getReadUsers(),
-      // message: PostItStore.getGroupsMessages()
+      message: PostItStore.getGroupsMessages()
     });
   }
 
@@ -90,8 +90,6 @@ class Dashboard extends React.Component {
   componentWillUnmount() {
     PostItStore.removeChangeListener(this.onChange);
   }
-
-
 
   /**
   * @method render

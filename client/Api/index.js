@@ -135,15 +135,13 @@ export const addUserToGroup = (user) => {
 export const postMessage = (message) => {
   axios.post('/message', {
     groupId: message.groupId,
-    message: message.message,
+    message: message.messageText,
     priorityLevel: message.priorityLevel,
     date: message.date,
     author: message.author,
   })
   .then((response) => {
-    // getMessages(response.data.messages.groupId);
-      // PostItStore.addMessage(response.data.messages);
-    PostItActions.receiveMessages(response.data.messages);
+    PostItActions.receiveSuccess(response.data);
   })
   .catch((error) => {
     PostItActions.receiveErrors(error.message);

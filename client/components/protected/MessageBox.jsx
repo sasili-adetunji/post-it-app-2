@@ -50,7 +50,7 @@ class MessageBox extends React.Component {
       });
     } else {
       const message = {
-        message: this.state.message,
+        messageText: this.state.message,
         groupId: this.props.groupId.groupId,
         priorityLevel: this.state.priorityLevel,
         date: new Date().toJSON(),

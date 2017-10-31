@@ -25,10 +25,6 @@ const PostItStore = assign({}, EventEmitter.prototype, {
     usersInGroup.push(user);
   },
 
-  postMessage(message) {
-    userMessages.concat(message);
-  },
-
   createNewGroup(group) {
     userGroups.push(group);
   },
@@ -162,13 +158,12 @@ PostItDispatcher.register((payload) => {
 
     case PostItConstants.CREATE_GROUP:
       API.createNewGroup(action.group);
-      // PostItStore.createNewGroup(action.group);
+      PostItStore.createNewGroup(action.group);
       PostItStore.emitChange('change');
       break;
 
     case PostItConstants.GOOGLE_LOGIN:
       API.googleLogin(action.result);
-      // PostItStore.signinUser(action.token);
       PostItStore.emitChange('change');
       break;
 
@@ -179,21 +174,14 @@ PostItDispatcher.register((payload) => {
       break;
 
     case PostItConstants.ADD_MESSAGE:
+      PostItStore.addMessage(action.message);
       API.postMessage(action.message);
-      // PostItStore.addMessage(action.message);
-      // PostItStore.postMessage(action.message);
       PostItStore.emitChange('change');
       break;
 
     case PostItConstants.SIGNOUT_USER:
       API.signoutUser();
       PostItStore.signOutUser();
-      PostItStore.emitChange('change');
-      break;
-
-    case PostItConstants.RECEIVE_MESSAGES:
-      PostItStore.addMessage(action.messages);
-      // API.getMessages(action.messages);
       PostItStore.emitChange('change');
       break;
 

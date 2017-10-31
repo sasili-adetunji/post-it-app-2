@@ -41,7 +41,6 @@ class MessageList extends React.Component {
 
   componentDidMount() {
     PostItStore.addChangeListener(this.onChange);
-    // PostItActions.getUserMessages(this.props.selectedGroup[0]);
   }
 
   /**

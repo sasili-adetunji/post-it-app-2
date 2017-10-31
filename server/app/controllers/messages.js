@@ -136,7 +136,7 @@ export default {
       messageRef.once('value', (snapshot) => {
         snapshot.forEach((childSnapShot) => {
           const message = {
-            messageId: childSnapShot.key,
+            // messageId: childSnapShot.key,
             messageText: childSnapShot.val().message,
             author: childSnapShot.val().author,
             priorityLevel: childSnapShot.val().priorityLevel,

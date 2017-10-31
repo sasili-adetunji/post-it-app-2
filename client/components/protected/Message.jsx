@@ -15,15 +15,6 @@ class Message extends React.Component {
     super(props);
   }
 
-   /**
-   * @method componentDidUnmount
-   * @description makes an api call to get read users
-   * @memberof Message
-  */
-  // componentDidMount() {
-  //   API.getUserReadUsers(this.props.message);
-  // }
-
     /**
    * @method render
    * Render react component

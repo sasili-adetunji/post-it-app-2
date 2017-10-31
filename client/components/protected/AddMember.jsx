@@ -83,7 +83,6 @@ class AddMember extends React.Component {
         userName: '',
       });
     } else {
-      console.log(user)
       PostItActions.addUserToGroup(user);
       this.setState({
         error: '',

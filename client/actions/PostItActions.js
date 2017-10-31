@@ -125,17 +125,6 @@ const PostItActions = {
       actionType: PostItConstants.SIGNOUT_USER,
     });
   },
-
-  /**
-   * recieve messages and dispatches action
-   * @param {any} messages
-   */
-  receiveMessages(messages) {
-    PostItDispatcher.handleViewAction({
-      actionType: PostItConstants.RECEIVE_MESSAGES,
-      messages,
-    });
-  },
     /**
    * recieve messages and dispatches action
    * @param {any} messages
