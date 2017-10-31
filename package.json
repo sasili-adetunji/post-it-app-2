@@ -10,7 +10,7 @@
     "test:server": "nyc --reporter=html --reporter=text --reporter=lcov mocha --compilers js:babel-core/register server/test/**.js --timeout 1500000",
     "test": "npm run test:client && npm run test:server && npm run coverage",
     "build": "babel server/ -d dist && babel client/ -d dist",
-    "start": "webpack --config ./webpack.config.prod.js && babel-node ./server/server.js"
+    "start": "webpack --config ./webpack.config.prod.js && node ./server/buildServer.js"
   },
   "repository": {
     "type": "git",
@@ -32,6 +32,7 @@
     "babel-plugin-react-html-attrs": "^2.0.0",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-plugin-transform-decorators-legacy": "^1.3.4",
+    "babel-polyfill": "^6.26.0",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",

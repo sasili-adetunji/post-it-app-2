@@ -1,11 +1,12 @@
 require('dotenv').config();
 const path = require('path');
+const DotEnvPlugin = require('dotenv-webpack');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-require('dotenv').config();
-
-const Dotenv = require('dotenv-webpack');
+const dotEnvPlugin = new DotEnvPlugin({
+  path: './.env'
+});
 
 const config = {
   entry: './client/index.js',
@@ -13,18 +14,6 @@ const config = {
     path: path.join(__dirname, 'client/public'),
     publicPath: '/',
     filename: 'bundle.js',
-  },
-
-  devServer: {
-    contentBase: './client/public',
-    inline: true,
-    hot: true,
-    port: 8000,
-  },
-  externals: {
-    cheerio: 'window',
-    'react/lib/ExecutionEnvironment': true,
-    'react/lib/ReactContext': true,
   },
   node: {
     fs: 'empty',
@@ -57,19 +46,9 @@ const config = {
     extensions: ['.js', '.jsx'],
   },
   plugins: [
-    new Dotenv({
-      path: './.env',
-      safe: false
-    }),
     new webpack.DefinePlugin({
       'process.env': {
-        NODE_ENV: JSON.stringify('production'),
-        apiKey: JSON.stringify(process.env.apiKey),
-        authDomain: JSON.stringify(process.env.authDomain),
-        databaseURL: JSON.stringify(process.env.databaseURL),
-        projectId: JSON.stringify(process.env.projectId),
-        storageBucket: JSON.stringify(process.env.storageBucket),
-        messagingSenderId: JSON.stringify(process.env.messagingSenderId)
+        NODE_ENV: JSON.stringify('production')
       }
     }),
     new HtmlWebpackPlugin({
@@ -83,6 +62,7 @@ const config = {
       }
     }),
     new webpack.NoEmitOnErrorsPlugin(),
+    dotEnvPlugin
   ],
 };
 module.exports = config;
