@@ -20,9 +20,9 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">63.64% </span>
+        <span class="strong">57.14% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>7/11</span>
+        <span class='fraction'>8/14</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
@@ -30,14 +30,14 @@
         <span class='fraction'>0/0</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">33.33% </span>
+        <span class="strong">28.57% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>2/6</span>
+        <span class='fraction'>2/7</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">63.64% </span>
+        <span class="strong">57.14% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>7/11</span>
+        <span class='fraction'>8/14</span>
       </div>
     </div>
   </div>
@@ -128,7 +128,25 @@
 83
 84
 85
-86</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -152,6 +170,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
@@ -176,9 +195,22 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -214,7 +246,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react';
-import { Navbar, Nav, NavItem, NavDropdown, MenuItem, Modal } from 'react-bootstrap';
+import { Modal } from 'react-bootstrap';
 import * as API from '../../Api';
 import PostItStore from '../../stores/PostItStore';
 import CreateGroup from './CreateGroup';
@@ -222,6 +254,8 @@ import AddMember from './AddMember';
 import GroupList from './GroupList';
 import UserList from './UserList';
 import MessageList from './MessageList';
+import PostItActions from '../../actions/PostItActions';
+&nbsp;
 &nbsp;
 /**
  * creates DashboardNav components
@@ -237,6 +271,7 @@ class DashboardNav extends React.Component {
             showAddUser: false,
 &nbsp;
         };
+        this.handleClick = this.handleClick.bind(this);
         this.closeGroup = this.closeGroup.bind(this);
         this.openGroup = this.openGroup.bind(this);
         this.closeGroup1 = this.closeGroup1.bind(this);
@@ -254,6 +289,16 @@ class DashboardNav extends React.Component {
 <span class="fstat-no" title="function not covered" >    op</span>enGroup1() {
 <span class="cstat-no" title="statement not covered" >        this.setState({ showAddUser: true });</span>
     }
+      /**
+   * @description Makes an action call to signout a user
+   * @param {object} event
+   * @returns {void}
+   * @memberof App
+  */
+<span class="fstat-no" title="function not covered" >  ha</span>ndleClick(event) {
+<span class="cstat-no" title="statement not covered" >    event.preventDefault();</span>
+<span class="cstat-no" title="statement not covered" >    PostItActions.signOutUser();</span>
+  }
 &nbsp;
     /**
     * @method render
@@ -263,37 +308,40 @@ class DashboardNav extends React.Component {
     * @memberof DashboardNav
     */
     render() {
-        return (
-            &lt;div id="sidebar"&gt;
-                &lt;div className="card-block"&gt;
-                    &lt;a onClick={this.openGroup} className="list-group-item createGroup"&gt;Create Group&lt;/a&gt;
-                    &lt;Modal show={this.state.showCreateGroup} onHide={this.closeGroup}&gt;
-                        &lt;Modal.Body&gt;
-                            &lt;CreateGroup userName={this.props.loggedInUser} /&gt;
-                        &lt;/Modal.Body&gt;
-                        &lt;Modal.Footer&gt;
-                            &lt;a onClick={this.closeGroup}&gt; Close&lt;/a&gt;
-                        &lt;/Modal.Footer&gt;
-                    &lt;/Modal&gt;
-                &lt;/div&gt;
-                &lt;div className="card-block"&gt;
-                    &lt;GroupList selected={this.props.selectedGroup} /&gt;
-                &lt;/div&gt;
-                &lt;div className="card-block mem"&gt;
-                    &lt;a onClick={this.openGroup1} className="list-group-item addUser"&gt;Add member&lt;/a&gt;
-                    &lt;Modal show={this.state.showAddUser} onHide={this.closeGroup1}&gt;
-                        &lt;Modal.Body&gt;
-                            &lt;AddMember selected={this.props.selectedGroup} usern={this.props.usernames} /&gt;
-                        &lt;/Modal.Body&gt;
-                        &lt;Modal.Footer&gt;
-                            &lt;a onClick={this.closeGroup1}&gt; Close&lt;/a&gt;
-                        &lt;/Modal.Footer&gt;
-                    &lt;/Modal&gt;
-                &lt;/div&gt;
-                &lt;div className="card-block"&gt;
-                    &lt;UserList use={this.props.user} usern={this.props.usernames} /&gt;
-                &lt;/div&gt;
-            &lt;/div&gt;
+      return (
+        &lt;div id="sidebar"&gt;
+            &lt;button id="logout" onClick={this.handleClick}&gt;
+                Log Out
+            &lt;/button&gt;
+          &lt;div className="card-block"&gt;
+            &lt;a onClick={this.openGroup} className="list-group-item createGroup"&gt;Create Group&lt;/a&gt;
+              &lt;Modal show={this.state.showCreateGroup} onHide={this.closeGroup}&gt;
+                &lt;Modal.Body&gt;
+                  &lt;CreateGroup userName={this.props.loggedInUser} /&gt;
+                &lt;/Modal.Body&gt;
+                &lt;Modal.Footer&gt;
+                  &lt;a onClick={this.closeGroup}&gt; Close&lt;/a&gt;
+                &lt;/Modal.Footer&gt;
+              &lt;/Modal&gt;
+          &lt;/div&gt;
+          &lt;div className="card-block"&gt;
+            &lt;GroupList selected={this.props.selectedGroup} /&gt;
+          &lt;/div&gt;
+          &lt;div className="card-block mem"&gt;
+              &lt;a onClick={this.openGroup1} className="list-group-item addUser"&gt;Add member&lt;/a&gt;
+                &lt;Modal show={this.state.showAddUser} onHide={this.closeGroup1}&gt;
+                  &lt;Modal.Body&gt;
+                    &lt;AddMember selected={this.props.selectedGroup} usern={this.props.usernames} /&gt;
+                  &lt;/Modal.Body&gt;
+                    &lt;Modal.Footer&gt;
+                      &lt;a onClick={this.closeGroup1}&gt; Close&lt;/a&gt;
+                    &lt;/Modal.Footer&gt;
+                &lt;/Modal&gt;
+          &lt;/div&gt;
+          &lt;div className="card-block"&gt;
+          &lt;UserList use={this.props.user} usern={this.props.usernames} /&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
         );
     }
 }
@@ -304,7 +352,7 @@ export default DashboardNav;
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Mon Oct 30 2017 13:49:20 GMT+0100 (WAT)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Tue Oct 31 2017 17:03:16 GMT+0100 (WAT)
 </div>
 </div>
 <script src="../../../prettify.js"></script>

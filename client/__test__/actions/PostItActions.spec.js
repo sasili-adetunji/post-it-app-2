@@ -155,15 +155,6 @@ describe('PostIt Actions: ', () => {
       expect(spyOnDispatcher).toHaveBeenCalledWith(payload);
     });
   });
-  describe('recieve message actions', () => {
-    it('should dispatch to recieve message', () => {
-      PostItActions.receiveMessages();
-      const payload = {
-        actionType: PostItConstants.RECEIVE_MESSAGES,
-      };
-      expect(spyOnDispatcher).toHaveBeenCalledWith(payload);
-    });
-  });
   describe('Recieve user groups actions', () => {
     it('should dispatch to recieve users groups', () => {
       const spyOnStore = jest.spyOn(PostItStore, 'setUserGroups');
