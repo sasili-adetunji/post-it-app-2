@@ -1,11 +1,10 @@
 const path = require('path');
 const DotEnvPlugin = require('dotenv-webpack');
 const webpack = require('webpack');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-const dotEnvPlugin = new DotEnvPlugin({
-  path: './.env',
-});
+require('dotenv').config();
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+
 
 const config = {
   entry: './client/index.js',
@@ -50,18 +49,13 @@ const config = {
         NODE_ENV: JSON.stringify('production')
       }
     }),
-    new HtmlWebpackPlugin({
-      template: './client/public/index.html'
+    new DotEnvPlugin({
+      path: './.env',
+      safe: false,
     }),
-    new webpack.optimize.UglifyJsPlugin({
-      minimize: true,
+    new UglifyJSPlugin({
       sourceMap: true,
-      compress: {
-        warnings: false
-      }
     }),
-    new webpack.NoEmitOnErrorsPlugin(),
-    dotEnvPlugin
   ],
 };
 module.exports = config;
