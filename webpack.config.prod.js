@@ -1,10 +1,13 @@
-const path = require('path');
-const DotEnvPlugin = require('dotenv-webpack');
-const webpack = require('webpack');
-
 require('dotenv').config();
+const path = require('path');
+const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 
+
+require('dotenv').config();
+
+const Dotenv = require('dotenv-webpack');
 
 const config = {
   entry: './client/index.js',
@@ -12,6 +15,11 @@ const config = {
     path: path.join(__dirname, 'client/public'),
     publicPath: '/',
     filename: 'bundle.js',
+  },
+  externals: {
+    cheerio: 'window',
+    'react/lib/ExecutionEnvironment': true,
+    'react/lib/ReactContext': true,
   },
   node: {
     fs: 'empty',
@@ -41,21 +49,30 @@ const config = {
     ],
   },
   resolve: {
-    extensions: ['.js', '.jsx'],
+    extensions: ['*', '.js', '.jsx'],
   },
   plugins: [
+    new UglifyJSPlugin({
+      sourceMap: true
+    }),
+    new Dotenv({
+      path: './.env',
+      safe: false
+    }),
+    new HtmlWebpackPlugin({
+      template: './client/public/index.html'
+    }),
     new webpack.DefinePlugin({
       'process.env': {
-        NODE_ENV: JSON.stringify('production')
+        NODE_ENV: JSON.stringify('production'),
+        apiKey: JSON.stringify(process.env.apiKey),
+        authDomain: JSON.stringify(process.env.authDomain),
+        databaseURL: JSON.stringify(process.env.databaseURL),
+        projectId: JSON.stringify(process.env.projectId),
+        storageBucket: JSON.stringify(process.env.storageBucket),
+        messagingSenderId: JSON.stringify(process.env.messagingSenderId)
       }
-    }),
-    new DotEnvPlugin({
-      path: './.env',
-      safe: false,
-    }),
-    new UglifyJSPlugin({
-      sourceMap: true,
-    }),
-  ],
+    })
+  ]
 };
 module.exports = config;
