@@ -63,7 +63,6 @@ class App extends Component {
       isAuthenticated: PostItStore.getIsAuthenticated(),
     };
     this.onChange = this.onChange.bind(this);
-    this.handleClick = this.handleClick.bind(this);
   }
    /**
    * @method componentDidUnmount
@@ -82,17 +81,6 @@ class App extends Component {
   componentWillUnmount() {
     PostItStore.removeChangeListener(this.onChange);
   }
-/**
-   * @description Makes an action call to signout a user
-   * @param {object} event
-   * @returns {void}
-   * @memberof App
-  */
-  handleClick(event) {
-    event.preventDefault();
-    PostItActions.signOutUser();
-  }
-
   /**
   * @description Route for rendering componets in the main App
   * 
@@ -106,8 +94,7 @@ class App extends Component {
       <div>
         <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
           <AppBar
-            title="Post It App" iconElementRight={<FlatButton
-              label="Log Out" onClick={this.handleClick} />} />
+            title="Post It App" />
         </MuiThemeProvider>
         <Switch>
           <PublicRoute path="/" exact component={Login} />

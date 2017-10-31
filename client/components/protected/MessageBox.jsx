@@ -57,7 +57,6 @@ class MessageBox extends React.Component {
         author: this.props.author.displayName
       };
       PostItActions.addMessage(message);
-      API.getMessages(this.props.groupId);
       this.setState({
         error: '',
         message: ''
@@ -74,21 +73,21 @@ class MessageBox extends React.Component {
   
   render() {
     return (
-        <div className="sendMessageDiv">
-          <strong className="error"> {this.state.error} </strong>
-                            <form onSubmit={this.onClick}>
-                                <div className="form-group col-sm-2">
-                                    <select name="priorityLevel" className="form-control" id="exampleFormControlSelect1"
-                                     onChange={this.onChange} value={this.state.priorityLevel}>
-                                        <option>Normal</option>
-                                        <option>Urgent</option>
-                                        <option>Critical</option>
-                                    </select>
-                                </div>
-                                <input name='message' className="col-sm-10 sendMessageInput"
-                                 placeholder='Enter a message' onChange={this.onChange} value={this.state.message}/>
-                            </form>
-                        </div>
+      <div className="sendMessageDiv">
+        <strong className="error"> {this.state.error} </strong>
+          <form onSubmit={this.onClick}>
+              <div className="form-group col-sm-2">
+                  <select name="priorityLevel" className="form-control" id="exampleFormControlSelect1"
+                    onChange={this.onChange} value={this.state.priorityLevel}>
+                      <option>Normal</option>
+                      <option>Urgent</option>
+                      <option>Critical</option>
+                  </select>
+              </div>
+              <input name='message' className="col-sm-10 sendMessageInput"
+                placeholder='Enter a message' onChange={this.onChange} value={this.state.message}/>
+          </form>
+      </div>
     );
   }
 }

@@ -91,6 +91,8 @@ class Dashboard extends React.Component {
     PostItStore.removeChangeListener(this.onChange);
   }
 
+
+
   /**
   * @method render
   * Render react component
@@ -113,6 +115,6 @@ class Dashboard extends React.Component {
         </div>
       </div>
     );
-  }
+  } 
 }
 export default Dashboard;

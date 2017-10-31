@@ -76,10 +76,8 @@ export default {
                   mailOptions.text = message;
                   transporter.sendMail(mailOptions, (error, info) => {
                     if (error) {
-                      return console.log(error);
-                    }
-                    console.log('Message %s sent: %s', info.messageId, info.response);
-                    return true;
+                      return error;
+                    } return info.response;
                   });
                 });
             }
@@ -88,12 +86,10 @@ export default {
                 .once('value', (msg) => {
                   nexmo.message.sendSms(
                       'PostIt', msg.val().phoneNumber, message,
-                      (err, responseData) => {
-                        if (err) {
-                          console.log(err);
-                        } else {
-                          console.log(responseData);
-                        }
+                      (error, responseData) => {
+                        if (error) {
+                          return error;
+                        } return responseData;
                       });
                 });
             }

@@ -243,7 +243,7 @@ height: 500px;
       }
   .userList {
    /* background: lightblue; */
-    height: 200px;
+    height: 179px;
     /* padding-top: 50px; */
    overflow-y: scroll; 
 } 
@@ -279,3 +279,15 @@ font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 #listing {
   overflow-y: scroll;
 }
+.loader {
+    border: 16px solid #f3f3f3;
+    border-top: 16px solid #3498db;
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    animation: spin 2s linear infinite;
+}
+  #logout {
+    background-color:white;
+    color: black;
+  }

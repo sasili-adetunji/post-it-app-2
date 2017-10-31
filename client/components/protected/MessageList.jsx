@@ -77,14 +77,14 @@ class MessageList extends React.Component {
       });
     }
     return (
-                     <div>
-                        <div className="viewMessage" id="mesa">
-                            {messageNodes} 
-                        </div>
-                        <div id="footer">
-                       <MessageBox groupId={this.props.selectedGroup[0]} author={this.props.loggedInUser} /> 
-                      </div>
-                    </div>
+      <div>
+        <div className="viewMessage" id="mesa">
+          {messageNodes} 
+        </div>
+        <div id="footer">
+          <MessageBox groupId={this.props.selectedGroup[0]} author={this.props.loggedInUser} /> 
+        </div>
+      </div>
             
     );
   }
