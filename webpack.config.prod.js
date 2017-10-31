@@ -5,7 +5,7 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const dotEnvPlugin = new DotEnvPlugin({
-  path: './.env'
+  path: './.env',
 });
 
 const config = {

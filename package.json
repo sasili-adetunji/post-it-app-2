@@ -10,7 +10,7 @@
     "test:server": "nyc --reporter=html --reporter=text --reporter=lcov mocha --compilers js:babel-core/register server/test/**.js --timeout 1500000",
     "test": "npm run test:client && npm run test:server && npm run coverage",
     "build": "babel server/ -d dist && babel client/ -d dist",
-    "start": "webpack --config ./webpack.config.prod.js && node ./server/buildServer.js"
+    "start": "NODE_ENV=production webpack --config ./webpack.config.prod.js && node ./server/buildServer.js"
   },
   "repository": {
     "type": "git",
