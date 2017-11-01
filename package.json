@@ -11,7 +11,7 @@
     "test": "npm run test:client && npm run test:server && npm run coverage",
     "build": "babel server/ -d dist && babel client/ -d dist",
     "start:dev": "webpack --config ./webpack.config.js && babel-node ./server/buildServer.js",
-    "start": "NODE_ENV=production webpack --config ./webpack.config.prod.js && node ./server/buildServer.js"
+    "start": "NODE_ENV=production webpack --config ./webpack.config.prod.js && node ./server/buildServer.js --optimize_for_size --max_old_space_size=460"
 
   },
   "repository": {
