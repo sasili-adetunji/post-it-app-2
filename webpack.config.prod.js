@@ -53,10 +53,7 @@ const config = {
     new UglifyJSPlugin({
       sourceMap: true
     }),
-    new webpack.EnvironmentPlugin({
-      NODE_ENV: 'production',
-      DEBUG: false
-    }),
+    new webpack.EnvironmentPlugin(Object.keys(process.env)),
     new HtmlWebpackPlugin({
       template: './client/public/index.html'
     }),

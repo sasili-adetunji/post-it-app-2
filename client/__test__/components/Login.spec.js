@@ -1,7 +1,13 @@
 import React from 'react';
 import { shallow, render } from 'enzyme';
 import Login from '../../components/Login.jsx';
+import {JSDOM} from 'jsdom';
 
+const jsdom = new JSDOM('<!doctype html><html><body></body></html>');
+
+const { window } = jsdom;
+global.window = window;
+global.document = window.document;
 
 function setup() {
   const props = {

@@ -1,29 +1,31 @@
 import React from 'react';
-import { shallow, render } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import Message from '../../components/protected/Message.jsx';
+import {JSDOM} from 'jsdom';
 
+const jsdom = new JSDOM('<!doctype html><html><body></body></html>');
 
-function setup() {
-  const props = {
-    componentDidMount: () => {},
-  };
-  const message = {
-    messageText: 'sasil',
-    date: '',
-    status: 'Read',
-    author: 'Wash',
-  };
-  return shallow(<Message {...props} message={message} />);
-}
+const { window } = jsdom;
+global.window = window;
+global.document = window.document;
+
 
 describe('User components', () => {
-  const message = {
+  const props = {
+    message: {
     messageText: 'sasil',
     date: '',
     status: 'Read',
     author: 'Wash',
+    },
+  readUser: {
+    name: 'Sasili',
+    name: 'Qudus'
+  }
   };
-  const component = setup();
+const shallowComponent = () => shallow(<Message {...props} />)
+const component = () => mount(<Message {...props} />)
+
   it('should match snapshot test', () => {
     expect(component).toMatchSnapshot();
   });
@@ -31,19 +33,15 @@ describe('User components', () => {
     expect(component).toBeDefined();
   });
   it('Should contain four div', () => {
-    expect(component.find('div').length).toEqual(4);
+    expect(shallowComponent().find('div').length).toEqual(4);
+  });
+  it('Should contain one ul', () => {
+    expect(shallowComponent().find('ul').length).toEqual(1);
+  });
+  it('Should contain one p', () => {
+    expect(shallowComponent().find('p').length).toEqual(1);
   });
   it('should recieve props', () => {
-    expect(Object.keys(component.props()).length).toBeGreaterThan(0);
-  });
-  it('should render without throwing an error', () => {
-    expect(component.contains(message.messageText)).toBe(true);
-  });
-});
-
-describe('Message  Test', () => {
-  it('should take props', () => {
-    const component = setup();
-    expect(component.props().componentDidMount).toExist;
+    expect(Object.keys(component().props()).length).toBeGreaterThan(0);
   });
 });

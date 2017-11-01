@@ -1,7 +1,13 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import AddMember from '../../components/protected/AddMember.jsx';
+import {JSDOM} from 'jsdom';
 
+const jsdom = new JSDOM('<!doctype html><html><body></body></html>');
+
+const { window } = jsdom;
+global.window = window;
+global.document = window.document;
 
 function setup() {
   const props = {
@@ -14,6 +20,7 @@ function setup() {
 
 describe('AddMember components', () => {
   const component = setup();
+  const mountComponent = mount(<AddMember />);
   it('should match snapshot test', () => {
     expect(component).toMatchSnapshot();
   });
@@ -25,6 +32,11 @@ describe('AddMember components', () => {
   });
   it('should recieve props', () => {
     expect(Object.keys(component.props()).length).toBeGreaterThan(0);
+  });
+  it('should contain defined methods', () => {
+    expect(mountComponent.nodes[0].onChange).toBeDefined();
+    expect(mountComponent.nodes[0].onClick).toBeDefined();
+    expect(mountComponent.nodes[0].changeToUserid).toBeDefined();
   });
 });
 

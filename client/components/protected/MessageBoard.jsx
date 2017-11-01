@@ -29,7 +29,7 @@ class Dashboard extends React.Component {
       users: PostItStore.getUsersInGroup(),
       selectedGroup: PostItStore.getOpenedGroup(),
       user: PostItStore.getUsers(),
-      // readUsers: PostItStore.getReadUsers(),
+      readUsers: PostItStore.getReadUsers(),
       message: PostItStore.getGroupsMessages(),
     };
     this.onChange = this.onChange.bind(this);

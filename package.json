@@ -11,8 +11,7 @@
     "test": "npm run test:client && npm run test:server && npm run coverage",
     "build": "babel server/ -d dist && babel client/ -d dist",
     "start:dev": "webpack --config ./webpack.config.js && babel-node ./server/buildServer.js",
-    "start": "NODE_ENV=production webpack --config ./webpack.config.prod.js && node ./server/buildServer.js --optimize_for_size --max_old_space_size=460"
-
+    "start": "NODE_ENV=production webpack --config ./webpack.config.prod.js && babel-node --optimize_for_size --max_old_space_size=460 ./server/server.js"
   },
   "repository": {
     "type": "git",
@@ -107,6 +106,7 @@
     "eslint-plugin-react": "^7.0.1",
     "extract-text-webpack-plugin": "^2.1.0",
     "jest": "^21.2.1",
+    "jsdom": "^11.3.0",
     "nodemon": "^1.11.0",
     "react-addons-test-utils": "^15.6.0",
     "react-dom": "^15.6.2",
