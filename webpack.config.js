@@ -1,7 +1,10 @@
 require('dotenv').config();
 const path = require('path');
 const webpack = require('webpack');
-const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+
+// const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+const Dotenv = require('dotenv-webpack');
 
 
 const config = {
@@ -47,10 +50,27 @@ const config = {
     extensions: ['*', '.js', '.jsx'],
   },
   plugins: [
-    new UglifyJSPlugin({
-      sourceMap: true
+    new webpack.optimize.UglifyJsPlugin({
+      minimize: true,
+      sourceMap: true,
+      compress: {
+        warnings: false
+      }
     }),
-    new webpack.EnvironmentPlugin(Object.keys(process.env))
+    new Dotenv({
+      path: './.env',
+      safe: false
+    }),
+    new HtmlWebpackPlugin({
+      template: './client/public/index.html'
+    }),
+      new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: JSON.stringify('production'),
+      },
+    }),
+    // new webpack.EnvironmentPlugin(Object.keys(process.env)),
+    new webpack.NoEmitOnErrorsPlugin()
   ]
 };
 module.exports = config;
