@@ -1,10 +1,8 @@
 require('dotenv').config();
 const path = require('path');
 const webpack = require('webpack');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 
-
-const Dotenv = require('dotenv-webpack');
 
 const config = {
   entry: './client/index.js',
@@ -12,15 +10,6 @@ const config = {
     path: path.join(__dirname, 'client/public'),
     publicPath: '/',
     filename: 'bundle.js',
-  },
-
-  devServer: {
-    contentBase: './client/public',
-    inline: true,
-    hot: true,
-    port: 8000,
-    historyApiFallback: true
-
   },
   externals: {
     cheerio: 'window',
@@ -58,14 +47,10 @@ const config = {
     extensions: ['*', '.js', '.jsx'],
   },
   plugins: [
-    new Dotenv({
-      path: './.env',
-      safe: false
+    new UglifyJSPlugin({
+      sourceMap: true
     }),
-    new HtmlWebpackPlugin({
-      template: './client/public/index.html'
-    }),
-    new webpack.NoEmitOnErrorsPlugin(),
-  ],
+    new webpack.EnvironmentPlugin(Object.keys(process.env))
+  ]
 };
 module.exports = config;
