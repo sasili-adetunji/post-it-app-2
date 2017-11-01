@@ -10,7 +10,7 @@
     "test:server": "nyc --reporter=html --reporter=text --reporter=lcov mocha --compilers js:babel-core/register server/test/**.js --timeout 1500000",
     "test": "npm run test:client && npm run test:server && npm run coverage",
     "build": "babel server/ -d dist && babel client/ -d dist",
-    "start:dev": "webpack --config ./webpack.config.js && babel-node ./server/buildServer.js",
+    "start:dev": "webpack --config ./webpack.config.js && babel-node ./server/server.js",
     "start": "NODE_ENV=production webpack --config ./webpack.config.prod.js && babel-node --optimize_for_size --max_old_space_size=460 ./server/server.js"
   },
   "repository": {

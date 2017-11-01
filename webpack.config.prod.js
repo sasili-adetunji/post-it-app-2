@@ -51,10 +51,7 @@ const config = {
     new UglifyJSPlugin({
       sourceMap: true
     }),
-    new webpack.EnvironmentPlugin(Object.keys(process.env)),
-    new HtmlWebpackPlugin({
-      template: './client/public/index.html'
-    })
+    new webpack.EnvironmentPlugin(Object.keys(process.env))
   ]
 };
 module.exports = config;
