@@ -36,6 +36,16 @@ This application allows friends and colleagues to create groups for notification
 - Start the server by running ```npm start```
 - Run `npm test ` for testing 
 - Run ```npm start ``` and visit ```localhost:8000``` to view the app locally
+
+## FAQ
+To which branch should I raise a PR?
+
+- Every PR is to be raised against develop branch.
+
+What are the features in the timeline
+- Ability to delete messages once sent
+- Ability to send pictures
+- Ability to remove oneself from group
 ## Author
 This is done by ```Sasiliyu Adetunji```
 
@@ -51,3 +61,5 @@ Licensed under the MIT License.
 - Friends and family 
 ## Contributing
 - If you are planning on contributing to PostIt, that will be awesome. We welcome contributions. Just fork the repo and raise a PR.
+-  If you have other improvements you want to add, feel free to do so. Ensure you follow style guide and adhere to Airbnb style guide
+
