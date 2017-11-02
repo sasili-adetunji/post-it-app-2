@@ -64,7 +64,7 @@ const config = {
     new HtmlWebpackPlugin({
       template: './client/public/index.html'
     }),
-      new webpack.DefinePlugin({
+    new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: JSON.stringify('production'),
       },

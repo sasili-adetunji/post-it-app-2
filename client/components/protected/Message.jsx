@@ -41,7 +41,7 @@ class Message extends React.Component {
                 <time> Posted by {this.props.message.author} on {this.props.message.date}</time>
                 <br />
                 <time> This message is {this.props.message.status} </time> <br />
-                <time> Read by <span> {userNodes} </span> </time>
+                 <time> Read by <span> {userNodes} </span> </time> 
               </div>
             </ul>
           </div>
