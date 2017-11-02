@@ -57,7 +57,7 @@ describe("the rendered div", () => {
     createGroup().find('button').simulate('click', { preventDefault });
     expect(preventDefault).toBeCalled();
   });
-  it('should update addmember state on  change', () => {
+  it('should update creategroup state on  change', () => {
     createGroup().find('input').simulate('change', { target: {
       value: 'programmer'
     } });

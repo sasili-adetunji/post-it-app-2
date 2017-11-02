@@ -29,7 +29,7 @@ class GroupList extends React.Component {
     this.onChange = this.onChange.bind(this);
     }
 
-      onChange() {
+    onChange() {
     this.setState({
       users: PostItStore.getUsersInGroup(),
       selectedGroup: PostItStore.getOpenedGroup(),

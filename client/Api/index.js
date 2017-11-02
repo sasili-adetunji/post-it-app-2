@@ -172,7 +172,6 @@ export const getUsersInGroup = (group) => {
     .then((response) => {
       PostItActions.receiveSuccess(response.message);
       PostItStore.setUsersInGroup(response.data.users);
-      //  PostItActions.receiveUsersInGroup(response.data.users);
     })
     .catch((error) => {
       PostItActions.receiveErrors(error.message);
@@ -202,7 +201,6 @@ export const getUserReadUsers = (message) => {
   axios.get(`/group/${message.messageId}/readUsers`)
     .then((response) => {
       PostItActions.receiveSuccess(response.message);
-      // PostItActions.receiveReadUsers(response.data.readUsers);
       PostItStore.setReadUsers(response.data.readUsers);
     })
     .catch((error) => {

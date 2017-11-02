@@ -29,10 +29,6 @@ const PostItStore = assign({}, EventEmitter.prototype, {
     userGroups.push(group);
   },
 
-  // signinUser(user) {
-  //   loggedInUser.push(user);
-  // },
-
   signOutUser() {
     loggedInUser.length = 0;
     isAuthenticated = false;

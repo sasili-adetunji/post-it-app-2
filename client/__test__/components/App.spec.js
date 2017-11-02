@@ -15,16 +15,16 @@ function setup() {
 }
 
 
-describe(' Test for App Component', () => {
+describe('App Component', () => {
   const component = setup();
 
-  it('renders without crashing', () => {
+  it('should renders without crashing', () => {
     shallow(<App />);
   });
-  it('renders AppBar', () => {
+  it('should renders AppBar', () => {
     expect(component.find('AppBar').props().title).toEqual('Post It App')
   });
-  it('renders AppBar', () => {
+  it('should renders AppBar', () => {
     expect(component.find('AppBar').props().title).toEqual('Post It App');
   });
   it('Should contain one PublicRoute', () => {
@@ -35,7 +35,7 @@ describe(' Test for App Component', () => {
   });
 });
 
-describe('Register  Test', () => {
+describe('App  Component', () => {
   it('should take props', () => {
     const component = setup();
     expect(component.props().onChange).toExist;
