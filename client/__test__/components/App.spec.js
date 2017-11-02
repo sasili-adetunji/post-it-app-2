@@ -5,10 +5,11 @@ import App from '../../components/index.jsx';
 
 function setup() {
   const props = {
-    handleClick: () => {},
     onChange: () => {},
     componentDidMount: () => {},
-    componentWillUnmount: () => {}
+    componentWillUnmount: () => {},
+    PublicRoute: () => {},
+    PrivateRoute: () => {}
   };
   return shallow(<App {...props} />);
 }
@@ -38,7 +39,6 @@ describe('Register  Test', () => {
   it('should take props', () => {
     const component = setup();
     expect(component.props().onChange).toExist;
-    expect(component.props().handleClick).toExist;
     expect(component.props().componentDidMount).toExist;
     expect(component.props().componentWillUnmount).toExist;
   });

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1509608748175" clover="3.2.0">
-  <project timestamp="1509608748175" name="All files">
-    <metrics statements="379" coveredstatements="273" conditionals="37" coveredconditionals="26" methods="118" coveredmethods="52" elements="534" coveredelements="351" complexity="0" loc="379" ncloc="379" packages="8" files="20" classes="20">
+<coverage generated="1509612159904" clover="3.2.0">
+  <project timestamp="1509612159905" name="All files">
+    <metrics statements="378" coveredstatements="273" conditionals="37" coveredconditionals="26" methods="118" coveredmethods="52" elements="533" coveredelements="351" complexity="0" loc="378" ncloc="378" packages="8" files="20" classes="20">
       <package name="client.Api">
         <metrics statements="67" coveredstatements="26" conditionals="0" coveredconditionals="0" methods="39" coveredmethods="13"/>
         <file name="index.js" path="/Users/andeladeveloper/Desktop/post-it-app-2/client/Api/index.js">
@@ -337,9 +337,9 @@
         </file>
       </package>
       <package name="client.stores">
-        <metrics statements="115" coveredstatements="110" conditionals="19" coveredconditionals="19" methods="1" coveredmethods="1"/>
+        <metrics statements="114" coveredstatements="110" conditionals="19" coveredconditionals="19" methods="1" coveredmethods="1"/>
         <file name="PostItStore.js" path="/Users/andeladeveloper/Desktop/post-it-app-2/client/stores/PostItStore.js">
-          <metrics statements="115" coveredstatements="110" conditionals="19" coveredconditionals="19" methods="1" coveredmethods="1"/>
+          <metrics statements="114" coveredstatements="110" conditionals="19" coveredconditionals="19" methods="1" coveredmethods="1"/>
           <line num="8" count="29" type="stmt"/>
           <line num="9" count="29" type="stmt"/>
           <line num="10" count="29" type="stmt"/>
@@ -355,7 +355,6 @@
           <line num="22" count="29" type="stmt"/>
           <line num="25" count="1" type="stmt"/>
           <line num="29" count="3" type="stmt"/>
-          <line num="33" count="0" type="stmt"/>
           <line num="37" count="1" type="stmt"/>
           <line num="38" count="1" type="stmt"/>
           <line num="42" count="2" type="stmt"/>

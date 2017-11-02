@@ -4,8 +4,6 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 
-const Dotenv = require('dotenv-webpack');
-
 const config = {
   entry: './client/index.js',
   output: {
@@ -58,10 +56,14 @@ const config = {
     extensions: ['*', '.js', '.jsx'],
   },
   plugins: [
-    new Dotenv({
-      path: './.env',
-      safe: false
+    new webpack.optimize.UglifyJsPlugin({
+      minimize: true,
+      sourceMap: true,
+      compress: {
+        warnings: false
+      }
     }),
+    new webpack.EnvironmentPlugin(Object.keys(process.env)),
     new HtmlWebpackPlugin({
       template: './client/public/index.html'
     }),
