@@ -19,7 +19,18 @@ This application allows friends and colleagues to create groups for notification
 - SMS notifications of messages 
 - Read messages should be marked
 ## Technologies used
-  PostIt-app API is built with <a href="https://nodejs.org/">Node.js</a>, <a href="https://www.javascript.com/">JavaScript(ES6)</a>, <a href="https://expressjs.com/">Express</a>, <a href="https://firebase.google.com/">Firebase</a> and <a href="https://facebook.github.io/react/">ReactJs</a> using  <a href="https://facebook.github.io/flux/docs/overview.html"> Flux Architecture </a>
+
+The functionality of this web app being a <a href="https://nodejs.org/">Node.js</a> app depends on the following technologies.
+- <a href="https://www.javascript.com/">JavaScript(ES6)</a>
+
+- <a href="https://expressjs.com/">Express</a>: A Fast, opinionated, minimalist web framework for node which was used in routing this application.   BodyParser: This module was used to collect search data sent from the client side to the routing page.
+- <a href="https://github.com/babel/babel">Babel </a>: This project is written in ES6, babel transpiles the code to ES5.
+- <a href="https://firebase.google.com/">Firebase</a> For authentication and database
+- <a href="https://webpack.js.org/"> Webpack:</a> webpack is a module bundler. Its main purpose is to bundle JavaScript files for usage in browser, it is also used for transpiling scss to css.
+- <a href="https://facebook.github.io/react/">ReactJs</a>: A javascript library for building user interfaces.
+ - <a href="https://facebook.github.io/flux/docs/overview.html"> Flux Architecture </a>
+ - <a href="https://facebook.github.io/jest/">  Jest: </a> For client testing
+ - <a href="https://mochajs.org/"> Mocha </a> and <a href="http://chaijs.com/"> chai </a>for server testing
 ## Limitations
 
 - Users cannot send picture
@@ -33,9 +44,11 @@ This application allows friends and colleagues to create groups for notification
 - Go to <a href="https://firebase.google.com/">Firebase</a> and ```Click Go To Console``` to add a new project
 - After getting setting your project, click ``` Add Firebase to Your Web App```. This will bring your security key
 - Create a ```.env``` file and set the variables in the  ```env-sample``` to your specified database connection
-- Start the server by running ```npm start```
+- Create a free account on gmail and add your email and password in ```.env``` file.
+- Create an account on <a href="https://www.nexmo.com/">  Nexmo </a> to get the Api key and secret which you will put in ```.env``` file.
+- Build the project by running ```npm run build```.
+- Start the server by running ```npm start``` and got to ```localhost:8000``` to view the app
 - Run `npm test ` for testing 
-- Run ```npm start ``` and visit ```localhost:8000``` to view the app locally
 
 ## FAQ
 To which branch should I raise a PR?
