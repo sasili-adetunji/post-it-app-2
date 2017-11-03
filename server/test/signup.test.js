@@ -165,7 +165,7 @@ describe('Signup route', () => {
     const newUser = {
       userName: faker.name.findName(),
       password: 'anothedad@email.com',
-      email: faker.name.email(),
+      email: faker.internet.email(),
       phoneNumber: '2348037817325',
     };
     chai.request(app)
@@ -173,8 +173,7 @@ describe('Signup route', () => {
       .send(newUser)
       .set('Accept', 'application/json')
       .end((err, res) => {
-        assert.equal(`Welcome ${newUser.email}. 
-          You have successfully registered. You can proceed to login now`,
+        assert.equal('Welcome, you have successfully registered. You can proceed to login now',
           res.body.message);
         assert.equal('200', res.statusCode);
         res.body.should.be.a('object');

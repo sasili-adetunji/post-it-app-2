@@ -47,8 +47,7 @@ export default {
           phoneNumber,
         });
         res.status(200).json({
-          message: `Welcome ${user.email}. 
-          You have successfully registered. You can proceed to login now`,
+          message: 'Welcome, you have successfully registered. You can proceed to login now',
           user,
         });
       })
