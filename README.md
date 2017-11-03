@@ -59,6 +59,19 @@ What are the features in the timeline
 - Ability to delete messages once sent
 - Ability to send pictures
 - Ability to remove oneself from group
+- Signin with Twitter
+- Signin with Facebook
+- More intuitive UI/UX
+## Acknowledgement 
+- Andela 
+- Bootcamp Facilitators 
+- Developers community
+- Friends and family 
+## Contributing
+- If you are planning on contributing to PostIt, that will be awesome. We welcome contributions. Just fork the repo and raise a PR.
+-  If you have other improvements you want to add, feel free to do so. Ensure you follow style guide in the <a href="https://github.com/sasili-adetunji/post-it-app-2/wiki">  wiki </a>
+
+
 ## Author
 This is done by ```Sasiliyu Adetunji```
 
@@ -67,12 +80,4 @@ This is done by ```Sasiliyu Adetunji```
 MIT © <a href="https://github.com/sasili-adetuni">Sasiliyu Adetunji </a>
 
 Licensed under the MIT License.
-## Acknowledgement 
-- Andela 
-- Bootcamp Facilitators 
-- Developers community
-- Friends and family 
-## Contributing
-- If you are planning on contributing to PostIt, that will be awesome. We welcome contributions. Just fork the repo and raise a PR.
--  If you have other improvements you want to add, feel free to do so. Ensure you follow style guide and adhere to Airbnb style guide
 
