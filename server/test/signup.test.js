@@ -162,9 +162,9 @@ describe('Signup route', () => {
   });
   it('should return 200 when a user successfully registered', (done) => {
     const newUser = {
-      userName: 'anotherguy',
-      password: 'anotheguy@email.com',
-      email: 'anotherguy@email.com',
+      userName: 'anotherdad',
+      password: 'anothedad@email.com',
+      email: 'anotherdad@email.com',
       phoneNumber: '2348037817325',
     };
     chai.request(app)
