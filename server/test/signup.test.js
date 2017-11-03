@@ -1,5 +1,6 @@
 
 import assert from 'assert';
+import faker from 'faker';
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import app from '../server';
@@ -162,9 +163,9 @@ describe('Signup route', () => {
   });
   it('should return 200 when a user successfully registered', (done) => {
     const newUser = {
-      userName: 'anotherdad',
+      userName: faker.name.findName(),
       password: 'anothedad@email.com',
-      email: 'anotherdad@email.com',
+      email: faker.name.email(),
       phoneNumber: '2348037817325',
     };
     chai.request(app)
