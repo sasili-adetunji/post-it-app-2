@@ -1,7 +1,9 @@
 **/node_modules
 **/.env
-npm debug-log
+npm-debug-log.2228679001
 .DS_Store
 .vscode
 serviceAccountKey.json
-coverage
+dist
+.vscode
+.nyc_output

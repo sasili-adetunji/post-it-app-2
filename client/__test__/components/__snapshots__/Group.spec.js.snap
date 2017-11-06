@@ -1,0 +1,111 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`User components should match snapshot test 1`] = `
+ShallowWrapper {
+  "complexSelector": ComplexSelector {
+    "buildPredicate": [Function],
+    "childrenOfNode": [Function],
+    "findWhereUnwrapped": [Function],
+  },
+  "length": 1,
+  "node": <div
+    className="side-menu-container list-group-item"
+  >
+    <a>
+       
+      <li
+        onClick={[Function]}
+      >
+        <b>
+           
+          sasil
+           
+        </b>
+      </li>
+       
+    </a>
+  </div>,
+  "nodes": Array [
+    <div
+      className="side-menu-container list-group-item"
+    >
+      <a>
+         
+        <li
+          onClick={[Function]}
+        >
+          <b>
+             
+            sasil
+             
+          </b>
+        </li>
+         
+      </a>
+    </div>,
+  ],
+  "options": Object {},
+  "renderer": ReactShallowRenderer {
+    "_context": Object {},
+    "_element": <Group
+      group={
+        Object {
+          "groupId": "UTsUlauteS5nb34huOP6SpvcuocX9vA1",
+          "groupName": "sasil",
+        }
+      }
+      onClick={[Function]}
+    />,
+    "_instance": Group {
+      "context": Object {},
+      "onClick": [Function],
+      "props": Object {
+        "group": Object {
+          "groupId": "UTsUlauteS5nb34huOP6SpvcuocX9vA1",
+          "groupName": "sasil",
+        },
+        "onClick": [Function],
+      },
+      "refs": Object {},
+      "state": Object {},
+      "updater": Updater {
+        "_renderer": [Circular],
+      },
+    },
+    "_newState": null,
+    "_rendered": <div
+      className="side-menu-container list-group-item"
+    >
+      <a>
+         
+        <li
+          onClick={[Function]}
+        >
+          <b>
+             
+            sasil
+             
+          </b>
+        </li>
+         
+      </a>
+    </div>,
+    "_rendering": false,
+    "_updater": Updater {
+      "_renderer": [Circular],
+    },
+    "getRenderOutput": [Function],
+    "render": [Function],
+  },
+  "root": [Circular],
+  "unrendered": <Group
+    group={
+      Object {
+        "groupId": "UTsUlauteS5nb34huOP6SpvcuocX9vA1",
+        "groupName": "sasil",
+      }
+    }
+    onClick={[Function]}
+  />,
+}
+`;

@@ -1,32 +1,13 @@
-// import all the route into a single index file
-import signup from './signup';
-import signin from './signin';
-import group from './group';
-import groupAdd from './groupAdd';
-import signout from './signout';
-import message from './message';
-import usersList from './usersList';
-import userGroup from './userGroup';
-import userMessage from './userMessage';
-import googleLogin from './googleLogin';
-import resetPassword from './resetPassword';
-import usersInGroup from './usersInGroup';
-import userReadMessage from './userReadMessage';
+import firebase from 'firebase';
+import users from './users';
+import messages from './messages';
+import groups from './groups';
+import config from '../config/database';
 
+firebase.initializeApp(config);
 
-const index = (app) => {
-  signup(app);
-  signin(app);
-  signout(app);
-  group(app);
-  message(app);
-  groupAdd(app);
-  usersList(app);
-  userMessage(app);
-  userGroup(app);
-  googleLogin(app);
-  resetPassword(app);
-  usersInGroup(app);
-  userReadMessage(app);
+module.exports = (app) => {
+  users(app);
+  groups(app);
+  messages(app);
 };
-export default index;

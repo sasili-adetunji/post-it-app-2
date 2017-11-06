@@ -4,15 +4,15 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test:watch": "jest --watch",
-    "test:client": "jest",
     "test:coverage": "jest --coverage",
-    "coverage-report": "cat ./coverage/lcov.info | coveralls",
-    "test:api": "NODE_ENV=test mocha --timeout 75000 --compilers js:babel-register server/test/apiTest.js",
-    "build": "babel server/ -d dist && babel client/ -d dist",
-    "start": "NODE_ENV=development webpack && babel-node ./server/server.js",
-    "nodemon": "nodemon --watch server --exec babel-node -- server/server.js",
-    "dev": "webpack-dev-server --hot & npm start"
+    "coverage": "nyc report --reporter=text-lcov > coverage.lcov && codecov --token=1ed1c47c-357d-496c-828e-b7b755b088a8",
+    "test:client": "jest __test__",
+    "test:server": "nyc --reporter=html --reporter=text --reporter=lcov mocha --compilers js:babel-core/register server/test/**.js --timeout 1500000",
+    "test": "npm run test:client && npm run test:server && npm run coverage",
+    "build": "webpack --config ./webpack.config.js",
+    "heroku-postbuild": "babel-node ./client/build.js",
+    "start:dev": "webpack --config ./webpack.config.dev.js && babel-node ./server/server.js",
+    "start": "NODE_ENV=production nodemon --exec babel-node server/server.js"
   },
   "repository": {
     "type": "git",
@@ -34,6 +34,7 @@
     "babel-plugin-react-html-attrs": "^2.0.0",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-plugin-transform-decorators-legacy": "^1.3.4",
+    "babel-polyfill": "^6.26.0",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
@@ -43,15 +44,19 @@
     "coveralls": "^2.13.1",
     "css-loader": "^0.28.4",
     "dotenv": "^4.0.0",
+    "dotenv-webpack": "^1.5.4",
     "eslint": "^3.19.0",
     "eslint-config-airbnb-base": "^11.2.0",
     "eslint-plugin-import": "^2.3.0",
     "expect": "^1.20.2",
     "express": "^4.15.3",
+    "express-validator": "^4.2.1",
+    "faker": "^4.1.0",
     "firebase": "^4.0.0",
     "firebase-tools": "^3.9.1",
     "flux": "^3.1.2",
     "history": "^4.6.1",
+    "html-webpack-plugin": "^2.30.1",
     "istanbul": "^0.4.5",
     "jquery": "^3.2.1",
     "jsonwebtoken": "^7.4.3",
@@ -64,13 +69,14 @@
     "node-sass": "^4.5.3",
     "nodemailer": "^4.0.1",
     "nodemailer-smtp-transport": "^2.7.4",
-    "nodemon": "^1.11.0",
+    "nodemon": "^1.12.1",
     "nyc": "^11.1.0",
     "object-assign": "^4.1.1",
     "prop-types": "^15.5.10",
     "react": "^15.6.1",
     "react-addons": "^0.9.1-deprecated",
     "react-addons-test-utils": "~15.6.0",
+    "react-bootstrap": "^0.31.3",
     "react-dom": "^15.5.4",
     "react-google-button": "^0.3.0",
     "react-router": "^0.13.3",
@@ -79,9 +85,11 @@
     "rimraf": "^2.6.1",
     "sass-loader": "^6.0.5",
     "should": "^11.2.1",
+    "sinon": "^4.0.1",
     "style-loader": "^0.18.1",
     "supertest": "^3.0.0",
     "toastr": "^2.1.2",
+    "uglifyjs-webpack-plugin": "^1.0.1",
     "webpack": "^2.6.1",
     "webpack-dev-server": "^2.4.5"
   },
@@ -91,6 +99,7 @@
     "babel-preset-es2015": "^6.24.1",
     "chai": "^4.1.2",
     "chai-http": "^3.0.0",
+    "codecov": "^2.3.1",
     "enzyme": "^2.9.1",
     "eslint": "^3.19.0",
     "eslint-config-airbnb": "^15.0.1",
@@ -98,9 +107,36 @@
     "eslint-plugin-jsx-a11y": "^5.0.3",
     "eslint-plugin-react": "^7.0.1",
     "extract-text-webpack-plugin": "^2.1.0",
-    "jest": "^20.0.4",
+    "jest": "^21.2.1",
+    "jsdom": "^11.3.0",
     "nodemon": "^1.11.0",
     "react-addons-test-utils": "^15.6.0",
-    "react-scripts": "^1.0.7"
+    "react-dom": "^15.6.2",
+    "react-scripts": "^1.0.7",
+    "react-test-renderer": "^16.0.0"
+  },
+  "jest": {
+    "roots": [
+      "<rootDir>/client/__test__"
+    ],
+    "testEnvironment": "node",
+    "moduleFileExtensions": [
+      "js",
+      "jsx"
+    ],
+    "unmockedModulePathPatterns": [
+      "react"
+    ],
+    "collectCoverage": true,
+    "setupFiles": [
+      "<rootDir>/client/__mocks__/localStorage"
+    ],
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "/server/test/"
+    ],
+    "coveragePathIgnorePatterns": [
+      "localStorage"
+    ]
   }
 }

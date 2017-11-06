@@ -1,0 +1,181 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MessageBox components should match snapshot test 1`] = `
+ShallowWrapper {
+  "complexSelector": ComplexSelector {
+    "buildPredicate": [Function],
+    "childrenOfNode": [Function],
+    "findWhereUnwrapped": [Function],
+  },
+  "length": 1,
+  "node": <div
+    className="sendMessageDiv"
+  >
+    <strong
+      className="error"
+    >
+       
+      
+       
+    </strong>
+    <form
+      onSubmit={[Function]}
+    >
+      <div
+        className="form-group col-sm-2"
+      >
+        <select
+          className="form-control"
+          id="exampleFormControlSelect1"
+          name="priorityLevel"
+          onChange={[Function]}
+          value=""
+        >
+          <option>
+            Normal
+          </option>
+          <option>
+            Urgent
+          </option>
+          <option>
+            Critical
+          </option>
+        </select>
+      </div>
+      <input
+        className="col-sm-10 sendMessageInput"
+        name="message"
+        onChange={[Function]}
+        placeholder="Enter a message"
+        value=""
+      />
+    </form>
+  </div>,
+  "nodes": Array [
+    <div
+      className="sendMessageDiv"
+    >
+      <strong
+        className="error"
+      >
+         
+        
+         
+      </strong>
+      <form
+        onSubmit={[Function]}
+      >
+        <div
+          className="form-group col-sm-2"
+        >
+          <select
+            className="form-control"
+            id="exampleFormControlSelect1"
+            name="priorityLevel"
+            onChange={[Function]}
+            value=""
+          >
+            <option>
+              Normal
+            </option>
+            <option>
+              Urgent
+            </option>
+            <option>
+              Critical
+            </option>
+          </select>
+        </div>
+        <input
+          className="col-sm-10 sendMessageInput"
+          name="message"
+          onChange={[Function]}
+          placeholder="Enter a message"
+          value=""
+        />
+      </form>
+    </div>,
+  ],
+  "options": Object {},
+  "renderer": ReactShallowRenderer {
+    "_context": Object {},
+    "_element": <MessageBox
+      onChange={[Function]}
+      onClick={[Function]}
+    />,
+    "_instance": MessageBox {
+      "context": Object {},
+      "onChange": [Function],
+      "onClick": [Function],
+      "props": Object {
+        "onChange": [Function],
+        "onClick": [Function],
+      },
+      "refs": Object {},
+      "state": Object {
+        "error": "",
+        "message": "",
+        "priorityLevel": "",
+      },
+      "updater": Updater {
+        "_renderer": [Circular],
+      },
+    },
+    "_newState": null,
+    "_rendered": <div
+      className="sendMessageDiv"
+    >
+      <strong
+        className="error"
+      >
+         
+        
+         
+      </strong>
+      <form
+        onSubmit={[Function]}
+      >
+        <div
+          className="form-group col-sm-2"
+        >
+          <select
+            className="form-control"
+            id="exampleFormControlSelect1"
+            name="priorityLevel"
+            onChange={[Function]}
+            value=""
+          >
+            <option>
+              Normal
+            </option>
+            <option>
+              Urgent
+            </option>
+            <option>
+              Critical
+            </option>
+          </select>
+        </div>
+        <input
+          className="col-sm-10 sendMessageInput"
+          name="message"
+          onChange={[Function]}
+          placeholder="Enter a message"
+          value=""
+        />
+      </form>
+    </div>,
+    "_rendering": false,
+    "_updater": Updater {
+      "_renderer": [Circular],
+    },
+    "getRenderOutput": [Function],
+    "render": [Function],
+  },
+  "root": [Circular],
+  "unrendered": <MessageBox
+    onChange={[Function]}
+    onClick={[Function]}
+  />,
+}
+`;

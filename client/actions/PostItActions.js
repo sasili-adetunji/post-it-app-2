@@ -1,4 +1,3 @@
-
 import PostItDispatcher from '../dispatcher/PostItDispatcher';
 import PostItConstants from '../constants/PostItConstants';
 
@@ -8,9 +7,9 @@ const PostItActions = {
    * @param {any} user
    */
   login(user) {
-    PostItDispatcher.dispatch({
+    PostItDispatcher.handleViewAction({
       actionType: PostItConstants.LOGIN_USER,
-      user
+      user,
     });
   },
 
@@ -18,9 +17,10 @@ const PostItActions = {
  * signs in user with google & dispatches actions
  * @returns {void}
  */
-  googleLogin() {
-    PostItDispatcher.dispatch({
-      actionType: PostItConstants.GOOGLE_LOGIN
+  googleLogin(result) {
+    PostItDispatcher.handleViewAction({
+      actionType: PostItConstants.GOOGLE_LOGIN,
+      result,
     });
   },
 
@@ -30,9 +30,9 @@ const PostItActions = {
    * @function
    */
   registerUser(user) {
-    PostItDispatcher.dispatch({
+    PostItDispatcher.handleViewAction({
       actionType: PostItConstants.REGISTER_USER,
-      user
+      user,
     });
   },
 
@@ -41,28 +41,35 @@ const PostItActions = {
    * @param {any} errors
    */
   receiveErrors(errors) {
-    PostItDispatcher.dispatch({
+    PostItDispatcher.handleViewAction({
       actionType: PostItConstants.RECEIVE_ERRORS,
-      errors
+      errors,
     });
   },
-
   /**
    * recieves success message and dispatches actions
    * @param {any} message
    */
   receiveSuccess(message) {
-    PostItDispatcher.dispatch({
+    PostItDispatcher.handleViewAction({
       actionType: PostItConstants.RECEIVE_SUCCESS,
-      message
-
+      message,
     });
   },
-  receiveReadUsers(user) {
-    PostItDispatcher.dispatch({
+    /**
+   * recieves success message and dispatches actions
+   * @param {any} message
+   */
+  receiveLoginSuccess(message) {
+    PostItDispatcher.handleViewAction({
+      actionType: PostItConstants.RECEIVE_LOGIN_SUCCESS,
+      message,
+    });
+  },
+  receiveReadUsers(message) {
+    PostItDispatcher.handleViewAction({
       actionType: PostItConstants.RECEIVE_READ_USERS,
-      user
-
+      message,
     });
   },
   /**
@@ -70,10 +77,9 @@ const PostItActions = {
    * @param {any} group
    */
   createGroup(group) {
-    PostItDispatcher.dispatch({
+    PostItDispatcher.handleViewAction({
       actionType: PostItConstants.CREATE_GROUP,
-      group
-
+      group,
     });
   },
 
@@ -82,9 +88,9 @@ const PostItActions = {
    * @param {any} user
    */
   addUserToGroup(user) {
-    PostItDispatcher.dispatch({
+    PostItDispatcher.handleViewAction({
       actionType: PostItConstants.ADDUSER_GROUP,
-      user
+      user,
 
     });
   },
@@ -93,10 +99,9 @@ const PostItActions = {
   * @param {any} message
   */
   addMessage(message) {
-    PostItDispatcher.dispatch({
+    PostItDispatcher.handleViewAction({
       actionType: PostItConstants.ADD_MESSAGE,
-      message
-
+      message,
     });
   },
 
@@ -105,10 +110,9 @@ const PostItActions = {
    * @param {any} email
    */
   resetPassword(email) {
-    PostItDispatcher.dispatch({
+    PostItDispatcher.handleViewAction({
       actionType: PostItConstants.RESET_PASSWORD,
-      email
-
+      email,
     });
   },
 
@@ -117,32 +121,30 @@ const PostItActions = {
    *
    */
   signOutUser() {
-    PostItDispatcher.dispatch({
-      actionType: PostItConstants.SIGNOUT_USER
-
+    PostItDispatcher.handleViewAction({
+      actionType: PostItConstants.SIGNOUT_USER,
     });
   },
-
-  /**
+    /**
    * recieve messages and dispatches action
    * @param {any} messages
    */
-  receiveMessages(messages) {
-    PostItDispatcher.dispatch({
-      actionType: PostItConstants.RECEIVE_MESSAGES,
-      messages
-
+  getUserMessages(messages) {
+    PostItDispatcher.handleViewAction({
+      actionType: PostItConstants.GET_USER_MESSAGES,
+      messages,
     });
   },
+
 
   /**
    * recieves user groups and dispatches action
    * @param {any} groups
    */
   receiveUserGroups(groups) {
-    PostItDispatcher.dispatch({
+    PostItDispatcher.handleViewAction({
       actionType: PostItConstants.RECEIVE_USER_GROUPS,
-      groups
+      groups,
 
     });
   },
@@ -153,9 +155,9 @@ const PostItActions = {
    * @param {any} users
    */
   receiveUsers(users) {
-    PostItDispatcher.dispatch({
+    PostItDispatcher.handleViewAction({
       actionType: PostItConstants.RECEIVE_USERS,
-      users
+      users,
 
     });
   },
@@ -166,10 +168,9 @@ const PostItActions = {
    * @param {any} user
    */
   receiveAuthenticatedUser(user) {
-    PostItDispatcher.dispatch({
+    PostItDispatcher.handleViewAction({
       actionType: PostItConstants.RECEIVE_AUTHENTICATED_USER,
-      user
-
+      user,
     });
   },
 
@@ -179,12 +180,17 @@ const PostItActions = {
    * @param {any} selectedGroup
    */
   groupOpened(selectedGroup) {
-    PostItDispatcher.dispatch({
+    PostItDispatcher.handleViewAction({
       actionType: PostItConstants.GROUP_OPENED,
-      selectedGroup
-
+      selectedGroup,
     });
-  }
+  },
+  recieveUsersInGroups(group) {
+    PostItDispatcher.handleViewAction({
+      actionType: PostItConstants.RECIEVE_USERS_IN_GROUPS,
+      group,
+    });
+  },
 };
 
 export default PostItActions;

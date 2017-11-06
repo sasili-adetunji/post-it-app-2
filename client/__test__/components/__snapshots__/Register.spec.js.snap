@@ -1,0 +1,337 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Register should match snapshot test 1`] = `
+ShallowWrapper {
+  "complexSelector": ComplexSelector {
+    "buildPredicate": [Function],
+    "childrenOfNode": [Function],
+    "findWhereUnwrapped": [Function],
+  },
+  "length": 1,
+  "node": <div>
+    <MuiThemeProvider>
+      <Card
+        className="card"
+        expandable={false}
+        expanded={null}
+        initiallyExpanded={false}
+      >
+        <CardTitle
+          subtitle="To continue using PostIt, you need to register below"
+          title="Signup Form"
+        />
+        <TextField
+          disabled={false}
+          floatingLabelFixed={false}
+          floatingLabelText="Choose Username"
+          fullWidth={false}
+          multiLine={false}
+          name="userName"
+          onChange={[Function]}
+          rows={1}
+          type="text"
+          underlineShow={true}
+          value=""
+        />
+        <br />
+        <TextField
+          disabled={false}
+          floatingLabelFixed={false}
+          floatingLabelText="Your Email"
+          fullWidth={false}
+          multiLine={false}
+          name="email"
+          onChange={[Function]}
+          rows={1}
+          type="text"
+          underlineShow={true}
+          value=""
+        />
+        <br />
+        <TextField
+          disabled={false}
+          floatingLabelFixed={false}
+          floatingLabelText="Choose Password"
+          fullWidth={false}
+          multiLine={false}
+          name="password"
+          onChange={[Function]}
+          rows={1}
+          type="password"
+          underlineShow={true}
+          value=""
+        />
+        <br />
+        <TextField
+          disabled={false}
+          floatingLabelFixed={false}
+          floatingLabelText="Phone Number"
+          fullWidth={false}
+          multiLine={false}
+          name="phoneNumber"
+          onChange={[Function]}
+          rows={1}
+          type="text"
+          underlineShow={true}
+        />
+        <br />
+        <br />
+        <p>
+           Already Have an account,
+          <Link
+            replace={false}
+            to="/signin"
+          >
+             Login here 
+          </Link>
+           
+        </p>
+        <RaisedButton
+          disabled={false}
+          fullWidth={false}
+          label="Sign Up"
+          labelPosition="after"
+          onClick={[Function]}
+          onTouchTap={undefined}
+          primary={true}
+          secondary={false}
+        />
+      </Card>
+    </MuiThemeProvider>
+  </div>,
+  "nodes": Array [
+    <div>
+      <MuiThemeProvider>
+        <Card
+          className="card"
+          expandable={false}
+          expanded={null}
+          initiallyExpanded={false}
+        >
+          <CardTitle
+            subtitle="To continue using PostIt, you need to register below"
+            title="Signup Form"
+          />
+          <TextField
+            disabled={false}
+            floatingLabelFixed={false}
+            floatingLabelText="Choose Username"
+            fullWidth={false}
+            multiLine={false}
+            name="userName"
+            onChange={[Function]}
+            rows={1}
+            type="text"
+            underlineShow={true}
+            value=""
+          />
+          <br />
+          <TextField
+            disabled={false}
+            floatingLabelFixed={false}
+            floatingLabelText="Your Email"
+            fullWidth={false}
+            multiLine={false}
+            name="email"
+            onChange={[Function]}
+            rows={1}
+            type="text"
+            underlineShow={true}
+            value=""
+          />
+          <br />
+          <TextField
+            disabled={false}
+            floatingLabelFixed={false}
+            floatingLabelText="Choose Password"
+            fullWidth={false}
+            multiLine={false}
+            name="password"
+            onChange={[Function]}
+            rows={1}
+            type="password"
+            underlineShow={true}
+            value=""
+          />
+          <br />
+          <TextField
+            disabled={false}
+            floatingLabelFixed={false}
+            floatingLabelText="Phone Number"
+            fullWidth={false}
+            multiLine={false}
+            name="phoneNumber"
+            onChange={[Function]}
+            rows={1}
+            type="text"
+            underlineShow={true}
+          />
+          <br />
+          <br />
+          <p>
+             Already Have an account,
+            <Link
+              replace={false}
+              to="/signin"
+            >
+               Login here 
+            </Link>
+             
+          </p>
+          <RaisedButton
+            disabled={false}
+            fullWidth={false}
+            label="Sign Up"
+            labelPosition="after"
+            onClick={[Function]}
+            onTouchTap={undefined}
+            primary={true}
+            secondary={false}
+          />
+        </Card>
+      </MuiThemeProvider>
+    </div>,
+  ],
+  "options": Object {},
+  "renderer": ReactShallowRenderer {
+    "_context": Object {},
+    "_element": <Register
+      componentDidMount={[Function]}
+      componentWillUnmount={[Function]}
+      onChange={[Function]}
+      onClick={[Function]}
+      onError={[Function]}
+    />,
+    "_instance": Register {
+      "context": Object {},
+      "onChange": [Function],
+      "onClick": [Function],
+      "onError": [Function],
+      "props": Object {
+        "componentDidMount": [Function],
+        "componentWillUnmount": [Function],
+        "onChange": [Function],
+        "onClick": [Function],
+        "onError": [Function],
+      },
+      "refs": Object {},
+      "state": Object {
+        "email": "",
+        "errors": "",
+        "password": "",
+        "phoneNumber": "",
+        "userName": "",
+      },
+      "updater": Updater {
+        "_renderer": [Circular],
+      },
+    },
+    "_newState": null,
+    "_rendered": <div>
+      <MuiThemeProvider>
+        <Card
+          className="card"
+          expandable={false}
+          expanded={null}
+          initiallyExpanded={false}
+        >
+          <CardTitle
+            subtitle="To continue using PostIt, you need to register below"
+            title="Signup Form"
+          />
+          <TextField
+            disabled={false}
+            floatingLabelFixed={false}
+            floatingLabelText="Choose Username"
+            fullWidth={false}
+            multiLine={false}
+            name="userName"
+            onChange={[Function]}
+            rows={1}
+            type="text"
+            underlineShow={true}
+            value=""
+          />
+          <br />
+          <TextField
+            disabled={false}
+            floatingLabelFixed={false}
+            floatingLabelText="Your Email"
+            fullWidth={false}
+            multiLine={false}
+            name="email"
+            onChange={[Function]}
+            rows={1}
+            type="text"
+            underlineShow={true}
+            value=""
+          />
+          <br />
+          <TextField
+            disabled={false}
+            floatingLabelFixed={false}
+            floatingLabelText="Choose Password"
+            fullWidth={false}
+            multiLine={false}
+            name="password"
+            onChange={[Function]}
+            rows={1}
+            type="password"
+            underlineShow={true}
+            value=""
+          />
+          <br />
+          <TextField
+            disabled={false}
+            floatingLabelFixed={false}
+            floatingLabelText="Phone Number"
+            fullWidth={false}
+            multiLine={false}
+            name="phoneNumber"
+            onChange={[Function]}
+            rows={1}
+            type="text"
+            underlineShow={true}
+          />
+          <br />
+          <br />
+          <p>
+             Already Have an account,
+            <Link
+              replace={false}
+              to="/signin"
+            >
+               Login here 
+            </Link>
+             
+          </p>
+          <RaisedButton
+            disabled={false}
+            fullWidth={false}
+            label="Sign Up"
+            labelPosition="after"
+            onClick={[Function]}
+            onTouchTap={undefined}
+            primary={true}
+            secondary={false}
+          />
+        </Card>
+      </MuiThemeProvider>
+    </div>,
+    "_rendering": false,
+    "_updater": Updater {
+      "_renderer": [Circular],
+    },
+    "getRenderOutput": [Function],
+    "render": [Function],
+  },
+  "root": [Circular],
+  "unrendered": <Register
+    componentDidMount={[Function]}
+    componentWillUnmount={[Function]}
+    onChange={[Function]}
+    onClick={[Function]}
+    onError={[Function]}
+  />,
+}
+`;
