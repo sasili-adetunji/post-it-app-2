@@ -1,23 +1,13 @@
 
 import userControllers from '../controllers/users';
+import tokenAuth from '../middlewares/tokenAuth';
+
 
 module.exports = (app) => {
-  app.post('/user/signup', (req, res) => {
-    userControllers.signup(req, res);
-  });
-  app.post('/user/signin', (req, res) => {
-    userControllers.signin(req, res);
-  });
-  app.get('/user/signout', (req, res) => {
-    userControllers.signout(req, res);
-  });
-  app.post('/user/reset', (req, res) => {
-    userControllers.resetPassword(req, res);
-  });
-  app.get('/user/users', (req, res) => {
-    userControllers.usersList(req, res);
-  });
-  app.post('/user/google', (req, res) => {
-    userControllers.googleLogin(req, res);
-  });
+  app.post('/user/signup', userControllers.signup);
+  app.post('/user/signin', userControllers.signin);
+  app.get('/user/signout', userControllers.signout);
+  app.post('/user/reset', userControllers.resetPassword);
+  app.get('/user/users', tokenAuth, userControllers.usersList);
+  app.post('/user/google', userControllers.googleLogin);
 };

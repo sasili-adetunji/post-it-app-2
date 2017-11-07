@@ -1,5 +1,6 @@
 import axios from 'axios';
 import toastr from 'toastr';
+import setAuthorizationToken from '../utils/setAuthorizationToken';
 import PostItActions from '../actions/PostItActions';
 import PostItStore from '../stores/PostItStore';
 
@@ -17,11 +18,14 @@ export const registerNewUser = (user) => {
     phoneNumber: user.phoneNumber,
   })
   .then((response) => {
-    PostItActions.receiveSuccess(response.data.message);
+    const token = response.data.token;
+    setAuthorizationToken(token);
+    localStorage.setItem('jwtToken', token); // eslint-disable-line
+    PostItActions.receiveLoginSuccess(response.data.user);
     toastr.success(response.data.message);
   })
   .catch((error) => {
-    PostItActions.receiveErrors(error.response.data.message);
+    // PostItActions.receiveErrors(error.response.data.message);
     toastr.error(error.response.data.message);
   });
 };
@@ -37,6 +41,9 @@ export const signinUser = (user) => {
     password: user.password,
   })
     .then((response) => {
+      const token = response.data.token;
+      setAuthorizationToken(token);
+      localStorage.setItem('jwtToken', token); // eslint-disable-line
       PostItActions.receiveLoginSuccess(response.data.user);
       toastr.success(response.data.message);
     })
@@ -52,8 +59,9 @@ export const signinUser = (user) => {
 export const signoutUser = () => {
   axios.get('/user/signout')
     .then((response) => {
-      PostItActions.receiveSuccess(response.data.message);
-      localStorage.removeItem('user'); // eslint-disable-line
+      setAuthorizationToken(false);
+      // PostItActions.receiveSuccess(response.data.message);
+      localStorage.removeItem('jwtToken'); // eslint-disable-line
       toastr.success(response.data.message);
     })
     .catch((error) => {
@@ -83,7 +91,7 @@ export const googleLogin = (result) => {
 export const createNewGroup = (group) => {
   axios.post('/group', {
     groupName: group.groupName,
-    userName: group.userName,
+    // userName: group.userName,
   }).then((response) => {
     PostItActions.receiveSuccess(response.message);
     toastr.success(response.data.message);

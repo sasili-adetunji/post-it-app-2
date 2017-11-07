@@ -11,7 +11,7 @@
     "test": "npm run test:client && npm run test:server && npm run coverage",
     "build": "webpack --config ./webpack.config.js",
     "heroku-postbuild": "babel-node ./client/build.js",
-    "start:dev": "webpack --config ./webpack.config.dev.js && babel-node ./server/server.js",
+    "start:dev": "NODE_ENV=development nodemon --exec babel-node server/server.js",
     "start": "NODE_ENV=production nodemon --exec babel-node server/server.js"
   },
   "repository": {
@@ -91,7 +91,9 @@
     "toastr": "^2.1.2",
     "uglifyjs-webpack-plugin": "^1.0.1",
     "webpack": "^2.6.1",
-    "webpack-dev-server": "^2.4.5"
+    "webpack-dev-middleware": "^1.12.0",
+    "webpack-dev-server": "^2.4.5",
+    "webpack-hot-middleware": "^2.20.0"
   },
   "devDependencies": {
     "assert": "^1.4.1",

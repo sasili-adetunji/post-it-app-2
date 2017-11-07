@@ -230,7 +230,7 @@ PostItDispatcher.register((payload) => {
       PostItStore.setIsAuthenticated(true);
       PostItStore.receiveSuccess(action.message.message);
       PostItStore.setLoggedInUser(action.message);
-      localStorage.setItem('user', action.message.stsTokenManager.accessToken); // eslint-disable-line
+      // localStorage.setItem('user', action.message.stsTokenManager.accessToken); // eslint-disable-line
       PostItStore.emitChange('change');
       break;
 

@@ -44,7 +44,7 @@ class CreateGroup extends React.Component {
     event.preventDefault();
     const group = {
       groupName: this.state.groupName,
-      userName: this.props.userName.displayName
+      // userName: this.props.userName.displayName
     };
     PostItActions.createGroup(group);
     API.getUserGroups();

@@ -1,4 +1,5 @@
 import firebase from 'firebase';
+import jwt from 'jsonwebtoken';
 
 
 /**
@@ -37,24 +38,27 @@ export default {
     } else {
       firebase.auth().createUserWithEmailAndPassword(email, password)
       .then((user) => {
-        user.updateProfile({
-          displayName: userName,
-        });
         firebase.database().ref(`users/${user.uid}`)
         .set({
           userName,
           email,
           phoneNumber,
-        });
-        res.status(200).json({
-          message: 'Welcome, you have successfully registered. You can proceed to login now',
-          user,
-        });
-      })
+        }).then(() => {
+          const uid = user.uid;
+          const token = jwt.sign({
+            data: {
+              uid,
+              userName,
+              email,
+            }
+          }, process.env.TOKEN_SECRET, { expiresIn: '24h' });
+          res.status(201).send({ message: 'Signup was successful', token, user });
+        })
       .catch((error) => {
         res.status(403).json({
           message: error.message,
         });
+      });
       });
     }
   },
@@ -85,10 +89,16 @@ export default {
     } else {
       firebase.auth().signInWithEmailAndPassword(email, password)
       .then((user) => {
-        res.status(200).json({
-          message: 'Success: you have successfuly signed in.',
-          user,
-        });
+        const uid = user.uid;
+        const userName = user.displayName;
+        const token = jwt.sign({
+          data: {
+            uid,
+            userName,
+            email,
+          }
+        }, process.env.TOKEN_SECRET, { expiresIn: '24h' });
+        res.status(201).send({ message: 'Success: you have successfuly signed in.', token, user });
       })
       .catch((error) => {
         res.status(403).json({
@@ -158,8 +168,8 @@ export default {
  * @return {Object} response containing all the users
  */
   usersList(req, res) {
-    const user = firebase.auth().currentUser;
-    if (user) {
+    const userData = req.decoded.data;
+    if (userData) {
       // create an empty array to hold the users
       const users = [];
       firebase.database().ref('users/').once('value', (msg) => {

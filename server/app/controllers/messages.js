@@ -38,7 +38,7 @@ export default {
  * @return {Object} response containing the posted message
  */
   message(req, res) {
-    const { message, groupId, priorityLevel, date, author } = req.body;
+    const { message, groupId, priorityLevel, date } = req.body;
 
     // validating  using express-validator
 
@@ -49,12 +49,12 @@ export default {
       res.status(400).json({ errorMessage });
     } else {
       const messages = [];
-      const user = firebase.auth().currentUser;
-      if (user) {
+      const userData = req.decoded.data;
+      if (userData) {
         const messageKey = firebase.database().ref(`groups/${groupId}/messages`)
         .push({
           message,
-          author,
+          author: userData.userName,
           date,
           priorityLevel,
         }).key;
@@ -64,7 +64,7 @@ export default {
             firebase.database().ref(`users/${childSnapShot.val().userId}/groups/${groupId}/messages/${messageKey}`)
               .set({
                 message,
-                author,
+                author: userData.userName,
                 date,
                 priorityLevel,
                 status: 'Unread',
@@ -96,7 +96,7 @@ export default {
             const messageDetails = {
               messageId: messageKey,
               messageText: message,
-              author,
+              author: userData.userName,
               priorityLevel,
               date,
               status: 'Unread',
@@ -129,10 +129,10 @@ export default {
  */
 
   userMessage(req, res) {
-    const user = firebase.auth().currentUser;
-    if (user) {
+    const userData = req.decoded.data;
+    if (userData) {
       const messages = [];
-      const messageRef = firebase.database().ref(`users/${user.uid}/groups/${req.params.groupId}/messages/`);
+      const messageRef = firebase.database().ref(`users/${userData.uid}/groups/${req.params.groupId}/messages/`);
       messageRef.once('value', (snapshot) => {
         snapshot.forEach((childSnapShot) => {
           const message = {
@@ -144,14 +144,14 @@ export default {
             status: childSnapShot.val().status,
           };
           messages.push(message);
-          firebase.database().ref(`users/${user.uid}/groups/${req.params.groupId}/messages/${childSnapShot.key}/`)
+          firebase.database().ref(`users/${userData.uid}/groups/${req.params.groupId}/messages/${childSnapShot.key}/`)
             .update({
               status: 'Read',
             });
-          firebase.database().ref(`readUsers/${childSnapShot.key}/${user.uid}`)
+          firebase.database().ref(`readUsers/${childSnapShot.key}/${userData.uid}`)
             .set({
-              userId: user.uid,
-              userName: user.displayName,
+              userId: userData.uid,
+              userName: userData.userName,
             });
         });
       })
@@ -181,8 +181,8 @@ export default {
  */
 
   userReadMessage(req, res) {
-    const user = firebase.auth().currentUser;
-    if (user) {
+    const userData = req.decoded.data;
+    if (userData) {
       const readUsers = [];
       firebase.database().ref(`readUsers/${req.params.messageId}`)
       .orderByChild('userName').once('value', (snapshot) => {

@@ -17,23 +17,23 @@ export default {
 
   group(req, res) {
     const groups = [];
-    const { groupName, userName } = req.body;
+    const { groupName } = req.body;
     req.check('groupName', 'Please enter a valid group name').notEmpty();
     const errors = req.validationErrors();
     if (errors) {
       const message = errors[0].msg;
       res.status(400).json({ message });
     } else {
-      const user = firebase.auth().currentUser;
-      if (user) {
+      const userData = req.decoded.data;
+      if (userData) {
         const groupKey = firebase.database().ref('groups/').push({
           groupName,
-          groupAdmin: user.email,
+          groupAdmin: userData.email,
         }).key;
-        firebase.database().ref(`groups/${groupKey}/users/${user.uid}`)
+        firebase.database().ref(`groups/${groupKey}/users/${userData.uid}`)
         .set({
-          userId: user.uid,
-          userName,
+          userId: userData.uid,
+          userName: userData.userName,
         })
         .then(() => {
           const groupDetails = {
@@ -43,7 +43,7 @@ export default {
           groups.push(groupDetails);
         })
         .then(() => {
-          firebase.database().ref(`users/${user.uid}/groups/${groupKey}/groupInfo`)
+          firebase.database().ref(`users/${userData.uid}/groups/${groupKey}/groupInfo`)
             .set({
               groupId: groupKey,
               groupName,
@@ -83,8 +83,8 @@ export default {
       const message = errors[0].msg;
       res.status(400).json({ message });
     } else {
-      const user = firebase.auth().currentUser;
-      if (user) {
+      const userData = req.decoded.data;
+      if (userData) {
         firebase.database().ref(`groups/${groupId}/users/${userId}/`).set({
           userId,
           userName,
@@ -124,8 +124,8 @@ export default {
  */
 
   usersInGroup(req, res) {
-    const user = firebase.auth().currentUser;
-    if (user) {
+    const userData = req.decoded.data;
+    if (userData) {
       // create an empty array to hold the users
       const users = [];
       firebase.database().ref(`/groups/${req.params.groupId}/users`)
@@ -163,10 +163,10 @@ export default {
  * @return {Object} response containing list of all groups of a particular user
  */
   userGroup(req, res) {
-    const user = firebase.auth().currentUser;
-    if (user) {
+    const userData = req.decoded.data;
+    if (userData) {
       const groups = [];
-      firebase.database().ref(`users/${user.uid}/groups/`)
+      firebase.database().ref(`users/${userData.uid}/groups/`)
         .orderByKey().once('value', (snapshot) => {
           snapshot.forEach((childSnapShot) => {
             const group = {
