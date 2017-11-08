@@ -9,10 +9,9 @@
     "test:client": "jest __test__",
     "test:server": "nyc --reporter=html --reporter=text --reporter=lcov mocha --compilers js:babel-core/register server/test/**.js --timeout 1500000",
     "test": "npm run test:client && npm run test:server && npm run coverage",
-    "build": "webpack --config ./webpack.config.js",
+    "start": "NODE_ENV=production nodemon --exec babel-node server/server.js",
     "heroku-postbuild": "babel-node ./client/build.js",
-    "start:dev": "NODE_ENV=development nodemon --exec babel-node server/server.js",
-    "start": "NODE_ENV=production nodemon --exec babel-node server/server.js"
+    "start:dev": "NODE_ENV=development webpack --config ./webpack.config.js && babel-node ./server/server.js"
   },
   "repository": {
     "type": "git",

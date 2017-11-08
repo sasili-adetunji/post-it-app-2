@@ -10,6 +10,7 @@ import * as API from '../../Api';
  * cretes grouplist components
  *
  * @class GroupList
+ * 
  * @extends {React.Component}
  */
 class GroupList extends React.Component {
@@ -38,18 +39,25 @@ class GroupList extends React.Component {
     });
   }
 
+
 /**
-   * @method componentDidUnmount
-   * @description adds event Listener from the Store, fetches API call to get users and user groups
-   * @memberof MessageList
-  */
+ * @method componentDidUnmount
+ * 
+ * @description adds event Listener from the Store, fetches API call to get users and user groups
+ * 
+ * @memberof GroupList
+*/
   componentDidMount() {
     PostItStore.addChangeListener(this.onChange);
   }
+
+
   /**
    * @method componentWillUnmount
+   * 
    * @description removes event Listener from the Store
-   * @memberof Dashboard
+   * 
+   * @memberof GroupList
   */
 
   componentWillUnmount() {
@@ -59,9 +67,11 @@ class GroupList extends React.Component {
 
     /**
    * @method render
+   * 
    * Render react component
    * 
    * @returns {String} The HTML markup for the GroupList Components
+   * 
    * @memberof GroupList
    */
   render() {

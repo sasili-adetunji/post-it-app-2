@@ -8,6 +8,7 @@ import * as API from '../../Api';
  * creates messagebox components
  *
  * @class MessageBox
+ * 
  * @extends {React.Component}
  */
 class MessageBox extends React.Component {
@@ -22,25 +23,34 @@ class MessageBox extends React.Component {
     this.onClick = this.onClick.bind(this);
   }
 
- /**
-    * @method onChange
-    * @description Monitors changes in the components and change the state
-    * @memberof MessageBox
-    * @param {object} event
-    * @returns {void}
-    */
+
+/**
+* @method onChange
+*
+* @description Monitors changes in the components and change the state
+*
+* @memberof MessageBox
+*
+* @param {object} event
+*
+* @returns {void}
+*/
   onChange(e) {
     this.setState({
       [e.target.name]: e.target.value
     });
   }
 
-  /**
-     * @description Makes an action call to post message to a group
-     * @param {object} event
-     * @returns {void}
-     * @memberof MessageBox
-  */
+
+/**
+ * @description Makes an action call to post message to a group
+ * 
+ * @param {object} event
+ * 
+ * @returns {void}
+ * 
+ * @memberof MessageBox
+*/
   onClick(event) {
     event.preventDefault();
     if (!this.props.groupId) {
@@ -65,10 +75,11 @@ class MessageBox extends React.Component {
   }
  /**
    * @method render
-   * Render react component
    * 
-   * @returns {String} The HTML markup for the MessageList Components
-   * @memberof MessageList
+   * Render MessageBox component
+   * 
+   * @returns {String} The HTML markup for the MessageBox Components
+   * @memberof MessageBox
    */
   
   render() {

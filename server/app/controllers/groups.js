@@ -1,20 +1,16 @@
 import firebase from 'firebase';
 
-/**
- * controls all message routes
- * @class
- */
 
 export default {
-
-     /**
- * @description: This method creates group for a user
- * route POST: /group
- * @param {Object} req request object
- * @param {Object} res response object
- * @return {Object} response containing the created group
+  /**
+ * @description: creates broadcast group
+ * Route: POST: /group
+ *
+ * @param {any} req incoming request from the client
+ * @param {any} res response sent back to client
+ *
+ * @returns {response} response containing the created group
  */
-
   group(req, res) {
     const groups = [];
     const { groupName } = req.body;
@@ -66,14 +62,15 @@ export default {
     }
   },
 
-    /**
- * @description: This method adds a particular user to a group
- * route POST: /group/:groupId/user
- * @param {Object} req request object
- * @param {Object} res response object
- * @return {Object} response indicating a user successfully added
- */
-
+  /**
+   * @description: adds a particular user to a group
+   * route POST: /group/:groupId/user
+   *
+   * @param {any} req incoming request from the client
+   * @param {any} res response sent back to client
+   *
+   * @returns {response} response indicating a user successfully added
+   */
   groupAdd(req, res) {
     const { groupId, userId, userName } = req.body;
     req.check('groupId', 'Kindly select a group first').notEmpty();
@@ -114,15 +111,15 @@ export default {
       }
     }
   },
-
-    /**
- * @description: This method retrieves all users in  particular group
+/**
+ * @description: fetches all users in  particular group
  * route GET: /group/:groupId/users
- * @param {Object} req request object
- * @param {Object} res response object
- * @return {Object} response containing list of all users in a group
- */
-
+ *
+ * @param {any} req incoming request from the client
+ * @param {any} res response sent back to client
+ *
+ * @returns {response} response containing list of all users in a group
+*/
   usersInGroup(req, res) {
     const userData = req.decoded.data;
     if (userData) {
@@ -155,13 +152,15 @@ export default {
     }
   },
 
-    /**
- * @description: This method retrieves all groups a particular user
+/**
+ * @description: fetches retrieves all groups a particular user
  * route GET: /user/groups
+ *
  * @param {Object} req request object
  * @param {Object} res response object
+ *
  * @return {Object} response containing list of all groups of a particular user
- */
+*/
   userGroup(req, res) {
     const userData = req.decoded.data;
     if (userData) {

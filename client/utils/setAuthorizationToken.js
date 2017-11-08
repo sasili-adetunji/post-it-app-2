@@ -1,9 +1,10 @@
 import axios from 'axios';
 
+
 /**
    * Sets a user's authorization token as header for every server request
    *
-   * @param {string} token user's autjentication token
+   * @param {string} token user's authentication token
    *
    * @returns {void} null
    */

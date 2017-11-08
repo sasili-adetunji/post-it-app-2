@@ -13,59 +13,67 @@ import PostItActions from '../../actions/PostItActions';
 /**
  * creates DashboardNav components
  *
- * @class DashboardNAv
+ * @class DashboardNav
+ * 
  * @extends {React.Component}
  */
 class DashboardNav extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            showCreateGroup: false,
-            showAddUser: false,
-
-        };
-        this.handleClick = this.handleClick.bind(this);
-        this.closeGroup = this.closeGroup.bind(this);
-        this.openGroup = this.openGroup.bind(this);
-        this.closeGroup1 = this.closeGroup1.bind(this);
-        this.openGroup1 = this.openGroup1.bind(this);
+  constructor(props) {
+    super(props);
+    this.state = {
+      showCreateGroup: false,
+      showAddUser: false,
+    };
+    this.handleClick = this.handleClick.bind(this);
+    this.closeGroup = this.closeGroup.bind(this);
+    this.openGroup = this.openGroup.bind(this);
+    this.closeGroup1 = this.closeGroup1.bind(this);
+    this.openGroup1 = this.openGroup1.bind(this);
     }
     closeGroup() {
-        this.setState({ showCreateGroup: false });
+      this.setState({ showCreateGroup: false });
     }
     openGroup() {
-        this.setState({ showCreateGroup: true });
+      this.setState({ showCreateGroup: true });
     }
     closeGroup1() {
-        this.setState({ showAddUser: false });
+      this.setState({ showAddUser: false });
     }
     openGroup1() {
-        this.setState({ showAddUser: true });
+      this.setState({ showAddUser: true });
     }
-      /**
+
+
+  /**
    * @description Makes an action call to signout a user
+   * 
    * @param {object} event
+   * 
    * @returns {void}
-   * @memberof App
+   * 
+   * @memberof DashboardNav
   */
   handleClick(event) {
     event.preventDefault();
     PostItActions.signOutUser();
   }
 
+
     /**
     * @method render
+    *
     * Render react component
     * 
     * @returns {String} The HTML markup for the DashboardNav Components
+    *
     * @memberof DashboardNav
     */
     render() {
       return (
         <div id="sidebar">
-            <button id="logout" onClick={this.handleClick}>
-                Log Out
-            </button>
+          <button id="logout" onClick={this.handleClick}>
+            Log Out
+          </button>
           <div className="card-block">
             <a onClick={this.openGroup} className="list-group-item createGroup">Create Group</a>
               <Modal show={this.state.showCreateGroup} onHide={this.closeGroup}>

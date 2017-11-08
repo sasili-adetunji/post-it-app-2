@@ -16,6 +16,7 @@ import DashboardNav from './DashboardNav';
  * creates dashboard components
  *
  * @class Dashboard
+ * 
  * @extends {React.Component}
  */
 class Dashboard extends React.Component {
@@ -51,14 +52,18 @@ class Dashboard extends React.Component {
     this.setState({ showAddUser: true });
   }
 
-  /**
-      * @method onChange
-      * @description Monitors changes in the components and change the state
-      * @memberof Dashboard
-      * @param {object}
-      * @returns {void}
-      */
 
+/**
+* @method onChange
+*
+* @description Monitors changes in the components and change the state
+*
+* @memberof Dashboard
+*
+* @param {object}
+*
+* @returns {void}
+*/
   onChange() {
     this.setState({
       loggedInUser: PostItStore.getLoggedInUser(),
@@ -71,33 +76,41 @@ class Dashboard extends React.Component {
     });
   }
 
-  /**
-     * @method componentDidUnmount
-     * @description adds event Listener from the Store, fetches API call to get users and user groups
-     * @memberof MessageList
-    */
+/**
+ * @method componentDidUnmount
+ * 
+ * @description adds event Listener from the Store, fetches API call to get users and user groups
+ * 
+ * @memberof MessageList
+*/
   componentDidMount() {
     API.getUserGroups();
     API.getUsers();
     PostItStore.addChangeListener(this.onChange);
   }
-  /**
-   * @method componentWillUnmount
-   * @description removes event Listener from the Store
-   * @memberof Dashboard
-  */
 
+
+/**
+ * @method componentWillUnmount
+ * 
+ * @description removes event Listener from the Store
+ * 
+ * @memberof Dashboard
+*/
   componentWillUnmount() {
     PostItStore.removeChangeListener(this.onChange);
   }
 
-  /**
-  * @method render
-  * Render react component
-  * 
-  * @returns {String} The HTML markup for the MessageList Components
-  * @memberof Dashboard
-  */
+
+/**
+* @method render
+*
+* Render react component
+* 
+* @returns {String} The HTML markup for the MessageList Components
+*
+* @memberof Dashboard
+*/
   render() {
     return (
       <div className="container-fluid" id="html">

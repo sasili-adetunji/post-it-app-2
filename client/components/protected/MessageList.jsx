@@ -18,45 +18,57 @@ class MessageList extends React.Component {
     };
     this.onChange = this.onChange.bind(this);
   }
- 
-  /**
-    * @method onChange
-    * @description Monitors changes in the components and change the state
-    * @memberof MessageList
-    * @param {object} event
-    * @returns {void}
-    */
 
+
+/**
+* @method onChange
+*
+* @description Monitors changes in the components and change the state
+*
+* @memberof MessageList
+*
+* @param {object} event
+*
+* @returns {void}
+*/
   onChange() {
     this.setState({
       message: PostItStore.getGroupsMessages()
     });
   }
 
+
   /**
    * @method componentDidMount
+   * 
    * @description adds event Listener from the Store
+   * 
    * @memberof MessageList
   */
-
   componentDidMount() {
     PostItStore.addChangeListener(this.onChange);
   }
 
-  /**
-   * @method componentWillUnmount
-   * @description removes event Listener from the Store
-   * @memberof MessageList
-  */
+
+/**
+ * @method componentWillUnmount
+ * 
+ * @description removes event Listener from the Store
+ * 
+ * @memberof MessageList
+*/
   componentWillUnmount() {
     PostItStore.removeChangeListener(this.onChange);
   }
 
+
   /**
    * @method render
+   * 
    * Render react component
    * 
    * @returns {String} The HTML markup for the MessageList Components
+   * 
    * @memberof MessageList
    */
 

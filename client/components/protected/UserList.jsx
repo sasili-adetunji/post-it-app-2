@@ -3,18 +3,15 @@ import User from './User';
 import PostItStore from '../../stores/PostItStore';
 
 
-/**
- * creates userList components
- * @class UserList
- * @extends {React.Component}
- */
 class UserList extends React.Component {
 
-   /**
+/**
  * Displays the List of Users in a group
+ * 
  * @param props 
- * @export
+ * 
  * @class UserList
+ * 
  * @extends {Component}
  */
 

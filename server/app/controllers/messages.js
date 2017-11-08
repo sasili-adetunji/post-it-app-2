@@ -23,20 +23,17 @@ const nexmo = new Nexmo({
   apiSecret: process.env.nexmoApiSecret,
 });
 
-/**
- * controls all message routes
- * @class
- */
 
 export default {
-
-    /**
- * @description: This method post message to groups
- * route POST: /message
- * @param {Object} req request object
- * @param {Object} res response object
- * @return {Object} response containing the posted message
- */
+  /**
+   * @description: Send mesage to a particular group
+   * Route: POST: /message
+   *
+   * @param {any} req incoming request from the client
+   * @param {any} res response sent back to client
+   *
+   * @returns {response} response object
+   */
   message(req, res) {
     const { message, groupId, priorityLevel, date } = req.body;
 
@@ -119,15 +116,15 @@ export default {
       }
     }
   },
-
-    /**
- * @description: THis method retrieves message of a particular group
- * route GET: /group/:groupId/messages
- * @param {Object} req request object
- * @param {Object} res response object
- * @return {Object} response containing all messages in a particular group
- */
-
+  /**
+   * @description: fetches messages of a particular group
+   * Route: GET: /group/:groupId/messages
+   *
+   * @param {any} req incoming request from the client
+   * @param {any} res response sent back to client
+   *
+   * @returns {response} rresponse containing all messages in a particular group
+   */
   userMessage(req, res) {
     const userData = req.decoded.data;
     if (userData) {
@@ -171,15 +168,15 @@ export default {
       });
     }
   },
-
-  /**
- * @description: THis method retrieves the users that read a particular message
- * route GET: /group/:messageId/readUsers
- * @param {Object} req request object
- * @param {Object} res response object
- * @return {Object} response containing all users that read a particular message
- */
-
+   /**
+   * @description: fetches mthe users that read a particular message
+   * Route: GET: /group/:messageId/readUsers
+   *
+   * @param {any} req incoming request from the client
+   * @param {any} res response sent back to client
+   *
+   * @returns {response} rresponse containing all messages in a particular group
+   */
   userReadMessage(req, res) {
     const userData = req.decoded.data;
     if (userData) {

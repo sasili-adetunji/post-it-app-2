@@ -2,20 +2,16 @@ import firebase from 'firebase';
 import jwt from 'jsonwebtoken';
 
 
-/**
- * controls all user routes
- * @class
- */
-
 export default {
   /**
- * @description: THis method creates a user account
- * route POST: user/signup
- * @param {Object} req request object
- * @param {Object} res response object
- * @return {Object} response containing the registered user
- */
-
+   * @description: Creates a user account
+   * Route: POST: /user/signup
+   *
+   * @param {any} req incoming request from the client
+   * @param {any} res response sent back to client
+   *
+   * @returns {response} response object
+   */
   signup(req, res) {
     const { email, password, userName, phoneNumber } = req.body;
 
@@ -62,15 +58,15 @@ export default {
       });
     }
   },
-
-   /**
- * @description: This method controls a user's login
- * route POST: user/signin
- * @param {Object} req request object
- * @param {Object} res response object
- * @return {Object} response containing the logged-in user
- */
-
+ /**
+   * @description:  singns in a user
+   * Route: POST: /user/signin
+   *
+   * @param {any} req incoming request from the client
+   * @param {any} res response sent back to client
+   *
+   * @returns {response} response object
+   */
   signin(req, res) {
     const { email, password } = req.body;
 
@@ -107,14 +103,15 @@ export default {
       });
     }
   },
-
-   /**
- * @description: This method controls a signout
- * route POST: user/signout
- * @param {Object} req request object
- * @param {Object} res response object
- * @return {Object} response containing the logged-in user
- */
+ /**
+   * @description: sign out a user
+   * Route: POST: /user/signout
+   *
+   * @param {any} req incoming request from the client
+   * @param {any} res response sent back to client
+   *
+   * @returns {response} response object
+   */
   signout(req, res) {
     firebase.auth().signOut()
       .then(() => {
@@ -129,13 +126,15 @@ export default {
       });
   },
 
-   /**
- * @description: This method controls reset password
- * route GET: user/reset
- * @param {Object} req request object
- * @param {Object} res response object
- * @return {Object}
- */
+ /**
+   * @description: reset a user password
+   * Route: POST: /user/reset
+   *
+   * @param {any} req incoming request from the client
+   * @param {any} res response sent back to client
+   *
+   * @returns {response} response object
+   */
   resetPassword(req, res) {
     const { email } = req.body;
     req.check('email', 'Email is required').notEmpty();
@@ -159,14 +158,15 @@ export default {
       });
     }
   },
-
-   /**
- * @description: This method retrieves all the users in database
- * route GET: user/users
- * @param {Object} req request object
- * @param {Object} res response object
- * @return {Object} response containing all the users
- */
+  /**
+   * @description: fetches all the users in the app
+   * Route: GET: /user/users
+   *
+   * @param {any} req incoming request from the client
+   * @param {any} res response sent back to client
+   *
+   * @returns {response} response object
+   */
   usersList(req, res) {
     const userData = req.decoded.data;
     if (userData) {
@@ -197,6 +197,15 @@ export default {
       });
     }
   },
+  /**
+   * @description: reates a user account with google
+   * Route: POST: /user/google
+   *
+   * @param {any} req incoming request from the client
+   * @param {any} res response sent back to client
+   *
+   * @returns {response} response object
+   */
   googleLogin(req, res) {
     const result = req.body;
     const credential = firebase.auth.GoogleAuthProvider.credential(result.credential.idToken);
@@ -211,18 +220,32 @@ export default {
         });
         firebase.auth().signInWithCredential(credential)
         .then((user) => {
-          res.status(200).json({
-            message: 'Success: you have successfuly signed in. with Google',
-            user,
-          });
+          const uid = user.uid;
+          const userName = user.displayName;
+          const email = user.email;
+          const token = jwt.sign({
+            data: {
+              uid,
+              userName,
+              email,
+            }
+          }, process.env.TOKEN_SECRET, { expiresIn: '24h' });
+          res.status(201).send({ message: 'You have successfully signed was successful', token, user });
         });
       } else {
         firebase.auth().signInWithCredential(credential)
         .then((user) => {
-          res.status(200).json({
-            message: 'Success: you have successfuly signed in. with Google',
-            user,
-          });
+          const uid = user.uid;
+          const userName = user.displayName;
+          const email = user.email;
+          const token = jwt.sign({
+            data: {
+              uid,
+              userName,
+              email,
+            }
+          }, process.env.TOKEN_SECRET, { expiresIn: '24h' });
+          res.status(201).send({ message: 'You have successfully signed was successful', token, user });
         });
       }
     });

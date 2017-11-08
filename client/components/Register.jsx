@@ -10,11 +10,14 @@ import PostItStore from '../stores/PostItStore';
 
 
 /**
- * 
  * @description gets user data and register a user
+ * 
  * @export
+ * 
  * @param {object} props
+ * 
  * @class Register
+ * 
  * @extends {Component}
  */
 class Register extends React.Component {
@@ -33,9 +36,13 @@ class Register extends React.Component {
   }
    /**
     * @method onChange
+    *
     * @description Monitors changes in the components and change the state
-    * @memberof Register
+    *
+    * @memberof Register 
+    *
     * @param {object} event
+    *
     * @returns {void}
     */
 
@@ -46,9 +53,13 @@ class Register extends React.Component {
   }
  /**
     * @method onError
-    * @description Monitors errors and succes in the components and its state
+    *
+    * @description Monitors errors in the components and its state
+    *
     * @memberof Register
+    *
     * @param {object} event
+    *
     * @returns {void}
     */
 
@@ -60,7 +71,9 @@ class Register extends React.Component {
 
   /**
    * @method componentDidMount
+   * 
    * @description adds event Listener from the Store
+   * 
    * @memberof Register
   */
 
@@ -70,7 +83,9 @@ class Register extends React.Component {
 
   /**
    * @method componentWillUnmount
+   * 
    * @description Removes event Listener from the Store
+   * 
    * @memberof Register
   */
   componentWillUnmount() {
@@ -78,8 +93,11 @@ class Register extends React.Component {
   }
    /**
      * @description Makes an action call to Sign in a user with email and password
+     * 
      * @param {object} event
+     * 
      * @returns {void}
+     * 
      * @memberof Register
   */
 
@@ -104,10 +122,14 @@ class Register extends React.Component {
     });
   }
  /**
+  * @description Render register component
+
    * @method render
+   * 
    * Render react component
    * 
    * @returns {String} The HTML markup for the Register Components
+   * 
    * @memberof Register
    */
   render() {

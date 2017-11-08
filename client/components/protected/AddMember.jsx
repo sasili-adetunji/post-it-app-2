@@ -8,6 +8,7 @@ import PostItActions from '../../actions/PostItActions';
  * creates addmember components
  *
  * @class AddMember
+ * 
  * @extends {React.Component}
  */
 class AddMember extends React.Component {
@@ -23,25 +24,30 @@ class AddMember extends React.Component {
     this.changeToUserid = this.changeToUserid.bind(this);
   }
 
+
   /**
     * @method onChange
+    *
     * @description Monitors changes in the components and change the state
+    *
     * @memberof AddMember
+    *
     * @param {object}
+    *
     * @returns {void}
     */
-
   onChange(event) {
     this.setState({
       userName: event.target.value,
     });
   }
 
+
   /**
-   * function that get userid from username
+   * @description function that get userid from username
    *
-   * @param {any} userName
-   * @returns
+   * @param {String} userName 
+   * 
    * @memberof AddMember
    */
   changeToUserid(userName) {
@@ -58,8 +64,11 @@ class AddMember extends React.Component {
 
    /**
      * @description Makes an action call to add a member to a group
+     * 
      * @param {object} event
+     * 
      * @returns {void}
+     * 
      * @memberof AddMember
   */
 
@@ -92,9 +101,11 @@ class AddMember extends React.Component {
   }
  /**
    * @method render
-   * Render react component
+   * 
+   * Render addmember component
    *
    * @returns {String} The HTML markup for the AddMember Components
+   * 
    * @memberof AddMember
    */
   render() {

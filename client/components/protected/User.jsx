@@ -1,17 +1,14 @@
 import React from 'react';
 
-/**
- * creates user component
- * @class User
- * @extends {React.Component}
- */
 class Message extends React.Component {
 
   /**
  * Displays the List of Users in a group
+ * 
  * @param props
- * @export
+ * 
  * @class User
+ * 
  * @extends {Component}
  */
 

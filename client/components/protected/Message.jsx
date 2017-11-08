@@ -8,6 +8,7 @@ import PostItStore from '../../stores/PostItStore';
  * createa Message components
  *
  * @class Message
+ * 
  * @extends {React.Component}
  */
 class Message extends React.Component {
@@ -15,13 +16,16 @@ class Message extends React.Component {
     super(props);
   }
 
-    /**
-   * @method render
-   * Render react component
-   * 
-   * @returns {String} The HTML markup for the Message Components
-   * @memberof Message
-   */
+
+/**
+ * @method render
+ * 
+ * Render react component
+ * 
+ * @returns {String} The HTML markup for the Message Components
+ * 
+ * @memberof Message
+ */
   render() {
     let userNodes = null;
     userNodes = PostItStore.getReadUsers().map((eachUser, i) => {
