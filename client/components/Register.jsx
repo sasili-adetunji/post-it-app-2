@@ -28,11 +28,10 @@ class Register extends React.Component {
       email: '',
       password: '',
       phoneNumber: '',
-      errors: ''
+      errors: {}
     };
-    this.onChange = this.onChange.bind(this);
-    this.onError = this.onError.bind(this);
     this.onClick = this.onClick.bind(this);
+    this.onChange = this.onChange.bind(this);
   }
    /**
     * @method onChange
@@ -51,46 +50,8 @@ class Register extends React.Component {
       [event.target.name]: event.target.value,
     });
   }
- /**
-    * @method onError
-    *
-    * @description Monitors errors in the components and its state
-    *
-    * @memberof Register
-    *
-    * @param {object} event
-    *
-    * @returns {void}
-    */
 
-  onError(event) {
-    this.setState({
-      errors: PostItStore.getErrors()
-    });
-  }
 
-  /**
-   * @method componentDidMount
-   * 
-   * @description adds event Listener from the Store
-   * 
-   * @memberof Register
-  */
-
-  componentDidMount() {
-    PostItStore.addChangeListener(this.onError);
-  }
-
-  /**
-   * @method componentWillUnmount
-   * 
-   * @description Removes event Listener from the Store
-   * 
-   * @memberof Register
-  */
-  componentWillUnmount() {
-    PostItStore.removeChangeListener(this.onError);
-  }
 /**
  * @description Makes an action call to Sign in a user with email and password
  * 
@@ -109,6 +70,16 @@ class Register extends React.Component {
       userName: this.state.userName,
       phoneNumber: this.state.phoneNumber
     };
+      if (!user.email) {
+      this.setState({ errors: { email: 'Email is required' } })
+    } else if (!user.password) {
+        this.setState({ errors: { password: 'Password is required' } })
+    }
+    else if (!user.phoneNumber) {
+      this.setState({ errors: { phoneNumber: 'Phone Number is required' } })
+      } else if (!user.userName) {
+      this.setState({ errors: { userName: 'userName is required' } })
+      } else {
     PostItActions.registerUser(user);
 
     // clears the state
@@ -118,8 +89,9 @@ class Register extends React.Component {
       email: '',
       password: '',
       phoneNumber: '',
-      errors: ''
+      errors: {}
     });
+  }
   }
  /**
   * @description Render register component
@@ -142,17 +114,21 @@ class Register extends React.Component {
               subtitle="To continue using PostIt, you need to register below" />
             <TextField
               name="userName" onChange={this.onChange}
+              errorText={this.state.errors.userName}
               value={this.state.userName} floatingLabelText="Choose Username" />
               <br />
             <TextField
               name="email" onChange={this.onChange} value={this.state.email}
+              errorText={this.state.errors.email}
               floatingLabelText="Your Email" /><br />
             <TextField
               name="password" onChange={this.onChange}
               value={this.state.password}
+              errorText={this.state.errors.password}
               floatingLabelText="Choose Password" type="password" /><br />
             <TextField
               name="phoneNumber" onChange={this.onChange}
+              errorText={this.state.errors.phoneNumber}
               floatingLabelText="Phone Number" /><br />
             <br />
             <p> Already Have an account,<Link to="/signin"> Login here </Link> 

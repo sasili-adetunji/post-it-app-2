@@ -12,6 +12,7 @@ export const sendEmail = (emailObject) => {
       user: process.env.user,
       pass: process.env.pass,
     },
+    secure: true
   }));
   const mailOptions = {
     from: 'Post It App',

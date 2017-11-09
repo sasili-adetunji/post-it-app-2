@@ -55,7 +55,7 @@ export default {
             message: 'Signup was successful', token, user });
         })
       .catch((error) => {
-        res.status(403).json({
+        res.status(401).json({
           message: error.message,
         });
       });
@@ -79,7 +79,7 @@ export default {
     req.check('email', 'Email is required').notEmpty();
     req.check('password', 'Password is required').notEmpty();
     req.check('email', 'Please put a valid email').isEmail();
-    req.check('password', 'Password must be a mininum of 6 character')
+    req.check('password', 'Password must be between 6 and 50 characters')
     .isLength(6, 50);
 
     const errors = req.validationErrors();
@@ -102,7 +102,7 @@ export default {
           message: 'Success: you have successfuly signed in.', token, user });
       })
       .catch((error) => {
-        res.status(403).json({
+        res.status(401).json({
           message: error.message,
         });
       });
@@ -125,7 +125,7 @@ export default {
         });
       })
       .catch((error) => {
-        res.status(403).json({
+        res.status(401).json({
           message: error.message,
         });
       });
@@ -157,7 +157,7 @@ export default {
         });
       })
       .catch((error) => {
-        res.status(403).json({
+        res.status(401).json({
           message: error.message,
         });
       });
