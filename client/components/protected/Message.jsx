@@ -12,10 +12,6 @@ import PostItStore from '../../stores/PostItStore';
  * @extends {React.Component}
  */
 class Message extends React.Component {
-  // constructor(props) {
-  //   super(props);
-  // }
-
 
 /**
  * @method render

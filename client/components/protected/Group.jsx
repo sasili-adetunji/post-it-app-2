@@ -13,11 +13,10 @@ import * as API from '../../Api';
  * @extends {React.Component}
  */
 class Group extends React.Component {
-  constructor(props) {
+   constructor(props) {
     super(props);
     this.onClick = this.onClick.bind(this);
-  }
-
+    }
 
 /**
  * @description Makes an api call to get group messges, users
@@ -31,9 +30,9 @@ class Group extends React.Component {
   onClick() {
     PostItActions.groupOpened(this.props.group);
     PostItActions.getUserMessages(this.props.group);
-    // PostItActions.recieveUsersInGroups(this.props.group);
+    PostItActions.recieveUsersInGroups(this.props.group);
     API.getUsersInGroup(this.props.group);
-    API.getUserGroups();
+    // API.getUserGroups();
   }
 
 

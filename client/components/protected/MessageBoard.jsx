@@ -1,14 +1,7 @@
 import React from 'react';
-import { Navbar, Nav, NavItem, NavDropdown, MenuItem, Modal } from 'react-bootstrap';
 import * as Api from '../../Api';
 import PostItStore from '../../stores/PostItStore';
-import PostItActions from '../../actions/PostItActions';
-import GroupList from './GroupList';
-import UserList from './UserList';
 import MessageList from './MessageList';
-import CreateGroup from './CreateGroup';
-import AddMember from './AddMember';
-import MessageBox from './MessageBox';
 import DashboardNav from './DashboardNav';
 
 
@@ -23,8 +16,6 @@ class Dashboard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      showCreateGroup: false,
-      showAddUser: false,
       loggedInUser: PostItStore.getLoggedInUser(),
       groups: PostItStore.getGroupsUser(),
       users: PostItStore.getUsersInGroup(),
@@ -34,23 +25,7 @@ class Dashboard extends React.Component {
       message: PostItStore.getGroupsMessages(),
     };
     this.onChange = this.onChange.bind(this);
-    this.closeGroup = this.closeGroup.bind(this);
-    this.openGroup = this.openGroup.bind(this);
-    this.closeGroup1 = this.closeGroup1.bind(this);
-    this.openGroup1 = this.openGroup1.bind(this);
   }
-    closeGroup() {
-      this.setState({ showCreateGroup: false });
-    }
-    openGroup() {
-      this.setState({ showCreateGroup: true });
-    }
-    closeGroup1() {
-      this.setState({ showAddUser: false });
-    }
-    openGroup1() {
-      this.setState({ showAddUser: true });
-    }
 
 
 /**
@@ -115,8 +90,7 @@ class Dashboard extends React.Component {
     return (
       <div className="container-fluid" id="html">
         <div className="col-xs-3" id="dash">
-          <DashboardNav user = {this.state.users}
-          />
+          <DashboardNav user = {this.state.users} />
         </div>
         <div className="col-xs-9">
           <MessageList />
