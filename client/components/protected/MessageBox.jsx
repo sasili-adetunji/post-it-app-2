@@ -1,7 +1,7 @@
 import React from 'react';
 import PostItActions from '../../actions/PostItActions';
 import PostItStore from '../../stores/PostItStore';
-import * as API from '../../Api';
+import * as Api from '../../Api';
 
 
 /**
@@ -35,9 +35,9 @@ class MessageBox extends React.Component {
 *
 * @returns {void}
 */
-  onChange(e) {
+  onChange(event) {
     this.setState({
-      [e.target.name]: e.target.value
+      [event.target.name]: event.target.value
     });
   }
 
@@ -63,8 +63,7 @@ class MessageBox extends React.Component {
         messageText: this.state.message,
         groupId: this.props.groupId.groupId,
         priorityLevel: this.state.priorityLevel,
-        date: new Date().toJSON(),
-        author: this.props.author.displayName
+        date: new Date().toJSON()
       };
       PostItActions.addMessage(message);
       this.setState({
@@ -88,7 +87,8 @@ class MessageBox extends React.Component {
         <strong className="error"> {this.state.error} </strong>
           <form onSubmit={this.onClick}>
               <div className="form-group col-sm-2">
-                  <select name="priorityLevel" className="form-control" id="exampleFormControlSelect1"
+                  <select name="priorityLevel" className="form-control" 
+                  id="exampleFormControlSelect1"
                     onChange={this.onChange} value={this.state.priorityLevel}>
                       <option>Normal</option>
                       <option>Urgent</option>
@@ -96,7 +96,8 @@ class MessageBox extends React.Component {
                   </select>
               </div>
               <input name='message' className="col-sm-10 sendMessageInput"
-                placeholder='Enter a message' onChange={this.onChange} value={this.state.message}/>
+                placeholder='Enter a message' onChange={this.onChange} 
+                value={this.state.message}/>
           </form>
       </div>
     );

@@ -34,6 +34,7 @@ class GroupList extends React.Component {
     this.setState({
       users: PostItStore.getUsersInGroup(),
       selectedGroup: PostItStore.getOpenedGroup(),
+      groups: PostItStore.getGroupsUser(),
       readUsers: PostItStore.getReadUsers(),
       message: PostItStore.getGroupsMessages()
     });
@@ -43,7 +44,8 @@ class GroupList extends React.Component {
 /**
  * @method componentDidUnmount
  * 
- * @description adds event Listener from the Store, fetches API call to get users and user groups
+ * @description adds event Listener from the Store, 
+ * fetches API call to get users and user groups
  * 
  * @memberof GroupList
 */

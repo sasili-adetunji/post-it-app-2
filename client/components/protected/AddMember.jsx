@@ -21,7 +21,7 @@ class AddMember extends React.Component {
     };
     this.onChange = this.onChange.bind(this);
     this.onClick = this.onClick.bind(this);
-    this.changeToUserid = this.changeToUserid.bind(this);
+    this.changeToUserId = this.changeToUserId.bind(this);
   }
 
 
@@ -50,16 +50,16 @@ class AddMember extends React.Component {
    * 
    * @memberof AddMember
    */
-  changeToUserid(userName) {
-    let n;
-    lodash.map(this.props.usern).map((x) => {
-      if (userName === x.userName) {
-        n = x.userId;
+  changeToUserId(userName) {
+    let userId;
+    lodash.map(PostItStore.getUsers()).map((user) => {
+      if (userName === user.userName) {
+        userId = user.userId;
       } else {
         return null;
       }
     });
-    return n;
+    return userId;
   }
 
    /**
@@ -74,7 +74,7 @@ class AddMember extends React.Component {
 
   onClick(event) {
     event.preventDefault();
-    if (!this.props.selected[0]) {
+    if (!PostItStore.getOpenedGroup()[0]) {
       this.setState({
         error: 'Kindly select a group first',
         userName: '',
@@ -82,9 +82,9 @@ class AddMember extends React.Component {
       return true;
     }
     const user = {
-      userId: this.changeToUserid(this.state.userName),
+      userId: this.changeToUserId(this.state.userName),
       userName: this.state.userName,
-      groupId: this.props.selected[0].groupId,
+      groupId: PostItStore.getOpenedGroup()[0].groupId,
     };
     if (!user.userId) {
       this.setState({
@@ -116,11 +116,13 @@ class AddMember extends React.Component {
         <form className="navbar-form" role="search">
           <div className="form-group">
             <input
-              type="text" className="form-control" placeholder="Add member" name="userName"
+              type="text" className="form-control" placeholder="Add member" 
+              name="userName"
               onChange={this.onChange} value={this.state.userName}
               />
           </div>
-          <button onClick={this.onClick} type="submit" className="btn btn-default ">
+          <button onClick={this.onClick} type="submit" 
+          className="btn btn-default ">
             <span className="glyphicon glyphicon-plus" /></button>
         </form>
         <br />

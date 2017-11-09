@@ -50,7 +50,7 @@ export const signinUser = (user) => {
       toastr.success(response.data.message);
     })
     .catch((error) => {
-      toastr.error(error.response.data.message);
+      toastr.error(error.data.message);
     });
 };
 
@@ -95,7 +95,7 @@ export const googleLogin = (result) => {
 /**
   * api call to create a new group
   *
-  * @param {object} group user's required sign in credentials
+  * @param {object} group group details to be created
   *
   * @returns {response} request response
   */
@@ -103,6 +103,7 @@ export const createNewGroup = (group) => {
   axios.post('/group', {
     groupName: group.groupName,
   }).then((response) => {
+    PostItStore.addGroups(response.data.groups);
     toastr.success(response.data.message);
   })
     .catch((error) => {
@@ -114,7 +115,7 @@ export const createNewGroup = (group) => {
 /**
  * api call to get messages in a particular groups
  *
- * @param {object} group group details
+ * @param {object} group group details to get the message from
  *
  * @returns {response} request response
  */
@@ -162,7 +163,6 @@ export const postMessage = (message) => {
     message: message.messageText,
     priorityLevel: message.priorityLevel,
     date: message.date,
-    author: message.author,
   })
   .then((response) => {
     toastr.success(response.data.message);
@@ -246,7 +246,7 @@ export const getUserReadUsers = (message) => {
 /**
 * api call to reset a user's password
 *
-* @param {object} email user's required sign in credentials
+* @param {object} email user's email to be reseted
 *
 * @returns {response} request response
 */

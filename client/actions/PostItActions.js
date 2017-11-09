@@ -177,14 +177,14 @@ const PostItActions = {
  /**
   * get user messages e & dispatches it
   *
-  * @param {object} messages message details of the selected group
+  * @param {object} groups group details to get message from
   *
   * @returns {action} action type and payload
   */
-  getUserMessages(messages) {
+  getUserMessages(groups) {
     PostItDispatcher.handleViewAction({
       actionType: PostItConstants.GET_USER_MESSAGES,
-      messages,
+      groups,
     });
   },
 

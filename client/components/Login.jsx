@@ -186,11 +186,13 @@ class Login extends React.Component {
               name="email" onChange={this.onChange} value={this.state.email}
               floatingLabelText="Your Email" /><br />
             <TextField
-              name="password" onChange={this.onChange} value={this.state.password}
+              name="password" onChange={this.onChange}
+              value={this.state.password}
               floatingLabelText="Your Password"
               type="password" /><br />
             <br />
-            <p> Already Have an account,<Link to="/signup"> Register here </Link> </p>
+            <p> Already Have an account,<Link to="/signup"> Register here 
+            </Link> </p>
             <p> Forgot your Password? Enter your Email and <a
               href="/#/signup"
               onClick={this.onClickReset}> Click here </a> </p>

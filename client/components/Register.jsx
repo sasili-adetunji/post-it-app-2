@@ -91,15 +91,15 @@ class Register extends React.Component {
   componentWillUnmount() {
     PostItStore.removeChangeListener(this.onError);
   }
-   /**
-     * @description Makes an action call to Sign in a user with email and password
-     * 
-     * @param {object} event
-     * 
-     * @returns {void}
-     * 
-     * @memberof Register
-  */
+/**
+ * @description Makes an action call to Sign in a user with email and password
+ * 
+ * @param {object} event
+ * 
+ * @returns {void}
+ * 
+ * @memberof Register
+*/
 
   onClick(event) {
     event.preventDefault();
@@ -142,7 +142,8 @@ class Register extends React.Component {
               subtitle="To continue using PostIt, you need to register below" />
             <TextField
               name="userName" onChange={this.onChange}
-              value={this.state.userName} floatingLabelText="Choose Username" /><br />
+              value={this.state.userName} floatingLabelText="Choose Username" />
+              <br />
             <TextField
               name="email" onChange={this.onChange} value={this.state.email}
               floatingLabelText="Your Email" /><br />
@@ -154,7 +155,8 @@ class Register extends React.Component {
               name="phoneNumber" onChange={this.onChange}
               floatingLabelText="Phone Number" /><br />
             <br />
-            <p> Already Have an account,<Link to="/signin"> Login here </Link> </p>
+            <p> Already Have an account,<Link to="/signin"> Login here </Link> 
+            </p>
             <RaisedButton
               onClick={this.onClick}
               onTouchTap={this.handleTouchTap}

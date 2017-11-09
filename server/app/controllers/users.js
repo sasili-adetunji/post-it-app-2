@@ -20,7 +20,7 @@ export default {
     req.check('phoneNumber', 'phone number is required').notEmpty();
     req.check('password', 'Password is required').notEmpty();
     req.check('userName', 'Username is required').notEmpty();
-    req.check('password', 'Password must be a mininum of 6 character')
+    req.check('password', 'Password must be between 6 and 50 characters')
     .isLength(6, 50);
     req.check('email', 'Email Address is Required').notEmpty();
     req.check('email', 'Please put a valid email').isEmail();
@@ -34,6 +34,9 @@ export default {
     } else {
       firebase.auth().createUserWithEmailAndPassword(email, password)
       .then((user) => {
+        user.updateProfile({
+          displayName: userName,
+        });
         firebase.database().ref(`users/${user.uid}`)
         .set({
           userName,
@@ -48,7 +51,8 @@ export default {
               email,
             }
           }, process.env.TOKEN_SECRET, { expiresIn: '24h' });
-          res.status(201).send({ message: 'Signup was successful', token, user });
+          res.status(201).json({
+            message: 'Signup was successful', token, user });
         })
       .catch((error) => {
         res.status(403).json({
@@ -94,7 +98,8 @@ export default {
             email,
           }
         }, process.env.TOKEN_SECRET, { expiresIn: '24h' });
-        res.status(201).send({ message: 'Success: you have successfuly signed in.', token, user });
+        res.status(200).json({
+          message: 'Success: you have successfuly signed in.', token, user });
       })
       .catch((error) => {
         res.status(403).json({
@@ -147,7 +152,7 @@ export default {
     } else {
       firebase.auth().sendPasswordResetEmail(email)
       .then(() => {
-        res.json({
+        res.status(200).json({
           message: 'An email has been sent to your email',
         });
       })
@@ -167,11 +172,11 @@ export default {
    *
    * @returns {response} response object
    */
-  usersList(req, res) {
+  getUsersList(req, res) {
+      // create an empty array to hold the users
+    const users = [];
     const userData = req.decoded.data;
     if (userData) {
-      // create an empty array to hold the users
-      const users = [];
       firebase.database().ref('users/').once('value', (msg) => {
         msg.forEach((snapshot) => {
           const userDetails = {
@@ -182,7 +187,7 @@ export default {
         });
       })
         .then(() => {
-          res.send({
+          res.status(200).json({
             users,
           });
         })
@@ -193,7 +198,7 @@ export default {
         });
     } else {
       res.status(401).json({
-        message: 'You are not signed in right now! ',
+        message: 'Please log in to create groups',
       });
     }
   },
@@ -208,9 +213,11 @@ export default {
    */
   googleLogin(req, res) {
     const result = req.body;
-    const credential = firebase.auth.GoogleAuthProvider.credential(result.credential.idToken);
+    const credential = firebase.auth.GoogleAuthProvider
+    .credential(result.credential.idToken);
 
-    firebase.database().ref('users').child(result.user.uid).once('value', (snapshot) => {
+    firebase.database()
+    .ref('users').child(result.user.uid).once('value', (snapshot) => {
       if (!snapshot.exists()) {
         firebase.database().ref(`users/${result.user.uid}`)
         .set({
@@ -230,7 +237,8 @@ export default {
               email,
             }
           }, process.env.TOKEN_SECRET, { expiresIn: '24h' });
-          res.status(201).send({ message: 'You have successfully signed was successful', token, user });
+          res.status(201).send({
+            message: 'You have successfully signed', token, user });
         });
       } else {
         firebase.auth().signInWithCredential(credential)
@@ -245,7 +253,8 @@ export default {
               email,
             }
           }, process.env.TOKEN_SECRET, { expiresIn: '24h' });
-          res.status(201).send({ message: 'You have successfully signed was successful', token, user });
+          res.status(200).send({
+            message: 'You have successfully signed', token, user });
         });
       }
     });

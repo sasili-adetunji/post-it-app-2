@@ -1,13 +1,13 @@
 import { EventEmitter } from 'events';
 import assign from 'object-assign';
 import PostItConstants from '../constants/PostItConstants';
-import PostItDispatcher from '../dispatcher/PostItDispatcher'; // eslint-disable-line
-import * as API from '../Api';
+import PostItDispatcher from '../dispatcher/PostItDispatcher';
+import * as Api from '../Api';
 
 
 let usersInGroup = [];
 let users = [];
-const userGroups = [];
+// const userGroups = [];
 let groupsUser = [];
 let readUsers = [];
 let userMessages = [];
@@ -25,9 +25,9 @@ const PostItStore = assign({}, EventEmitter.prototype, {
     usersInGroup.push(user);
   },
 
-  createNewGroup(group) {
-    userGroups.push(group);
-  },
+  // createNewGroup(group) {
+  //   userGroups.push(group);
+  // },
 
   signOutUser() {
     loggedInUser.length = 0;
@@ -77,9 +77,9 @@ const PostItStore = assign({}, EventEmitter.prototype, {
     return users;
   },
 
-  getGroups() {
-    return userGroups;
-  },
+  // getGroups() {
+  //   return userGroups;
+  // },
   getSuccess() {
     return success;
   },
@@ -87,7 +87,7 @@ const PostItStore = assign({}, EventEmitter.prototype, {
     return loginSuccess;
   },
   addGroups(groups) {
-    groupsUser.concat(groups);
+    groupsUser.push(groups);
   },
   addMessage(message) {
     userMessages.push(message);
@@ -143,60 +143,60 @@ PostItDispatcher.register((payload) => {
   const action = payload.action;
   switch (action.actionType) {
     case PostItConstants.REGISTER_USER:
-      API.registerNewUser(action.user);
+      Api.registerNewUser(action.user);
       PostItStore.emitChange('change');
       break;
 
     case PostItConstants.LOGIN_USER:
-      API.signinUser(action.user);
+      Api.signinUser(action.user);
       PostItStore.emitChange('change');
       break;
 
     case PostItConstants.CREATE_GROUP:
-      API.createNewGroup(action.group);
-      PostItStore.createNewGroup(action.group);
+      Api.createNewGroup(action.group);
       PostItStore.emitChange('change');
       break;
 
     case PostItConstants.GOOGLE_LOGIN:
-      API.googleLogin(action.result);
+      Api.googleLogin(action.result);
       PostItStore.emitChange('change');
       break;
 
     case PostItConstants.ADDUSER_GROUP:
-      API.addUserToGroup(action.user);
+      Api.addUserToGroup(action.user);
       PostItStore.addUserToGroup(action.user);
       PostItStore.emitChange('change');
       break;
 
     case PostItConstants.ADD_MESSAGE:
       PostItStore.addMessage(action.message);
-      API.postMessage(action.message);
+      Api.postMessage(action.message);
       PostItStore.emitChange('change');
       break;
 
     case PostItConstants.SIGNOUT_USER:
-      API.signoutUser();
+      Api.signoutUser();
       PostItStore.signOutUser();
       PostItStore.emitChange('change');
       break;
 
     case PostItConstants.GET_USER_MESSAGES:
-      API.getMessages(action.messages);
+      Api.getMessages(action.groups);
       PostItStore.emitChange('change');
       break;
     case PostItConstants.RECEIVE_READ_USERS:
-      API.getUserReadUsers(action.message);
+      Api.getUserReadUsers(action.message);
       PostItStore.setReadUsers(action.user);
       PostItStore.emitChange('change');
       break;
     case PostItConstants.RECIEVE_USERS_IN_GROUPS:
-      PostItStore.setUsersInGroup(action.groups);
+      Api.getUsersInGroup(action.group);
+      // PostItStore.setUsersInGroup(action.group);
       PostItStore.emitChange('change');
       break;
 
     case PostItConstants.RECEIVE_USER_GROUPS:
-      API.getUserGroups();
+      Api.getUserGroups();
       PostItStore.setUserGroups(action.groups);
       PostItStore.emitChange('change');
       break;
@@ -207,7 +207,7 @@ PostItDispatcher.register((payload) => {
       break;
 
     case PostItConstants.RESET_PASSWORD:
-      API.resetPassword(action.email);
+      Api.resetPassword(action.email);
       PostItStore.emitChange('change');
       break;
 

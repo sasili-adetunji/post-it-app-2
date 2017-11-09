@@ -78,9 +78,11 @@ class CreateGroup extends React.Component {
           <div className="form-group">
             <input
             type="text" className="form-control" placeholder="Create Group"
-            name="groupName" onChange={this.onChange} value={this.state.groupName} />
+            name="groupName" onChange={this.onChange} 
+            value={this.state.groupName} />
           </div>
-          <button onClick={this.onClick} type="submit" className="btn btn-default ">
+          <button onClick={this.onClick} type="submit" 
+          className="btn btn-default ">
             <span className="glyphicon glyphicon-plus" /></button>
         </form>
       </div>

@@ -1,28 +1,5 @@
 import firebase from 'firebase';
-import nodemailer from 'nodemailer';
-import smtpTransport from 'nodemailer-smtp-transport';
-import Nexmo from 'nexmo';
-
-require('dotenv').config();
-
-const transporter = nodemailer.createTransport(smtpTransport({
-  service: 'gmail',
-  auth: {
-    user: process.env.user,
-    pass: process.env.pass,
-  },
-}));
-
-const mailOptions = {
-  from: process.env.user,
-  subject: 'A new message from PostIt',
-};
-
-const nexmo = new Nexmo({
-  apiKey: process.env.nexmoApiKey,
-  apiSecret: process.env.nexmoApiSecret,
-});
-
+import { sendEmail, sendSMS } from '../helpers/messageHelper';
 
 export default {
   /**
@@ -34,7 +11,7 @@ export default {
    *
    * @returns {response} response object
    */
-  message(req, res) {
+  postMessage(req, res) {
     const { message, groupId, priorityLevel, date } = req.body;
 
     // validating  using express-validator
@@ -58,7 +35,9 @@ export default {
         firebase.database().ref(`groups/${groupId}/users/`)
         .once('value', (snapshot) => {
           snapshot.forEach((childSnapShot) => {
-            firebase.database().ref(`users/${childSnapShot.val().userId}/groups/${groupId}/messages/${messageKey}`)
+            firebase.database()
+            .ref(`users/${childSnapShot.val().userId}/groups/${groupId}/`)
+            .child(`messages/${messageKey}`)
               .set({
                 message,
                 author: userData.userName,
@@ -66,28 +45,25 @@ export default {
                 priorityLevel,
                 status: 'Unread',
               });
-            if ((priorityLevel === 'Critical') || (priorityLevel === 'Urgent')) {
+            if ((priorityLevel === 'Critical') ||
+               (priorityLevel === 'Urgent')) {
               firebase.database().ref(`users/${childSnapShot.val().userId}/`)
                 .once('value', (snap) => {
-                  mailOptions.to = snap.val().email;
-                  mailOptions.text = message;
-                  transporter.sendMail(mailOptions, (error, info) => {
-                    if (error) {
-                      return error;
-                    } return info.response;
-                  });
+                  const emailObject = {
+                    To: snap.val().email,
+                    text: message
+                  };
+                  sendEmail(emailObject);
                 });
             }
             if (priorityLevel === 'Critical') {
               firebase.database().ref(`users/${childSnapShot.val().userId}/`)
                 .once('value', (msg) => {
-                  nexmo.message.sendSms(
-                      'PostIt', msg.val().phoneNumber, message,
-                      (error, responseData) => {
-                        if (error) {
-                          return error;
-                        } return responseData;
-                      });
+                  const smsObject = {
+                    phoneNumber: msg.val().phoneNumber,
+                    message
+                  };
+                  sendSMS(smsObject);
                 });
             }
             const messageDetails = {
@@ -101,7 +77,7 @@ export default {
             };
             messages.push(messageDetails);
           });
-          res.status(200).json({ message: 'Message Sent successfully to Group',
+          res.status(201).json({ message: 'Message Sent successfully to Group',
             messages });
         })
         .catch((error) => {
@@ -125,11 +101,12 @@ export default {
    *
    * @returns {response} rresponse containing all messages in a particular group
    */
-  userMessage(req, res) {
+  getUserMessages(req, res) {
     const userData = req.decoded.data;
     if (userData) {
       const messages = [];
-      const messageRef = firebase.database().ref(`users/${userData.uid}/groups/${req.params.groupId}/messages/`);
+      const messageRef = firebase.database()
+      .ref(`users/${userData.uid}/groups/${req.params.groupId}/messages/`);
       messageRef.once('value', (snapshot) => {
         snapshot.forEach((childSnapShot) => {
           const message = {
@@ -141,11 +118,14 @@ export default {
             status: childSnapShot.val().status,
           };
           messages.push(message);
-          firebase.database().ref(`users/${userData.uid}/groups/${req.params.groupId}/messages/${childSnapShot.key}/`)
+          firebase.database()
+          .ref(`users/${userData.uid}/groups/${req.params.groupId}/`)
+          .child(`messages/${childSnapShot.key}/`)
             .update({
               status: 'Read',
             });
-          firebase.database().ref(`readUsers/${childSnapShot.key}/${userData.uid}`)
+          firebase.database()
+          .ref(`readUsers/${childSnapShot.key}/${userData.uid}`)
             .set({
               userId: userData.uid,
               userName: userData.userName,
@@ -177,11 +157,9 @@ export default {
    *
    * @returns {response} rresponse containing all messages in a particular group
    */
-  userReadMessage(req, res) {
-    const userData = req.decoded.data;
-    if (userData) {
-      const readUsers = [];
-      firebase.database().ref(`readUsers/${req.params.messageId}`)
+  getReadusers(req, res) {
+    const readUsers = [];
+    firebase.database().ref(`readUsers/${req.params.messageId}`)
       .orderByChild('userName').once('value', (snapshot) => {
         snapshot.forEach((childSnapShot) => {
           const userDetails = {
@@ -200,10 +178,5 @@ export default {
             message: `Error occurred ${error.message}`,
           });
         });
-    } else {
-      res.status(401).json({
-        message: 'Please log in to see a list of users that read messages',
-      });
-    }
   },
 };

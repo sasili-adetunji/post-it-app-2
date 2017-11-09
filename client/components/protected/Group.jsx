@@ -1,5 +1,7 @@
 import React from 'react';
 import PostItActions from '../../actions/PostItActions';
+import PostItStore from '../../stores/PostItStore';
+
 import * as API from '../../Api';
 
 
@@ -29,6 +31,7 @@ class Group extends React.Component {
   onClick() {
     PostItActions.groupOpened(this.props.group);
     PostItActions.getUserMessages(this.props.group);
+    // PostItActions.recieveUsersInGroups(this.props.group);
     API.getUsersInGroup(this.props.group);
     API.getUserGroups();
   }

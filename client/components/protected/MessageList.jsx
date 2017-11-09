@@ -11,13 +11,13 @@ import PostItStore from '../../stores/PostItStore';
  * @extends {React.Component}
  */
 class MessageList extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      message: ''
-    };
-    this.onChange = this.onChange.bind(this);
-  }
+  // constructor(props) {
+  //   super(props);
+  //   this.state = {
+  //     message: ''
+  //   };
+  //   this.onChange = this.onChange.bind(this);
+  // }
 
 
 /**
@@ -31,11 +31,11 @@ class MessageList extends React.Component {
 *
 * @returns {void}
 */
-  onChange() {
-    this.setState({
-      message: PostItStore.getGroupsMessages()
-    });
-  }
+  // onChange() {
+  //   this.setState({
+  //     message: PostItStore.getGroupsMessages()
+  //   });
+  // }
 
 
   /**
@@ -45,9 +45,9 @@ class MessageList extends React.Component {
    * 
    * @memberof MessageList
   */
-  componentDidMount() {
-    PostItStore.addChangeListener(this.onChange);
-  }
+  // componentDidMount() {
+  //   PostItStore.addChangeListener(this.onChange);
+  // }
 
 
 /**
@@ -57,9 +57,9 @@ class MessageList extends React.Component {
  * 
  * @memberof MessageList
 */
-  componentWillUnmount() {
-    PostItStore.removeChangeListener(this.onChange);
-  }
+  // componentWillUnmount() {
+  //   PostItStore.removeChangeListener(this.onChange);
+  // }
 
 
   /**
@@ -74,16 +74,17 @@ class MessageList extends React.Component {
 
   render() {
     let messageNodes = null;
-    if (this.props.selectedGroup.length === 0) {
+    if (PostItStore.getOpenedGroup().length === 0) {
       messageNodes = (<h2 className="messageHeader"> No Group Selected </h2>);
-    } else if (this.state.message.length === 0) {
+    } else if (PostItStore.getGroupsMessages().length === 0) {
       messageNodes = (<h2 className="messageHeader"> No Message in Group </h2>);
     } else {
-      messageNodes = this.state.message.map((message, i) => {
+      messageNodes = PostItStore.getGroupsMessages().map((message, i) => {
         return (
           <Message
-            message={message} key={i} MessageId={this.state.message[0]}
-            readUser={this.props.readUsers} />
+            message={message} key={i} 
+            MessageId={PostItStore.getGroupsMessages()[0]}
+            readUser={PostItStore.getReadUsers()} />
         );
       });
     }
@@ -93,7 +94,7 @@ class MessageList extends React.Component {
           {messageNodes} 
         </div>
         <div id="footer">
-          <MessageBox groupId={this.props.selectedGroup[0]} author={this.props.loggedInUser} /> 
+          <MessageBox groupId={PostItStore.getOpenedGroup()[0]} /> 
         </div>
       </div>
             

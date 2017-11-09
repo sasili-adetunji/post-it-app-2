@@ -18,18 +18,62 @@ import PostItActions from '../../actions/PostItActions';
  * @extends {React.Component}
  */
 class DashboardNav extends React.Component {
-  constructor(props) {
+      constructor(props) {
     super(props);
     this.state = {
       showCreateGroup: false,
       showAddUser: false,
+      loggedInUser: PostItStore.getLoggedInUser(),
+      groups: PostItStore.getGroupsUser(),
+      users: PostItStore.getUsersInGroup(),
+      selectedGroup: PostItStore.getOpenedGroup(),
+      user: PostItStore.getUsers(),
+      readUsers: PostItStore.getReadUsers(),
+      message: PostItStore.getGroupsMessages(),
     };
+    this.onChange = this.onChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.closeGroup = this.closeGroup.bind(this);
     this.openGroup = this.openGroup.bind(this);
     this.closeGroup1 = this.closeGroup1.bind(this);
     this.openGroup1 = this.openGroup1.bind(this);
     }
+
+    onChange() {
+    this.setState({
+      users: PostItStore.getUsersInGroup(),
+      selectedGroup: PostItStore.getOpenedGroup(),
+      groups: PostItStore.getGroupsUser(),
+      readUsers: PostItStore.getReadUsers(),
+      message: PostItStore.getGroupsMessages()
+    });
+  }
+
+
+/**
+ * @method componentDidUnmount
+ * 
+ * @description adds event Listener from the Store, 
+ * fetches API call to get users and user groups
+ * 
+ * @memberof GroupList
+*/
+  componentDidMount() {
+    PostItStore.addChangeListener(this.onChange);
+  }
+
+
+  /**
+   * @method componentWillUnmount
+   * 
+   * @description removes event Listener from the Store
+   * 
+   * @memberof GroupList
+  */
+
+  componentWillUnmount() {
+    PostItStore.removeChangeListener(this.onChange);
+  }
     closeGroup() {
       this.setState({ showCreateGroup: false });
     }
@@ -75,10 +119,11 @@ class DashboardNav extends React.Component {
             Log Out
           </button>
           <div className="card-block">
-            <a onClick={this.openGroup} className="list-group-item createGroup">Create Group</a>
+            <a onClick={this.openGroup} className="list-group-item createGroup">
+              Create Group</a>
               <Modal show={this.state.showCreateGroup} onHide={this.closeGroup}>
                 <Modal.Body>
-                  <CreateGroup userName={this.props.loggedInUser} />
+                  <CreateGroup />
                 </Modal.Body>
                 <Modal.Footer>
                   <a onClick={this.closeGroup}> Close</a>
@@ -86,13 +131,14 @@ class DashboardNav extends React.Component {
               </Modal>
           </div>
           <div className="card-block">
-            <GroupList selected={this.props.selectedGroup} />
+            <GroupList />
           </div>
           <div className="card-block mem">
-              <a onClick={this.openGroup1} className="list-group-item addUser">Add member</a>
+              <a onClick={this.openGroup1} className="list-group-item addUser">
+                Add member</a>
                 <Modal show={this.state.showAddUser} onHide={this.closeGroup1}>
                   <Modal.Body>
-                    <AddMember selected={this.props.selectedGroup} usern={this.props.usernames} />
+                    <AddMember />
                   </Modal.Body>
                     <Modal.Footer>
                       <a onClick={this.closeGroup1}> Close</a>
@@ -100,7 +146,7 @@ class DashboardNav extends React.Component {
                 </Modal>
           </div>
           <div className="card-block">
-          <UserList use={this.props.user} usern={this.props.usernames} />
+          <UserList use = {this.props.user} />
           </div>
         </div>
         );

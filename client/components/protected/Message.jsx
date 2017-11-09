@@ -12,9 +12,9 @@ import PostItStore from '../../stores/PostItStore';
  * @extends {React.Component}
  */
 class Message extends React.Component {
-  constructor(props) {
-    super(props);
-  }
+  // constructor(props) {
+  //   super(props);
+  // }
 
 
 /**
@@ -42,9 +42,11 @@ class Message extends React.Component {
             <ul >
               <div className="messages msg_sent">
                 <p> {this.props.message.messageText} </p>
-                <time> Posted by {this.props.message.author} on {this.props.message.date}</time>
+                <time> Posted by {this.props.message.author} on 
+                  {this.props.message.date}</time>
                 <br />
-                <time> This message is {this.props.message.status} </time> <br />
+                <time> This message is {this.props.message.status} </time> 
+                <br />
                  <time> Read by <span> {userNodes} </span> </time> 
               </div>
             </ul>

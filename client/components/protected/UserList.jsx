@@ -23,7 +23,8 @@ class UserList extends React.Component {
     });
     return (
       <div>
-        <div className="headerlist"> <h4 className="card-header"> Members </h4> </div>
+        <div className="headerlist"> <h4 className="card-header"> 
+          Members </h4> </div>
         <div className="userList">
         {userNodes}
         </div>
