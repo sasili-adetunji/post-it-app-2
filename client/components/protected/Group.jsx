@@ -1,58 +1,31 @@
 import React from 'react';
 import PostItActions from '../../actions/PostItActions';
 import PostItStore from '../../stores/PostItStore';
-
 import * as API from '../../Api';
 
-
 /**
- * creates Group components
- *
- * @class Group
+ * @description Displays a list of users in a group
  * 
- * @extends {React.Component}
+ * @function UserList
+ * 
+ * @param {Object} group group details as props
+ * 
+ * @returns {JSX} list of a users in a group
  */
-class Group extends React.Component {
-   constructor(props) {
-    super(props);
-    this.onClick = this.onClick.bind(this);
-    }
 
-/**
- * @description Makes an api call to get group messges, users
- * 
- * @param {object} event
- * 
- * @returns {void}
- * 
- * @memberof CreateGroup
-*/
-  onClick() {
-    PostItActions.groupOpened(this.props.group);
-    PostItActions.getUserMessages(this.props.group);
-    PostItActions.recieveUsersInGroups(this.props.group);
-    API.getUsersInGroup(this.props.group);
-    // API.getUserGroups();
+const Group = ({group}) => {
+  const onClick = () => {
+    PostItActions.groupOpened(group);
+    PostItActions.getUserMessages(group);
+    PostItActions.recieveUsersInGroups(group);
+    API.getUsersInGroup(group);
   }
-
-
-  /**
-   * @method render
-   * 
-   * Render react component
-   *
-   * @returns {String} The HTML markup for the Group Components
-   * 
-   * @memberof Group
-   */
-  render() {
-    return (
-      <div className="side-menu-container list-group-item">
-        <a> <li onClick={this.onClick}>
-         <b> { this.props.group.groupName } </b>
-        </li> </a>
-      </div>
-    );
-  }
+  return (
+    <div className="side-menu-container list-group-item">
+      <a> <li onClick={onClick}>
+        <b> { group.groupName } </b>
+      </li> </a>
+    </div>
+  );
 }
 export default Group;

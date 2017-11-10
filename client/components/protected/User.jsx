@@ -1,24 +1,19 @@
 import React from 'react';
 
-class Message extends React.Component {
-
-  /**
- * Displays the List of Users in a group
+/**
+ * @description Displays a list of users in a group
  * 
- * @param props
+ * @function User
  * 
- * @class User
- * 
- * @extends {Component}
+ * @returns {JSX} each users in a group
  */
 
-  render() {
-    return (
-      <div className="side-menu-container list-group-item">
-        <li><span />
-          <b> {this.props.user.userName} </b> </li>
-      </div>
-    );
-  }
+const User = ({user}) => {
+  return (
+    <div className="side-menu-container list-group-item">
+      <li><span />
+        <b> {user.userName} </b> </li>
+    </div>
+  );
 }
-export default Message;
+export default User;

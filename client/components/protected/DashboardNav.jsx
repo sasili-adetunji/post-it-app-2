@@ -103,7 +103,7 @@ class DashboardNav extends React.Component {
               </Modal>
         </div> 
         <div className="card-block">
-        <UserList use = {this.props.user} />
+        <UserList />
         </div>
       </div>
         );

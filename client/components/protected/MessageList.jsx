@@ -3,26 +3,15 @@ import MessageBox from './MessageBox';
 import Message from './Message';
 import PostItStore from '../../stores/PostItStore';
 
-
 /**
- * creates a messagelist components
- *
- * @class MessageList
- * @extends {React.Component}
+ * @description Displays a list of users in a group
+ * 
+ * @function MessageList
+ * 
+ * @returns {JSX} list of messages in a group
  */
-class MessageList extends React.Component {
 
-  /**
-   * @method render
-   * 
-   * Render react component
-   * 
-   * @returns {String} The HTML markup for the MessageList Components
-   * 
-   * @memberof MessageList
-   */
-
-  render() {
+const MessageList = () => {
     let messageNodes = null;
     if (PostItStore.getOpenedGroup().length === 0) {
       messageNodes = (<h2 className="messageHeader"> No Group Selected </h2>);
@@ -49,6 +38,5 @@ class MessageList extends React.Component {
       </div>
             
     );
-  }
 }
 export default MessageList;
