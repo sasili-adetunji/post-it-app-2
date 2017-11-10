@@ -1,20 +1,17 @@
 import firebase from 'firebase';
+import jwt from 'jsonwebtoken';
 
-
-/**
- * controls all user routes
- * @class
- */
 
 export default {
   /**
- * @description: THis method creates a user account
- * route POST: user/signup
- * @param {Object} req request object
- * @param {Object} res response object
- * @return {Object} response containing the registered user
- */
-
+   * @description: Creates a user account
+   * Route: POST: /user/signup
+   *
+   * @param {any} req incoming request from the client
+   * @param {any} res response sent back to client
+   *
+   * @returns {response} response object
+   */
   signup(req, res) {
     const { email, password, userName, phoneNumber } = req.body;
 
@@ -23,7 +20,7 @@ export default {
     req.check('phoneNumber', 'phone number is required').notEmpty();
     req.check('password', 'Password is required').notEmpty();
     req.check('userName', 'Username is required').notEmpty();
-    req.check('password', 'Password must be a mininum of 6 character')
+    req.check('password', 'Password must be between 6 and 50 characters')
     .isLength(6, 50);
     req.check('email', 'Email Address is Required').notEmpty();
     req.check('email', 'Please put a valid email').isEmail();
@@ -45,28 +42,35 @@ export default {
           userName,
           email,
           phoneNumber,
-        });
-        res.status(200).json({
-          message: 'Welcome, you have successfully registered. You can proceed to login now',
-          user,
-        });
-      })
+        }).then(() => {
+          const uid = user.uid;
+          const token = jwt.sign({
+            data: {
+              uid,
+              userName,
+              email,
+            }
+          }, process.env.TOKEN_SECRET, { expiresIn: '24h' });
+          res.status(201).json({
+            message: 'Signup was successful', token, user });
+        })
       .catch((error) => {
-        res.status(403).json({
+        res.status(401).json({
           message: error.message,
         });
       });
+      });
     }
   },
-
-   /**
- * @description: This method controls a user's login
- * route POST: user/signin
- * @param {Object} req request object
- * @param {Object} res response object
- * @return {Object} response containing the logged-in user
- */
-
+ /**
+   * @description:  singns in a user
+   * Route: POST: /user/signin
+   *
+   * @param {any} req incoming request from the client
+   * @param {any} res response sent back to client
+   *
+   * @returns {response} response object
+   */
   signin(req, res) {
     const { email, password } = req.body;
 
@@ -75,7 +79,7 @@ export default {
     req.check('email', 'Email is required').notEmpty();
     req.check('password', 'Password is required').notEmpty();
     req.check('email', 'Please put a valid email').isEmail();
-    req.check('password', 'Password must be a mininum of 6 character')
+    req.check('password', 'Password must be between 6 and 50 characters')
     .isLength(6, 50);
 
     const errors = req.validationErrors();
@@ -85,26 +89,34 @@ export default {
     } else {
       firebase.auth().signInWithEmailAndPassword(email, password)
       .then((user) => {
+        const uid = user.uid;
+        const userName = user.displayName;
+        const token = jwt.sign({
+          data: {
+            uid,
+            userName,
+            email,
+          }
+        }, process.env.TOKEN_SECRET, { expiresIn: '24h' });
         res.status(200).json({
-          message: 'Success: you have successfuly signed in.',
-          user,
-        });
+          message: 'Success: you have successfuly signed in.', token, user });
       })
       .catch((error) => {
-        res.status(403).json({
+        res.status(401).json({
           message: error.message,
         });
       });
     }
   },
-
-   /**
- * @description: This method controls a signout
- * route POST: user/signout
- * @param {Object} req request object
- * @param {Object} res response object
- * @return {Object} response containing the logged-in user
- */
+ /**
+   * @description: sign out a user
+   * Route: POST: /user/signout
+   *
+   * @param {any} req incoming request from the client
+   * @param {any} res response sent back to client
+   *
+   * @returns {response} response object
+   */
   signout(req, res) {
     firebase.auth().signOut()
       .then(() => {
@@ -113,19 +125,21 @@ export default {
         });
       })
       .catch((error) => {
-        res.status(403).json({
+        res.status(401).json({
           message: error.message,
         });
       });
   },
 
-   /**
- * @description: This method controls reset password
- * route GET: user/reset
- * @param {Object} req request object
- * @param {Object} res response object
- * @return {Object}
- */
+ /**
+   * @description: reset a user password
+   * Route: POST: /user/reset
+   *
+   * @param {any} req incoming request from the client
+   * @param {any} res response sent back to client
+   *
+   * @returns {response} response object
+   */
   resetPassword(req, res) {
     const { email } = req.body;
     req.check('email', 'Email is required').notEmpty();
@@ -138,30 +152,31 @@ export default {
     } else {
       firebase.auth().sendPasswordResetEmail(email)
       .then(() => {
-        res.json({
+        res.status(200).json({
           message: 'An email has been sent to your email',
         });
       })
       .catch((error) => {
-        res.status(403).json({
+        res.status(401).json({
           message: error.message,
         });
       });
     }
   },
-
-   /**
- * @description: This method retrieves all the users in database
- * route GET: user/users
- * @param {Object} req request object
- * @param {Object} res response object
- * @return {Object} response containing all the users
- */
-  usersList(req, res) {
-    const user = firebase.auth().currentUser;
-    if (user) {
+  /**
+   * @description: fetches all the users in the app
+   * Route: GET: /user/users
+   *
+   * @param {any} req incoming request from the client
+   * @param {any} res response sent back to client
+   *
+   * @returns {response} response object
+   */
+  getUsersList(req, res) {
       // create an empty array to hold the users
-      const users = [];
+    const users = [];
+    const userData = req.decoded.data;
+    if (userData) {
       firebase.database().ref('users/').once('value', (msg) => {
         msg.forEach((snapshot) => {
           const userDetails = {
@@ -172,7 +187,7 @@ export default {
         });
       })
         .then(() => {
-          res.send({
+          res.status(200).json({
             users,
           });
         })
@@ -183,15 +198,26 @@ export default {
         });
     } else {
       res.status(401).json({
-        message: 'You are not signed in right now! ',
+        message: 'Please log in to create groups',
       });
     }
   },
+  /**
+   * @description: reates a user account with google
+   * Route: POST: /user/google
+   *
+   * @param {any} req incoming request from the client
+   * @param {any} res response sent back to client
+   *
+   * @returns {response} response object
+   */
   googleLogin(req, res) {
     const result = req.body;
-    const credential = firebase.auth.GoogleAuthProvider.credential(result.credential.idToken);
+    const credential = firebase.auth.GoogleAuthProvider
+    .credential(result.credential.idToken);
 
-    firebase.database().ref('users').child(result.user.uid).once('value', (snapshot) => {
+    firebase.database()
+    .ref('users').child(result.user.uid).once('value', (snapshot) => {
       if (!snapshot.exists()) {
         firebase.database().ref(`users/${result.user.uid}`)
         .set({
@@ -201,18 +227,34 @@ export default {
         });
         firebase.auth().signInWithCredential(credential)
         .then((user) => {
-          res.status(200).json({
-            message: 'Success: you have successfuly signed in. with Google',
-            user,
-          });
+          const uid = user.uid;
+          const userName = user.displayName;
+          const email = user.email;
+          const token = jwt.sign({
+            data: {
+              uid,
+              userName,
+              email,
+            }
+          }, process.env.TOKEN_SECRET, { expiresIn: '24h' });
+          res.status(201).send({
+            message: 'You have successfully signed', token, user });
         });
       } else {
         firebase.auth().signInWithCredential(credential)
         .then((user) => {
-          res.status(200).json({
-            message: 'Success: you have successfuly signed in. with Google',
-            user,
-          });
+          const uid = user.uid;
+          const userName = user.displayName;
+          const email = user.email;
+          const token = jwt.sign({
+            data: {
+              uid,
+              userName,
+              email,
+            }
+          }, process.env.TOKEN_SECRET, { expiresIn: '24h' });
+          res.status(200).send({
+            message: 'You have successfully signed', token, user });
         });
       }
     });

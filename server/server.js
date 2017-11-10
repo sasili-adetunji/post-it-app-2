@@ -1,4 +1,4 @@
-// server file
+ // server file
 
 import express from 'express';
 import webpack from 'webpack';

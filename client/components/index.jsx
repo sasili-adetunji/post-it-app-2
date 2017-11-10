@@ -18,8 +18,11 @@ import MessageList from './protected/MessageList';
 injectTapEventPlugin();
 
 
- /* function that returns private routes
+ /** 
+ * @description function that returns private routes
+ * 
  * @param {any} { component: Component, isAuthenticated, ...rest }
+ * 
  * @returns {void}
  */
 
@@ -29,14 +32,18 @@ function PrivateRoute({ component: Component, isAuthenticated, ...rest }) {
       {...rest}
       render={props => isAuthenticated === true
         ? <Component {...props} />
-        : <Redirect to={{ pathname: '/signin', state: { from: props.location } }} />}
+        : <Redirect to={{ pathname: '/signin', state: { from: props.location } 
+        }} />}
     />
   );
 }
 
+
 /**
- * function that returns piblic routes
+ * @description function that returns piblic routes
+ * 
  * @param {any} { component: Component, isAuthenticated, ...rest }
+ * 
  * @returns {void}
  */
 function PublicRoute({ component: Component, isAuthenticated, ...rest }) {
@@ -52,8 +59,10 @@ function PublicRoute({ component: Component, isAuthenticated, ...rest }) {
 
 
 /**
- * create the app componets
+ * @description create the app componets
+ *
  * @class App
+ *
  * @extends {Component}
  */
 class App extends Component {
@@ -64,31 +73,39 @@ class App extends Component {
     };
     this.onChange = this.onChange.bind(this);
   }
+
+
    /**
    * @method componentDidUnmount
+   * 
    * @description adds event Listener from the Store
+   * 
    * @memberof App
   */
   componentDidMount() {
     PostItStore.addChangeListener(this.onChange);
   }
 
+
  /**
    * @method componentWillUnmount
+   * 
    * @description Removes event Listener from the Store
+   * 
    * @memberof App
   */
   componentWillUnmount() {
     PostItStore.removeChangeListener(this.onChange);
   }
+
+
   /**
   * @description Route for rendering componets in the main App
   * 
-  * @export
   * @class App
+  *
   * @extends {Component}
   **/
-
   render() {
     return (
       <div>
