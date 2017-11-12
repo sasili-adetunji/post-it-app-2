@@ -1,293 +1,94 @@
-.side-menu {
-  position: fixed;
-  height: 100%;
-  background-color: #f8f8f8;
-  border-right: 1px solid #e7e7e7;
-    width: 100%;
-    height: 0;
-    border-bottom: 1px solid #e7e7e7;
+
+  .login-container {
+    border: 1px solid #ccc;
+    width: 550px;
+    margin: 0 auto;
+    padding: 20px 40px 60px;
 }
-.navbar {
-  border: none;
-}
-.navbar-header {
-  width: 100%;
-  border-bottom: 1px solid #e7e7e7;
-}
-.navbar-nav .active a {
-  background-color: transparent;
-  margin-right: -1px;
-  border-right: 5px solid #e7e7e7;
-}
-.navbar-nav li {
-  display: block;
-  width: 100%;
-  border-bottom: 1px solid #e7e7e7;
-}
-.navbar-nav li a {
-  padding: 15px;
-  text-align: center;
-}
-.brand-name-wrapper {
-  min-height: 50px;
-}
-.brand-name-wrapper .navbar-brand {
-  display: block;
-}
-.side-body {
-  margin-left: 310px;
-}
-    @media (max-width: 900px) { 
-  .side-menu-container { 
-    position: fixed;
-    left: -300px;
-    width: 300px;
-    top: 43px;
-    height: 100%;
-    border-right: 1px solid #e7e7e7;
-    background-color: #f8f8f8;
+  .clear {
+    padding-top: 5px;
+    padding-bottom: 5px;
   }
-  .side-body {
-    margin-left: 5px;
-    margin-top: 70px;
-    position: relative;
-  
+  #navigation {
+    background-color: #008975;
   }
-  #search .panel-body .navbar-form {
-    border-bottom: 0;
+  #navigationText {
+    color: white !important;
   }
-  #search .panel-body .navbar-form .form-group {
-    margin: 0;
-  }
-  .navbar-header {
-    position: fixed;
-    z-index: 3;
-    background-color: #f8f8f8;
-  }
-}
-.col-md-2, .col-md-10{
-    padding:0;
-}
-.panel{
-    margin-bottom: 0px;
-}
-
-.msg_container_base{
-  /* background: #e5e5e5; */
-  margin: 0;
-  padding: 0 10px 10px;
-  /* max-height:300px; */
-}
-.top-bar {
-  color: white;
-  padding: 10px;
-  position: relative;
-  overflow: hidden;
-}
-
-.msg_sent{
-    padding-bottom:20px !important;
-    margin-right:0;
-}
-.messages {
-   background: white; 
-  padding: 10px;
-  border-radius: 2px;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-  max-width:100%;
-}
-.messages > p {
-    font-size: 13px;
-    margin: 0 0 0.2rem 0;
-  }
-.messages > time {
-    font-size: 11px;
-    color: #ccc;
-}
-.msg_container {
-    padding: 10px;
-    overflow: hidden;
-    display: flex;
-}
-.base_sent {
-  justify-content: flex-end;
-  align-items: flex-end;
-}
-.msg_sent > time{
-    float: right;
-}
-.col-md-3 {
-  background-color: #b1b4b5;
-  height: 600px;
-  overflow: scroll;
-}
-.col-md-6 {
-  background-color: #00bcd4;
-  height: 600px;
-}
-.welcome {
-  padding-left: 15px;
-  color: indianred;
-}
-.side-menu-container { 
-    color:#eaf5f9;
-    padding-left: 5px;
-  }
-.headerlist {
-  padding-left: 2px;
-  color: #f2f7f6;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  
-}
-.error {
-  color: red;
-}
-
- .card {
-  max-width: 800px;
-  margin: 30px auto;
-  padding: 50px;
-  text-align: center;
-} 
-
-.side-menu-container li {
-  text-align: center;
-  color: #0e0f0f;
-  font-family: Cambria, Cochin, Georgia, Times, Times New Roman, serif;
-  /* text-decoration: blueviolet; */
-}
-
-.headerlist {
-  text-align: center;
-}
-
-/* .input-group {
-  height: 100px;
-} */
-.success {
-  color: green;
-}
-.message_area {
-    position: fixed;
-    bottom: 30px;
-    display: table;
-    border-collapse: separate;
-    width: 600px;
-}
-/* .message_box {
-  height: 200px;
-  } */
-.message_list {
-  height: 400px;
-  overflow: scroll;
-}
-
- .groups {
-  background-color: #b1b4b5;
-  height: 300px;
-  overflow: scroll;
-} 
-
-  .footer {
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  padding: 1rem;
-  background-color: #efefef;
-  text-align: center;
-}
-.every {
-height: 500px;
-}
-.sendMessageDiv {
-	margin-top: 4%;
-}
-.sendMessageInput {
-	border: 1px solid #2e353d;
-	padding: 1%;
-}
-
- /* .footer {
-  padding: 20px;
-  height: 20px;
-  background-color: #f3e5f5;
-}  */
-
-/* .footer {
-    position : absolute;
-    bottom : 0;
-    height : 40px;
-    margin-top : 40px;
-  }  */
-  .container-fluid {
-   min-height:100%;
-   position:relative;
-   background-color: #626363;
-}  
-  #footer {
-   bottom:0;
-   width:100%;
-   height:60px;
-   /* background: lightblue; */
-}
-  #mesa {  
-    height: 590px; 
-    /* background: #eee; */
-    padding-bottom: 60px;
+  .groupList {
+    height: 35vh;
     overflow-y: scroll;
+  }
+  .list {
+    background-color: #E0F7FA;
 
   }
-      #dash {
-        height: 650px;
-      }
-  .userList {
-   /* background: lightblue; */
-    height: 179px;
-    /* padding-top: 50px; */
-   overflow-y: scroll; 
-} 
-.groupList {
-  /* background: lightblue; */
- height: 270px;
-   overflow-y: scroll; 
-  /* padding-bottom: 50px; */
-} 
-.createGroup {
-background-color: #75b2ce;
-color: #ffffff;
 
+.messageBoard {
+  background-image: 
+  url("https://static.pexels.com/photos/254183/pexels-photo-254183.jpeg");
 }
-.addUser {
-background-color: #75b2ce;
-color: #ffffff;  
+div.createGroupBtn {
+  margin-bottom: 20px;
+}
+div.groupMembers {
+  margin-top: 20px;
 }
 
-.messageHeader {
-  text-align: center;
-  margin-top: 300px;
-color: #ffffff; 
-font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-}
-
-.mem {
-  padding-top: 50px;
-}
-#hmtl {
-  padding-bottom: 0px;
-}
-#listing {
+div.messages {
+  border: 1px solid grey;
+  padding: 20px;
+  margin-bottom: 15px;
+  height: 70vh;
   overflow-y: scroll;
 }
-.loader {
+
+div.message {
+  border: 1px solid #000000;
+  padding: 10px;
+  margin-bottom: 20px;
+  background-color: #E0F2F1;
+}
+
+.input-group {
+  width: 100%;
+}
+.selectPriority {
+  width: 100%;
+}
+.welcomeHeader {
+  text-align: left;
+  padding-left: 5px;
+  color: black;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', 'Arial', 'sans-serif';
+}
+.card-header {
+  font-family: 'Impact', 'Haettenschweiler', 'Arial Narrow Bold', 'sans-serif'; 
+}
+
+
+#loader {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    z-index: 1;
+    width: 150px;
+    height: 150px;
+    margin: -75px 0 0 -75px;
     border: 16px solid #f3f3f3;
-    border-top: 16px solid #3498db;
     border-radius: 50%;
+    border-top: 16px solid #222;
     width: 120px;
     height: 120px;
+    -webkit-animation: spin 2s linear infinite;
     animation: spin 2s linear infinite;
 }
-  #logout {
-    background-color:white;
-    color: black;
+
+  .error {
+    color: red;
+    text-align: center;
+  }
+
+  #priorityDisplay {
+    color: #FF6F00
   }

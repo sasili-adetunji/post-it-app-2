@@ -1,8 +1,10 @@
 import React from 'react';
 import * as Api from '../../Api';
+import NavBar from '../NavBar';
 import PostItStore from '../../stores/PostItStore';
 import MessageList from './MessageList';
-import DashboardNav from './DashboardNav';
+import GroupList from './GroupList';
+import UserList from './UserList';
 
 
 /**
@@ -88,12 +90,23 @@ class Dashboard extends React.Component {
 */
   render() {
     return (
-      <div className="container-fluid" id="html">
-        <div className="col-xs-3" id="dash">
-          <DashboardNav user = {this.state.users} />
-        </div>
-        <div className="col-xs-9">
+      <div className='messageBoard'>
+        <NavBar />
+        <div className='container'>
+             <div className='welcomeHeader'> <h3> Welcome, 
+            {PostItStore.getLoggedInUser().data.userName} 
+            </h3>
+          </div>
+          <div className='row'>
+            <div className='col-md-2 col-xs-12'>
+          <GroupList />
+          <UserList groupName={PostItStore.getOpenedGroup()[0]} 
+            users={PostItStore.getUsersInGroup()} />
+            </div>
+            <div className='col-md-10 col-xs-12'>
           <MessageList />
+            </div>
+          </div>
         </div>
       </div>
     );

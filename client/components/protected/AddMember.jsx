@@ -86,7 +86,11 @@ class AddMember extends React.Component {
       userName: this.state.userName,
       groupId: PostItStore.getOpenedGroup()[0].groupId,
     };
-    if (!user.userId) {
+    if (!this.state.userName) {
+        this.setState({
+        error: 'user name is required',
+      });
+    } else if (!user.userId) {
       this.setState({
         error: 'This User does not exist',
         userName: '',
@@ -112,7 +116,7 @@ class AddMember extends React.Component {
     return (
       <div className="panel-body">
         <h6> To add a member, type in the username of the member </h6>
-            <strong className="error"> {this.state.error} </strong>
+          <div className='error'> {this.state.error} </div>
         <form className="navbar-form" role="search">
           <div className="form-group">
             <input

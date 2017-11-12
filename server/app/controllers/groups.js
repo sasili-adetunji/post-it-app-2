@@ -1,6 +1,5 @@
 import firebase from 'firebase';
 
-
 export default {
   /**
  * @description: creates broadcast group
@@ -74,6 +73,10 @@ export default {
    */
   addMemberToGroup(req, res) {
     const { groupId, userId, userName } = req.body;
+    const user = {
+      userId,
+      userName
+    };
     req.check('groupId', 'Kindly select a group first').notEmpty();
     req.check('userName', 'This User does not exist').notEmpty();
     const errors = req.validationErrors();
@@ -81,10 +84,17 @@ export default {
       const message = errors[0].msg;
       res.status(400).json({ message });
     } else {
-      firebase.database().ref(`groups/${groupId}/users/${userId}/`).set({
-        userId,
-        userName,
-      })
+      firebase.database().ref(`groups/${groupId}/users/${userId}/`)
+      .orderByKey().once('value', (snapshot) => {
+        if (snapshot.exists()) {
+          res.status(403).json({
+            message: 'The user already exist in the group'
+          });
+        } else {
+          firebase.database().ref(`groups/${groupId}/users/${userId}/`).set({
+            userId,
+            userName,
+          })
         .then(() => {
           firebase.database().ref(`groups/${groupId}`).orderByKey()
             .once('value', (snap) => {
@@ -97,6 +107,7 @@ export default {
             });
           res.status(201).json({
             message: 'User successfully added',
+            user
           });
         })
         .catch((error) => {
@@ -104,6 +115,8 @@ export default {
             message: `Error occurred ${error.message}`,
           });
         });
+        }
+      });
     }
   },
 /**

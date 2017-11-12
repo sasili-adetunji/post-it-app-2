@@ -1,4 +1,5 @@
 import { EventEmitter } from 'events';
+import jwt from 'jsonwebtoken';
 import assign from 'object-assign';
 import PostItConstants from '../constants/PostItConstants';
 import PostItDispatcher from '../dispatcher/PostItDispatcher';
@@ -7,7 +8,6 @@ import * as Api from '../Api';
 
 let usersInGroup = [];
 let users = [];
-// const userGroups = [];
 let groupsUser = [];
 let readUsers = [];
 let userMessages = [];
@@ -24,10 +24,6 @@ const PostItStore = assign({}, EventEmitter.prototype, {
   addUserToGroup(user) {
     usersInGroup.push(user);
   },
-
-  // createNewGroup(group) {
-  //   userGroups.push(group);
-  // },
 
   signOutUser() {
     loggedInUser.length = 0;
@@ -77,9 +73,6 @@ const PostItStore = assign({}, EventEmitter.prototype, {
     return users;
   },
 
-  // getGroups() {
-  //   return userGroups;
-  // },
   getSuccess() {
     return success;
   },
@@ -164,7 +157,6 @@ PostItDispatcher.register((payload) => {
 
     case PostItConstants.ADDUSER_GROUP:
       Api.addUserToGroup(action.user);
-      PostItStore.addUserToGroup(action.user);
       PostItStore.emitChange('change');
       break;
 
@@ -228,13 +220,22 @@ PostItDispatcher.register((payload) => {
 
     case PostItConstants.RECEIVE_LOGIN_SUCCESS:
       PostItStore.setIsAuthenticated(true);
-      PostItStore.receiveSuccess(action.message.message);
-      PostItStore.setLoggedInUser(action.message);
+      PostItStore.setLoggedInUser(jwt.decode(localStorage.jwtToken)); //eslint-disable-line
       PostItStore.emitChange('change');
       break;
 
     case PostItConstants.RECEIVE_ERRORS:
       PostItStore.receiveErrors(action.errors);
+      PostItStore.emitChange('change');
+      break;
+
+    case PostItConstants.RECIEVE_ADD_MEMBERS_TO_GROUP:
+      PostItStore.addUserToGroup(action.message);
+      PostItStore.emitChange('change');
+      break;
+
+    case PostItConstants.RECIEVE_CREATE_GROUP:
+      PostItStore.addGroups(action.group);
       PostItStore.emitChange('change');
       break;
 

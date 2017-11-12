@@ -84,10 +84,10 @@ const PostItActions = {
   *
   * @returns {response} request response
   */
-  receiveLoginSuccess(message) {
+  receiveLoginSuccess(token) {
     PostItDispatcher.handleViewAction({
       actionType: PostItConstants.RECEIVE_LOGIN_SUCCESS,
-      message,
+      token,
     });
   },
 
@@ -261,6 +261,35 @@ const PostItActions = {
   recieveUsersInGroups(group) {
     PostItDispatcher.handleViewAction({
       actionType: PostItConstants.RECIEVE_USERS_IN_GROUPS,
+      group,
+    });
+  },
+
+  /**
+  * recieves add members to particular group & dispatches it
+  *
+  * @param {object} group required group details of the particular group
+  *
+  * @returns {action} action type and payload
+  */
+  recieveAddMembersToGroups(message) {
+    PostItDispatcher.handleViewAction({
+      actionType: PostItConstants.RECIEVE_ADD_MEMBERS_TO_GROUP,
+      message,
+    });
+  },
+
+
+  /**
+  * recieves add members to particular group & dispatches it
+  *
+  * @param {object} group required group details of the particular group
+  *
+  * @returns {action} action type and payload
+  */
+  recieveCreateGroups(group) {
+    PostItDispatcher.handleViewAction({
+      actionType: PostItConstants.RECIEVE_ADD_MEMBERS_TO_GROUP,
       group,
     });
   },

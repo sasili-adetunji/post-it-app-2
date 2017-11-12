@@ -5,31 +5,29 @@ import PostItStore from '../../stores/PostItStore';
 
 
 const Message = ({message}) => {
-    let userNodes = null;
-    userNodes = PostItStore.getReadUsers().map((eachUser, i) => {
-      const user = [];
-      user.push(eachUser.userName);
-      return (
-        <li style={{ display: 'inline' }} key={i} > {user}</li>
-      );
-    });
     return (
-      <div className="msg_container_base">
-        <div className="row msg_container base_sent">
-          <div className="col-md-10 col-xs-10">
-            <ul >
-              <div className="messages msg_sent">
-                <p> {message.messageText} </p>
-                <time> Posted by {message.author} on 
-                  {message.date}</time>
-                <br />
-                <time> This message is {message.status} </time> 
-                <br />
-                 <time> Read by <span> {userNodes} </span> </time> 
-              </div>
-            </ul>
-          </div>
+    <div className="message">
+      <div className='row'>
+        <div className='col-md-10'>
+         <p> <b> {message.author} </b> </p>
         </div>
+        <div className='col-md-2' id='priorityDisplay'>
+          <p><i> {message.priorityLevel} </i></p>
+        </div>
+      </div> 
+         <div className='row'>
+        <div className='col-md-12'>
+          <p> {message.messageText}</p>
+        </div>
+        </div>
+       <div className='row'>
+        <div className='col-md-10'>
+          <p> {message.date}</p>
+        </div>
+        <div className='col-md-2'>
+          
+        </div>
+      </div> 
       </div>
     );
 }

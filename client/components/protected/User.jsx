@@ -8,10 +8,10 @@ import React from 'react';
  * @returns {JSX} each users in a group
  */
 
-const User = ({user}) => {
+const User = ({ user }) => {
   return (
-    <div className="side-menu-container list-group-item">
-      <li><span />
+    <div className="list-group-item">
+      <li className='item glyphicon glyphicon-user'> <span />
         <b> {user.userName} </b> </li>
     </div>
   );

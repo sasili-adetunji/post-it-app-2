@@ -1,5 +1,7 @@
 import React from 'react';
+import { Modal } from 'react-bootstrap';
 import MessageBox from './MessageBox';
+import AddMember from './AddMember';
 import Message from './Message';
 import PostItStore from '../../stores/PostItStore';
 
@@ -11,12 +13,30 @@ import PostItStore from '../../stores/PostItStore';
  * @returns {JSX} list of messages in a group
  */
 
-const MessageList = () => {
+class MessageList extends React.Component {
+  
+  constructor(props) {
+    super(props);
+    this.state = {
+      showAddUser: false,
+    };
+    this.closeGroup1 = this.closeGroup1.bind(this);
+    this.openGroup1 = this.openGroup1.bind(this);
+    }
+    closeGroup1() {
+      this.setState({ showAddUser: false });
+    }
+    openGroup1() {
+      this.setState({ showAddUser: true });
+    }
+render() {
     let messageNodes = null;
     if (PostItStore.getOpenedGroup().length === 0) {
-      messageNodes = (<h2 className="messageHeader"> No Group Selected </h2>);
+      messageNodes = (<div> <h2 className="messageHeader"> No Group Selected
+         </h2> </div>);
     } else if (PostItStore.getGroupsMessages().length === 0) {
-      messageNodes = (<h2 className="messageHeader"> No Message in Group </h2>);
+      messageNodes = (<div> <h2 className="messageHeader"> No Message in Group 
+        </h2> </div>);
     } else {
       messageNodes = PostItStore.getGroupsMessages().map((message, i) => {
         return (
@@ -27,16 +47,30 @@ const MessageList = () => {
         );
       });
     }
-    return (
+  return (
       <div>
-        <div className="viewMessage" id="mesa">
+       <div className='row'>
+        <div className='col-md-10'>
+          <h4> </h4>
+        </div>
+        <div className='col-md-2'>
+          <a onClick={this.openGroup1}> <b> Add new Member </b> </a>
+        </div>  
+          <Modal show={this.state.showAddUser} onHide={this.closeGroup1}>
+            <Modal.Body>
+              <AddMember />
+            </Modal.Body>
+            <Modal.Footer>
+              <a onClick={this.closeGroup1}> Close</a>
+            </Modal.Footer>
+          </Modal>
+        </div>
+        <div className='messages'>
           {messageNodes} 
         </div>
-        <div id="footer">
-          <MessageBox groupId={PostItStore.getOpenedGroup()[0]} /> 
-        </div>
+        <MessageBox />
       </div>
-            
     );
+}
 }
 export default MessageList;
