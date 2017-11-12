@@ -1,5 +1,6 @@
 import axios from 'axios';
 import toastr from 'toastr';
+import jwt from 'jsonwebtoken';
 import setAuthorizationToken from '../utils/setAuthorizationToken';
 import PostItActions from '../actions/PostItActions';
 import PostItStore from '../stores/PostItStore';
@@ -22,7 +23,7 @@ export const registerNewUser = (user) => {
   .then((response) => {
     setAuthorizationToken(response.data.token);
     localStorage.setItem('jwtToken', response.data.token); // eslint-disable-line
-    PostItActions.receiveLoginSuccess(response.data.user);
+    PostItActions.receiveLoginSuccess(response.data.token);
     toastr.success(response.data.message);
   })
   .catch((error) => {
@@ -46,7 +47,7 @@ export const signinUser = (user) => {
     .then((response) => {
       setAuthorizationToken(response.data.token);
       localStorage.setItem('jwtToken', response.data.token); // eslint-disable-line
-      PostItActions.receiveLoginSuccess(response.data.user);
+      PostItActions.receiveLoginSuccess(response.data.token);
       toastr.success(response.data.message);
     })
     .catch((error) => {
@@ -63,7 +64,7 @@ export const signoutUser = () => {
   axios.get('/user/signout')
     .then((response) => {
       setAuthorizationToken(false);
-      localStorage.removeItem('jwtToken'); // eslint-disable-line
+      localStorage.clear(); // eslint-disable-line
       toastr.success(response.data.message);
     })
     .catch((error) => {
@@ -83,7 +84,7 @@ export const googleLogin = (result) => {
     .then((response) => {
       setAuthorizationToken(response.data.token);
       localStorage.setItem('jwtToken', response.data.token); // eslint-disable-line
-      PostItActions.receiveLoginSuccess(response.data.user);
+      PostItActions.receiveLoginSuccess(response.data.token);
       toastr.success(response.data.message);
     })
     .catch((error) => {
@@ -103,6 +104,7 @@ export const createNewGroup = (group) => {
   axios.post('/group', {
     groupName: group.groupName,
   }).then((response) => {
+    // PostItActions.recieveCreateGroups(response.data.groups);
     PostItStore.addGroups(response.data.groups);
     toastr.success(response.data.message);
   })
@@ -142,6 +144,7 @@ export const addUserToGroup = (user) => {
     groupId: user.groupId,
     userName: user.userName,
   }).then((response) => {
+    PostItActions.recieveAddMembersToGroups(response.data.user);
     toastr.success(response.data.message);
   })
     .catch((error) => {

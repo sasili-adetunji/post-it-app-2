@@ -17,7 +17,7 @@ class MessageBox extends React.Component {
     this.state = {
       message: '',
       priorityLevel: '',
-      error: ''
+      error: {}
     };
     this.onChange = this.onChange.bind(this);
     this.onClick = this.onClick.bind(this);
@@ -53,17 +53,27 @@ class MessageBox extends React.Component {
 */
   onClick(event) {
     event.preventDefault();
-    if (!this.props.groupId) {
+    if (!PostItStore.getOpenedGroup()[0]) {
       this.setState({
-        error: 'Please kindly select a group first',
+        error: { group: 'Please kindly select a group first' },
         message: ''
       });
-    } else {
+    } else if (!this.state.message) {
+      this.setState({
+        error: { message : 'Kindly type your message first' }
+      });
+    } else if (!this.state.priorityLevel) {
+       this.setState({
+        error: { priorityLevel: 'priority level is required' }
+      });
+    }
+     else {
       const message = {
         messageText: this.state.message,
-        groupId: this.props.groupId.groupId,
+        groupId: PostItStore.getOpenedGroup()[0].groupId,
         priorityLevel: this.state.priorityLevel,
-        date: new Date().toJSON()
+        date: new Date().toJSON(),
+        author: PostItStore.getLoggedInUser().data.userName
       };
       PostItActions.addMessage(message);
       this.setState({
@@ -78,27 +88,40 @@ class MessageBox extends React.Component {
    * Render MessageBox component
    * 
    * @returns {String} The HTML markup for the MessageBox Components
+   * 
    * @memberof MessageBox
    */
   
   render() {
     return (
-      <div className="sendMessageDiv">
-        <strong className="error"> {this.state.error} </strong>
-          <form onSubmit={this.onClick}>
-              <div className="form-group col-sm-2">
-                  <select name="priorityLevel" className="form-control" 
-                  id="exampleFormControlSelect1"
-                    onChange={this.onChange} value={this.state.priorityLevel}>
-                      <option>Normal</option>
-                      <option>Urgent</option>
-                      <option>Critical</option>
-                  </select>
+      <div className='messageForm'>
+        <div className='error'> 
+          {this.state.error.message}  
+          {this.state.error.priorityLevel} {this.state.error.group}   
+        </div>
+        <form onSubmit={this.onClick}>
+          <div className='row'>
+            <div className='col-md-10'>
+              <div className="input-group">
+                <input name='message'
+                  placeholder='Enter a message' onChange={this.onChange} 
+                  value={this.state.message} 
+                  type="text" className="form-control messageInput"/> 
               </div>
-              <input name='message' className="col-sm-10 sendMessageInput"
-                placeholder='Enter a message' onChange={this.onChange} 
-                value={this.state.message}/>
-          </form>
+            </div>
+            <div className='col-md-2'>
+              <div className="form-group">
+                <select className="form-control selectPriority"
+                  name="priorityLevel"onChange={this.onChange} 
+                  value={this.state.priorityLevel} >
+                    <option value="normal">Normal</option>
+                    <option value="critical">Critical</option>
+                    <option value="urgent">Urgent</option>
+                </select>
+              </div>
+            </div> 
+          </div>
+        </form> 
       </div>
     );
   }

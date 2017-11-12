@@ -97,9 +97,9 @@ export default {
             userName,
             email,
           }
-        }, process.env.TOKEN_SECRET, { expiresIn: '24h' });
+        }, process.env.TOKEN_SECRET, { expiresIn: '2h' });
         res.status(200).json({
-          message: 'Success: you have successfuly signed in.', token, user });
+          message: 'Success: you have successfuly signed in.', token });
       })
       .catch((error) => {
         res.status(401).json({
@@ -215,7 +215,6 @@ export default {
     const result = req.body;
     const credential = firebase.auth.GoogleAuthProvider
     .credential(result.credential.idToken);
-
     firebase.database()
     .ref('users').child(result.user.uid).once('value', (snapshot) => {
       if (!snapshot.exists()) {

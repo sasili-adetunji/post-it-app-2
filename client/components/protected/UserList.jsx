@@ -10,18 +10,17 @@ import PostItStore from '../../stores/PostItStore';
  * @returns {JSX} list of a users in a group
  */
 
-const UserList = () => {
-  const userNodes = PostItStore.getUsersInGroup().map((user, i) => {
+const UserList = ({ users }) => {
+   const userNodes = users.map((user, i) => {
     return (
-      <User user={user} key={i} />
+      <User user={user} key={i}/>
     );
   });
   return (
-    <div>
-      <div className="headerlist"> <h4 className="card-header"> 
-        Members </h4> </div>
-      <div className="userList">
-      {userNodes}
+    <div className='groupMembers'>
+      <div className='groupList'>
+        <h4 className='card-header'>Group Members </h4>
+        {userNodes}
       </div>
     </div>
   );

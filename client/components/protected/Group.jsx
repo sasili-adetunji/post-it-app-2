@@ -21,10 +21,10 @@ const Group = ({group}) => {
     API.getUsersInGroup(group);
   }
   return (
-    <div className="side-menu-container list-group-item">
-      <a> <li onClick={onClick}>
-        <b> { group.groupName } </b>
-      </li> </a>
+        <div className="list-group-item" id='groupList'>
+          <li className='item glyphicon glyphicon-list-alt'> 
+          <a onClick={onClick}> <b> { group.groupName } </b> </a>
+        </li>
     </div>
   );
 }

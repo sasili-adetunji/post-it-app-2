@@ -1,11 +1,5 @@
 import React, { Component } from 'react';
 import { Route, BrowserRouter, Link, Redirect, Switch } from 'react-router-dom';
-import injectTapEventPlugin from 'react-tap-event-plugin';
-import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import AppBar from 'material-ui/AppBar';
-import FlatButton from 'material-ui/FlatButton';
 import PostItStore from '../stores/PostItStore';
 import PostItActions from '../actions/PostItActions';
 import Login from './Login';
@@ -14,8 +8,7 @@ import Group from './protected/Group';
 import CreateGroup from './protected/CreateGroup';
 import MessageBoard from './protected/MessageBoard';
 import MessageList from './protected/MessageList';
-
-injectTapEventPlugin();
+import ForgotPassword from './ForgotPassword';
 
 
  /** 
@@ -109,10 +102,6 @@ class App extends Component {
   render() {
     return (
       <div>
-        <MuiThemeProvider muiTheme={getMuiTheme(darkBaseTheme)}>
-          <AppBar
-            title="Post It App" />
-        </MuiThemeProvider>
         <Switch>
           <PublicRoute path="/" exact component={Login} />
           <PublicRoute
@@ -121,6 +110,9 @@ class App extends Component {
           <PublicRoute
             isAuthenticated={this.state.isAuthenticated}
             path="/signup" component={Register} />
+          <PublicRoute
+            isAuthenticated={this.state.isAuthenticated}
+            path="/forgotPassword" component={ForgotPassword} />
           <PrivateRoute
             isAuthenticated={this.state.isAuthenticated}
             path="/messageboard" component={MessageBoard} />

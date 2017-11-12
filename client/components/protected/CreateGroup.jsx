@@ -15,7 +15,8 @@ class CreateGroup extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      groupName: ''
+      groupName: '',
+      error: ''
     };
     this.onChange = this.onChange.bind(this);
     this.onClick = this.onClick.bind(this);
@@ -54,14 +55,21 @@ class CreateGroup extends React.Component {
     const group = {
       groupName: this.state.groupName,
     };
+    if (!this.state.groupName) {
+      this.setState({
+        error: 'Group Name is Required'
+      })
+    } else {
     PostItActions.createGroup(group);
     API.getUserGroups();
     this.setState({
-      groupName: ''
+      groupName: '',
+      error: ''
     });
+    }
   }
 
-  
+
   /**
    * @method render
    * 
@@ -74,6 +82,7 @@ class CreateGroup extends React.Component {
   render() {
     return (
       <div className="panel-body">
+        <div className='error'> {this.state.error} </div>
         <form className="navbar-form" role="search">
           <div className="form-group">
             <input

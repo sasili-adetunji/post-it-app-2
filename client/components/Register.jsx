@@ -1,10 +1,6 @@
 import React from 'react';
-import mui from 'material-ui';
 import { Link } from 'react-router-dom';
-import { Card, CardTitle } from 'material-ui/Card';
-import TextField from 'material-ui/TextField';
-import RaisedButton from 'material-ui/RaisedButton';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import NavBar from './NavBar';
 import PostItActions from '../actions/PostItActions';
 import PostItStore from '../stores/PostItStore';
 
@@ -107,40 +103,52 @@ class Register extends React.Component {
   render() {
     return (
       <div>
-        <MuiThemeProvider >
-          <Card className="card" >
-            <CardTitle
-              title="Signup Form"
-              subtitle="To continue using PostIt, you need to register below" />
-            <TextField
-              name="userName" onChange={this.onChange}
-              errorText={this.state.errors.userName}
-              value={this.state.userName} floatingLabelText="Choose Username" />
-              <br />
-            <TextField
-              name="email" onChange={this.onChange} value={this.state.email}
-              errorText={this.state.errors.email}
-              floatingLabelText="Your Email" /><br />
-            <TextField
-              name="password" onChange={this.onChange}
-              value={this.state.password}
-              errorText={this.state.errors.password}
-              floatingLabelText="Choose Password" type="password" /><br />
-            <TextField
-              name="phoneNumber" onChange={this.onChange}
-              errorText={this.state.errors.phoneNumber}
-              floatingLabelText="Phone Number" /><br />
-            <br />
-            <p> Already Have an account,<Link to="/signin"> Login here </Link> 
-            </p>
-            <RaisedButton
-              onClick={this.onClick}
-              onTouchTap={this.handleTouchTap}
-              label="Sign Up" primary />
-          </Card>
-        </MuiThemeProvider>
+        <NavBar />
+        <div className="login-container">
+          <h1>Sign Up</h1>
+          <p>To continue using PostIt, you need to sign up below</p>
+          <div className='error'> 
+          {this.state.errors.email}  
+          {this.state.errors.password} {this.state.errors.phoneNumber}
+          {this.state.errors.userName}
       </div>
-
+          <form>
+            <div className="form-group">
+              <label>Email address</label>
+              <input type="email" className="form-control" 
+              name="email" onChange={this.onChange} 
+              value={this.state.email}
+              placeholder="Email" />
+            </div>
+               <div className="form-group">
+              <label>Username</label>
+              <input className="form-control" 
+               name="userName" onChange={this.onChange} 
+              value={this.state.userName} 
+              placeholder="Username" />
+            </div>
+               <div className="form-group">
+              <label>Phone Number</label>
+              <input className="form-control" name="phoneNumber" 
+              onChange={this.onChange} 
+              value={this.state.phoneNumber} 
+              placeholder="Phone Number" />
+            </div>
+            <div className="form-group">
+              <label>Password</label>
+              <input type="password" className="form-control" 
+               name="password" onChange={this.onChange} 
+              value={this.state.password} 
+              placeholder="Password" />
+            </div>
+            <button type="submit" className="btn btn-default"
+            onClick={this.onClick} >Submit</button>
+          </form>
+          <div className="clear"> </div>
+          <p> Already have an account? <Link to="/signin"> Login here 
+            </Link> </p>
+        </div>
+      </div>
     );
   }
 
