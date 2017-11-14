@@ -25,8 +25,7 @@
   }
 
 .messageBoard {
-  background-image: 
-  url("https://static.pexels.com/photos/254183/pexels-photo-254183.jpeg");
+  background-color: #E0F2F1;
 }
 div.createGroupBtn {
   margin-bottom: 20px;
@@ -92,3 +91,7 @@ div.message {
   #priorityDisplay {
     color: #FF6F00
   }
+
+   #google-sign-in {
+     background-color: #c9d8f2;
+  } 

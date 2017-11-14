@@ -7,3 +7,4 @@ serviceAccountKey.json
 dist
 .vscode
 .nyc_output
+coverage

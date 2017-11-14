@@ -97,7 +97,7 @@ describe('Signup route', () => {
       .send(newUser)
       .set('Accept', 'application/json')
       .end((err, res) => {
-        assert.equal('Password must be a mininum of 6 character',
+        assert.equal('Password must be between 6 and 50 characters',
           res.body.message);
         res.should.have.status(400);
         res.body.should.be.a('object');
@@ -142,7 +142,7 @@ describe('Signup route', () => {
         done();
       });
   });
-  it('should return status 403 for existing user', (done) => {
+  it('should return status 401 for existing user', (done) => {
     const newUser = {
       userName: 'wash',
       password: 'wash@email.com',
@@ -156,12 +156,12 @@ describe('Signup route', () => {
       .end((err, res) => {
         assert.equal('The email address is already in use by another account.',
           res.body.message);
-        res.should.have.status(403);
+        res.should.have.status(401);
         res.body.should.be.a('object');
         done();
       });
   });
-  it('should return 200 when a user successfully registered', (done) => {
+  it('should return 201 when a user successfully registered', (done) => {
     const newUser = {
       userName: faker.name.findName(),
       password: 'anothedad@email.com',
@@ -173,9 +173,9 @@ describe('Signup route', () => {
       .send(newUser)
       .set('Accept', 'application/json')
       .end((err, res) => {
-        assert.equal('Welcome, you have successfully registered. You can proceed to login now',
+        assert.equal('Signup was successful',
           res.body.message);
-        assert.equal('200', res.statusCode);
+        assert.equal('201', res.statusCode);
         res.body.should.be.a('object');
         done();
       });

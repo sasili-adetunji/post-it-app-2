@@ -3,45 +3,38 @@ import { shallow, mount } from 'enzyme';
 import GroupList from '../../components/protected/GroupList.jsx';
 import PostItStore from '../../stores/PostItStore';     // eslint-disable-line
 
-import {JSDOM} from 'jsdom';
 
-const jsdom = new JSDOM('<!doctype html><html><body></body></html>');
+require('../setup');
 
-const { window } = jsdom;
-global.window = window;
-global.document = window.document;
 
 describe('GroupList components', () => {
   let props;
   let mountedComponent;
   const groupList = () => {
     if (!mountedComponent) {
-      mountedGroupList = mount(
+      mountedComponent = mount(
         <GroupList {...props} />
       );
     }
     return mountedComponent;
-  }
+  };
 
   beforeEach(() => {
     props = {
-      selected: [{groupId: "-Kxmsgit2a21Qf7y25hF", groupName: "creatGro"}],
+      selected: [{ groupId: '-Kxmsgit2a21Qf7y25hF', groupName: 'creatGro' }],
       onChange: () => {},
     };
     mountedComponent = mount(
-        <GroupList {...props} />
+      <GroupList {...props} />
       );
   });
   it('should render', () => {
     expect(groupList()).toBeDefined();
   });
-  it('Should contain three div', () => {
-    expect(groupList().find('div').length).toEqual(3);
+  it('Should contain five div', () => {
+    expect(groupList().find('div').length).toEqual(5);
   });
   it('should recieve props', () => {
     expect(Object.keys(groupList().props()).length).toBeGreaterThan(0);
-  });
-   it('should have an empty initial state', () => {
-    expect(mountedComponent.state().showAddUser).toEqual(false);
   });
 });

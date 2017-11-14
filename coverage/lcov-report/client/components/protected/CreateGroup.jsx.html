@@ -20,14 +20,14 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">100% </span>
+        <span class="strong">76.92% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>11/11</span>
+        <span class='fraction'>10/13</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">100% </span>
+        <span class="strong">50% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>0/0</span>
+        <span class='fraction'>1/2</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
@@ -35,13 +35,13 @@
         <span class='fraction'>4/4</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">100% </span>
+        <span class="strong">76.92% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>11/11</span>
+        <span class='fraction'>10/13</span>
       </div>
     </div>
   </div>
-  <div class='status-line high'></div>
+  <div class='status-line medium'></div>
 <pre><table class="coverage">
 <tr><td class="line-count quiet">1
 2
@@ -123,7 +123,36 @@
 78
 79
 80
-81</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -141,8 +170,13 @@
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -166,14 +200,26 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -203,6 +249,16 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react';
 import PostItActions from '../../actions/PostItActions';
 import * as API from '../../Api';
@@ -212,6 +268,7 @@ import * as API from '../../Api';
  * create creategroup components
  *
  * @class CreateGroup
+ *
  * @extends {React.Component}
  */
 class CreateGroup extends React.Component {
@@ -219,19 +276,24 @@ class CreateGroup extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      groupName: ''
+      groupName: '',
+      error: ''
     };
     this.onChange = this.onChange.bind(this);
     this.onClick = this.onClick.bind(this);
   }
 &nbsp;
   /**
-    * @method onChange
-    * @description Monitors changes in the components and change the state
-    * @memberof CreateGroup
-    * @param {object}
-    * @returns {void}
-    */
+  * @method onChange
+  *
+  * @description Monitors changes in the components and change the state
+  *
+  * @memberof CreateGroup
+  *
+  * @param {object}
+  *
+  * @returns {void}
+  */
 &nbsp;
   onChange(event) {
     this.setState({
@@ -239,43 +301,65 @@ class CreateGroup extends React.Component {
     });
   }
 &nbsp;
-  /**
-     * @description Makes an action call to create a group
-     * @param {object} event
-     * @returns {void}
-     * @memberof CreateGroup
-  */
+&nbsp;
+/**
+ * @description Makes an action call to create a group
+ *
+ * @param {object} event
+ *
+ * @returns {void}
+ *
+ * @memberof CreateGroup
+*/
   onClick(event) {
     event.preventDefault();
     const group = {
       groupName: this.state.groupName,
-      userName: this.props.userName.displayName
     };
-    PostItActions.createGroup(group);
-    API.getUserGroups();
-    this.setState({
-      groupName: ''
-    });
+    <span class="missing-if-branch" title="else path not taken" >E</span>if (!this.state.groupName) {
+      this.setState({
+        error: 'Group Name is Required'
+      });
+    } else {
+<span class="cstat-no" title="statement not covered" >      PostItActions.createGroup(group);</span>
+<span class="cstat-no" title="statement not covered" >      API.getUserGroups();</span>
+<span class="cstat-no" title="statement not covered" >      this.setState({</span>
+        groupName: '',
+        error: ''
+      });
+    }
   }
+&nbsp;
 &nbsp;
   /**
    * @method render
+   *
    * Render react component
-   * 
+   *
    * @returns {String} The HTML markup for the CreateGroup Components
+   *
    * @memberof CreateGroup
    */
-&nbsp;
   render() {
     return (
       &lt;div className="panel-body"&gt;
+        &lt;div className="error"&gt; {this.state.error} &lt;/div&gt;
         &lt;form className="navbar-form" role="search"&gt;
           &lt;div className="form-group"&gt;
             &lt;input
-            type="text" className="form-control" placeholder="Create Group"
-            name="groupName" onChange={this.onChange} value={this.state.groupName} /&gt;
+              type="text"
+              className="form-control"
+              placeholder="Create Group"
+              name="groupName"
+              onChange={this.onChange}
+              value={this.state.groupName}
+            /&gt;
           &lt;/div&gt;
-          &lt;button onClick={this.onClick} type="submit" className="btn btn-default "&gt;
+          &lt;button
+            onClick={this.onClick}
+            type="submit"
+            className="btn btn-default "
+          &gt;
             &lt;span className="glyphicon glyphicon-plus" /&gt;&lt;/button&gt;
         &lt;/form&gt;
       &lt;/div&gt;
@@ -289,7 +373,7 @@ export default CreateGroup;
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Fri Nov 03 2017 10:09:15 GMT+0100 (WAT)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Tue Nov 14 2017 09:31:35 GMT+0100 (WAT)
 </div>
 </div>
 <script src="../../../prettify.js"></script>

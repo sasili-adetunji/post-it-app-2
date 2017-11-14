@@ -120,7 +120,6 @@
     "roots": [
       "<rootDir>/client/__test__"
     ],
-    "testEnvironment": "node",
     "moduleFileExtensions": [
       "js",
       "jsx"

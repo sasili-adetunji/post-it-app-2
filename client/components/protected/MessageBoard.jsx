@@ -5,13 +5,14 @@ import PostItStore from '../../stores/PostItStore';
 import MessageList from './MessageList';
 import GroupList from './GroupList';
 import UserList from './UserList';
+import WelcomeHeader from './WelcomeHeader';
 
 
 /**
  * creates dashboard components
  *
  * @class Dashboard
- * 
+ *
  * @extends {React.Component}
  */
 class Dashboard extends React.Component {
@@ -25,10 +26,36 @@ class Dashboard extends React.Component {
       user: PostItStore.getUsers(),
       readUsers: PostItStore.getReadUsers(),
       message: PostItStore.getGroupsMessages(),
+      userName: PostItStore.getLoggedInUser(),
     };
     this.onChange = this.onChange.bind(this);
   }
 
+/**
+ * @method componentDidUnmount
+ *
+ * @description adds event Listener from the Store,
+ * fetches Api call to get users and user groups
+ *
+ * @memberof MessageList
+*/
+  componentDidMount() {
+    Api.getUserGroups();
+    Api.getUsers();
+    PostItStore.addChangeListener(this.onChange);
+  }
+
+
+/**
+ * @method componentWillUnmount
+ *
+ * @description removes event Listener from the Store
+ *
+ * @memberof Dashboard
+*/
+  componentWillUnmount() {
+    PostItStore.removeChangeListener(this.onChange);
+  }
 
 /**
 * @method onChange
@@ -48,34 +75,9 @@ class Dashboard extends React.Component {
       selectedGroup: PostItStore.getOpenedGroup(),
       user: PostItStore.getUsers(),
       readUsers: PostItStore.getReadUsers(),
-      message: PostItStore.getGroupsMessages()
+      message: PostItStore.getGroupsMessages(),
+      userName: PostItStore.getLoggedInUser(),
     });
-  }
-
-/**
- * @method componentDidUnmount
- * 
- * @description adds event Listener from the Store, 
- * fetches Api call to get users and user groups
- * 
- * @memberof MessageList
-*/
-  componentDidMount() {
-    Api.getUserGroups();
-    Api.getUsers();
-    PostItStore.addChangeListener(this.onChange);
-  }
-
-
-/**
- * @method componentWillUnmount
- * 
- * @description removes event Listener from the Store
- * 
- * @memberof Dashboard
-*/
-  componentWillUnmount() {
-    PostItStore.removeChangeListener(this.onChange);
   }
 
 
@@ -83,33 +85,34 @@ class Dashboard extends React.Component {
 * @method render
 *
 * Render react component
-* 
+*
 * @returns {String} The HTML markup for the MessageList Components
 *
 * @memberof Dashboard
 */
   render() {
     return (
-      <div className='messageBoard'>
+      <div className="messageBoard">
         <NavBar />
-        <div className='container'>
-             <div className='welcomeHeader'> <h3> Welcome, 
-            {PostItStore.getLoggedInUser().data.userName} 
-            </h3>
+        <div className="container">
+          <div className="welcomeHeader">
+            <WelcomeHeader user={this.state.userName} />
           </div>
-          <div className='row'>
-            <div className='col-md-2 col-xs-12'>
-          <GroupList />
-          <UserList groupName={PostItStore.getOpenedGroup()[0]} 
-            users={PostItStore.getUsersInGroup()} />
+          <div className="row">
+            <div className="col-md-2 col-xs-12">
+              <GroupList />
+              <UserList
+                groupName={PostItStore.getOpenedGroup()[0]}
+                users={PostItStore.getUsersInGroup()}
+              />
             </div>
-            <div className='col-md-10 col-xs-12'>
-          <MessageList />
+            <div className="col-md-10 col-xs-12">
+              <MessageList groupName={PostItStore.getOpenedGroup()[0]} />
             </div>
           </div>
         </div>
       </div>
     );
-  } 
+  }
 }
 export default Dashboard;

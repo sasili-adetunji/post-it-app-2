@@ -1,18 +1,20 @@
 import React from 'react';
 import firebase from 'firebase';
-import { Link } from 'react-router-dom';
-import GoogleButton from 'react-google-button';
+import toastr from 'toastr';
 import PostItActions from '../actions/PostItActions';
-import PostItStore from '../stores/PostItStore';
 import config from '../../server/app/config/database';
 import NavBar from './NavBar';
 
 /**
- * 
+ *
  * @description gets user data and login a user
+ *
  * @export
+ *
  * @param {object} props
+ *
  * @class Login
+ *
  * @extends {Component}
  */
 
@@ -48,11 +50,11 @@ class Login extends React.Component {
 
 /**
  * @description Makes an action call to Sign in a user with email and password
- * 
+ *
  * @param {object} event
- * 
+ *
  * @returns {void}
- * 
+ *
  * @memberof Login
 */
   onClick(event) {
@@ -62,19 +64,19 @@ class Login extends React.Component {
       password: this.state.password
     };
     if (!user.email) {
-      this.setState({ errors: { email: 'Email is required' } })
+      this.setState({ errors: { email: 'Email is required' } });
     } else if (!user.password) {
-        this. setState({ errors: { password: 'Password is required' } })
+      this.setState({ errors: { password: 'Password is required' } });
     } else {
-    PostItActions.login(user);
-    this.setState({
-      email: '',
-      password: '',
-      errors: '',
-      success: '',
-      isLoading: true
-    });
-  }
+      PostItActions.login(user);
+      this.setState({
+        email: '',
+        password: '',
+        errors: '',
+        success: '',
+        isLoading: true
+      });
+    }
   }
    /**
      * @description Makes an action call to Sign in a user with with google
@@ -93,60 +95,80 @@ class Login extends React.Component {
       this.setState({
         isLoading: true
       });
-    })
+    }).catch(error => toastr.error(error.message));
   }
- 
+
 
    /**
    * @method render
    * Render react component
-   * 
+   *
    * @returns {String} The HTML markup for the Register
+   *
    * @memberof Register
    */
 
   render() {
     const isLoading = () => {
       const loading = (
-        this.state.isLoading ? <div id="loader"></div> : <span></span>
+        this.state.isLoading ? <div id="loader" /> : <span />
       );
       return loading;
-    }
+    };
     return (
       <div>
         <NavBar />
         <div className="login-container">
-            {isLoading()}
+          {isLoading()}
           <h1>Login</h1>
           <p>To continue using PostIt, you need to login below</p>
-        <div className='error'> {this.state.errors.email}  
-          {this.state.errors.password}   
-      </div>
+          <div className="error"> {this.state.errors.email}
+            {this.state.errors.password}
+          </div>
           <form>
             <div className="form-group">
               <label>Email address</label>
-              <input type="email" className="form-control" 
-              name="email" onChange={this.onChange} 
-              value={this.state.email} placeholder="Email" />
+              <input
+                type="email"
+                className="form-control"
+                name="email"
+                onChange={this.onChange}
+                value={this.state.email}
+                placeholder="Email"
+              />
             </div>
             <div className="form-group">
               <label>Password</label>
-              <input type="password" className="form-control" 
-               name="password" onChange={this.onChange} 
-              value={this.state.password} placeholder="Password" />
+              <input
+                type="password"
+                className="form-control"
+                name="password"
+                onChange={this.onChange}
+                value={this.state.password}
+                placeholder="Password"
+              />
             </div>
-            <button type="submit" className="btn btn-default"
-            onClick={this.onClick} >Submit</button>
+            <button
+              type="submit"
+              id="login"
+              className="btn btn-default"
+              onClick={this.onClick}
+            >Submit</button>
           </form>
-          <div className="clear"> </div>
-           <p> <Link to="/forgotPassword"> Forgot Password? 
-            </Link> </p>
-          <div className="clear"> </div>
-          <GoogleButton onClick={this.onClickGoogle} />
+          <div className="clear" />
+          <p> <a href="/#/forgotPassword"> Forgot Password?
+            </a> </p>
+          <div className="clear" />
+          <button
+            type="submit"
+            id="google-sign-in"
+            className="btn btn-default"
+            onClick={this.onClickGoogle}
+          >Sign in with Google </button>
           <br />
-          <div className="clear"> </div>
-          <p> Don't have an account? <Link to="/signup"> Register here 
-            </Link> </p>
+          <div className="clear" />
+          <p> Don't have an account? <a href="/#/signup"> Register here
+            </a> </p>
         </div>
       </div>
     );
