@@ -45,8 +45,8 @@ export default {
                 priorityLevel,
                 status: 'Unread',
               });
-            if ((priorityLevel === 'Critical') ||
-               (priorityLevel === 'Urgent')) {
+            if ((priorityLevel === 'critical') ||
+               (priorityLevel === 'urgent')) {
               firebase.database().ref(`users/${childSnapShot.val().userId}/`)
                 .once('value', (snap) => {
                   const emailObject = {
@@ -56,7 +56,7 @@ export default {
                   sendEmail(emailObject);
                 });
             }
-            if (priorityLevel === 'Critical') {
+            if (priorityLevel === 'critical') {
               firebase.database().ref(`users/${childSnapShot.val().userId}/`)
                 .once('value', (msg) => {
                   const smsObject = {

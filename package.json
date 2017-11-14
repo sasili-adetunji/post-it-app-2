@@ -77,7 +77,6 @@
     "react-addons-test-utils": "~15.6.0",
     "react-bootstrap": "^0.31.3",
     "react-dom": "^15.5.4",
-    "react-google-button": "^0.3.0",
     "react-router": "^0.13.3",
     "react-router-dom": "^4.1.1",
     "react-tap-event-plugin": "2.0.1",
@@ -120,7 +119,6 @@
     "roots": [
       "<rootDir>/client/__test__"
     ],
-    "testEnvironment": "node",
     "moduleFileExtensions": [
       "js",
       "jsx"

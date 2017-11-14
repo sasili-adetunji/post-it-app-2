@@ -78,7 +78,7 @@ export default {
       userName
     };
     req.check('groupId', 'Kindly select a group first').notEmpty();
-    req.check('userName', 'This User does not exist').notEmpty();
+    req.check('userName', 'User can not be empty').notEmpty();
     const errors = req.validationErrors();
     if (errors) {
       const message = errors[0].msg;
@@ -168,19 +168,19 @@ export default {
       const groups = [];
       firebase.database().ref(`users/${userData.uid}/groups/`)
         .orderByKey().once('value', (snapshot) => {
-          if (!snapshot.exists()) {
-            res.status(404).json({
-              message: 'There is no groups found for the user'
-            });
-          } else {
-            snapshot.forEach((childSnapShot) => {
-              const group = {
-                groupId: childSnapShot.val().groupInfo.groupId,
-                groupName: childSnapShot.val().groupInfo.groupName,
-              };
-              groups.push(group);
-            });
-          }
+          // if (!snapshot.exists()) {
+          //   res.status(404).json({
+          //     message: 'There is no groups found for the user'
+          //   });
+          // } else {
+          snapshot.forEach((childSnapShot) => {
+            const group = {
+              groupId: childSnapShot.val().groupInfo.groupId,
+              groupName: childSnapShot.val().groupInfo.groupName,
+            };
+            groups.push(group);
+          });
+          // }
         })
         .then(() => {
           res.status(200).json({

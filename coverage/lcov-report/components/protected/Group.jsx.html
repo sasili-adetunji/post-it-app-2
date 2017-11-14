@@ -20,9 +20,9 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">0% </span>
+        <span class="strong">14.29% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>0/7</span>
+        <span class='fraction'>1/7</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
@@ -32,12 +32,12 @@
       <div class='fl pad1y space-right2'>
         <span class="strong">0% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>0/3</span>
+        <span class='fraction'>0/2</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">0% </span>
+        <span class="strong">14.29% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>0/7</span>
+        <span class='fraction'>1/7</span>
       </div>
     </div>
   </div>
@@ -75,24 +75,7 @@
 30
 31
 32
-33
-34
-35
-36
-37
-38
-39
-40
-41
-42
-43
-44
-45
-46
-47
-48
-49
-50</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+33</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -105,31 +88,14 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -142,61 +108,44 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react';
+import PropTypes from 'prop-types';
 import PostItActions from '../../actions/PostItActions';
 import * as API from '../../Api';
 &nbsp;
-&nbsp;
 /**
- * creates Group components
+ * @description Displays a list of users in a group
  *
- * @class Group
- * @extends {React.Component}
+ * @function UserList
+ *
+ * @param {Object} group group details as props
+ *
+ * @returns {JSX} list of a users in a group
  */
-class Group extends React.Component {
-<span class="fstat-no" title="function not covered" >  co</span>nstructor(props) {
-<span class="cstat-no" title="statement not covered" >    super(props);</span>
-<span class="cstat-no" title="statement not covered" >    this.onClick = this.onClick.bind(this);</span>
-  }
 &nbsp;
-   /**
-     * @description Makes an apu call to get group messges, users
-     * @param {object} event
-     * @returns {void}
-     * @memberof CreateGroup
-  */
-&nbsp;
-<span class="fstat-no" title="function not covered" >  on</span>Click() {
-<span class="cstat-no" title="statement not covered" >    PostItActions.groupOpened(this.props.group);</span>
-<span class="cstat-no" title="statement not covered" >    PostItActions.getUserMessages(this.props.group);</span>
-<span class="cstat-no" title="statement not covered" >    API.getUsersInGroup(this.props.group);</span>
-<span class="cstat-no" title="statement not covered" >    API.getUserGroups();</span>
-  }
-&nbsp;
-  /**
-   * @method render
-   * Render react component
-   *
-   * @returns {String} The HTML markup for the Group Components
-   * @memberof Group
-   */
-<span class="fstat-no" title="function not covered" >  re</span>nder() {
-<span class="cstat-no" title="statement not covered" >    return (</span>
-      &lt;div className="side-menu-container list-group-item"&gt;
-        &lt;a&gt; &lt;li onClick={this.onClick}&gt;
-         &lt;b&gt; { this.props.group.groupName } &lt;/b&gt;
-        &lt;/li&gt; &lt;/a&gt;
-      &lt;/div&gt;
-    );
-  }
-}
+const Group = <span class="fstat-no" title="function not covered" >({</span> group }) =&gt; {
+  const onClick = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    PostItActions.groupOpened(group);</span>
+<span class="cstat-no" title="statement not covered" >    PostItActions.getUserMessages(group);</span>
+<span class="cstat-no" title="statement not covered" >    PostItActions.recieveUsersInGroups(group);</span>
+<span class="cstat-no" title="statement not covered" >    API.getUsersInGroup(group);</span>
+  };
+<span class="cstat-no" title="statement not covered" >  return (</span>
+    &lt;div className="list-group-item" id="groupList"&gt;
+      &lt;li className="item glyphicon glyphicon-list-alt"&gt;
+        &lt;a onClick={onClick}&gt; &lt;b&gt; { group.groupName } &lt;/b&gt; &lt;/a&gt;
+      &lt;/li&gt;
+    &lt;/div&gt;
+  );
+};
 export default Group;
+&nbsp;
 &nbsp;</pre></td></tr>
 </table></pre>
 <div class='push'></div><!-- for sticky footer -->
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Thu Nov 02 2017 17:35:50 GMT+0100 (WAT)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Tue Nov 14 2017 06:30:44 GMT+0100 (WAT)
 </div>
 </div>
 <script src="../../prettify.js"></script>

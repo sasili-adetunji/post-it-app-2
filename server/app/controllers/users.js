@@ -42,23 +42,22 @@ export default {
           userName,
           email,
           phoneNumber,
-        }).then(() => {
-          const uid = user.uid;
-          const token = jwt.sign({
-            data: {
-              uid,
-              userName,
-              email,
-            }
-          }, process.env.TOKEN_SECRET, { expiresIn: '24h' });
-          res.status(201).json({
-            message: 'Signup was successful', token, user });
-        })
+        });
+        const uid = user.uid;
+        const token = jwt.sign({
+          data: {
+            uid,
+            userName,
+            email,
+          }
+        }, process.env.TOKEN_SECRET, { expiresIn: '24h' });
+        res.status(201).json({
+          message: 'Signup was successful', token });
+      })
       .catch((error) => {
         res.status(401).json({
           message: error.message,
         });
-      });
       });
     }
   },

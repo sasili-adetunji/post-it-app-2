@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow, render } from 'enzyme';
+import { shallow } from 'enzyme';
 import User from '../../components/protected/User.jsx';
 
 describe('User components', () => {
@@ -10,10 +10,6 @@ describe('User components', () => {
   };
 
   const component = shallow(<User user={user} />);
-
-  it('should match snapshot test', () => {
-    expect(component).toMatchSnapshot();
-  });
   it('should render', () => {
     expect(component).toBeDefined();
   });

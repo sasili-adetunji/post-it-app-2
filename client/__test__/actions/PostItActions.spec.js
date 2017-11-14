@@ -104,14 +104,12 @@ describe('PostIt Actions: ', () => {
       const user = {
         userId: 'K39DAS8220Hffu76393',
       };
-      const spyOnStore = jest.spyOn(PostItStore, 'addUserToGroup');
       PostItActions.addUserToGroup(user);
       const payload = {
         actionType: PostItConstants.ADDUSER_GROUP,
         user,
       };
       expect(spyOnDispatcher).toHaveBeenCalledWith(payload);
-      expect(spyOnStore).toHaveBeenCalledWith(user);
     });
   });
   describe('Add message actions', () => {
@@ -197,29 +195,25 @@ describe('PostIt Actions: ', () => {
   });
   describe('Recieve users in groups actions', () => {
     it('should dispatch to recieve users in groups', () => {
-      PostItActions.recieveUsersInGroups();
+      const group = {
+        groupId: 'LDKLDHO837SLK9089',
+      };
+      PostItActions.recieveUsersInGroups(group);
       const payload = {
         actionType: PostItConstants.RECIEVE_USERS_IN_GROUPS,
+        group
       };
       expect(spyOnDispatcher).toHaveBeenCalledWith(payload);
     });
   });
   describe('Recieve login sucecess actions', () => {
     it('should dispatch to login success', () => {
-      const message = {
-        uid: 'LBBJALuz6sXxYBYCvI324ZCCwvv1',
-        displayName: 'wash',
-        photoURL: null,
-        email: 'wash@email.com',
-        stsTokenManager: {
-          accessToken: 'eyJhbGciOiJSUzI1N',
-        },
-      };
+      const token = 'JF;JHUILOFSJFDLHGLIO84';
       const spyOnStore = jest.spyOn(PostItStore, 'setIsAuthenticated');
-      PostItActions.receiveLoginSuccess(message);
+      PostItActions.receiveLoginSuccess(token);
       const payload = {
         actionType: PostItConstants.RECEIVE_LOGIN_SUCCESS,
-        message,
+        token,
       };
       expect(spyOnDispatcher).toHaveBeenCalledWith(payload);
       expect(spyOnStore).toHaveBeenCalledWith(true);
@@ -236,7 +230,35 @@ describe('PostIt Actions: ', () => {
         actionType: PostItConstants.GET_USER_MESSAGES,
         messages,
       };
-      expect(spyOnDispatcher).toHaveBeenCalledWith(payload);
+      expect(spyOnDispatcher).toHaveBeenCalled();
+    });
+  });
+  describe('Recieve get user messages actions', () => {
+    it('should dispatch to get user messages', () => {
+      const message = {
+        userId: '-KwkoJ66ItRxv_UFr5xX',
+        UserName: 'diggy',
+      };
+      PostItActions.recieveAddMembersToGroups(message);
+      const payload = {
+        actionType: PostItConstants.RECIEVE_ADD_MEMBERS_TO_GROUP,
+        message,
+      };
+      expect(spyOnDispatcher).toHaveBeenCalled();
+    });
+  });
+  describe('Recieve get user messages actions', () => {
+    it('should dispatch to get user messages', () => {
+      const group = {
+        groupId: '-KwkoJ66ItRxv_UFr5xX',
+        groupName: 'diggy',
+      };
+      PostItActions.recieveCreateGroups(group);
+      const payload = {
+        actionType: PostItConstants.RECIEVE_ADD_MEMBERS_TO_GROUP,
+        group,
+      };
+      expect(spyOnDispatcher).toHaveBeenCalled();
     });
   });
 });

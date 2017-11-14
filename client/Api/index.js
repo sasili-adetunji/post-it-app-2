@@ -1,6 +1,5 @@
 import axios from 'axios';
 import toastr from 'toastr';
-import jwt from 'jsonwebtoken';
 import setAuthorizationToken from '../utils/setAuthorizationToken';
 import PostItActions from '../actions/PostItActions';
 import PostItStore from '../stores/PostItStore';

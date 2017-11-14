@@ -8,7 +8,7 @@ import PostItActions from '../../actions/PostItActions';
  * creates addmember components
  *
  * @class AddMember
- * 
+ *
  * @extends {React.Component}
  */
 class AddMember extends React.Component {
@@ -43,32 +43,13 @@ class AddMember extends React.Component {
   }
 
 
-  /**
-   * @description function that get userid from username
-   *
-   * @param {String} userName 
-   * 
-   * @memberof AddMember
-   */
-  changeToUserId(userName) {
-    let userId;
-    lodash.map(PostItStore.getUsers()).map((user) => {
-      if (userName === user.userName) {
-        userId = user.userId;
-      } else {
-        return null;
-      }
-    });
-    return userId;
-  }
-
    /**
      * @description Makes an action call to add a member to a group
-     * 
+     *
      * @param {object} event
-     * 
+     *
      * @returns {void}
-     * 
+     *
      * @memberof AddMember
   */
 
@@ -87,7 +68,7 @@ class AddMember extends React.Component {
       groupId: PostItStore.getOpenedGroup()[0].groupId,
     };
     if (!this.state.userName) {
-        this.setState({
+      this.setState({
         error: 'user name is required',
       });
     } else if (!user.userId) {
@@ -103,30 +84,55 @@ class AddMember extends React.Component {
       });
     }
   }
+
+    /**
+   * @description function that get userid from username
+   *
+   * @param {String} userName
+   *
+   * @memberof AddMember
+   */
+  changeToUserId (userName) {
+    let userId;
+    lodash.map(PostItStore.getUsers()).map((user) => {
+      if (userName === user.userName) {
+        userId = user.userId;
+      } else {
+        return null;
+      }
+    });
+    return userId;
+  }
  /**
    * @method render
-   * 
+   *
    * Render addmember component
    *
    * @returns {String} The HTML markup for the AddMember Components
-   * 
+   *
    * @memberof AddMember
    */
   render() {
     return (
       <div className="panel-body">
         <h6> To add a member, type in the username of the member </h6>
-          <div className='error'> {this.state.error} </div>
+        <div className="error"> {this.state.error} </div>
         <form className="navbar-form" role="search">
           <div className="form-group">
             <input
-              type="text" className="form-control" placeholder="Add member" 
+              type="text"
+              className="form-control"
+              placeholder="Add member"
               name="userName"
-              onChange={this.onChange} value={this.state.userName}
-              />
+              onChange={this.onChange}
+              value={this.state.userName}
+            />
           </div>
-          <button onClick={this.onClick} type="submit" 
-          className="btn btn-default ">
+          <button
+            onClick={this.onClick}
+            type="submit"
+            className="btn btn-default "
+          >
             <span className="glyphicon glyphicon-plus" /></button>
         </form>
         <br />

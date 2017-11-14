@@ -1,14 +1,16 @@
 import React from 'react';
-import { shallow, render } from 'enzyme';
+import { mount } from 'enzyme';
 import UserList from '../../components/protected/UserList.jsx';
-import User from '../../components/protected/User.jsx'; 
+require('../setup');
+
 
 describe('UserList components', () => {
-  const component = shallow(<UserList />);
+  const user = [{
+    userName: 'sasil',
+    userId: 'UTsUlauteS5nb34huOP6SpvcuocX9vA1',
+  }];
+  const component = mount(<UserList users={user} />);
 
-  it('should match snapshot test', () => {
-    expect(component).toMatchSnapshot();
-  });
   it('should render', () => {
     expect(component).toBeDefined();
   });

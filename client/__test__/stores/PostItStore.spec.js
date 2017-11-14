@@ -1,14 +1,12 @@
 
 import PostItConstants from '../../constants/PostItConstants';
-// import PostItActions from '../../actions/PostItActions';
-// import PostItDispatcher from '../../dispatcher/PostItDispatcher';
-import localStorage from '../../__mocks__/localStorage';
+// import localStorage from '../../__mocks__/localStorageMock';
 
 jest.mock('../../dispatcher/PostItDispatcher');
 jest.dontMock('../../stores/PostItStore');
 
-localStorage.getItem = jest.fn();
-localStorage.setItem = jest.fn();
+// localStorage.getItem = jest.fn();
+// localStorage.setItem = jest.fn();
 
 describe('Message Store', () => {
   const loginUser = {
@@ -17,7 +15,7 @@ describe('Message Store', () => {
       type: PostItConstants.LOGIN_USER,
       user: {
         displayName: 'test name',
-        user: localStorage.setItem(),
+        // user: localStorage.setItem(),
       },
     },
   };
@@ -51,12 +49,6 @@ describe('Message Store', () => {
     expect((PostItStore.getUsersInGroup())).toEqual([]);
   });
   it('should initialize with empty users list', () => {
-    expect((PostItStore.getGroups())).toEqual([]);
-  });
-  it('should initialize with empty users list', () => {
-    expect((PostItStore.getGroups())).toEqual([]);
-  });
-  it('should initialize with empty users list', () => {
     expect((PostItStore.getSuccess())).toEqual('');
   });
   it('should initialize with empty users list', () => {
@@ -71,7 +63,6 @@ describe('Message Store', () => {
   it('should initialize with empty users list', () => {
     expect((PostItStore.getIsAuthenticated())).toEqual(false);
   });
-
   it('should emit an event when emit change listener is called', () => {
     const spyOnAddEvent = spyOn(PostItStore, 'emit');
     PostItStore.emitChange();
