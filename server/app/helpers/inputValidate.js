@@ -132,7 +132,6 @@
  */
   export const postMessage = (req, res, next) => {
     req.check('groupId', 'Group Id is required').notEmpty();
-    req.check('user', 'Username is required').notEmpty();
     req.check('message', 'Please enter a valid message').notEmpty();
     req.check('priorityLevel', 'Priority level is required').notEmpty();
 

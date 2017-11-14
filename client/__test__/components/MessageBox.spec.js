@@ -24,8 +24,8 @@ describe('MessageBox components', () => {
   it('should render', () => {
     expect(shallow).toBeDefined();
   });
-  it('Should contain seven div', () => {
-    expect(shallowComponent.find('div').length).toEqual(7);
+  it('Should contain eight div', () => {
+    expect(shallowComponent.find('div').length).toEqual(8);
   });
   it('should recieve props', () => {
     expect(Object.keys(shallowComponent.props()).length).toBeGreaterThan(0);
@@ -43,10 +43,11 @@ describe('MessageBox components', () => {
     component.find('form').simulate('submit');
     expect(component.find('form').simulate('submit')).toBeDefined();
   });
-  it('should thow an error when signing up with empty passwrod', () => {
+  it('should thow an error when submittinga message without select group',
+  () => {
     const preventDefault = jest.fn();
     component.state().message = 'Hello there';
-    component.find('form').simulate('submit', { preventDefault });
+    component.find('button').simulate('click', { preventDefault });
     const errors = {
       message: 'Please kindly select a group first'
     };

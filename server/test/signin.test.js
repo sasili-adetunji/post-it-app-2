@@ -82,8 +82,7 @@ describe('Signin route', () => {
       .post('/user/signin')
       .send(newUser)
       .end((err, res) => {
-        assert.equal(`The password is invalid or the user does not
-        have a password.`,
+        assert.equal('The password is invalid or the user does not have a password.',
           res.body.message);
         res.should.have.status(401);
         res.body.should.be.a('object');

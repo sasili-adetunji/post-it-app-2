@@ -20,30 +20,16 @@ describe('Message Route: ', () => {
       });
   });
   describe('Post message route', () => {
-    it('should return status 400 for an empty message', (done) => {
-      const message = '';
+    it('should return status 400 when for an empty group', (done) => {
+      const message = 'Andela';
       chai.request(app)
         .post('/message')
         .set('x-access-token', token)
         .send({ message })
         .end((err, res) => {
-          assert.equal('Please enter a valid message',
+          assert.equal('Group Id is required',
           res.body.errorMessage);
           res.should.have.status(400);
-          res.body.should.be.a('object');
-          done();
-        });
-    });
-    it('should return status 401 when no token is provided', (done) => {
-      const message = 'Andela';
-      chai.request(app)
-        .post('/group')
-        .set('x-accesstoken', '')
-        .send({ message })
-        .end((err, res) => {
-          assert.equal('No valid token provided',
-          res.body.error);
-          res.should.have.status(403);
           res.body.should.be.a('object');
           done();
         });
@@ -54,7 +40,7 @@ describe('Message Route: ', () => {
         message: 'How u dey??',
         author: 'ik@email.com',
         groupId: '-Kykr12Wi3xjxm1jeARk',
-        priorityLevel: 'Normal',
+        priorityLevel: 'normal',
         date: new Date(),
       };
       chai.request(app)

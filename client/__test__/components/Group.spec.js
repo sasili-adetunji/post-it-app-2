@@ -28,7 +28,7 @@ describe('Group components', () => {
   });
   it('should call function on click of login submit button', () => {
     const groupSpy = jest.spyOn(PostItActions, 'groupOpened');
-    component.find('a').simulate('click');
+    component.find('li').simulate('click');
     expect(groupSpy).toBeCalledWith(group);
   });
 });
