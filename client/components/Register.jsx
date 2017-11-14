@@ -111,7 +111,7 @@ class Register extends React.Component {
           </div>
           <form>
             <div className="form-group">
-              <label>Email address</label>
+              <label htmlFor="email"> Email address</label>
               <input
                 type="email"
                 className="form-control"
@@ -123,7 +123,7 @@ class Register extends React.Component {
               />
             </div>
             <div className="form-group">
-              <label>Username</label>
+              <label htmlFor="username"> Username</label>
               <input
                 className="form-control"
                 id="username"
@@ -134,7 +134,7 @@ class Register extends React.Component {
               />
             </div>
             <div className="form-group">
-              <label>Phone Number</label>
+              <label htmlFor="phoneNumber">Phone Number</label>
               <input
                 className="form-control"
                 name="phoneNumber"
@@ -145,7 +145,7 @@ class Register extends React.Component {
               />
             </div>
             <div className="form-group">
-              <label>Password</label>
+              <label htmlFor="password">Password</label>
               <input
                 type="password"
                 className="form-control"
@@ -158,9 +158,9 @@ class Register extends React.Component {
             </div>
             <button
               type="submit"
-              className="btn btn-default"
+              className="btn btn-primary"
               onClick={this.onClick}
-            >Submit</button>
+            >Register</button>
           </form>
           <div className="clear" />
           <p> Already have an account? <a href="/#/signin"> Login here

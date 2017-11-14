@@ -127,7 +127,7 @@ class Login extends React.Component {
           </div>
           <form>
             <div className="form-group">
-              <label>Email address</label>
+              <label htmlFor="email">Email address</label>
               <input
                 type="email"
                 className="form-control"
@@ -138,7 +138,7 @@ class Login extends React.Component {
               />
             </div>
             <div className="form-group">
-              <label>Password</label>
+              <label htmlFor="password">Password</label>
               <input
                 type="password"
                 className="form-control"
@@ -151,9 +151,9 @@ class Login extends React.Component {
             <button
               type="submit"
               id="login"
-              className="btn btn-default"
+              className="btn btn-primary"
               onClick={this.onClick}
-            >Submit</button>
+            >Login</button>
           </form>
           <div className="clear" />
           <p> <a href="/#/forgotPassword"> Forgot Password?
@@ -167,7 +167,7 @@ class Login extends React.Component {
           >Sign in with Google </button>
           <br />
           <div className="clear" />
-          <p> Don't have an account? <a href="/#/signup"> Register here
+          <p> Dont have an account? <a href="/#/signup"> Register here
             </a> </p>
         </div>
       </div>

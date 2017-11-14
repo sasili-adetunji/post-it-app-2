@@ -1,4 +1,5 @@
 import React from 'react';
+import moment from 'moment';
 import PostItActions from '../../actions/PostItActions';
 import PostItStore from '../../stores/PostItStore';
 
@@ -70,7 +71,7 @@ class MessageBox extends React.Component {
         messageText: this.state.message,
         groupId: PostItStore.getOpenedGroup()[0].groupId,
         priorityLevel: this.state.priorityLevel,
-        date: new Date().toJSON(),
+        date: moment().format('MMMM Do YYYY, h:mm:ss a'),
         author: PostItStore.getLoggedInUser().data.userName
       };
       PostItActions.addMessage(message);
@@ -97,9 +98,9 @@ class MessageBox extends React.Component {
           {this.state.error.message}
           {this.state.error.priorityLevel} {this.state.error.group}
         </div>
-        <form onSubmit={this.onClick}>
+        <form>
           <div className="row">
-            <div className="col-md-10">
+            <div className="col-md-8">
               <div className="input-group">
                 <input
                   name="message"
@@ -126,6 +127,11 @@ class MessageBox extends React.Component {
                   <option value="urgent">Urgent</option>
                 </select>
               </div>
+            </div>
+            <div className="col-md-2">
+              <button onClick={this.onClick} className="btn btn-default">
+                <span className="glyphicon glyphicon-envelope" />Send
+              </button>
             </div>
           </div>
         </form>

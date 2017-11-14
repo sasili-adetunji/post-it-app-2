@@ -1,19 +1,16 @@
 import React from 'react';
-import PostItStore from '../stores/PostItStore';
 import PostItActions from '../actions/PostItActions';
-
-import { Link } from 'react-router-dom';
 
 
 const NavBar = () => {
-      /**
+  /**
    * @description Makes an action call to signout a user
    *
    * @param {object} event
    *
    * @returns {void}
    *
-   * @memberof DashboardNav
+   * @memberof NavBar
   */
   const handleSignOut = (event) => {
     event.preventDefault();
@@ -28,8 +25,11 @@ const NavBar = () => {
         <div className="collapse navbar-collapse">
           <ul className="nav navbar-nav navbar-right">
             { (localStorage.jwtToken) ?
-              <li onClick={handleSignOut} id="navigationText"> Sign Out </li> :
-              <li><a href href="/#/signup">Sign Up</a> </li>
+              <button
+                className="btn btn-primary button"
+                onClick={handleSignOut}
+                id="navigationText"
+              > Sign Out </button> : ''
                 }
           </ul>
         </div>

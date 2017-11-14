@@ -103,7 +103,6 @@ export const createNewGroup = (group) => {
   axios.post('/group', {
     groupName: group.groupName,
   }).then((response) => {
-    // PostItActions.recieveCreateGroups(response.data.groups);
     PostItStore.addGroups(response.data.groups);
     toastr.success(response.data.message);
   })

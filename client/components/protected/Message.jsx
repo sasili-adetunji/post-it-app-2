@@ -17,7 +17,7 @@ const Message = ({ message }) => (
     </div>
     <div className="row">
       <div className="col-md-10">
-        <p> {message.date}</p>
+        <small> {message.date}</small>
       </div>
       <div className="col-md-2" />
     </div>

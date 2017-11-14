@@ -11,12 +11,10 @@ import React from 'react';
  * @returns {JSX} list of a users in a group
  */
 
-const WelcomeHeader = ({ user }) => {
-  return (
+const WelcomeHeader = ({ user }) =>
+  (
     <div>
-     <h4> Welcome {user.data.userName} </h4>
+      <h4> Welcome {user.data.userName} </h4>
     </div>
   );
-};
 export default WelcomeHeader;
-

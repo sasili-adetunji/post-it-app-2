@@ -63,6 +63,7 @@
     "lodash": "^4.17.4",
     "material-ui": "^0.18.5",
     "mocha": "^3.4.2",
+    "moment": "^2.19.2",
     "nexmo": "^2.0.2",
     "node-loader": "^0.6.0",
     "node-sass": "^4.5.3",

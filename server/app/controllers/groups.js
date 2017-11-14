@@ -13,19 +13,13 @@ export default {
   createGroup(req, res) {
     const groups = [];
     const { groupName } = req.body;
-    req.check('groupName', 'Please enter a valid group name').notEmpty();
-    const errors = req.validationErrors();
-    if (errors) {
-      const message = errors[0].msg;
-      res.status(400).json({ message });
-    } else {
-      const userData = req.decoded.data;
-      if (userData) {
-        const groupKey = firebase.database().ref('groups/').push({
-          groupName,
-          groupAdmin: userData.email,
-        }).key;
-        firebase.database().ref(`groups/${groupKey}/users/${userData.uid}`)
+    const userData = req.decoded.data;
+    if (userData) {
+      const groupKey = firebase.database().ref('groups/').push({
+        groupName,
+        groupAdmin: userData.email,
+      }).key;
+      firebase.database().ref(`groups/${groupKey}/users/${userData.uid}`)
         .set({
           userId: userData.uid,
           userName: userData.userName,
@@ -54,11 +48,10 @@ export default {
             message: `Error occurred ${error.message}`,
           });
         });
-      } else {
-        res.status(401).json({
-          message: 'Please log in to create groups',
-        });
-      }
+    } else {
+      res.status(401).json({
+        message: 'Please log in to create groups',
+      });
     }
   },
 
@@ -77,14 +70,7 @@ export default {
       userId,
       userName
     };
-    req.check('groupId', 'Kindly select a group first').notEmpty();
-    req.check('userName', 'User can not be empty').notEmpty();
-    const errors = req.validationErrors();
-    if (errors) {
-      const message = errors[0].msg;
-      res.status(400).json({ message });
-    } else {
-      firebase.database().ref(`groups/${groupId}/users/${userId}/`)
+    firebase.database().ref(`groups/${groupId}/users/${userId}/`)
       .orderByKey().once('value', (snapshot) => {
         if (snapshot.exists()) {
           res.status(403).json({
@@ -117,7 +103,6 @@ export default {
         });
         }
       });
-    }
   },
 /**
  * @description: fetches all users in  particular group

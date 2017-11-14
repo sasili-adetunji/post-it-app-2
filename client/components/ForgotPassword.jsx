@@ -16,9 +16,9 @@ class ForgotPassword extends React.Component {
     /**
     * @method onChange
     *
-    * @description Monitors changes in the components and change the state
+    * @description Monitors changes in the components and update the state
     *
-    * @memberof Register
+    * @memberof Forgot Password
     *
     * @param {object} event
     *
@@ -65,7 +65,7 @@ class ForgotPassword extends React.Component {
           </div>
           <form>
             <div className="form-group">
-              <label> Email address</label>
+              <label htmlFor="email"> Email address</label>
               <input
                 type="email"
                 className="form-control"

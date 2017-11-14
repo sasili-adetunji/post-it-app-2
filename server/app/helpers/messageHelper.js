@@ -2,9 +2,15 @@ import nodemailer from 'nodemailer';
 import smtpTransport from 'nodemailer-smtp-transport';
 import Nexmo from 'nexmo';
 
-
 require('dotenv').config();
 
+/**
+ * @description: function that send email
+ *
+ * @param {Object} emailObject request object
+ *
+ * @return {Object} response containing the error or success
+ */
 export const sendEmail = (emailObject) => {
   const transporter = nodemailer.createTransport(smtpTransport({
     service: 'gmail',
@@ -26,6 +32,14 @@ export const sendEmail = (emailObject) => {
     } return info.response;
   });
 };
+
+/**
+ * @description: function that send email
+ *
+ * @param {Object} smsObject request object
+ *
+ * @return {Object} response containing the error or success
+ */
 
 export const sendSMS = (smsObject) => {
   const nexmo = new Nexmo({

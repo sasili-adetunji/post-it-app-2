@@ -13,26 +13,17 @@ export default {
    */
   postMessage(req, res) {
     const { message, groupId, priorityLevel, date } = req.body;
-
-    // validating  using express-validator
-
-    req.check('message', 'Please enter a valid message').notEmpty();
-    const errors = req.validationErrors();
-    if (errors) {
-      const errorMessage = errors[0].msg;
-      res.status(400).json({ errorMessage });
-    } else {
-      const messages = [];
-      const userData = req.decoded.data;
-      if (userData) {
-        const messageKey = firebase.database().ref(`groups/${groupId}/messages`)
+    const messages = [];
+    const userData = req.decoded.data;
+    if (userData) {
+      const messageKey = firebase.database().ref(`groups/${groupId}/messages`)
         .push({
           message,
           author: userData.userName,
           date,
           priorityLevel,
         }).key;
-        firebase.database().ref(`groups/${groupId}/users/`)
+      firebase.database().ref(`groups/${groupId}/users/`)
         .once('value', (snapshot) => {
           snapshot.forEach((childSnapShot) => {
             firebase.database()
@@ -85,11 +76,10 @@ export default {
             message: `Error occurred ${error.message}`,
           });
         });
-      } else {
-        res.status(401).json({
-          message: 'Please log in to send messages to groups',
-        });
-      }
+    } else {
+      res.status(401).json({
+        message: 'Please log in to send messages to groups',
+      });
     }
   },
   /**

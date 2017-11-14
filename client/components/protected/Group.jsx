@@ -22,8 +22,8 @@ const Group = ({ group }) => {
   };
   return (
     <div className="list-group-item" id="groupList">
-      <li className="item glyphicon glyphicon-list-alt">
-        <a onClick={onClick}> <b> { group.groupName } </b> </a>
+      <li className="item glyphicon glyphicon-cloud" onClick={onClick}>
+        { group.groupName }
       </li>
     </div>
   );

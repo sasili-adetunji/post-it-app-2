@@ -85,7 +85,8 @@ describe('Signup route', () => {
         done();
       });
   });
-  it('should return status 400 for password less than six characters', (done) => {
+  it('should return status 400 for password less than six characters',
+  (done) => {
     const newUser = {
       userName: 'goodgirl',
       password: 'adeoa',

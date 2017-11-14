@@ -88,10 +88,22 @@ div.message {
     text-align: center;
   }
 
-  #priorityDisplay {
+  .priorityDisplay {
     color: #FF6F00
   }
 
    #google-sign-in {
      background-color: #c9d8f2;
   } 
+    .button {
+      color: #a6b5b4;
+    }
+
+.btn-primary:hover {
+  background-color: #008975 !important;
+}
+.btn-primary {
+  background-color: #008975 !important;
+  border: 0!important;
+  margin-top: 10px!important;
+}

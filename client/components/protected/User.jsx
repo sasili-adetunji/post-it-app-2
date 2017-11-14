@@ -13,8 +13,8 @@ import PropTypes from 'prop-types';
 const User = ({ user }) =>
   (
     <div className="list-group-item">
-      <li className="item glyphicon glyphicon-user"> <span />
-        <b> {user.userName} </b> </li>
+      <li className="item glyphicon glyphicon-user">
+        {user.userName} </li>
     </div>
   );
 

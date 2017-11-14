@@ -39,7 +39,8 @@ class MessageList extends React.Component {
       messageNodes = (<div> <h2 className="messageHeader"> No Message in Group
         </h2> </div>);
     } else {
-      groupName = (<div> <h4> { PostItStore.getOpenedGroup()[0].groupName}
+      groupName = (<div> <h4> Group |
+        { PostItStore.getOpenedGroup()[0].groupName}
       </h4> </div>);
       messageNodes = PostItStore.getGroupsMessages().map((message, i) => (
         <Message
@@ -54,7 +55,7 @@ class MessageList extends React.Component {
       <div>
         <div className="row">
           <div className="col-md-10">
-            {groupName}
+            {groupName} 
           </div>
           <div className="col-md-2">
             <a onClick={this.openGroup1}> <b> Add new Member </b> </a>

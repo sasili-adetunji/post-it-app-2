@@ -47,7 +47,8 @@ describe('Reset Password route', () => {
       .post('/user/reset')
       .send(user)
       .end((err, res) => {
-        assert.equal('There is no user record corresponding to this identifier. The user may have been deleted.',
+        assert.equal(`There is no user record corresponding to this identifier.
+        The user may have been deleted.`,
           res.body.message);
         res.should.have.status(401);
         res.body.should.be.a('object');

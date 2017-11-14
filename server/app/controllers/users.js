@@ -14,25 +14,7 @@ export default {
    */
   signup(req, res) {
     const { email, password, userName, phoneNumber } = req.body;
-
-// validating email, password, phonenumber and username using express-validator
-
-    req.check('phoneNumber', 'phone number is required').notEmpty();
-    req.check('password', 'Password is required').notEmpty();
-    req.check('userName', 'Username is required').notEmpty();
-    req.check('password', 'Password must be between 6 and 50 characters')
-    .isLength(6, 50);
-    req.check('email', 'Email Address is Required').notEmpty();
-    req.check('email', 'Please put a valid email').isEmail();
-    req.check('phoneNumber', 'Enter a valid phone Number')
-    .isMobilePhone('en-NG');
-
-    const errors = req.validationErrors();
-    if (errors) {
-      const message = errors[0].msg;
-      res.status(400).json({ message });
-    } else {
-      firebase.auth().createUserWithEmailAndPassword(email, password)
+    firebase.auth().createUserWithEmailAndPassword(email, password)
       .then((user) => {
         user.updateProfile({
           displayName: userName,
@@ -59,7 +41,6 @@ export default {
           message: error.message,
         });
       });
-    }
   },
  /**
    * @description:  singns in a user
@@ -72,21 +53,7 @@ export default {
    */
   signin(req, res) {
     const { email, password } = req.body;
-
-// validating email and password using express-validator
-
-    req.check('email', 'Email is required').notEmpty();
-    req.check('password', 'Password is required').notEmpty();
-    req.check('email', 'Please put a valid email').isEmail();
-    req.check('password', 'Password must be between 6 and 50 characters')
-    .isLength(6, 50);
-
-    const errors = req.validationErrors();
-    if (errors) {
-      const message = errors[0].msg;
-      res.status(400).json({ message });
-    } else {
-      firebase.auth().signInWithEmailAndPassword(email, password)
+    firebase.auth().signInWithEmailAndPassword(email, password)
       .then((user) => {
         const uid = user.uid;
         const userName = user.displayName;
@@ -105,7 +72,6 @@ export default {
           message: error.message,
         });
       });
-    }
   },
  /**
    * @description: sign out a user
@@ -141,15 +107,7 @@ export default {
    */
   resetPassword(req, res) {
     const { email } = req.body;
-    req.check('email', 'Email is required').notEmpty();
-    req.check('email', 'Please put a valid email').isEmail();
-
-    const errors = req.validationErrors();
-    if (errors) {
-      const message = errors[0].msg;
-      res.status(400).json({ message });
-    } else {
-      firebase.auth().sendPasswordResetEmail(email)
+    firebase.auth().sendPasswordResetEmail(email)
       .then(() => {
         res.status(200).json({
           message: 'An email has been sent to your email',
@@ -160,8 +118,9 @@ export default {
           message: error.message,
         });
       });
-    }
   },
+
+
   /**
    * @description: fetches all the users in the app
    * Route: GET: /user/users
@@ -201,6 +160,8 @@ export default {
       });
     }
   },
+
+
   /**
    * @description: reates a user account with google
    * Route: POST: /user/google
