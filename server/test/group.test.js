@@ -48,7 +48,8 @@ describe('Group Route', () => {
           done();
         });
     });
-    it('should return status 201 if a group is successfully created', (done) => {
+    it('should return status 201 if a group is successfully created',
+    (done) => {
       const group = { groupName: 'Andela Programmers' };
       chai.request(app)
           .post('/group')
@@ -86,7 +87,8 @@ describe('Group Route', () => {
           done();
         });
     });
-    it('should return status 201 after successfully adding a member to group', (done) => {
+    it('should return status 201 after successfully adding a member to group',
+    (done) => {
       const group = {
         groupName: 'Andela Programmers',
         userName: 'sas',

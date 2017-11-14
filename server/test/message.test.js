@@ -48,7 +48,8 @@ describe('Message Route: ', () => {
           done();
         });
     });
-    it('should return status 201 if a message is successfully created', (done) => {
+    it('should return status 201 if a message is successfully created',
+    (done) => {
       const message = {
         message: 'How u dey??',
         author: 'ik@email.com',
@@ -73,7 +74,8 @@ describe('Message Route: ', () => {
     });
   });
   describe('User message route', () => {
-    it('should return status 200 for when retrieving groups messages', (done) => {
+    it('should return status 200 for when retrieving groups messages',
+    (done) => {
       chai.request(app)
         .get('/group/-Kykr12Wi3xjxm1jeARk/messages')
         .set('x-access-token', token)
