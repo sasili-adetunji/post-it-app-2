@@ -79,7 +79,7 @@ class AddMember extends React.Component {
       return true;
     }
     const user = {
-      userName: this.state.userName,
+      userName: PostItStore.getSearchedUsers().userName,
       groupId: PostItStore.getOpenedGroup()[0].groupId,
       userId: PostItStore.getSearchedUsers().userId,
     };

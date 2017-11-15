@@ -269,6 +269,6 @@ export const searchUsers = (userName) => {
     PostItStore.setSearchedUsers(response.data.user);
   })
   .catch((error) => {
-    console.log(error);
+    toastr.error(error.response.data.message);
   });
 };

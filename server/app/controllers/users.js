@@ -32,7 +32,7 @@ export default {
             userName,
             email,
           }
-        }, process.env.TOKEN_SECRET, { expiresIn: '24h' });
+        }, process.env.TOKEN_SECRET, { expiresIn: '12h' });
         res.status(201).json({
           message: 'Signup was successful', token });
       })
@@ -63,7 +63,7 @@ export default {
             userName,
             email,
           }
-        }, process.env.TOKEN_SECRET, { expiresIn: '2h' });
+        }, process.env.TOKEN_SECRET, { expiresIn: '12h' });
         res.status(200).json({
           message: 'Success: you have successfuly signed in.', token });
       })
@@ -195,9 +195,9 @@ export default {
               userName,
               email,
             }
-          }, process.env.TOKEN_SECRET, { expiresIn: '24h' });
+          }, process.env.TOKEN_SECRET, { expiresIn: '12h' });
           res.status(201).send({
-            message: 'You have successfully signed', token, user });
+            message: 'You have successfully signed', token });
         });
       } else {
         firebase.auth().signInWithCredential(credential)
@@ -211,40 +211,49 @@ export default {
               userName,
               email,
             }
-          }, process.env.TOKEN_SECRET, { expiresIn: '24h' });
+          }, process.env.TOKEN_SECRET, { expiresIn: '12h' });
           res.status(200).send({
-            message: 'You have successfully signed', token, user });
+            message: 'You have successfully signed', token });
         });
       }
     });
   },
+
+
+  /**
+   * @description: searche user with parameters
+   * Route: GET: /user/search?:user
+   *
+   * @param {any} req incoming request from the client
+   * @param {any} res response sent back to client
+   *
+   * @returns {response} response object
+   */
   searchUsers (req, res) {
     const userName = req.query.user;
     const user = {};
-    const userData = req.decoded.data;
-    if (userData) {
-      firebase.database().ref('users/').orderByChild('userName')
-    .startAt(userName)
-    .endAt(`${userName}\uf8ff`)
-    .once('child_added', (msg) => {
-      user.email = msg.val().email;
-      user.userName = msg.val().userName;
-      user.userId = msg.key;
-    })
-    .then(() => {
-      res.status(200).json({
-        user
-      });
-    })
-    .catch((error) => {
-      res.status(500).json({
-        message: `error occured ${error}`
-      });
-    });
-    } else {
-      res.status(401).json({
-        message: 'Please log in to search users',
+    if (!userName) {
+      return res.status(400).json({
+        message: 'Please input something'
       });
     }
+    firebase.database().ref('users/').orderByChild('userName')
+      .startAt(userName)
+      .endAt(`${userName}\uf8ff`)
+      .once('value', (snapshot) => {
+        if (snapshot.val()) {
+          Object.keys(snapshot.val()).forEach(() => {
+            user.email = (Object.values(snapshot.val())[0]).email;
+            user.userName = (Object.values(snapshot.val())[0]).userName;
+            user.userId = (Object.keys(snapshot.val()))[0];
+          });
+          return res.status(200).json({
+            user
+          });
+        }
+        return res.status(404).send({
+          message: 'No user found'
+        });
+      });
   }
 };
