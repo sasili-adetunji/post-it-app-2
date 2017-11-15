@@ -109,7 +109,7 @@ describe('Group Route', () => {
           done();
         });
     });
-    it('should return 403 when the user already exist in group', (done) => {
+    it('should return 409 when the user already exist in group', (done) => {
       const group = {
         groupName: '',
         userName: 'sas',
@@ -123,7 +123,7 @@ describe('Group Route', () => {
       .end((err, res) => {
         assert.equal('The user already exist in the group',
         res.body.message);
-        res.should.have.status(403);
+        res.should.have.status(409);
         res.body.should.be.a('object');
         done();
       });
