@@ -262,3 +262,13 @@ export const resetPassword = (email) => {
       toastr.error(error.response.data.message);
     });
 };
+
+export const searchUsers = (userName) => {
+  axios.get(`/user/search?user=${userName}`)
+  .then((response) => {
+    PostItStore.setSearchedUsers(response.data.user);
+  })
+  .catch((error) => {
+    console.log(error);
+  });
+};

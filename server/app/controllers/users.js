@@ -156,7 +156,7 @@ export default {
         });
     } else {
       res.status(401).json({
-        message: 'Please log in to create groups',
+        message: 'Please log in to get users list',
       });
     }
   },
@@ -218,4 +218,33 @@ export default {
       }
     });
   },
+  searchUsers (req, res) {
+    const userName = req.query.user;
+    const user = {};
+    const userData = req.decoded.data;
+    if (userData) {
+      firebase.database().ref('users/').orderByChild('userName')
+    .startAt(userName)
+    .endAt(`${userName}\uf8ff`)
+    .once('child_added', (msg) => {
+      user.email = msg.val().email;
+      user.userName = msg.val().userName;
+      user.userId = msg.key;
+    })
+    .then(() => {
+      res.status(200).json({
+        user
+      });
+    })
+    .catch((error) => {
+      res.status(500).json({
+        message: `error occured ${error}`
+      });
+    });
+    } else {
+      res.status(401).json({
+        message: 'Please log in to search users',
+      });
+    }
+  }
 };

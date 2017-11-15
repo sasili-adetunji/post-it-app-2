@@ -73,7 +73,7 @@ export default {
     firebase.database().ref(`groups/${groupId}/users/${userId}/`)
       .orderByKey().once('value', (snapshot) => {
         if (snapshot.exists()) {
-          res.status(403).json({
+          res.status(409).json({
             message: 'The user already exist in the group'
           });
         } else {

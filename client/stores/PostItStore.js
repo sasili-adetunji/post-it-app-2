@@ -17,10 +17,20 @@ let loginSuccess = '';
 let loggedInUser = [];
 const selectedGroup = [];
 let isAuthenticated = false;
+let searchedUsers = '';
 
 
 const PostItStore = assign({}, EventEmitter.prototype, {
 
+  setSearchedUsers(user) {
+    searchedUsers = user;
+  },
+  getSearchedUsers() {
+    return searchedUsers;
+  },
+  clearSearchedUsers() {
+    searchedUsers = '';
+  },
   addUserToGroup(user) {
     usersInGroup.push(user);
   },
@@ -236,6 +246,17 @@ PostItDispatcher.register((payload) => {
 
     case PostItConstants.RECIEVE_CREATE_GROUP:
       PostItStore.addGroups(action.group);
+      PostItStore.emitChange('change');
+      break;
+
+    case PostItConstants.SEARCH_USERS:
+      Api.searchUsers(action.users);
+      // PostItStore.addGroups(action.group);
+      PostItStore.emitChange('change');
+      break;
+
+    case PostItConstants.CLEAR_SEARCH:
+      PostItStore.clearSearchedUsers();
       PostItStore.emitChange('change');
       break;
 

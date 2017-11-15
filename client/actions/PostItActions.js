@@ -293,6 +293,33 @@ const PostItActions = {
       group,
     });
   },
+  
+  /**
+  * recieves add members to particular group & dispatches it
+  *
+  * @param {object} group required group details of the particular group
+  *
+  * @returns {action} action type and payload
+  */
+  searchUsers(users) {
+    PostItDispatcher.handleViewAction({
+      actionType: PostItConstants.SEARCH_USERS,
+      users,
+    });
+  },
+
+   /**
+  * recieves add members to particular group & dispatches it
+  *
+  * @param {object} group required group details of the particular group
+  *
+  * @returns {action} action type and payload
+  */
+  clearSearch() {
+    PostItDispatcher.handleViewAction({
+      actionType: PostItConstants.CLEAR_SEARCH,
+    });
+  },
 };
 
 export default PostItActions;

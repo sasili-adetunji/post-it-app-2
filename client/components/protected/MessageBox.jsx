@@ -120,7 +120,6 @@ class MessageBox extends React.Component {
                   onChange={this.onChange}
                   value={this.state.priorityLevel}
                 >
-
                   <option value="">Select priority</option>
                   <option value="normal">Normal</option>
                   <option value="critical">Critical</option>

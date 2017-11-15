@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import PostItActions from '../../actions/PostItActions';
 import * as API from '../../Api';
 

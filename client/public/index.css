@@ -107,3 +107,7 @@ div.message {
   border: 0!important;
   margin-top: 10px!important;
 }
+
+.addMember {
+  margin-left: 15px;
+}

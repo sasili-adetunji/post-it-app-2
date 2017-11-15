@@ -1,5 +1,4 @@
 import React from 'react';
-import lodash from 'lodash';
 import PostItStore from '../../stores/PostItStore';
 import PostItActions from '../../actions/PostItActions';
 
@@ -18,10 +17,10 @@ class AddMember extends React.Component {
       userName: '',
       userId: '',
       error: '',
+      searchUser: ''
     };
     this.onChange = this.onChange.bind(this);
     this.onClick = this.onClick.bind(this);
-    this.changeToUserId = this.changeToUserId.bind(this);
   }
 
 
@@ -37,12 +36,29 @@ class AddMember extends React.Component {
     * @returns {void}
     */
   onChange(event) {
-    this.setState({
-      userName: event.target.value,
-    });
+    if (event.target.value !== '') {
+      this.setState({
+        searchUser: '',
+        userName: event.target.value,
+      });
+      if (this.state.userName !== '') {
+        PostItActions.searchUsers(this.state.userName);
+        this.setState({
+          searchUser: PostItStore.getSearchedUsers().userName
+        });
+      } else {
+        PostItActions.clearSearch();
+        this.setState({
+          searchUser: 'No user found'
+        });
+      }
+    } else {
+      this.setState({
+        searchUser: '',
+        userName: '',
+      });
+    }
   }
-
-
    /**
      * @description Makes an action call to add a member to a group
      *
@@ -63,18 +79,13 @@ class AddMember extends React.Component {
       return true;
     }
     const user = {
-      userId: this.changeToUserId(this.state.userName),
       userName: this.state.userName,
       groupId: PostItStore.getOpenedGroup()[0].groupId,
+      userId: PostItStore.getSearchedUsers().userId,
     };
     if (!this.state.userName) {
       this.setState({
         error: 'user name is required',
-      });
-    } else if (!user.userId) {
-      this.setState({
-        error: 'This User does not exist',
-        userName: '',
       });
     } else {
       PostItActions.addUserToGroup(user);
@@ -85,24 +96,7 @@ class AddMember extends React.Component {
     }
   }
 
-    /**
-   * @description function that get userid from username
-   *
-   * @param {String} userName
-   *
-   * @memberof AddMember
-   */
-  changeToUserId (userName) {
-    let userId;
-    lodash.map(PostItStore.getUsers()).map((user) => {
-      if (userName === user.userName) {
-        userId = user.userId;
-      } else {
-        return null;
-      }
-    });
-    return userId;
-  }
+
  /**
    * @method render
    *
@@ -115,23 +109,27 @@ class AddMember extends React.Component {
   render() {
     return (
       <div className="panel-body">
-        <h6> To add a member, type in the username of the member </h6>
+        <h6> To add a member, search with username </h6>
         <div className="error"> {this.state.error} </div>
         <form className="navbar-form" role="search">
           <div className="form-group">
             <input
               type="text"
               className="form-control"
-              placeholder="Add member"
+              placeholder="Search member"
               name="userName"
               onChange={this.onChange}
               value={this.state.userName}
+              list="browsers"
             />
+            <datalist id="browsers">
+              <option value={this.state.searchUser} />
+            </datalist>
           </div>
           <button
             onClick={this.onClick}
             type="submit"
-            className="btn btn-default "
+            className="btn btn-default addMember"
           >
             <span className="glyphicon glyphicon-plus" /></button>
         </form>

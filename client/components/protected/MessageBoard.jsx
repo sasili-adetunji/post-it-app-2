@@ -23,7 +23,6 @@ class Dashboard extends React.Component {
       groups: PostItStore.getGroupsUser(),
       users: PostItStore.getUsersInGroup(),
       selectedGroup: PostItStore.getOpenedGroup(),
-      user: PostItStore.getUsers(),
       readUsers: PostItStore.getReadUsers(),
       message: PostItStore.getGroupsMessages(),
       userName: PostItStore.getLoggedInUser(),
@@ -41,7 +40,6 @@ class Dashboard extends React.Component {
 */
   componentDidMount() {
     Api.getUserGroups();
-    Api.getUsers();
     PostItStore.addChangeListener(this.onChange);
   }
 
@@ -73,7 +71,6 @@ class Dashboard extends React.Component {
       groups: PostItStore.getGroupsUser(),
       users: PostItStore.getUsersInGroup(),
       selectedGroup: PostItStore.getOpenedGroup(),
-      user: PostItStore.getUsers(),
       readUsers: PostItStore.getReadUsers(),
       message: PostItStore.getGroupsMessages(),
       userName: PostItStore.getLoggedInUser(),
