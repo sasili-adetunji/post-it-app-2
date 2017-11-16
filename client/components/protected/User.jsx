@@ -12,8 +12,9 @@ import React from 'react';
 const User = ({ user }) =>
   (
     <div className="list-group-item">
-      <li className="item glyphicon glyphicon-user">
-        {user.userName} </li>
+      <li className="item">
+        <span className="glyphicon glyphicon-user" />
+        &nbsp;{user.userName} </li>
     </div>
   );
 

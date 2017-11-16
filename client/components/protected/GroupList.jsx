@@ -43,7 +43,7 @@ class GroupList extends React.Component {
           <button
             onClick={this.openGroup}
             type="button"
-            className="btn btn-primary btn-large"
+            className="btn btn-primary btn-block createGroup"
           >  Create a New Group
           </button>
           <Modal show={this.state.showCreateGroup} onHide={this.closeGroup}>

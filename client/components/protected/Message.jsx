@@ -4,20 +4,20 @@ const Message = ({ message }) => (
   <div className="message">
     <div className="row">
       <div className="col-md-10">
-        <p> <b> {message.author} </b> </p>
+        <p className="messageText"> <b> {message.author} </b> </p>
       </div>
       <div className="col-md-2" id="priorityDisplay">
-        <p><i> {message.priorityLevel} </i></p>
+        <p className="messageText"> <i> {message.priorityLevel} </i></p>
       </div>
     </div>
     <div className="row">
       <div className="col-md-12">
-        <p> {message.messageText}</p>
+        <p className="messageText"> {message.messageText}</p>
       </div>
     </div>
     <div className="row">
       <div className="col-md-10">
-        <small> {message.date}</small>
+        <small className="date"> {message.date}</small>
       </div>
       <div className="col-md-2" />
     </div>

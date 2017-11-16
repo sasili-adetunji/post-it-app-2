@@ -39,7 +39,7 @@ class MessageList extends React.Component {
       messageNodes = (<div> <h2 className="messageHeader"> No Message in Group
         </h2> </div>);
     } else {
-      groupName = (<div> <h4> Group |
+      groupName = (<div> <h4> Group | &nbsp;
         { PostItStore.getOpenedGroup()[0].groupName}
       </h4> </div>);
       messageNodes = PostItStore.getGroupsMessages().map((message, i) => (

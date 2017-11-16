@@ -14,8 +14,8 @@ describe('UserList components', () => {
   it('should render', () => {
     expect(component).toBeDefined();
   });
-  it('Should contain three div', () => {
-    expect(component.find('div').length).toEqual(3);
+  it('Should contain four div', () => {
+    expect(component.find('div').length).toEqual(4);
   });
   it('should recieve props', () => {
     expect(Object.keys(component.props()).length).toBeGreaterThan(0);

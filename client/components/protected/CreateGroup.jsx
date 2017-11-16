@@ -97,7 +97,7 @@ class CreateGroup extends React.Component {
           <button
             onClick={this.onClick}
             type="submit"
-            className="btn btn-default addMember"
+            className="btn btn-default "
           >
             <span className="glyphicon glyphicon-plus" /></button>
         </form>

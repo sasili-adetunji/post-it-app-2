@@ -100,7 +100,7 @@ class MessageBox extends React.Component {
         </div>
         <form>
           <div className="row">
-            <div className="col-md-8">
+            <div className="col-md-8 textArea">
               <div className="input-group">
                 <input
                   name="message"
@@ -112,7 +112,7 @@ class MessageBox extends React.Component {
                 />
               </div>
             </div>
-            <div className="col-md-2">
+            <div className="col-md-2 selectArea">
               <div className="form-group">
                 <select
                   className="form-control selectPriority"
@@ -128,8 +128,11 @@ class MessageBox extends React.Component {
               </div>
             </div>
             <div className="col-md-2">
-              <button onClick={this.onClick} className="btn btn-default">
-                <span className="glyphicon glyphicon-envelope" />Send
+              <button
+                onClick={this.onClick}
+                className="btn btn-primary btn-block sendButton"
+              >
+                Send Message
               </button>
             </div>
           </div>
