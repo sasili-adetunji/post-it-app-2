@@ -193,7 +193,6 @@ PostItDispatcher.register((payload) => {
       break;
     case PostItConstants.RECIEVE_USERS_IN_GROUPS:
       Api.getUsersInGroup(action.group);
-      // PostItStore.setUsersInGroup(action.group);
       PostItStore.emitChange('change');
       break;
 
