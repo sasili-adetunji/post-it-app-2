@@ -162,7 +162,8 @@ describe('Signup route', () => {
         done();
       });
   });
-  it('should return 201 when a user successfully registered', (done) => {
+  it('should return 201 and token when a user successfully registered',
+  (done) => {
     const newUser = {
       userName: faker.name.findName(),
       password: 'anothedad@email.com',
@@ -176,6 +177,7 @@ describe('Signup route', () => {
       .end((err, res) => {
         assert.equal('Signup was successful',
           res.body.message);
+        res.body.should.have.property('token');
         assert.equal('201', res.statusCode);
         res.body.should.be.a('object');
         done();

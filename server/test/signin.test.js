@@ -89,7 +89,7 @@ describe('Signin route', () => {
         done();
       });
   });
-  it('should return status 200 for successfull sign in', (done) => {
+  it('should return status 200 and token for successfull sign in', (done) => {
     const newUser = {
       password: 'wash@email.com',
       email: 'wash@email.com',
@@ -100,6 +100,7 @@ describe('Signin route', () => {
       .end((err, res) => {
         assert.equal('Success: you have successfuly signed in.',
           res.body.message);
+        res.body.should.have.property('token');
         res.should.have.status(200);
         res.body.should.be.a('object');
         done();

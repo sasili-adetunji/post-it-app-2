@@ -39,7 +39,7 @@ describe('Reset Password route', () => {
         done();
       });
   });
-  it('should return status 401 for a non-existing user', (done) => {
+  it('should return status 404 for a non-existing user', (done) => {
     const user = {
       email: 'sasil@yahoo.com',
     };
@@ -49,14 +49,14 @@ describe('Reset Password route', () => {
       .end((err, res) => {
         assert.equal('There is no user record corresponding to this identifier. The user may have been deleted.',
           res.body.message);
-        res.should.have.status(401);
+        res.should.have.status(404);
         res.body.should.be.a('object');
         done();
       });
   });
   it('should return status 200 after successfully sending a reset', (done) => {
     const user = {
-      email: 'live@email.com',
+      email: 'Bernie.Gleason@yahoo.com',
     };
     chai.request(app)
       .post('/user/reset')

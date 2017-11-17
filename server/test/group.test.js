@@ -8,7 +8,7 @@ chai.should();
 chai.expect();
 chai.use(chaiHttp);
 
-describe('Group Route', () => {
+describe('Group Route:', () => {
   let token = '';
   before((done) => {
     chai.request(app)
@@ -43,24 +43,22 @@ describe('Group Route', () => {
         .end((err, res) => {
           assert.equal('No valid token provided',
           res.body.error);
-          res.should.have.status(403);
+          res.should.have.status(401);
           res.body.should.be.a('object');
           done();
         });
     });
     it('should return status 201 if a group is successfully created',
     (done) => {
-      const group = { groupName: 'Andela Programmers' };
+      const group = { groupName: 'JS Developers' };
       chai.request(app)
           .post('/group')
           .set('x-access-token', token)
           .send(group)
           .end((err, res) => {
-            assert.equal('New Group Successfully Created',
-          res.body.message);
-            assert.equal('Andela Programmers',
-          res.body.groups[0].groupName);
+            assert.equal('New Group Successfully Created', res.body.message);
             res.should.have.status(201);
+            res.body.groups[0].should.have.property('groupName').eql('JS Developers');
             res.body.groups.should.be.a('array');
             res.body.groups.should.be.an.instanceOf(Object);
             done();
@@ -90,19 +88,19 @@ describe('Group Route', () => {
     it('should return status 201 after successfully adding a member to group',
     (done) => {
       const group = {
-        groupName: 'Andela Programmers',
-        userName: 'sas',
-        userId: 'gGtY4BsjhCN9fmIMrosCO5cTSw63',
-        groupId: '-Kykr12Wi3xjxm1jeARk'
+        groupName: 'JS Developers',
+        userName: 'Sasiliyu Adetunji',
+        userId: 'jESYkUgvnkcY3xPp0cp7INoGOFh1',
+        groupId: '-Kz7Gy70lmYffpImGj1J'
       };
       chai.request(app)
-        .post('/group/-Kykr12Wi3xjxm1jeARk/user')
+        .post('/group/-Kz7Gy70lmYffpImGj1J/user')
         .set('x-access-token', token)
         .send(group)
         .end((err, res) => {
           assert.equal('User successfully added',
           res.body.message);
-          assert.equal('sas',
+          assert.equal('Sasiliyu Adetunji',
           res.body.user.userName);
           assert.equal('201', res.statusCode);
           res.body.should.be.a('object');
@@ -111,13 +109,13 @@ describe('Group Route', () => {
     });
     it('should return 409 when the user already exist in group', (done) => {
       const group = {
-        groupName: '',
-        userName: 'sas',
-        userId: 'gGtY4BsjhCN9fmIMrosCO5cTSw63',
-        groupId: '-Kykr12Wi3xjxm1jeARk'
+        groupName: 'Cohort 30',
+        userName: 'wash',
+        userId: 'Ztj2rsYZF4gvBeb59EmRyv4qupp2',
+        groupId: '-Kz55De8W2kkUP150B8l'
       };
       chai.request(app)
-      .post('/group/-Kykr12Wi3xjxm1jeARk/user')
+      .post('/group/-Kz55De8W2kkUP150B8l/user')
       .set('x-access-token', token)
       .send(group)
       .end((err, res) => {
@@ -135,8 +133,7 @@ describe('Group Route', () => {
       .get('/user/groups')
       .set('x-access-token', token)
       .end((err, res) => {
-        assert.equal('firstgroup',
-        res.body.groups[0].groupName);
+        assert.equal('cohort 29', res.body.groups[0].groupName);
         res.should.have.status(200);
         res.body.groups.should.be.a('array');
         res.body.groups.should.be.an.instanceOf(Object);
@@ -147,12 +144,11 @@ describe('Group Route', () => {
   describe('Users in Groups route', () => {
     it('should return status 200 if a user is signed in', (done) => {
       chai.request(app)
-      .get('/group/-Kykr12Wi3xjxm1jeARk/users')
+      .get('/group/-Kz55De8W2kkUP150B8l/users')
       .set('x-access-token', token)
       .end((err, res) => {
-        assert.equal('wash',
-        res.body.users[0].userName);
         res.should.have.status(200);
+        assert.equal('wash', res.body.users[0].userName);
         res.body.users.should.be.a('array');
         res.body.users.should.be.an.instanceOf(Object);
         done();

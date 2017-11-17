@@ -8,7 +8,7 @@ const jwtSecret = process.env.TOKEN_SECRET;
 export default function (req, res, next) {
   const token = req.headers.authorization || req.headers['x-access-token'];
   if (!token) {
-    return res.status(403).json({ error: 'No valid token provided' });
+    return res.status(401).json({ error: 'No valid token provided' });
   }
   jwt.verify(token, jwtSecret, (error, decoded) => {
     if (error) {

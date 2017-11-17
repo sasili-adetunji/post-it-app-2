@@ -34,12 +34,11 @@ describe('Message Route: ', () => {
           done();
         });
     });
-    it('should return status 201 if a message is successfully created',
+    it('should return status 201 if a message is successfully sent',
     (done) => {
       const message = {
         message: 'How u dey??',
-        author: 'ik@email.com',
-        groupId: '-Kykr12Wi3xjxm1jeARk',
+        groupId: '-Kz55De8W2kkUP150B8l',
         priorityLevel: 'normal',
         date: new Date(),
       };
@@ -60,10 +59,10 @@ describe('Message Route: ', () => {
     });
   });
   describe('User message route', () => {
-    it('should return status 200 for when retrieving groups messages',
+    it('should return status 200 when retrieving groups messages',
     (done) => {
       chai.request(app)
-        .get('/group/-Kykr12Wi3xjxm1jeARk/messages')
+        .get('/group/-Kz55De8W2kkUP150B8l/messages')
         .set('x-access-token', token)
         .end((err, res) => {
           res.should.have.status(200);
@@ -76,7 +75,7 @@ describe('Message Route: ', () => {
     });
   });
   describe('Read users route', () => {
-    it('should return status 200 for when retrieving read users', (done) => {
+    it('should return status 200 when retrieving read users', (done) => {
       chai.request(app)
         .get('/group/-Kyl9quus5upr81c26r3/readUsers')
         .set('x-access-token', token)

@@ -114,7 +114,7 @@ export default {
         });
       })
       .catch((error) => {
-        res.status(401).json({
+        res.status(404).json({
           message: error.message,
         });
       });
