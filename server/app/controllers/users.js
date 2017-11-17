@@ -175,47 +175,29 @@ export default {
     const result = req.body;
     const credential = firebase.auth.GoogleAuthProvider
     .credential(result.credential.idToken);
-    firebase.database()
-    .ref('users').child(result.user.uid).once('value', (snapshot) => {
-      if (!snapshot.exists()) {
-        firebase.database().ref(`users/${result.user.uid}`)
-        .set({
-          userName: result.user.displayName,
-          email: result.user.email,
-          phoneNumber: result.user.phoneNumber
-        });
-        firebase.auth().signInWithCredential(credential)
-        .then((user) => {
-          const uid = user.uid;
-          const userName = user.displayName;
-          const email = user.email;
-          const token = jwt.sign({
-            data: {
-              uid,
-              userName,
-              email,
-            }
-          }, process.env.TOKEN_SECRET, { expiresIn: '12h' });
-          res.status(201).send({
+    firebase.auth().signInWithCredential(credential)
+    .then((user) => {
+      const uid = user.uid;
+      const userName = user.displayName;
+      const email = user.email;
+      const token = jwt.sign({
+        data: { uid, userName, email }
+      }, process.env.TOKEN_SECRET, { expiresIn: '12h' });
+      firebase.database()
+      .ref('users').child(result.user.uid).once('value', (snapshot) => {
+        if (!snapshot.exists()) {
+          firebase.database().ref(`users/${result.user.uid}`)
+          .set({
+            userName: result.user.displayName,
+            email: result.user.email,
+            phoneNumber: result.user.phoneNumber
+          });
+          return res.status(201).send({
             message: 'You have successfully signed', token });
-        });
-      } else {
-        firebase.auth().signInWithCredential(credential)
-        .then((user) => {
-          const uid = user.uid;
-          const userName = user.displayName;
-          const email = user.email;
-          const token = jwt.sign({
-            data: {
-              uid,
-              userName,
-              email,
-            }
-          }, process.env.TOKEN_SECRET, { expiresIn: '12h' });
-          res.status(200).send({
-            message: 'You have successfully signed', token });
-        });
-      }
+        }
+        return res.status(200).send({
+          message: 'You have successfully signed', token });
+      });
     });
   },
 
