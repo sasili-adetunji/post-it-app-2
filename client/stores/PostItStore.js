@@ -250,7 +250,6 @@ PostItDispatcher.register((payload) => {
 
     case PostItConstants.SEARCH_USERS:
       Api.searchUsers(action.users);
-      // PostItStore.addGroups(action.group);
       PostItStore.emitChange('change');
       break;
 

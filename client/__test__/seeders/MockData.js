@@ -15,6 +15,16 @@ const mockData = {
     }
   },
 
+  creategroup: {
+    source: 'VIEW_ACTION',
+    action: {
+      actionType: PostItConstants.RECIEVE_CREATE_GROUP,
+      group: [
+        { groupName: 'West' }
+      ]
+    }
+  },
+
   addMember: {
     source: 'VIEW_ACTION',
     action: {
@@ -28,7 +38,6 @@ const mockData = {
   },
 
   addMessage: {
-    source: 'VIEW_ACTION',
     action: {
       actionType: PostItConstants.ADD_MESSAGE,
       message: {
@@ -45,16 +54,15 @@ const mockData = {
     action: {
       actionType: PostItConstants.RECIEVE_USERS_IN_GROUPS,
       group: {
-        groupId: 'KJJH772SLJKHDLAI8',
+        groupId: 'GKLQ;CGL987'
       }
     }
   },
 
   userGroups: {
-    source: 'VIEW_ACTION',
     action: {
       actionType: PostItConstants.RECEIVE_USER_GROUPS,
-      group: {
+      groups: {
         groupId: 'KJJH772SLJKHDLAI8',
       }
     }
