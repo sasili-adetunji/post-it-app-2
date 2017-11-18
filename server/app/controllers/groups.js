@@ -1,4 +1,6 @@
 import firebase from 'firebase';
+import { serverError } from '../helpers/serverHelper';
+
 
 export default {
   /**
@@ -14,45 +16,37 @@ export default {
     const groups = [];
     const { groupName } = req.body;
     const userData = req.decoded.data;
-    if (userData) {
-      const groupKey = firebase.database().ref('groups/').push({
-        groupName,
-        groupAdmin: userData.email,
-      }).key;
-      firebase.database().ref(`groups/${groupKey}/users/${userData.uid}`)
-        .set({
-          userId: userData.uid,
-          userName: userData.userName,
-        })
-        .then(() => {
-          const groupDetails = {
-            groupName,
+    const groupKey = firebase.database().ref('groups/').push({
+      groupName,
+      groupAdmin: userData.email,
+    }).key;
+    firebase.database().ref(`groups/${groupKey}/users/${userData.uid}`)
+      .set({
+        userId: userData.uid,
+        userName: userData.userName,
+      })
+      .then(() => {
+        const groupDetails = {
+          groupName,
+          groupId: groupKey,
+        };
+        groups.push(groupDetails);
+      })
+      .then(() => {
+        firebase.database().ref(`users/${userData.uid}/groups/`)
+        .child(`${groupKey}/groupInfo`)
+          .set({
             groupId: groupKey,
-          };
-          groups.push(groupDetails);
-        })
-        .then(() => {
-          firebase.database().ref(`users/${userData.uid}/groups/`)
-          .child(`${groupKey}/groupInfo`)
-            .set({
-              groupId: groupKey,
-              groupName,
-            });
-          res.status(201).json({
-            message: 'New Group Successfully Created',
-            groups,
+            groupName,
           });
-        })
-        .catch((error) => {
-          res.status(500).json({
-            message: `Error occurred ${error.message}`,
-          });
+        res.status(201).json({
+          message: 'New Group Successfully Created',
+          groups,
         });
-    } else {
-      res.status(401).json({
-        message: 'Please log in to create groups',
+      })
+      .catch((error) => {
+        serverError(res, error);
       });
-    }
   },
 
   /**
@@ -97,9 +91,7 @@ export default {
           });
         })
         .catch((error) => {
-          res.status(500).send({
-            message: `Error occurred ${error.message}`,
-          });
+          serverError(res, error);
         });
         }
       });
@@ -117,25 +109,23 @@ export default {
       // create an empty array to hold the users
     const users = [];
     firebase.database().ref(`/groups/${req.params.groupId}/users`)
-        .once('value', (msg) => {
-          msg.forEach((snapshot) => {
-            const userDetails = {
-              userId: snapshot.val().userId,
-              userName: snapshot.val().userName,
-            };
-            users.push(userDetails);
-          });
-        })
-        .then(() => {
-          res.status(200).json({
-            users,
-          });
-        })
-        .catch((error) => {
-          res.status(500).json({
-            message: `Error occurred ${error.message}`,
-          });
+      .once('value', (msg) => {
+        msg.forEach((snapshot) => {
+          const userDetails = {
+            userId: snapshot.val().userId,
+            userName: snapshot.val().userName,
+          };
+          users.push(userDetails);
         });
+      })
+      .then(() => {
+        res.status(200).json({
+          users,
+        });
+      })
+      .catch((error) => {
+        serverError(res, error);
+      });
   },
 
 /**
@@ -149,32 +139,24 @@ export default {
 */
   getUserGroups(req, res) {
     const userData = req.decoded.data;
-    if (userData) {
-      const groups = [];
-      firebase.database().ref(`users/${userData.uid}/groups/`)
-        .orderByKey().once('value', (snapshot) => {
-          snapshot.forEach((childSnapShot) => {
-            const group = {
-              groupId: childSnapShot.val().groupInfo.groupId,
-              groupName: childSnapShot.val().groupInfo.groupName,
-            };
-            groups.push(group);
-          });
-        })
-        .then(() => {
-          res.status(200).json({
-            groups,
-          });
-        })
-        .catch((error) => {
-          res.status(500).send({
-            message: `Error occurred ${error.message}`,
-          });
+    const groups = [];
+    firebase.database().ref(`users/${userData.uid}/groups/`)
+      .orderByKey().once('value', (snapshot) => {
+        snapshot.forEach((childSnapShot) => {
+          const group = {
+            groupId: childSnapShot.val().groupInfo.groupId,
+            groupName: childSnapShot.val().groupInfo.groupName,
+          };
+          groups.push(group);
         });
-    } else {
-      res.status(401).send({
-        message: 'You are not signed in right now! ',
+      })
+      .then(() => {
+        res.status(200).json({
+          groups,
+        });
+      })
+      .catch((error) => {
+        serverError(res, error);
       });
-    }
-  },
+  }
 };

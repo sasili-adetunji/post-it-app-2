@@ -1,5 +1,5 @@
 import firebase from 'firebase';
-import jwt from 'jsonwebtoken';
+import { serverError, createToken } from '../helpers/serverHelper';
 
 
 export default {
@@ -26,13 +26,7 @@ export default {
           phoneNumber,
         });
         const uid = user.uid;
-        const token = jwt.sign({
-          data: {
-            uid,
-            userName,
-            email,
-          }
-        }, process.env.TOKEN_SECRET, { expiresIn: '12h' });
+        const token = createToken(uid, userName, email);
         res.status(201).json({
           message: 'Signup was successful', token });
       })
@@ -57,13 +51,7 @@ export default {
       .then((user) => {
         const uid = user.uid;
         const userName = user.displayName;
-        const token = jwt.sign({
-          data: {
-            uid,
-            userName,
-            email,
-          }
-        }, process.env.TOKEN_SECRET, { expiresIn: '12h' });
+        const token = createToken(uid, userName, email);
         res.status(200).json({
           message: 'Success: you have successfuly signed in.', token });
       })
@@ -133,32 +121,23 @@ export default {
   getUsersList(req, res) {
       // create an empty array to hold the users
     const users = [];
-    const userData = req.decoded.data;
-    if (userData) {
-      firebase.database().ref('users/').once('value', (msg) => {
-        msg.forEach((snapshot) => {
-          const userDetails = {
-            userId: snapshot.key,
-            userName: snapshot.val().userName,
-          };
-          users.push(userDetails);
+    firebase.database().ref('users/').once('value', (msg) => {
+      msg.forEach((snapshot) => {
+        const userDetails = {
+          userId: snapshot.key,
+          userName: snapshot.val().userName,
+        };
+        users.push(userDetails);
+      });
+    })
+      .then(() => {
+        res.status(200).json({
+          users,
         });
       })
-        .then(() => {
-          res.status(200).json({
-            users,
-          });
-        })
-        .catch((error) => {
-          res.status(500).json({
-            message: `Error occurred ${error.message}`,
-          });
-        });
-    } else {
-      res.status(401).json({
-        message: 'Please log in to get users list',
+      .catch((error) => {
+        serverError(res, error);
       });
-    }
   },
 
 
@@ -180,9 +159,7 @@ export default {
       const uid = user.uid;
       const userName = user.displayName;
       const email = user.email;
-      const token = jwt.sign({
-        data: { uid, userName, email }
-      }, process.env.TOKEN_SECRET, { expiresIn: '12h' });
+      const token = createToken(uid, userName, email);
       firebase.database()
       .ref('users').child(result.user.uid).once('value', (snapshot) => {
         if (!snapshot.exists()) {

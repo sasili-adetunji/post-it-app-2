@@ -1,5 +1,7 @@
 import firebase from 'firebase';
 import { sendEmail, sendSMS } from '../helpers/messageHelper';
+import { serverError } from '../helpers/serverHelper';
+
 
 export default {
   /**
@@ -15,72 +17,64 @@ export default {
     const { message, groupId, priorityLevel, date } = req.body;
     const messages = [];
     const userData = req.decoded.data;
-    if (userData) {
-      const messageKey = firebase.database().ref(`groups/${groupId}/messages`)
-        .push({
-          message,
-          author: userData.userName,
-          date,
-          priorityLevel,
-        }).key;
-      firebase.database().ref(`groups/${groupId}/users/`)
-        .once('value', (snapshot) => {
-          snapshot.forEach((childSnapShot) => {
-            firebase.database()
-            .ref(`users/${childSnapShot.val().userId}/groups/${groupId}/`)
-            .child(`messages/${messageKey}`)
-              .set({
-                message,
-                author: userData.userName,
-                date,
-                priorityLevel,
-                status: 'Unread',
-              });
-            if ((priorityLevel === 'critical') ||
-               (priorityLevel === 'urgent')) {
-              firebase.database().ref(`users/${childSnapShot.val().userId}/`)
-                .once('value', (snap) => {
-                  const emailObject = {
-                    To: snap.val().email,
-                    text: message
-                  };
-                  sendEmail(emailObject);
-                });
-            }
-            if (priorityLevel === 'critical') {
-              firebase.database().ref(`users/${childSnapShot.val().userId}/`)
-                .once('value', (msg) => {
-                  const smsObject = {
-                    phoneNumber: msg.val().phoneNumber,
-                    message
-                  };
-                  sendSMS(smsObject);
-                });
-            }
-            const messageDetails = {
-              messageId: messageKey,
-              messageText: message,
+    const messageKey = firebase.database().ref(`groups/${groupId}/messages`)
+      .push({
+        message,
+        author: userData.userName,
+        date,
+        priorityLevel,
+      }).key;
+    firebase.database().ref(`groups/${groupId}/users/`)
+      .once('value', (snapshot) => {
+        snapshot.forEach((childSnapShot) => {
+          firebase.database()
+          .ref(`users/${childSnapShot.val().userId}/groups/${groupId}/`)
+          .child(`messages/${messageKey}`)
+            .set({
+              message,
               author: userData.userName,
-              priorityLevel,
               date,
+              priorityLevel,
               status: 'Unread',
-              groupId,
-            };
-            messages.push(messageDetails);
-          });
-          res.status(201).json({ message: 'Message Sent successfully to Group',
-            messages });
-        })
-        .catch((error) => {
-          res.status(500).json({
-            message: `Error occurred ${error.message}`,
-          });
+            });
+          if ((priorityLevel === 'critical') ||
+              (priorityLevel === 'urgent')) {
+            firebase.database().ref(`users/${childSnapShot.val().userId}/`)
+              .once('value', (snap) => {
+                const emailObject = {
+                  To: snap.val().email,
+                  text: message
+                };
+                sendEmail(emailObject);
+              });
+          }
+          if (priorityLevel === 'critical') {
+            firebase.database().ref(`users/${childSnapShot.val().userId}/`)
+              .once('value', (msg) => {
+                const smsObject = {
+                  phoneNumber: msg.val().phoneNumber,
+                  message
+                };
+                sendSMS(smsObject);
+              });
+          }
+          const messageDetails = {
+            messageId: messageKey,
+            messageText: message,
+            author: userData.userName,
+            priorityLevel,
+            date,
+            status: 'Unread',
+            groupId,
+          };
+          messages.push(messageDetails);
         });
-    } else {
-      res.status(401).json({
-        message: 'Please log in to send messages to groups',
+        res.status(201).json({ message: 'Message Sent successfully to Group',
+          messages });
+      })
+      .catch((error) => {
+        serverError(res, error);
       });
-    }
   },
   /**
    * @description: fetches messages of a particular group
@@ -93,50 +87,41 @@ export default {
    */
   getUserMessages(req, res) {
     const userData = req.decoded.data;
-    if (userData) {
-      const messages = [];
-      const messageRef = firebase.database()
-      .ref(`users/${userData.uid}/groups/${req.params.groupId}/messages/`);
-      messageRef.once('value', (snapshot) => {
-        snapshot.forEach((childSnapShot) => {
-          const message = {
-            // messageId: childSnapShot.key,
-            messageText: childSnapShot.val().message,
-            author: childSnapShot.val().author,
-            priorityLevel: childSnapShot.val().priorityLevel,
-            date: childSnapShot.val().date,
-            status: childSnapShot.val().status,
-          };
-          messages.push(message);
-          firebase.database()
-          .ref(`users/${userData.uid}/groups/${req.params.groupId}/`)
-          .child(`messages/${childSnapShot.key}/`)
-            .update({
-              status: 'Read',
-            });
-          firebase.database()
-          .ref(`readUsers/${childSnapShot.key}/${userData.uid}`)
-            .set({
-              userId: userData.uid,
-              userName: userData.userName,
-            });
+    const messages = [];
+    const messageRef = firebase.database()
+    .ref(`users/${userData.uid}/groups/${req.params.groupId}/messages/`);
+    messageRef.once('value', (snapshot) => {
+      snapshot.forEach((childSnapShot) => {
+        const message = {
+          messageText: childSnapShot.val().message,
+          author: childSnapShot.val().author,
+          priorityLevel: childSnapShot.val().priorityLevel,
+          date: childSnapShot.val().date,
+          status: childSnapShot.val().status,
+        };
+        messages.push(message);
+        firebase.database()
+        .ref(`users/${userData.uid}/groups/${req.params.groupId}/`)
+        .child(`messages/${childSnapShot.key}/`)
+          .update({
+            status: 'Read',
+          });
+        firebase.database()
+        .ref(`readUsers/${childSnapShot.key}/${userData.uid}`)
+          .set({
+            userId: userData.uid,
+            userName: userData.userName,
+          });
+      });
+    })
+      .then(() => {
+        res.status(200).json({
+          messages,
         });
       })
-        .then(() => {
-          res.status(200).json({
-            messages,
-          });
-        })
-        .catch((error) => {
-          res.status(500).json({
-            message: `Error occurred ${error.message}`,
-          });
-        });
-    } else {
-      res.status(401).json({
-        message: 'Please log in to see a list of your messages',
+      .catch((error) => {
+        serverError(res, error);
       });
-    }
   },
    /**
    * @description: fetches mthe users that read a particular message
@@ -159,14 +144,12 @@ export default {
         });
       })
         .then(() => {
-          res.json({
+          res.status(200).json({
             readUsers,
           });
         })
         .catch((error) => {
-          res.status(500).json({
-            message: `Error occurred ${error.message}`,
-          });
+          serverError(res, error);
         });
   },
 };
