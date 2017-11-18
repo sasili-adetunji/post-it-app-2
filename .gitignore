@@ -7,4 +7,6 @@ serviceAccountKey.json
 dist
 .vscode
 .nyc_output
+**/coverage
+coverage.lcov
 coverage
