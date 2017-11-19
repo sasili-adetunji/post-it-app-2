@@ -42,9 +42,9 @@ export const serverAuthError = (errorCode, res) => {
       return res.status(400).json({
         message: 'password strength is too weak' });
     case 'auth/user-not-found':
-      return res.status(401).json({ message: 'The user does not exist.' });
+      return res.status(404).json({ message: 'The user does not exist.' });
     case 'auth/wrong-password':
-      return res.status(400).json({ message: 'wrong password' });
+      return res.status(401).json({ message: 'wrong password' });
     default:
       return res.status(500).json({ message: 'There is a network error' });
   }

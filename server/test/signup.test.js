@@ -155,9 +155,9 @@ describe('Signup route', () => {
       .send(newUser)
       .set('Accept', 'application/json')
       .end((err, res) => {
-        assert.equal('The email address is already in use by another account.',
+        assert.equal('email already in use',
           res.body.message);
-        res.should.have.status(401);
+        res.should.have.status(409);
         res.body.should.be.a('object');
         done();
       });
