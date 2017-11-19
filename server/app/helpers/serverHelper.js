@@ -32,6 +32,15 @@ export const createToken = (uid, userName, email) => jwt.sign({
   }
 }, process.env.TOKEN_SECRET, { expiresIn: '12h' });
 
+
+/**
+ * @description: function that return authentication errors
+ *
+ * @param {String} errorCode the error message from firebase
+ * @param {Object} res request object
+ *
+ * @return {Object} returns custom error message
+ */
 export const serverAuthError = (errorCode, res) => {
   switch (errorCode) {
     case 'auth/email-already-in-use':
