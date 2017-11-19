@@ -1,5 +1,5 @@
 import firebase from 'firebase';
-import { serverError, createToken } from '../helpers/serverHelper';
+import { serverError, createToken, serverAuthError } from '../helpers/serverHelper';
 
 
 export default {
@@ -31,9 +31,8 @@ export default {
           message: 'Signup was successful', token });
       })
       .catch((error) => {
-        res.status(401).json({
-          message: error.message,
-        });
+        const errorCode = error.code;
+        serverAuthError(errorCode, res);
       });
   },
  /**
@@ -56,9 +55,8 @@ export default {
           message: 'Success: you have successfuly signed in.', token });
       })
       .catch((error) => {
-        res.status(401).json({
-          message: error.message,
-        });
+        const errorCode = error.code;
+        serverAuthError(errorCode, res);
       });
   },
  /**
@@ -78,9 +76,8 @@ export default {
         });
       })
       .catch((error) => {
-        res.status(401).json({
-          message: error.message,
-        });
+        const errorCode = error.code;
+        serverAuthError(errorCode, res);
       });
   },
 
@@ -102,9 +99,8 @@ export default {
         });
       })
       .catch((error) => {
-        res.status(404).json({
-          message: error.message,
-        });
+        const errorCode = error.code;
+        serverAuthError(errorCode, res);
       });
   },
 
@@ -135,8 +131,8 @@ export default {
           users,
         });
       })
-      .catch((error) => {
-        serverError(res, error);
+      .catch(() => {
+        serverError(res);
       });
   },
 

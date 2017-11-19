@@ -44,8 +44,8 @@ export default {
           groups,
         });
       })
-      .catch((error) => {
-        serverError(res, error);
+      .catch(() => {
+        serverError(res);
       });
   },
 
@@ -90,8 +90,8 @@ export default {
             user
           });
         })
-        .catch((error) => {
-          serverError(res, error);
+        .catch(() => {
+          serverError(res);
         });
         }
       });
@@ -123,8 +123,8 @@ export default {
           users,
         });
       })
-      .catch((error) => {
-        serverError(res, error);
+      .catch(() => {
+        serverError(res);
       });
   },
 
@@ -155,8 +155,8 @@ export default {
           groups,
         });
       })
-      .catch((error) => {
-        serverError(res, error);
+      .catch(() => {
+        serverError(res);
       });
   }
 };

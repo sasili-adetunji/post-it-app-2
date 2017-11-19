@@ -72,8 +72,8 @@ export default {
         res.status(201).json({ message: 'Message Sent successfully to Group',
           messages });
       })
-      .catch((error) => {
-        serverError(res, error);
+      .catch(() => {
+        serverError(res);
       });
   },
   /**
@@ -119,8 +119,8 @@ export default {
           messages,
         });
       })
-      .catch((error) => {
-        serverError(res, error);
+      .catch(() => {
+        serverError(res);
       });
   },
    /**
@@ -148,8 +148,8 @@ export default {
             readUsers,
           });
         })
-        .catch((error) => {
-          serverError(res, error);
+        .catch(() => {
+          serverError(res);
         });
   },
 };

@@ -10,8 +10,8 @@ require('dotenv').config();
  * @return {Object} response containing the error message
  */
 
-export const serverError = (res, error) => res.status(500).send({
-  message: `Error occurred ${error.message}`,
+export const serverError = res => res.status(500).send({
+  message: 'There is a network error',
 });
 
 
@@ -31,3 +31,21 @@ export const createToken = (uid, userName, email) => jwt.sign({
     email,
   }
 }, process.env.TOKEN_SECRET, { expiresIn: '12h' });
+
+export const serverAuthError = (errorCode, res) => {
+  switch (errorCode) {
+    case 'auth/email-already-in-use':
+      return res.status(409).json({ message: 'email already in use' });
+    case 'auth/invalid-email':
+      return res.status(400).json({ message: 'invalid email' });
+    case 'auth/weak-password':
+      return res.status(400).json({
+        message: 'password strength is too weak' });
+    case 'auth/user-not-found':
+      return res.status(401).json({ message: 'The user does not exist.' });
+    case 'auth/wrong-password':
+      return res.status(400).json({ message: 'wrong password' });
+    default:
+      return res.status(500).json({ message: 'There is a network error' });
+  }
+};
