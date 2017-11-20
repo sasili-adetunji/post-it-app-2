@@ -3,11 +3,11 @@ const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-// const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const Dotenv = require('dotenv-webpack');
 
 
 const config = {
+  devtool: 'eval',
   entry: './client/index.js',
   output: {
     path: path.join(__dirname, 'client/public'),
@@ -18,6 +18,13 @@ const config = {
     cheerio: 'window',
     'react/lib/ExecutionEnvironment': true,
     'react/lib/ReactContext': true,
+  },
+  devServer: {
+    contentBase: './client/public',
+    inline: true,
+    hot: true,
+    port: 8000,
+    historyApiFallback: true
   },
   node: {
     fs: 'empty',
@@ -50,13 +57,6 @@ const config = {
     extensions: ['*', '.js', '.jsx'],
   },
   plugins: [
-    new webpack.optimize.UglifyJsPlugin({
-      minimize: true,
-      sourceMap: true,
-      compress: {
-        warnings: false
-      }
-    }),
     new Dotenv({
       path: './.env',
       safe: false
@@ -64,12 +64,7 @@ const config = {
     new HtmlWebpackPlugin({
       template: './client/public/index.html'
     }),
-    new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: JSON.stringify('production'),
-      },
-    }),
-    // new webpack.EnvironmentPlugin(Object.keys(process.env)),
+    new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin()
   ]
 };

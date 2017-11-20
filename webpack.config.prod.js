@@ -5,20 +5,12 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 
 const config = {
+  devtool: 'source-map',
   entry: './client/index.js',
   output: {
     path: path.join(__dirname, 'client/public'),
     publicPath: '/',
     filename: 'bundle.js',
-  },
-
-  devServer: {
-    contentBase: './client/public',
-    inline: true,
-    hot: true,
-    port: 8000,
-    historyApiFallback: true
-
   },
   externals: {
     cheerio: 'window',

@@ -66,14 +66,14 @@ describe('Signin route', () => {
       .post('/user/signin')
       .send(newUser)
       .end((err, res) => {
-        assert.equal('Password must be a mininum of 6 character',
+        assert.equal('Password must be between 6 and 50 characters',
           res.body.message);
         res.should.have.status(400);
         res.body.should.be.a('object');
         done();
       });
   });
-  it('should return status 403 for wrong password', (done) => {
+  it('should return status 401 for wrong password', (done) => {
     const newUser = {
       password: 'adeolaaa',
       email: 'wash@email.com',
@@ -82,17 +82,17 @@ describe('Signin route', () => {
       .post('/user/signin')
       .send(newUser)
       .end((err, res) => {
-        assert.equal('The password is invalid or the user does not have a password.',
+        assert.equal('wrong password',
           res.body.message);
-        res.should.have.status(403);
+        res.should.have.status(401);
         res.body.should.be.a('object');
         done();
       });
   });
-  it('should return status 200 for successfull sign in', (done) => {
+  it('should return status 200 and token for successfull sign in', (done) => {
     const newUser = {
-      password: 'live@email.com',
-      email: 'live@email.com',
+      password: 'wash@email.com',
+      email: 'wash@email.com',
     };
     chai.request(app)
       .post('/user/signin')
@@ -100,6 +100,7 @@ describe('Signin route', () => {
       .end((err, res) => {
         assert.equal('Success: you have successfuly signed in.',
           res.body.message);
+        res.body.should.have.property('token');
         res.should.have.status(200);
         res.body.should.be.a('object');
         done();

@@ -1,86 +1,65 @@
 import React from 'react';
-import CreateGroup from './CreateGroup';
+import { Modal } from 'react-bootstrap';
 import PostItStore from '../../stores/PostItStore';
-import PostItActions from '../../actions/PostItActions';
 import Group from './Group';
-import * as API from '../../Api';
-
+import CreateGroup from './CreateGroup';
 
 /**
- * cretes grouplist components
+ * @description Displays a list of groups a user belongs to
  *
- * @class GroupList
- * @extends {React.Component}
+ * @function GroupList
+ *
+ * @returns {JSX} list of groups a user belongs
  */
 class GroupList extends React.Component {
-    constructor(props) {
+  constructor(props) {
     super(props);
     this.state = {
       showCreateGroup: false,
-      showAddUser: false,
-      loggedInUser: PostItStore.getLoggedInUser(),
-      groups: PostItStore.getGroupsUser(),
-      users: PostItStore.getUsersInGroup(),
-      selectedGroup: PostItStore.getOpenedGroup(),
-      user: PostItStore.getUsers(),
-      readUsers: PostItStore.getReadUsers(),
-      message: PostItStore.getGroupsMessages(),
     };
-    this.onChange = this.onChange.bind(this);
-    }
-
-    onChange() {
-    this.setState({
-      users: PostItStore.getUsersInGroup(),
-      selectedGroup: PostItStore.getOpenedGroup(),
-      readUsers: PostItStore.getReadUsers(),
-      message: PostItStore.getGroupsMessages()
-    });
+    this.closeGroup = this.closeGroup.bind(this);
+    this.openGroup = this.openGroup.bind(this);
   }
 
-/**
-   * @method componentDidUnmount
-   * @description adds event Listener from the Store, fetches API call to get users and user groups
-   * @memberof MessageList
-  */
-  componentDidMount() {
-    PostItStore.addChangeListener(this.onChange);
+  closeGroup() {
+    this.setState({ showCreateGroup: false });
   }
-  /**
-   * @method componentWillUnmount
-   * @description removes event Listener from the Store
-   * @memberof Dashboard
-  */
-
-  componentWillUnmount() {
-    PostItStore.removeChangeListener(this.onChange);
+  openGroup() {
+    this.setState({ showCreateGroup: true });
   }
-
-
-    /**
-   * @method render
-   * Render react component
-   * 
-   * @returns {String} The HTML markup for the GroupList Components
-   * @memberof GroupList
-   */
   render() {
     let header = null;
     if (PostItStore.getGroupsUser().length < 1) {
-      header = (<h4> No Group yet </h4>);
+      header = (<div> <h4 className="card-header"> No Group yet </h4> </div>);
     } else {
-      header = (<h4 className="card-header"> My groups </h4>);
+      header = (<div> <h4 className="card-header"> My Groups </h4> </div>);
     }
-    const groupNodes = PostItStore.getGroupsUser().map((group, i) => {
-      return (
-        <Group group={group} key={i} />
-      );
-    });
+    const groupNodes = PostItStore.getGroupsUser().map((group, i) => (
+      <Group group={group} key={i} />
+      ));
     return (
       <div>
-        <div className="headerlist"> {header} </div>
-        <div className="groupList">
-          {groupNodes}
+        <div className="createGroupBtn">
+          <button
+            onClick={this.openGroup}
+            type="button"
+            className="btn btn-primary btn-block createGroup"
+          >  Create a New Group
+          </button>
+          <Modal show={this.state.showCreateGroup} onHide={this.closeGroup}>
+            <Modal.Body>
+              <CreateGroup />
+            </Modal.Body>
+            <Modal.Footer>
+              <a onClick={this.closeGroup}> Close</a>
+            </Modal.Footer>
+          </Modal>
+        </div>
+        <div className="allGroups">
+          <h4> {header} </h4>
+          <div className="groupList">
+            {groupNodes}
+          </div>
         </div>
       </div>
     );

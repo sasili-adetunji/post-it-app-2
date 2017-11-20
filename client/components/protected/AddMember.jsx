@@ -1,5 +1,4 @@
 import React from 'react';
-import lodash from 'lodash';
 import PostItStore from '../../stores/PostItStore';
 import PostItActions from '../../actions/PostItActions';
 
@@ -8,6 +7,7 @@ import PostItActions from '../../actions/PostItActions';
  * creates addmember components
  *
  * @class AddMember
+ *
  * @extends {React.Component}
  */
 class AddMember extends React.Component {
@@ -17,55 +17,61 @@ class AddMember extends React.Component {
       userName: '',
       userId: '',
       error: '',
+      searchUser: ''
     };
     this.onChange = this.onChange.bind(this);
     this.onClick = this.onClick.bind(this);
-    this.changeToUserid = this.changeToUserid.bind(this);
   }
+
 
   /**
     * @method onChange
+    *
     * @description Monitors changes in the components and change the state
+    *
     * @memberof AddMember
+    *
     * @param {object}
+    *
     * @returns {void}
     */
-
   onChange(event) {
-    this.setState({
-      userName: event.target.value,
-    });
-  }
-
-  /**
-   * function that get userid from username
-   *
-   * @param {any} userName
-   * @returns
-   * @memberof AddMember
-   */
-  changeToUserid(userName) {
-    let n;
-    lodash.map(this.props.usern).map((x) => {
-      if (userName === x.userName) {
-        n = x.userId;
+    if (event.target.value !== '') {
+      this.setState({
+        searchUser: '',
+        userName: event.target.value,
+      });
+      if (this.state.userName !== '') {
+        PostItActions.searchUsers(this.state.userName);
+        this.setState({
+          searchUser: PostItStore.getSearchedUsers().userName
+        });
       } else {
-        return null;
+        PostItActions.clearSearch();
+        this.setState({
+          searchUser: 'No user found'
+        });
       }
-    });
-    return n;
+    } else {
+      this.setState({
+        searchUser: '',
+        userName: '',
+      });
+    }
   }
-
    /**
      * @description Makes an action call to add a member to a group
+     *
      * @param {object} event
+     *
      * @returns {void}
+     *
      * @memberof AddMember
   */
 
   onClick(event) {
     event.preventDefault();
-    if (!this.props.selected[0]) {
+    if (!PostItStore.getOpenedGroup()[0]) {
       this.setState({
         error: 'Kindly select a group first',
         userName: '',
@@ -73,14 +79,13 @@ class AddMember extends React.Component {
       return true;
     }
     const user = {
-      userId: this.changeToUserid(this.state.userName),
-      userName: this.state.userName,
-      groupId: this.props.selected[0].groupId,
+      userName: PostItStore.getSearchedUsers().userName,
+      groupId: PostItStore.getOpenedGroup()[0].groupId,
+      userId: PostItStore.getSearchedUsers().userId,
     };
-    if (!user.userId) {
+    if (!this.state.userName) {
       this.setState({
-        error: 'This User does not exist',
-        userName: '',
+        error: 'user name is required',
       });
     } else {
       PostItActions.addUserToGroup(user);
@@ -90,26 +95,42 @@ class AddMember extends React.Component {
       });
     }
   }
+
+
  /**
    * @method render
-   * Render react component
+   *
+   * Render addmember component
    *
    * @returns {String} The HTML markup for the AddMember Components
+   *
    * @memberof AddMember
    */
   render() {
     return (
       <div className="panel-body">
-        <h6> To add a member, type in the username of the member </h6>
-            <strong className="error"> {this.state.error} </strong>
+        <h6> To add a member, search with username </h6>
+        <div className="error"> {this.state.error} </div>
         <form className="navbar-form" role="search">
           <div className="form-group">
             <input
-              type="text" className="form-control" placeholder="Add member" name="userName"
-              onChange={this.onChange} value={this.state.userName}
-              />
+              type="text"
+              className="form-control"
+              placeholder="Search member"
+              name="userName"
+              onChange={this.onChange}
+              value={this.state.userName}
+              list="browsers"
+            />
+            <datalist id="browsers">
+              <option value={this.state.searchUser} />
+            </datalist>
           </div>
-          <button onClick={this.onClick} type="submit" className="btn btn-default ">
+          <button
+            onClick={this.onClick}
+            type="submit"
+            className="btn btn-default addMember"
+          >
             <span className="glyphicon glyphicon-plus" /></button>
         </form>
         <br />

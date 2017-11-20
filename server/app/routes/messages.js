@@ -1,13 +1,12 @@
 import messageControllers from '../controllers/messages';
+import tokenAuth from '../middlewares/tokenAuth';
+import * as Validate from '../helpers/inputValidate';
 
 export default (app) => {
-  app.post('/message', (req, res) => {
-    messageControllers.message(req, res);
-  });
-  app.get('/group/:groupId/messages', (req, res) => {
-    messageControllers.userMessage(req, res);
-  });
-  app.get('/group/:messageId/readUsers', (req, res) => {
-    messageControllers.userReadMessage(req, res);
-  });
+  app.post('/message', Validate.postMessage, tokenAuth,
+  messageControllers.postMessage);
+  app.get('/group/:groupId/messages', tokenAuth,
+  messageControllers.getUserMessages);
+  app.get('/group/:messageId/readUsers', tokenAuth,
+  messageControllers.getReadusers);
 };

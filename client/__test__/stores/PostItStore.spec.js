@@ -1,46 +1,22 @@
+import PostItDispatcher from '../../dispatcher/PostItDispatcher';
+import PostItStore from '../../stores/PostItStore';
+import * as Api from '../../Api';
 
-import PostItConstants from '../../constants/PostItConstants';
-// import PostItActions from '../../actions/PostItActions';
-// import PostItDispatcher from '../../dispatcher/PostItDispatcher';
-import localStorage from '../../__mocks__/localStorage';
+import mockData from '../seeders/MockData';
 
 jest.mock('../../dispatcher/PostItDispatcher');
 jest.dontMock('../../stores/PostItStore');
 
-localStorage.getItem = jest.fn();
-localStorage.setItem = jest.fn();
+const callback = PostItDispatcher.register.mock.calls[0][0];
 
-describe('Message Store', () => {
-  const loginUser = {
-    source: 'VIEW_ACTION',
-    action: {
-      type: PostItConstants.LOGIN_USER,
-      user: {
-        displayName: 'test name',
-        user: localStorage.setItem(),
-      },
-    },
-  };
-  let callback;
-  let PostItDispatcher;
-  let PostItStore;
-  let spyOnDispatcher;
 
-  beforeEach(() => {
-    jest.resetModules();
-    PostItStore = require('../../stores/PostItStore').default;     // eslint-disable-line
-    PostItDispatcher = require('../../dispatcher/PostItDispatcher').default;    // eslint-disable-line
-    callback = PostItDispatcher.register.mock.calls[0][0];
-    spyOnDispatcher = jest.spyOn(PostItDispatcher, 'handleViewAction');
+describe('PostItstore ', () => {
+  it('should have an empty initial array for searched users', () => {
+    expect(PostItStore.getSearchedUsers.length).toEqual(0);
   });
-  it('should register a callback with the dispatcher', () => {
+  it('registers a callback with the dispatcher', () => {
     expect(PostItDispatcher.register.mock.calls.length).toBe(1);
   });
-  it('should store display name and token in local storage on login', () => {
-    callback(loginUser);
-    // expect(localStorage.setItem.mock.calls.length).toBe(3);
-  });
-
   it('should initialize with empty users list', () => {
     expect((PostItStore.getUsers())).toEqual([]);
   });
@@ -49,12 +25,6 @@ describe('Message Store', () => {
   });
   it('should initialize with empty users list', () => {
     expect((PostItStore.getUsersInGroup())).toEqual([]);
-  });
-  it('should initialize with empty users list', () => {
-    expect((PostItStore.getGroups())).toEqual([]);
-  });
-  it('should initialize with empty users list', () => {
-    expect((PostItStore.getGroups())).toEqual([]);
   });
   it('should initialize with empty users list', () => {
     expect((PostItStore.getSuccess())).toEqual('');
@@ -71,22 +41,88 @@ describe('Message Store', () => {
   it('should initialize with empty users list', () => {
     expect((PostItStore.getIsAuthenticated())).toEqual(false);
   });
+});
 
-  it('should emit an event when emit change listener is called', () => {
-    const spyOnAddEvent = spyOn(PostItStore, 'emit');
-    PostItStore.emitChange();
-    expect(spyOnAddEvent).toHaveBeenCalledWith('change');
+describe('Post Message Store', () => {
+  it('should call getGroupsMessages method when data is receieved ', () => {
+    const spyOnStore = jest.spyOn(PostItStore, 'addMessage');
+    callback(mockData.addMessage);
+    const emitChange = jest.fn();
+    emitChange();
+    expect(spyOnStore).toHaveBeenCalled();
+    expect(PostItStore.getGroupsMessages()).toContain(mockData.addMessage.action.message);
+    expect(PostItDispatcher.register.mock.calls.length).toBe(1);
+    expect(emitChange).toHaveBeenCalled();
   });
-  it('should attach event emitter when add change listener is called', () => {
-    const spyOnAddEvent = spyOn(PostItStore, 'on');
-    const mockCallBack = jest.fn();
-    PostItStore.addChangeListener(mockCallBack);
-    expect(spyOnAddEvent).toHaveBeenCalledWith('change', mockCallBack);
+});
+
+describe('Get users Store', () => {
+  it('should call set users method when data is receieved ', () => {
+    const spyOnStore = jest.spyOn(PostItStore, 'setUsers');
+    callback(mockData.usersList);
+    const emitChange = jest.fn();
+    emitChange();
+    expect(PostItStore.getUsers()).toEqual(mockData.usersList.action.users);
+    expect(PostItDispatcher.register.mock.calls.length).toBe(1);
+    expect(emitChange).toHaveBeenCalled();
+    expect(spyOnStore).toHaveBeenCalled();
   });
-  it('should remove event emitter when remove change lister is called', () => {
-    const spyOnRemoveEvent = spyOn(PostItStore, 'removeListener');
-    const mockCallBack = jest.fn();
-    PostItStore.removeChangeListener(mockCallBack);
-    expect(spyOnRemoveEvent).toHaveBeenCalledWith('change', mockCallBack);
+});
+
+describe('Get users groups Store', () => {
+  it('should have an empty initial array for google update', () => {
+    expect(PostItStore.getGroupsUser.length).toEqual(0);
+  });
+  it('should call post message method when data is receieved ', () => {
+    const spyOnStore = jest.spyOn(PostItStore, 'setUserGroups');
+    callback(mockData.userGroups);
+    const emitChange = jest.fn();
+    emitChange();
+    expect(PostItStore.getGroupsUser()).toEqual(mockData.userGroups.action.groups);
+    expect(PostItDispatcher.register.mock.calls.length).toBe(1);
+    expect(emitChange).toHaveBeenCalled();
+    expect(spyOnStore).toHaveBeenCalled();
+  });
+});
+
+describe('Search User Store', () => {
+  it('should call getSearchedUsers method when data is receieved ', () => {
+    callback(mockData.searchedUsers);
+    const spyOnStore = jest.spyOn(Api, 'searchUsers');
+    spyOnStore();
+    const emitChange = jest.fn();
+    emitChange();
+    expect(spyOnStore).toHaveBeenCalledTimes(1);
+    expect(PostItDispatcher.register.mock.calls.length).toBe(1);
+    expect(emitChange).toHaveBeenCalled();
+  });
+});
+
+describe('Add User group store', () => {
+  it('should call Api when data is receieved ', () => {
+    const spyOnApi = jest.spyOn(Api, 'addUserToGroup');
+    callback(mockData.addMember);
+    const emitChange = jest.fn();
+    emitChange();
+    expect(PostItDispatcher.register.mock.calls.length).toBe(1);
+    expect(spyOnApi).toHaveBeenCalled();
+    expect(emitChange).toHaveBeenCalled();
+  });
+});
+
+
+describe('Get users in groups Store', () => {
+  it('should have an empty initial array for google update', () => {
+    expect(PostItStore.getUsersInGroup.length).toEqual(0);
+  });
+  it('should call get users api method when data is receieved ', () => {
+    callback(mockData.usersInGroups);
+    const emitChange = jest.fn();
+    const spyOnApi = jest.spyOn(Api, 'getUserGroups');
+    spyOnApi();
+    emitChange();
+    expect(PostItDispatcher.register.mock.calls.length).toBe(1);
+    expect(emitChange).toHaveBeenCalled();
+    expect(spyOnApi).toHaveBeenCalled();
   });
 });

@@ -1,23 +1,16 @@
 
 import userControllers from '../controllers/users';
+import tokenAuth from '../middlewares/tokenAuth';
+import * as Validate from '../helpers/inputValidate';
+
 
 module.exports = (app) => {
-  app.post('/user/signup', (req, res) => {
-    userControllers.signup(req, res);
-  });
-  app.post('/user/signin', (req, res) => {
-    userControllers.signin(req, res);
-  });
-  app.get('/user/signout', (req, res) => {
-    userControllers.signout(req, res);
-  });
-  app.post('/user/reset', (req, res) => {
-    userControllers.resetPassword(req, res);
-  });
-  app.get('/user/users', (req, res) => {
-    userControllers.usersList(req, res);
-  });
-  app.post('/user/google', (req, res) => {
-    userControllers.googleLogin(req, res);
-  });
+  app.post('/user/signup', Validate.signup, userControllers.signup);
+  app.post('/user/signin', Validate.signin, userControllers.signin);
+  app.get('/user/signout', userControllers.signout);
+  app.post('/user/reset', Validate.resetPassword,
+  userControllers.resetPassword);
+  app.get('/user/users', tokenAuth, userControllers.getUsersList);
+  app.post('/user/google', userControllers.googleLogin);
+  app.get('/user/search?:user', tokenAuth, userControllers.searchUsers);
 };

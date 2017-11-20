@@ -1,41 +1,20 @@
 import firebase from 'firebase';
+import { serverError, createToken, serverAuthError } from '../helpers/serverHelper';
 
-
-/**
- * controls all user routes
- * @class
- */
 
 export default {
   /**
- * @description: THis method creates a user account
- * route POST: user/signup
- * @param {Object} req request object
- * @param {Object} res response object
- * @return {Object} response containing the registered user
- */
-
+   * @description: Creates a user account
+   * Route: POST: /user/signup
+   *
+   * @param {any} req incoming request from the client
+   * @param {any} res response sent back to client
+   *
+   * @returns {response} response object
+   */
   signup(req, res) {
     const { email, password, userName, phoneNumber } = req.body;
-
-// validating email, password, phonenumber and username using express-validator
-
-    req.check('phoneNumber', 'phone number is required').notEmpty();
-    req.check('password', 'Password is required').notEmpty();
-    req.check('userName', 'Username is required').notEmpty();
-    req.check('password', 'Password must be a mininum of 6 character')
-    .isLength(6, 50);
-    req.check('email', 'Email Address is Required').notEmpty();
-    req.check('email', 'Please put a valid email').isEmail();
-    req.check('phoneNumber', 'Enter a valid phone Number')
-    .isMobilePhone('en-NG');
-
-    const errors = req.validationErrors();
-    if (errors) {
-      const message = errors[0].msg;
-      res.status(400).json({ message });
-    } else {
-      firebase.auth().createUserWithEmailAndPassword(email, password)
+    firebase.auth().createUserWithEmailAndPassword(email, password)
       .then((user) => {
         user.updateProfile({
           displayName: userName,
@@ -46,65 +25,49 @@ export default {
           email,
           phoneNumber,
         });
-        res.status(200).json({
-          message: 'Welcome, you have successfully registered. You can proceed to login now',
-          user,
-        });
+        const uid = user.uid;
+        const token = createToken(uid, userName, email);
+        res.status(201).json({
+          message: 'Signup was successful', token });
       })
       .catch((error) => {
-        res.status(403).json({
-          message: error.message,
-        });
+        const errorCode = error.code;
+        serverAuthError(errorCode, res);
       });
-    }
   },
-
-   /**
- * @description: This method controls a user's login
- * route POST: user/signin
- * @param {Object} req request object
- * @param {Object} res response object
- * @return {Object} response containing the logged-in user
- */
-
+ /**
+   * @description:  singns in a user
+   * Route: POST: /user/signin
+   *
+   * @param {any} req incoming request from the client
+   * @param {any} res response sent back to client
+   *
+   * @returns {response} response object
+   */
   signin(req, res) {
     const { email, password } = req.body;
-
-// validating email and password using express-validator
-
-    req.check('email', 'Email is required').notEmpty();
-    req.check('password', 'Password is required').notEmpty();
-    req.check('email', 'Please put a valid email').isEmail();
-    req.check('password', 'Password must be a mininum of 6 character')
-    .isLength(6, 50);
-
-    const errors = req.validationErrors();
-    if (errors) {
-      const message = errors[0].msg;
-      res.status(400).json({ message });
-    } else {
-      firebase.auth().signInWithEmailAndPassword(email, password)
+    firebase.auth().signInWithEmailAndPassword(email, password)
       .then((user) => {
+        const uid = user.uid;
+        const userName = user.displayName;
+        const token = createToken(uid, userName, email);
         res.status(200).json({
-          message: 'Success: you have successfuly signed in.',
-          user,
-        });
+          message: 'Success: you have successfuly signed in.', token });
       })
       .catch((error) => {
-        res.status(403).json({
-          message: error.message,
-        });
+        const errorCode = error.code;
+        serverAuthError(errorCode, res);
       });
-    }
   },
-
-   /**
- * @description: This method controls a signout
- * route POST: user/signout
- * @param {Object} req request object
- * @param {Object} res response object
- * @return {Object} response containing the logged-in user
- */
+ /**
+   * @description: sign out a user
+   * Route: POST: /user/signout
+   *
+   * @param {any} req incoming request from the client
+   * @param {any} res response sent back to client
+   *
+   * @returns {response} response object
+   */
   signout(req, res) {
     firebase.auth().signOut()
       .then(() => {
@@ -113,108 +76,139 @@ export default {
         });
       })
       .catch((error) => {
-        res.status(403).json({
-          message: error.message,
-        });
+        const errorCode = error.code;
+        serverAuthError(errorCode, res);
       });
   },
 
-   /**
- * @description: This method controls reset password
- * route GET: user/reset
- * @param {Object} req request object
- * @param {Object} res response object
- * @return {Object}
- */
+ /**
+   * @description: reset a user password
+   * Route: POST: /user/reset
+   *
+   * @param {any} req incoming request from the client
+   * @param {any} res response sent back to client
+   *
+   * @returns {response} response object
+   */
   resetPassword(req, res) {
     const { email } = req.body;
-    req.check('email', 'Email is required').notEmpty();
-    req.check('email', 'Please put a valid email').isEmail();
-
-    const errors = req.validationErrors();
-    if (errors) {
-      const message = errors[0].msg;
-      res.status(400).json({ message });
-    } else {
-      firebase.auth().sendPasswordResetEmail(email)
+    firebase.auth().sendPasswordResetEmail(email)
       .then(() => {
-        res.json({
+        res.status(200).json({
           message: 'An email has been sent to your email',
         });
       })
       .catch((error) => {
-        res.status(403).json({
-          message: error.message,
-        });
+        const errorCode = error.code;
+        serverAuthError(errorCode, res);
       });
-    }
   },
 
-   /**
- * @description: This method retrieves all the users in database
- * route GET: user/users
- * @param {Object} req request object
- * @param {Object} res response object
- * @return {Object} response containing all the users
- */
-  usersList(req, res) {
-    const user = firebase.auth().currentUser;
-    if (user) {
+
+  /**
+   * @description: fetches all the users in the app
+   * Route: GET: /user/users
+   *
+   * @param {any} req incoming request from the client
+   * @param {any} res response sent back to client
+   *
+   * @returns {response} response object
+   */
+  getUsersList(req, res) {
       // create an empty array to hold the users
-      const users = [];
-      firebase.database().ref('users/').once('value', (msg) => {
-        msg.forEach((snapshot) => {
-          const userDetails = {
-            userId: snapshot.key,
-            userName: snapshot.val().userName,
-          };
-          users.push(userDetails);
+    const users = [];
+    firebase.database().ref('users/').once('value', (msg) => {
+      msg.forEach((snapshot) => {
+        const userDetails = {
+          userId: snapshot.key,
+          userName: snapshot.val().userName,
+        };
+        users.push(userDetails);
+      });
+    })
+      .then(() => {
+        res.status(200).json({
+          users,
         });
       })
-        .then(() => {
-          res.send({
-            users,
-          });
-        })
-        .catch((error) => {
-          res.status(500).json({
-            message: `Error occurred ${error.message}`,
-          });
-        });
-    } else {
-      res.status(401).json({
-        message: 'You are not signed in right now! ',
+      .catch(() => {
+        serverError(res);
       });
-    }
   },
+
+
+  /**
+   * @description: reates a user account with google
+   * Route: POST: /user/google
+   *
+   * @param {any} req incoming request from the client
+   * @param {any} res response sent back to client
+   *
+   * @returns {response} response object
+   */
   googleLogin(req, res) {
     const result = req.body;
-    const credential = firebase.auth.GoogleAuthProvider.credential(result.credential.idToken);
-
-    firebase.database().ref('users').child(result.user.uid).once('value', (snapshot) => {
-      if (!snapshot.exists()) {
-        firebase.database().ref(`users/${result.user.uid}`)
-        .set({
-          userName: result.user.displayName,
-          email: result.user.email,
-          phoneNumber: result.user.phoneNumber
-        });
-        firebase.auth().signInWithCredential(credential)
-        .then((user) => {
-          res.status(200).json({
-            message: 'Success: you have successfuly signed in. with Google',
-            user,
+    const credential = firebase.auth.GoogleAuthProvider
+    .credential(result.credential.idToken);
+    firebase.auth().signInWithCredential(credential)
+    .then((user) => {
+      const uid = user.uid;
+      const userName = user.displayName;
+      const email = user.email;
+      const token = createToken(uid, userName, email);
+      firebase.database()
+      .ref('users').child(result.user.uid).once('value', (snapshot) => {
+        if (!snapshot.exists()) {
+          firebase.database().ref(`users/${result.user.uid}`)
+          .set({
+            userName: result.user.displayName,
+            email: result.user.email,
+            phoneNumber: result.user.phoneNumber
           });
-        });
-      } else {
-        firebase.auth().signInWithCredential(credential)
-        .then((user) => {
-          res.status(200).json({
-            message: 'Success: you have successfuly signed in. with Google',
-            user,
-          });
-        });
-      }
+          return res.status(201).send({
+            message: 'You have successfully signed', token });
+        }
+        return res.status(200).send({
+          message: 'You have successfully signed', token });
+      });
     });
   },
+
+
+  /**
+   * @description: searche user with parameters
+   * Route: GET: /user/search?:user
+   *
+   * @param {any} req incoming request from the client
+   * @param {any} res response sent back to client
+   *
+   * @returns {response} response object
+   */
+  searchUsers (req, res) {
+    const userName = req.query.user;
+    const user = {};
+    if (!userName) {
+      return res.status(400).json({
+        message: 'Please input something'
+      });
+    }
+    firebase.database().ref('users/').orderByChild('userName')
+      .startAt(userName)
+      .endAt(`${userName}\uf8ff`)
+      .once('value', (snapshot) => {
+        if (snapshot.val()) {
+          Object.keys(snapshot.val()).forEach(() => {
+            user.email = (Object.values(snapshot.val())[0]).email;
+            user.userName = (Object.values(snapshot.val())[0]).userName;
+            user.userId = (Object.keys(snapshot.val()))[0];
+          });
+          return res.status(200).json({
+            user
+          });
+        }
+        return res.status(404).send({
+          message: 'No user found'
+        });
+      });
+  }
 };

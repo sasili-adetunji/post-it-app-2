@@ -9,51 +9,49 @@ chai.expect();
 chai.use(chaiHttp);
 
 describe('Message Route: ', () => {
+  let token = '';
+  before((done) => {
+    chai.request(app)
+      .post('/user/signin')
+      .send({ password: 'wash@email.com', email: 'wash@email.com', })
+      .end((err, res) => {
+        token = res.body.token;
+        done();
+      });
+  });
   describe('Post message route', () => {
-    it('should return status 400 for an empty message', (done) => {
-      const message = '';
+    it('should return status 400 when for an empty group', (done) => {
+      const message = 'Andela';
       chai.request(app)
         .post('/message')
+        .set('x-access-token', token)
         .send({ message })
         .end((err, res) => {
-          assert.equal('Please enter a valid message',
+          assert.equal('Group Id is required',
           res.body.errorMessage);
           res.should.have.status(400);
           res.body.should.be.a('object');
           done();
         });
     });
-    it('should return status 200 for successfull sign in', (done) => {
-      const newUser = {
-        password: 'ik@email.com',
-        email: 'ik@email.com',
-      };
-      chai.request(app)
-      .post('/user/signin')
-      .send(newUser)
-      .end((err, res) => {
-        assert.equal('Success: you have successfuly signed in.',
-          res.body.message);
-        res.should.have.status(200);
-        res.body.should.be.a('object');
-        done();
-      });
-    });
-    it('should return status 200 if a group is successfully created', (done) => {
+    it('should return status 201 if a message is successfully sent',
+    (done) => {
       const message = {
         message: 'How u dey??',
-        author: 'ik@email.com',
-        groupId: '-Kwog-k_NHdynRzt0YfT',
-        priorityLevel: 'Normal',
+        groupId: '-Kz55De8W2kkUP150B8l',
+        priorityLevel: 'normal',
         date: new Date(),
       };
       chai.request(app)
           .post('/message')
           .send(message)
+          .set('x-access-token', token)
           .end((err, res) => {
+            assert.equal('How u dey??',
+          res.body.messages[0].messageText);
             assert.equal('Message Sent successfully to Group',
           res.body.message);
-            res.should.have.status(200);
+            res.should.have.status(201);
             res.body.messages.should.be.a('array');
             res.body.messages.should.be.an.instanceOf(Object);
             done();
@@ -61,11 +59,15 @@ describe('Message Route: ', () => {
     });
   });
   describe('User message route', () => {
-    it('should return status 200 for when retrieving groups messages', (done) => {
+    it('should return status 200 when retrieving groups messages',
+    (done) => {
       chai.request(app)
-        .get('/group/-Kwog-k_NHdynRzt0YfT/messages')
+        .get('/group/-Kz55De8W2kkUP150B8l/messages')
+        .set('x-access-token', token)
         .end((err, res) => {
           res.should.have.status(200);
+          assert.equal('How u dey??',
+          res.body.messages[0].messageText);
           res.body.messages.should.be.a('array');
           res.body.messages.should.be.an.instanceOf(Object);
           done();
@@ -73,9 +75,10 @@ describe('Message Route: ', () => {
     });
   });
   describe('Read users route', () => {
-    it('should return status 200 for when retrieving read users', (done) => {
+    it('should return status 200 when retrieving read users', (done) => {
       chai.request(app)
-        .get('/group/-KwpIpKLZKuaWVAhdFfj/readUsers')
+        .get('/group/-Kyl9quus5upr81c26r3/readUsers')
+        .set('x-access-token', token)
         .end((err, res) => {
           res.should.have.status(200);
           res.body.readUsers.should.be.a('array');

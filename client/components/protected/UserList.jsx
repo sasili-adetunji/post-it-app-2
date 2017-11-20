@@ -1,37 +1,28 @@
 import React from 'react';
 import User from './User';
-import PostItStore from '../../stores/PostItStore';
-
 
 /**
- * creates userList components
- * @class UserList
- * @extends {React.Component}
- */
-class UserList extends React.Component {
-
-   /**
- * Displays the List of Users in a group
- * @param props 
- * @export
- * @class UserList
- * @extends {Component}
+ * @description Displays a list of users in a group
+ *
+ * @function UserList
+ *
+ * @returns {JSX} list of a users in a group
  */
 
-  render() {
-    const userNodes = PostItStore.getUsersInGroup().map((user, i) => {
-      return (
-        <User user={user} key={i} />
-      );
-    });
-    return (
-      <div>
-        <div className="headerlist"> <h4 className="card-header"> Members </h4> </div>
-        <div className="userList">
+const UserList = ({ users }) => {
+  const userNodes = users.map((user, i) => (
+    <User user={user} key={i} />
+    ));
+  const header = (<div> <h4 className="card-header"> Group Members </h4>
+  </div>);
+  return (
+    <div className="groupMembers">
+      <h4> { header } </h4>
+      <div className="groupList">
         {userNodes}
-        </div>
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
 export default UserList;
+

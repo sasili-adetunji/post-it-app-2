@@ -1,90 +1,79 @@
 import React from 'react';
+import { Modal } from 'react-bootstrap';
 import MessageBox from './MessageBox';
+import AddMember from './AddMember';
 import Message from './Message';
 import PostItStore from '../../stores/PostItStore';
 
-
 /**
- * creates a messagelist components
+ * @description Displays a list of users in a group
  *
- * @class MessageList
- * @extends {React.Component}
+ * @function MessageList
+ *
+ * @returns {JSX} list of messages in a group
  */
+
 class MessageList extends React.Component {
+
   constructor(props) {
     super(props);
     this.state = {
-      message: ''
+      showAddUser: false,
     };
-    this.onChange = this.onChange.bind(this);
+    this.closeGroup1 = this.closeGroup1.bind(this);
+    this.openGroup1 = this.openGroup1.bind(this);
   }
- 
-  /**
-    * @method onChange
-    * @description Monitors changes in the components and change the state
-    * @memberof MessageList
-    * @param {object} event
-    * @returns {void}
-    */
-
-  onChange() {
-    this.setState({
-      message: PostItStore.getGroupsMessages()
-    });
+  closeGroup1() {
+    this.setState({ showAddUser: false });
   }
-
-  /**
-   * @method componentDidMount
-   * @description adds event Listener from the Store
-   * @memberof MessageList
-  */
-
-  componentDidMount() {
-    PostItStore.addChangeListener(this.onChange);
+  openGroup1() {
+    this.setState({ showAddUser: true });
   }
-
-  /**
-   * @method componentWillUnmount
-   * @description removes event Listener from the Store
-   * @memberof MessageList
-  */
-  componentWillUnmount() {
-    PostItStore.removeChangeListener(this.onChange);
-  }
-
-  /**
-   * @method render
-   * Render react component
-   * 
-   * @returns {String} The HTML markup for the MessageList Components
-   * @memberof MessageList
-   */
-
   render() {
     let messageNodes = null;
-    if (this.props.selectedGroup.length === 0) {
-      messageNodes = (<h2 className="messageHeader"> No Group Selected </h2>);
-    } else if (this.state.message.length === 0) {
-      messageNodes = (<h2 className="messageHeader"> No Message in Group </h2>);
+    let groupName = null;
+    if (PostItStore.getOpenedGroup().length === 0) {
+      messageNodes = (<div> <h2 className="messageHeader"> No Group Selected
+         </h2> </div>);
+    } else if (PostItStore.getGroupsMessages().length === 0) {
+      messageNodes = (<div> <h2 className="messageHeader"> No Message in Group
+        </h2> </div>);
     } else {
-      messageNodes = this.state.message.map((message, i) => {
-        return (
-          <Message
-            message={message} key={i} MessageId={this.state.message[0]}
-            readUser={this.props.readUsers} />
-        );
-      });
+      groupName = (<div> <h4> Group | &nbsp;
+        { PostItStore.getOpenedGroup()[0].groupName}
+      </h4> </div>);
+      messageNodes = PostItStore.getGroupsMessages().map((message, i) => (
+        <Message
+          message={message}
+          key={i}
+          MessageId={PostItStore.getGroupsMessages()[0]}
+          readUser={PostItStore.getReadUsers()}
+        />
+        ));
     }
     return (
       <div>
-        <div className="viewMessage" id="mesa">
-          {messageNodes} 
+        <div className="row">
+          <div className="col-md-10">
+            {groupName} 
+          </div>
+          <div className="col-md-2">
+            <a onClick={this.openGroup1}> <b> Add new Member </b> </a>
+          </div>
         </div>
-        <div id="footer">
-          <MessageBox groupId={this.props.selectedGroup[0]} author={this.props.loggedInUser} /> 
+        <Modal show={this.state.showAddUser} onHide={this.closeGroup1}>
+          <Modal.Body>
+            <AddMember />
+          </Modal.Body>
+          <Modal.Footer>
+            <a onClick={this.closeGroup1}> Close</a>
+          </Modal.Footer>
+        </Modal>
+        <div className="messages">
+          {messageNodes}
         </div>
+        <MessageBox />
       </div>
-            
     );
   }
 }
