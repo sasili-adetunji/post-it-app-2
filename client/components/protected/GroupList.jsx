@@ -4,29 +4,63 @@ import PostItStore from '../../stores/PostItStore';
 import Group from './Group';
 import CreateGroup from './CreateGroup';
 
-/**
- * @description Displays a list of groups a user belongs to
- *
- * @function GroupList
- *
- * @returns {JSX} list of groups a user belongs
- */
+ /**
+  * A collection of group that displays the auser's groups
+  * on the message board
+  *
+  * @class GroupList
+  *
+  * @extends {React.Component}
+  */
 class GroupList extends React.Component {
+  /**
+  * @description Creates an instance of GroupList.
+  * bind methods and set initial state.
+  *
+  * @memberof GroupList
+  *
+  * @param {object} props
+  */
   constructor(props) {
     super(props);
     this.state = {
-      showCreateGroup: false,
+      isOpen: false,
     };
-    this.closeGroup = this.closeGroup.bind(this);
-    this.openGroup = this.openGroup.bind(this);
+    this.closeModal = this.closeModal.bind(this);
+    this.openModal = this.openModal.bind(this);
   }
 
-  closeGroup() {
-    this.setState({ showCreateGroup: false });
+ /**
+   * Handles close Modal event
+   *
+   * @param {SyntheticEvent} event
+   *
+   * @returns {void} null
+   */
+  closeModal() {
+    this.setState({ isOpen: false });
   }
-  openGroup() {
-    this.setState({ showCreateGroup: true });
+
+   /**
+   * Handles open Modal event
+   *
+   * @param {SyntheticEvent} event
+   *
+   * @returns {void} null
+   */
+  openModal() {
+    this.setState({ isOpen: true });
   }
+
+/**
+ * @method render
+ *
+ * Render grouplist component
+ *
+ * @returns {ReactElement} Grouplist markup
+ *
+ * @memberof GroupList
+ */
   render() {
     let header = null;
     if (PostItStore.getGroupsUser().length < 1) {
@@ -41,17 +75,17 @@ class GroupList extends React.Component {
       <div>
         <div className="createGroupBtn">
           <button
-            onClick={this.openGroup}
+            onClick={this.openModal}
             type="button"
             className="btn btn-primary btn-block createGroup"
           >  Create a Group
           </button>
-          <Modal show={this.state.showCreateGroup} onHide={this.closeGroup}>
+          <Modal show={this.state.isOpen} onHide={this.closeModal}>
             <Modal.Body>
               <CreateGroup />
             </Modal.Body>
             <Modal.Footer>
-              <a onClick={this.closeGroup}> Close</a>
+              <a onClick={this.closeModal}> Close</a>
             </Modal.Footer>
           </Modal>
         </div>

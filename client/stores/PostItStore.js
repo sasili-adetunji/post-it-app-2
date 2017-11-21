@@ -450,7 +450,7 @@ PostItDispatcher.register((payload) => {
       break;
 
     case PostItConstants.GOOGLE_LOGIN:
-      Api.googleLogin(action.result);
+      Api.googleLogin(action.idToken);
       PostItStore.emitChange('change');
       break;
 
@@ -501,11 +501,6 @@ PostItDispatcher.register((payload) => {
       PostItStore.emitChange('change');
       break;
 
-    case PostItConstants.RECEIVE_AUTHENTICATED_USER:
-      PostItStore.setIsAuthenticated(true);
-      PostItStore.emitChange('change');
-      break;
-
     case PostItConstants.GROUP_OPENED:
       PostItStore.setOpenedGroup(action.selectedGroup);
       PostItStore.emitChange('change');
@@ -518,7 +513,7 @@ PostItDispatcher.register((payload) => {
 
     case PostItConstants.RECEIVE_LOGIN_SUCCESS:
       PostItStore.setIsAuthenticated(true);
-      PostItStore.setLoggedInUser(jwt.decode(localStorage.jwtToken)); //eslint-disable-line
+      PostItStore.setLoggedInUser(jwt.decode(localStorage.jwtToken));
       PostItStore.emitChange('change');
       break;
 
@@ -528,7 +523,7 @@ PostItDispatcher.register((payload) => {
       break;
 
     case PostItConstants.RECIEVE_ADD_MEMBERS_TO_GROUP:
-      PostItStore.addUserToGroup(action.message);
+      PostItStore.addUserToGroup(action.user);
       PostItStore.emitChange('change');
       break;
 
@@ -538,7 +533,7 @@ PostItDispatcher.register((payload) => {
       break;
 
     case PostItConstants.SEARCH_USERS:
-      Api.searchUsers(action.users);
+      Api.searchUsers(action.keyword);
       PostItStore.emitChange('change');
       break;
 

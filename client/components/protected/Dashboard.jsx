@@ -1,6 +1,5 @@
 import React from 'react';
 import * as Api from '../../Api';
-import NavBar from '../NavBar';
 import PostItStore from '../../stores/PostItStore';
 import MessageList from './MessageList';
 import GroupList from './GroupList';
@@ -9,13 +8,21 @@ import WelcomeHeader from './WelcomeHeader';
 
 
 /**
- * creates dashboard components
+ * displays DashBoard components
  *
- * @class Dashboard
+ * @class DashBoard
  *
  * @extends {React.Component}
  */
 class Dashboard extends React.Component {
+ /**
+  * @description Creates an instance of Dashboard.
+  * bind methods and set initial state.
+  *
+  * @memberof Dashboard
+  *
+  * @param {object} props
+  */
   constructor(props) {
     super(props);
     this.state = {
@@ -37,7 +44,7 @@ class Dashboard extends React.Component {
    * @description adds event Listener from the Store,
    * fetches Api call to get users and user groups
    *
-   * @memberof MessageList
+   * @memberof Dashboard
   */
   componentDidMount() {
     Api.getUserGroups();
@@ -86,7 +93,7 @@ class Dashboard extends React.Component {
   *
   * Render react component
   *
-  * @returns {String} The HTML markup for the MessageList Components
+  * @returns {ReactElement} Dashboard markup
   *
   * @memberof Dashboard
   */
@@ -99,15 +106,15 @@ class Dashboard extends React.Component {
         <div className="container">
           <div className="row">
             <div className="col-md-2 col-xs-12">
-            <GroupList />
-            <UserList
-              groupName={PostItStore.getOpenedGroup()[0]}
-              users={PostItStore.getUsersInGroup()}
-            />
-          </div>
+              <GroupList />
+              <UserList
+                groupName={PostItStore.getOpenedGroup()[0]}
+                users={PostItStore.getUsersInGroup()}
+              />
+            </div>
             <div className="col-md-10 col-xs-12">
-            <MessageList groupName={PostItStore.getOpenedGroup()[0]} />
-          </div>
+              <MessageList groupName={PostItStore.getOpenedGroup()[0]} />
+            </div>
           </div>
         </div>
       </div>

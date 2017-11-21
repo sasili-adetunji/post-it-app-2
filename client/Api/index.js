@@ -5,13 +5,16 @@ import PostItActions from '../actions/PostItActions';
 import PostItStore from '../stores/PostItStore';
 
 
-/**
-  * api call to register a new user
-  *
-  * @param {object} user user's required sign in credentials
-  *
-  * @returns {response} request response
-  */
+  /**
+   * @description describes an API call to the server for a post request
+   * to register a user
+   *
+   * @param {Object} user an object that contains the username,
+   * password, email and phone number of a new user
+   *
+   * @returns {Object} returns which contains authorization token
+   * and message
+   */
 export const registerNewUser = (user) => {
   axios.post('/user/signup', {
     email: user.email,
@@ -21,7 +24,7 @@ export const registerNewUser = (user) => {
   })
   .then((response) => {
     setAuthorizationToken(response.data.token);
-    localStorage.setItem('jwtToken', response.data.token); // eslint-disable-line
+    localStorage.setItem('jwtToken', response.data.token);
     PostItActions.receiveLoginSuccess(response.data.token);
     toastr.success(response.data.message);
   })
@@ -32,132 +35,144 @@ export const registerNewUser = (user) => {
 
 
 /**
-  * api call to sign in user
-  *
-  * @param {object} user user's required sign in credentials
-  *
-  * @returns {response} request response
-  */
+ * @description describes an API call to the server for a post request
+ * to login a user.
+ *
+ * @param {Object} user an object that contains the email and password
+ * of a registered user
+ *
+ * @returns {Object} returns which contains authorization token
+ * and message
+ */
 export const signinUser = (user) => {
   axios.post('/user/signin', {
     email: user.email,
     password: user.password,
   })
-    .then((response) => {
-      setAuthorizationToken(response.data.token);
-      localStorage.setItem('jwtToken', response.data.token); // eslint-disable-line
-      PostItActions.receiveLoginSuccess(response.data.token);
-      toastr.success(response.data.message);
-    })
-    .catch((error) => {
-      toastr.error(error.response.data.message);
-    });
+  .then((response) => {
+    setAuthorizationToken(response.data.token);
+    localStorage.setItem('jwtToken', response.data.token);
+    PostItActions.receiveLoginSuccess(response.data.token);
+    toastr.success(response.data.message);
+  })
+  .catch((error) => {
+    toastr.error(error.response.data.message);
+  });
 };
 
 /**
-  * api call to sign out a user
-  *
-  * @returns {response} request response
-  */
+ * @description describes an API call to the server for a to signout a user
+ *
+ * @returns {Object} returns which contains message
+ */
 export const signoutUser = () => {
   axios.get('/user/signout')
-    .then((response) => {
-      setAuthorizationToken(false);
-      localStorage.clear(); // eslint-disable-line
-      toastr.success(response.data.message);
-    })
-    .catch((error) => {
-      toastr.success(error.response.data.message);
-    });
+  .then((response) => {
+    setAuthorizationToken(false);
+    localStorage.clear();
+    toastr.success(response.data.message);
+  })
+  .catch((error) => {
+    toastr.success(error.response.data.message);
+  });
 };
 
 /**
-  * api call to sign in a user with google
-  *
-  * @param {object} result user's required sign in credentials
-  *
-  * @returns {response} request response
-  */
+ * @description describes an API call to the server for a post request
+ * to login a user with google
+ *
+ * @param {Object} result an object that contains the idToken
+ *
+ * @returns {Object} returns which contains authorization token
+ * and message
+ */
 export const googleLogin = (result) => {
-  axios.post('/user/google', result)
-    .then((response) => {
-      setAuthorizationToken(response.data.token);
-      localStorage.setItem('jwtToken', response.data.token); // eslint-disable-line
-      PostItActions.receiveLoginSuccess(response.data.token);
-      toastr.success(response.data.message);
-    })
-    .catch((error) => {
-      toastr.error(error.response.data.message);
-    });
+  axios.post('/user/google', { result })
+  .then((response) => {
+    setAuthorizationToken(response.data.token);
+    localStorage.setItem('jwtToken', response.data.token);
+    PostItActions.receiveLoginSuccess(response.data.token);
+    toastr.success(response.data.message);
+  })
+  .catch((error) => {
+    toastr.error(error.response.data.message);
+  });
 };
 
 
 /**
-  * api call to create a new group
-  *
-  * @param {object} group group details to be created
-  *
-  * @returns {response} request response
-  */
+ * @description describes an API call to the server for a post request
+ * to create a new group
+ *
+ * @param {Object} group an object that contains the group name
+ *
+ * @returns {Object} returns object which contains the  group created
+ * and message
+ */
 export const createNewGroup = (group) => {
   axios.post('/group', {
     groupName: group.groupName,
-  }).then((response) => {
+  })
+  .then((response) => {
     PostItStore.addGroups(response.data.groups);
     toastr.success(response.data.message);
   })
-    .catch((error) => {
-      toastr.error(error.response.data.message);
-    });
+  .catch((error) => {
+    toastr.error(error.response.data.message);
+  });
 };
 
 
 /**
- * api call to get messages in a particular groups
+ * @description describes an API call to the server for a get request
+ * to fetch all the messages in a group
  *
- * @param {object} group group details to get the message from
+ * @param {Object} group an object that contains the groupId
  *
- * @returns {response} request response
+ * @returns {Object} returns which contains the fetched message
  */
 export const getMessages = (group) => {
   axios.get(`/group/${group.groupId}/messages`)
-    .then((response) => {
-      PostItStore.setMessages(response.data.messages);
-    })
-    .catch((error) => {
-      PostItActions.receiveErrors(error.message);
-    });
+  .then((response) => {
+    PostItStore.setMessages(response.data.messages);
+  })
+  .catch((error) => {
+    PostItActions.receiveErrors(error.message);
+  });
 };
 
 /**
- * api call to add user to a particular group
+ * @description describes an API call to the server for a post request
+ * to add a user to a group
  *
- * @param {object} user user details to be added
+ * @param {Object} user an object that contains the user details to be added
  *
- * @returns {response} request response
+ * @returns {Object} returns which contains the added user and message
  */
 export const addUserToGroup = (user) => {
   axios.post(`/group/${user.groupId}/user`, {
     userId: user.userId,
     groupId: user.groupId,
     userName: user.userName,
-  }).then((response) => {
+  })
+  .then((response) => {
     PostItActions.recieveAddMembersToGroups(response.data.user);
     toastr.success(response.data.message);
   })
-    .catch((error) => {
-      toastr.error(error.response.data.message);
-    });
+  .catch((error) => {
+    toastr.error(error.response.data.message);
+  });
 };
 
 
 /**
-* api call to post message to a particular group
-*
-* @param {object} message message details to be posted
-*
-* @returns {response} request response
-*/
+ * @description describes an API call to the server for a post request
+ * to post message to a group
+ *
+ * @param {Object} message an object that contains the message details
+ *
+ * @returns {Object} returns which contains the posted message
+ */
 export const postMessage = (message) => {
   axios.post('/message', {
     groupId: message.groupId,
@@ -175,100 +190,116 @@ export const postMessage = (message) => {
 
 
 /**
-* api call to fetch all groups a particular user belongs to
-*
-* @returns {response} request response
-*/
+ * @description describes an API call to the server for a get request
+ * to fetch all the groups for a user
+ *
+ * @returns {Object} returns which contains the all the groups
+ */
 export const getUserGroups = () => {
   axios.get('user/groups')
-    .then((response) => {
-      PostItStore.setUserGroups(response.data.groups);
-    })
-    .catch((error) => {
-      PostItActions.receiveErrors(error.message);
-    });
+  .then((response) => {
+    PostItStore.setUserGroups(response.data.groups);
+  })
+  .catch((error) => {
+    PostItActions.receiveErrors(error.message);
+  });
 };
 
 
 /**
-* api call to get users in a particular group
-*
-* @param {object} group
-*
-* @returns {response} request response
-*/
+ * @description describes an API call to the server for a get request
+ * to fetch all the users in a group
+ *
+ * @param {Object} group an object that contains the groupId
+ *
+ * @returns {Object} returns which contains the fetched users
+ */
 export const getUsersInGroup = (group) => {
   axios.get(`/group/${group.groupId}/users`)
-    .then((response) => {
-      PostItActions.receiveSuccess(response.message);
-      PostItStore.setUsersInGroup(response.data.users);
-    })
-    .catch((error) => {
-      PostItActions.receiveErrors(error.message);
-    });
+  .then((response) => {
+    PostItActions.receiveSuccess(response.message);
+    PostItStore.setUsersInGroup(response.data.users);
+  })
+  .catch((error) => {
+    PostItActions.receiveErrors(error.message);
+  });
 };
 
 
 /**
-* api call to get all users in the app
-*
-* @returns {response} request response
-*/
+ * @description describes an API call to the server for a get request
+ * to fetch all the users in the app
+ *
+ * @returns {Object} returns which contains the fetched users
+ */
 export const getUsers = () => {
   axios.get('user/users')
-    .then((response) => {
-      PostItActions.receiveUsers(response.data.users);
-    })
-    .catch((error) => {
-      PostItActions.receiveErrors(error.message);
-    });
+  .then((response) => {
+    PostItActions.receiveUsers(response.data.users);
+  })
+  .catch((error) => {
+    PostItActions.receiveErrors(error.message);
+  });
 };
 
 
 /**
-* api call to get read users of a particular message
-*
-* @param {object} message message details of the particular message
-*
-* @returns {response} request response
-*/
+ * @description describes an API call to the server for a get request
+ * to fetch all the users that have read a particular message
+ *
+ * @param {Object} message an object that contains the message Id of the
+ * particular message
+ *
+ * @returns {Object} returns which contains the fetched read users
+ */
 export const getUserReadUsers = (message) => {
   axios.get(`/group/${message.messageId}/readUsers`)
-    .then((response) => {
-      PostItActions.receiveSuccess(response.message);
-      PostItStore.setReadUsers(response.data.readUsers);
-    })
-    .catch((error) => {
-      PostItActions.receiveErrors(error.message);
-    });
+  .then((response) => {
+    PostItActions.receiveSuccess(response.message);
+    PostItStore.setReadUsers(response.data.readUsers);
+  })
+  .catch((error) => {
+    PostItActions.receiveErrors(error.message);
+  });
 };
 
 
 /**
-* api call to reset a user's password
-*
-* @param {object} email user's email to be reseted
-*
-* @returns {response} request response
-*/
+ * @description describes an API call to the server for a post request
+ * to reset a password of a particular user
+ *
+ * @param {Object} email an object that contains the email of the user to be
+ * reseted
+ *
+ * @returns {Object} returns which contains a success or error message
+ */
 export const resetPassword = (email) => {
   axios.post('/user/reset', {
     email: email.email,
   })
-    .then((response) => {
-      toastr.success(response.data.message);
-    })
-    .catch((error) => {
-      toastr.error(error.response.data.message);
-    });
+  .then((response) => {
+    toastr.success(response.data.message);
+  })
+  .catch((error) => {
+    toastr.error(error.response.data.message);
+  });
 };
 
-export const searchUsers = (userName) => {
-  axios.get(`/user/search?user=${userName}`)
+
+/**
+ * @description describes an API call to the server for a get request
+ * to search a particular user
+ *
+ * @param {Object} keyword an object that contains the keyword
+ *
+ * @returns {Object} returns which contains the user details of thesearched user
+ */
+export const searchUsers = (keyword) => {
+  axios.get(`/user/search?user=${keyword}`)
   .then((response) => {
     PostItStore.setSearchedUsers(response.data.user);
   })
   .catch((error) => {
-    toastr.error(error.response.data.message);
+    PostItActions.receiveErrors(error.message);
   });
 };

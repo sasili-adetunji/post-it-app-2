@@ -1,7 +1,22 @@
 import React from 'react';
 import PostItActions from '../actions/PostItActions';
 
+/**
+ * @description Resets the password of a user
+ *
+ * @class ForgotPassword
+ *
+ * @extends {Component}
+ */
 class ForgotPassword extends React.Component {
+   /**
+   * @description Creates an instance of ForgotPassword.
+   * bind methods and set initial state.
+	 *
+   * @memberof ForgotPassword
+   *
+   * @param {object} props
+   */
   constructor(props) {
     super(props);
     this.state = {
@@ -12,32 +27,33 @@ class ForgotPassword extends React.Component {
     this.onClickReset = this.onClickReset.bind(this);
   }
 
+
   /**
   * @method onChange
   *
   * @description Monitors changes in the components and update the state
   *
-  * @memberof Forgot Password
+  * @memberof ForgotPassword
   *
-  * @param {object} event
+  * @param {SyntheticEvent} event
   *
-  * @returns {void}
+  * @returns {void} void
   */
-
   onChange(event) {
     this.setState({
       [event.target.name]: event.target.value,
     });
   }
 
-  /**
- * @description Makes an action call to reset password
+
+/**
+ * @description Makes an action call to Forgot Password
  *
- * @param {object} event
+ * @param {SyntheticEvent} event
  *
  * @returns {void}
  *
- * @memberof Login
+ * @memberof ForgotPassword
 */
   onClickReset(event) {
     event.preventDefault();
@@ -52,13 +68,21 @@ class ForgotPassword extends React.Component {
       this.setState({ errors: '', email: '' });
     }
   }
+
+
+ /**
+	 * @description Render react component
+	 *
+	 * @memberof ForgotPassword
+	 *
+	 * @return { ReactElement } rendered ForgotPassword page markup
+	 */
   render() {
     return (
       <div>
         <div className="container">
           <div className="row" />
           <div className="col-md-offset-3 col-md-6">
-
             <h1>Password Reset</h1>
             <p>To request a new password, type in your email below</p>
             <div className="error">

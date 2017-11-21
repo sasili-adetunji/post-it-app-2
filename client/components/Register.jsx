@@ -5,8 +5,6 @@ import PostItActions from '../actions/PostItActions';
 /**
  * @description gets user data and register a user
  *
- * @export
- *
  * @param {object} props
  *
  * @class Register
@@ -14,6 +12,14 @@ import PostItActions from '../actions/PostItActions';
  * @extends {Component}
  */
 class Register extends React.Component {
+  /**
+  * @description Creates an instance of Register.
+  * bind methods and set initial state.
+  *
+  * @memberof Register
+  *
+  * @param {object} props
+  */
   constructor(props) {
     super(props);
     this.state = {
@@ -26,18 +32,19 @@ class Register extends React.Component {
     this.onClick = this.onClick.bind(this);
     this.onChange = this.onChange.bind(this);
   }
-  /**
+
+
+ /**
    * @method onChange
    *
    * @description Monitors changes in the components and change the state
    *
    * @memberof Register
    *
-   * @param {object} event
+   * @param {SyntheticEvent} event
    *
    * @returns {void}
    */
-
   onChange(event) {
     this.setState({
       [event.target.name]: event.target.value,
@@ -46,15 +53,15 @@ class Register extends React.Component {
 
 
   /**
-   * @description Makes an action call to Sign in a user with email and password
+   * @description Makes an action call to register a user with email and
+   * password when all field are filled
    *
-   * @param {object} event
+   * @param {SyntheticEvent} event
    *
    * @returns {void}
    *
    * @memberof Register
   */
-
   onClick(event) {
     event.preventDefault();
     const user = {
@@ -85,17 +92,17 @@ class Register extends React.Component {
       });
     }
   }
+
+
   /**
-   * @description Render register component
- 
-    * @method render
-    *
-    * Render react component
-    *
-    * @returns {String} The HTML markup for the Register Components
-    *
-    * @memberof Register
-    */
+  * @description Render react component
+  *
+  * @method render
+  *
+	* @return { ReactElement } rendered Register page markup
+  *
+  * @memberof Register
+  */
   render() {
     return (
       <div>

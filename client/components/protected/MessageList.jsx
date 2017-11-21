@@ -6,29 +6,59 @@ import Message from './Message';
 import PostItStore from '../../stores/PostItStore';
 
 /**
- * @description Displays a list of users in a group
- *
- * @function MessageList
- *
- * @returns {JSX} list of messages in a group
- */
-
+  * A collection of message that displays the available messages
+  * on the message board
+  *
+  * @class MessageList
+  *
+  * @extends {React.Component}
+  */
 class MessageList extends React.Component {
-
+  /**
+  * @description Creates an instance of MessageBox.
+  * bind methods and set initial state.
+  *
+  * @memberof MessageBox
+  *
+  * @param {object} props
+  */
   constructor(props) {
     super(props);
     this.state = {
-      showAddUser: false,
+      isOpen: false,
     };
-    this.closeGroup1 = this.closeGroup1.bind(this);
-    this.openGroup1 = this.openGroup1.bind(this);
+    this.closeModal = this.closeModal.bind(this);
+    this.openModal = this.openModal.bind(this);
   }
-  closeGroup1() {
-    this.setState({ showAddUser: false });
+
+ /**
+   * Handles close Modal event
+   *
+   * @param {SyntheticEvent} event
+   *
+   * @returns {void} void
+   */
+  closeModal() {
+    this.setState({ isOpen: false });
   }
-  openGroup1() {
-    this.setState({ showAddUser: true });
+
+ /**
+   * Handles Open Modal event
+   *
+   * @param {SyntheticEvent} event
+   *
+   * @returns {void} void
+   */
+  openModal(event) {
+    event.preventDefault();
+    this.setState({ isOpen: true });
   }
+
+ /**
+   * Renders MessageList componet
+   *
+   * @returns {ReactElement} MessageList markup
+   */
   render() {
     let messageNodes = null;
     let groupName = null;
@@ -55,18 +85,18 @@ class MessageList extends React.Component {
       <div>
         <div className="row">
           <div className="col-md-10">
-            {groupName} 
+            {groupName}
           </div>
           <div className="col-md-2">
-            <a onClick={this.openGroup1}> <b> Add new Member </b> </a>
+            <a onClick={this.openModal}> <b> Add new Member </b> </a>
           </div>
         </div>
-        <Modal show={this.state.showAddUser} onHide={this.closeGroup1}>
+        <Modal show={this.state.isOpen} onHide={this.closeModal}>
           <Modal.Body>
             <AddMember />
           </Modal.Body>
           <Modal.Footer>
-            <a onClick={this.closeGroup1}> Close</a>
+            <a onClick={this.closeModal}> Close</a>
           </Modal.Footer>
         </Modal>
         <div className="messages">

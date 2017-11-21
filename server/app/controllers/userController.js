@@ -1,6 +1,9 @@
 import firebase from 'firebase';
 import 'babel-polyfill';
-import { serverError, createToken, serverAuthError } from '../helpers/serverHelper';
+import {
+  serverError,
+  createToken,
+  serverAuthError } from '../helpers/serverHelper';
 
 
 export default {
@@ -8,10 +11,10 @@ export default {
    * @description: Creates a user account
    * Route: POST: /user/signup
    *
-   * @param {any} req incoming request from the client
-   * @param {any} res response sent back to client
+   * @param {Object} req requset from the client
+   * @param {Object} res response send back to the client
    *
-   * @returns {response} response object
+   * @returns {Object} response containing authentication token
    */
   signup(req, res) {
     const { email, password, userName, phoneNumber } = req.body;
@@ -40,10 +43,10 @@ export default {
    * @description:  singns in a user
    * Route: POST: /user/signin
    *
-   * @param {any} req incoming request from the client
-   * @param {any} res response sent back to client
+   * @param {Object} req request from the client
+   * @param {Object} res response back to the client
    *
-   * @returns {response} response object
+   * @returns {Object} response containing authentication token
    */
   signin(req, res) {
     const { email, password } = req.body;
@@ -64,10 +67,10 @@ export default {
    * @description: sign out a user
    * Route: POST: /user/signout
    *
-   * @param {any} req incoming request from the client
-   * @param {any} res response sent back to client
+   * @param {Object} req incoming request from the client
+   * @param {Object} res response sent back to client
    *
-   * @returns {response} response object
+   * @returns {Object} response  that you have been signed out
    */
   signout(req, res) {
     firebase.auth().signOut()
@@ -86,10 +89,10 @@ export default {
    * @description: reset a user password
    * Route: POST: /user/reset
    *
-   * @param {any} req incoming request from the client
-   * @param {any} res response sent back to client
+   * @param {Object} req incoming request from the client
+   * @param {Object} res response sent back to client
    *
-   * @returns {response} response object
+   * @returns {Object} response  that a password have been reset
    */
   resetPassword(req, res) {
     const { email } = req.body;
@@ -110,10 +113,10 @@ export default {
    * @description: fetches all the users in the app
    * Route: GET: /user/users
    *
-   * @param {any} req incoming request from the client
-   * @param {any} res response sent back to client
+   * @param {Object} req incoming request from the client
+   * @param {Object} res response sent back to client
    *
-   * @returns {response} response object
+   * @returns {Object} response containing all users in the app
    */
   getUsersList(req, res) {
       // create an empty array to hold the users
@@ -142,15 +145,15 @@ export default {
    * @description: reates a user account with google
    * Route: POST: /user/google
    *
-   * @param {any} req incoming request from the client
-   * @param {any} res response sent back to client
+   * @param {Object} req incoming request from the client
+   * @param {Object} res response sent back to client
    *
-   * @returns {response} response object
+   * @returns {Object} response containing authentication token
    */
   googleLogin(req, res) {
-    const result = req.body;
+    const { result } = req.body;
     const credential = firebase.auth.GoogleAuthProvider
-    .credential(result.credential.idToken);
+    .credential(result);
     firebase.auth().signInWithCredential(credential)
     .then((user) => {
       const uid = user.uid;
@@ -158,13 +161,13 @@ export default {
       const email = user.email;
       const token = createToken(uid, userName, email);
       firebase.database()
-      .ref('users').child(result.user.uid).once('value', (snapshot) => {
+      .ref('users').child(user.uid).once('value', (snapshot) => {
         if (!snapshot.exists()) {
-          firebase.database().ref(`users/${result.user.uid}`)
+          firebase.database().ref(`users/${user.uid}`)
           .set({
-            userName: result.user.displayName,
-            email: result.user.email,
-            phoneNumber: result.user.phoneNumber
+            userName: user.displayName,
+            email: user.email,
+            phoneNumber: user.phoneNumber
           });
           return res.status(201).send({
             message: 'You have successfully signed', token });
@@ -180,10 +183,10 @@ export default {
    * @description: searche user with parameters
    * Route: GET: /user/search?:user
    *
-   * @param {any} req incoming request from the client
-   * @param {any} res response sent back to client
+   * @param {Object} req incoming request from the client
+   * @param {Object} res response sent back to client
    *
-   * @returns {response} response object
+   * @returns {Object} response containing the searched user
    */
   searchUsers (req, res) {
     const userName = req.query.user;

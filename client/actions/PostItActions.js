@@ -2,13 +2,16 @@ import PostItDispatcher from '../dispatcher/PostItDispatcher';
 import PostItConstants from '../constants/PostItConstants';
 
 const PostItActions = {
+
 /**
-  * sign in a user & dispatches an action
-  *
-  * @param {object} user user's required sign in credentials
-  *
-  * @returns {response} request response
-  */
+ * @description describes an action that informs
+ * store to log in  user
+ *
+ * @param {Object} user an object that contains the
+ * password, email of the user
+ *
+ * @returns {object} the action type and user details
+ */
   login(user) {
     PostItDispatcher.handleViewAction({
       actionType: PostItConstants.LOGIN_USER,
@@ -17,28 +20,32 @@ const PostItActions = {
   },
 
 
-  /**
-  * signs in user with google & dispatches actions
-  *
-  * @param {object} result sign in credentials provided by firebase
-  *
-  * @returns {response} request response
-  */
-  googleLogin(result) {
+ /**
+ * @description describes an action that informs
+ * store to log in user with google
+ *
+ * @param {Object} idToken an object that contains the idToken
+ * after signinginwithPopup from the client
+ *
+ * @returns {object} action type and the idToken
+ */
+  googleLogin(idToken) {
     PostItDispatcher.handleViewAction({
       actionType: PostItConstants.GOOGLE_LOGIN,
-      result,
+      idToken,
     });
   },
 
 
- /**
-  * signup a user & dispatches actions
-  *
-  * @param {object} user required sign up credentials
-  *
-  * @returns {response} request response
-  */
+/**
+ * @description describes an action that informs
+ * store to register a new  user
+ *
+ * @param {Object} user an object that contains the
+ * password, email, phone number and username of the user
+ *
+ * @returns {object} the action type and user details of the user
+ */
   registerUser(user) {
     PostItDispatcher.handleViewAction({
       actionType: PostItConstants.REGISTER_USER,
@@ -48,12 +55,13 @@ const PostItActions = {
 
 
   /**
-  * recieves error messages & dispatches it
-  *
-  * @param {object} error required sign in credentials
-  *
-  * @returns {response} request response
-  */
+ * @description describes an action that recieves error messages and
+ * informs the store
+ *
+ * @param {Object} errors an object that contains the errror message
+ *
+ * @returns {object} the action type and error message
+ */
   receiveErrors(errors) {
     PostItDispatcher.handleViewAction({
       actionType: PostItConstants.RECEIVE_ERRORS,
@@ -63,12 +71,13 @@ const PostItActions = {
 
 
   /**
-  * recieves success messages & dispatches it
-  *
-  * @param {object} message required sign in credentials
-  *
-  * @returns {response} request response
-  */
+ * @description describes an action that recieves success messages and
+ * informs the store
+ *
+ * @param {Object} message an object that contains the success message
+ *
+ * @returns {object} the action type and succes message
+ */
   receiveSuccess(message) {
     PostItDispatcher.handleViewAction({
       actionType: PostItConstants.RECEIVE_SUCCESS,
@@ -77,13 +86,14 @@ const PostItActions = {
   },
 
 
-/**
-  * recieves login success messages & dispatches it
-  *
-  * @param {object} message required sign in credentials
-  *
-  * @returns {response} request response
-  */
+ /**
+ * @description describes an action that recieves response from a login and
+ * informs the store
+ *
+ * @param {String} token authentication token
+ *
+ * @returns {object} the action type and idToken
+ */
   receiveLoginSuccess(token) {
     PostItDispatcher.handleViewAction({
       actionType: PostItConstants.RECEIVE_LOGIN_SUCCESS,
@@ -91,23 +101,31 @@ const PostItActions = {
     });
   },
 
-/**
-  * recieves error messages & dispatches it
-  *
-  * @param {object} message r
-  *
-  * @returns {response} request response
-  */
+ /**
+ * @description describes an action that make an
+ * get request of users that have read a  particular message
+ *
+ * @param {object} message an object containing the message details of the
+ * particular message
+ *
+ * @returns {object} the action type and read users of the message
+ */
   receiveReadUsers(message) {
     PostItDispatcher.handleViewAction({
       actionType: PostItConstants.RECEIVE_READ_USERS,
       message,
     });
   },
-  /**
-   * create group and dispatches actions
-   * @param {any} group
-   */
+
+
+/**
+  * @description describes an action that informs
+ * store to to create a group
+ *
+ * @param {object} group an object containing the group details to be created
+ *
+ * @returns {object} the action type and group details
+ */
   createGroup(group) {
     PostItDispatcher.handleViewAction({
       actionType: PostItConstants.CREATE_GROUP,
@@ -117,28 +135,29 @@ const PostItActions = {
 
 
 /**
-  * adds user to a group & dispatches it
-  *
-  * @param {object} user user details to be added
-  *
-  * @returns {action} action type and payload
-  */
+ * @description describes an action that infom store to add
+ * add member to a group
+ *
+ * @param {object} user an object containing the user details to be added
+ *
+ * @returns {object} the action type and user details
+ */
   addUserToGroup(user) {
     PostItDispatcher.handleViewAction({
       actionType: PostItConstants.ADDUSER_GROUP,
       user,
-
     });
   },
 
 
 /**
-  * post message & dispatches it
-  *
-  * @param {object} message message details to be posted in group
-  *
-  * @returns {action} action type and payload
-  */
+ * @description describes an action that infom store to
+ * post a message to a group
+ *
+ * @param {object} message an object containing the message details to be posted
+ *
+ * @returns {object} the action type and message details
+ */
   addMessage(message) {
     PostItDispatcher.handleViewAction({
       actionType: PostItConstants.ADD_MESSAGE,
@@ -147,13 +166,13 @@ const PostItActions = {
   },
 
 
- /**
-  * reset password error messages & dispatches it
-  *
-  * @param {object} email
-  *
-  * @returns {action} action type and payload
-  */
+/**
+ * @description describes an action that infom store to reset password
+ *
+ * @param {object} email an object containing the user details to be added
+ *
+ * @returns {object} the action type and email
+ */
   resetPassword(email) {
     PostItDispatcher.handleViewAction({
       actionType: PostItConstants.RESET_PASSWORD,
@@ -162,11 +181,12 @@ const PostItActions = {
   },
 
 
- /**
-  * signs out a user & dispatches it
-  *
-  * @returns {action} action type and payload
-  */
+/**
+ * @description describes an action that infom store to
+ * signout a user
+ *
+ * @returns {object} the action type
+ */
   signOutUser() {
     PostItDispatcher.handleViewAction({
       actionType: PostItConstants.SIGNOUT_USER,
@@ -174,13 +194,15 @@ const PostItActions = {
   },
 
 
- /**
-  * get user messages e & dispatches it
-  *
-  * @param {object} groups group details to get message from
-  *
-  * @returns {action} action type and payload
-  */
+/**
+ * @description describes an action that infom store to get messages from
+ * a group
+ *
+ * @param {object} groups an object containing the group details to
+ * to get messages from
+ *
+ * @returns {object} the action type and group details
+ */
   getUserMessages(groups) {
     PostItDispatcher.handleViewAction({
       actionType: PostItConstants.GET_USER_MESSAGES,
@@ -190,58 +212,41 @@ const PostItActions = {
 
 
 /**
-  * recieves user groups & dispatches it
-  *
-  * @param {object} groups users in the groups
-  *
-  * @returns {action} action type and payload
-  */
+ * @description describes an action that recieves user groups
+ *
+ * @param {object} groups an object containing the group details
+ *
+ * @returns {object} the action type and group details
+ */
   receiveUserGroups(groups) {
     PostItDispatcher.handleViewAction({
       actionType: PostItConstants.RECEIVE_USER_GROUPS,
       groups,
-
-    });
-  },
-
-
- /**
-  * recieves all users in the app & dispatches it
-  *
-  * @param {object} users the userId and userName
-  *
-  * @returns {action} action type and payload
-  */
-  receiveUsers(users) {
-    PostItDispatcher.handleViewAction({
-      actionType: PostItConstants.RECEIVE_USERS,
-      users,
-
-    });
-  },
-
-
-  /**
-  * recieves authenticated user & dispatches it
-  *
-  * @param {object} user
-  *
-  * @returns {action} action type and payload
-  */
-  receiveAuthenticatedUser(user) {
-    PostItDispatcher.handleViewAction({
-      actionType: PostItConstants.RECEIVE_AUTHENTICATED_USER,
-      user,
     });
   },
 
 
 /**
-  * recieves error messages & dispatches it
+ * @description describes an action that recieve all the users in the app
+ *
+ * @param {object} users an object containing the users details
+ *
+ * @returns {object} the action type and users details
+ */
+  receiveUsers(users) {
+    PostItDispatcher.handleViewAction({
+      actionType: PostItConstants.RECEIVE_USERS,
+      users,
+    });
+  },
+
+
+/**
+  * @description describes an action that recieve the selected group
   *
-  * @param {object} selectedGroup group details of the selected group
+  * @param {Object} selectedGroup details of the selected group
   *
-  * @returns {action} action type and payload
+  * @returns {Object} action type and selctedGroup details
   */
   groupOpened(selectedGroup) {
     PostItDispatcher.handleViewAction({
@@ -252,7 +257,8 @@ const PostItActions = {
 
 
 /**
-  * recieves users in a particular group & dispatches it
+  * @description describes an action that recieve all the users in
+  * a group
   *
   * @param {object} group required group details of the particular group
   *
@@ -265,56 +271,44 @@ const PostItActions = {
     });
   },
 
+
   /**
-  * recieves add members to particular group & dispatches it
+  * @description describes an action that recieve the message after
+  * adding a  member to the app
   *
-  * @param {object} group required group details of the particular group
+  * @param {Object} user user details of the added member
   *
-  * @returns {action} action type and payload
+  * @returns {Object} action type and and the user details
   */
-  recieveAddMembersToGroups(message) {
+  recieveAddMembersToGroups(user) {
     PostItDispatcher.handleViewAction({
       actionType: PostItConstants.RECIEVE_ADD_MEMBERS_TO_GROUP,
-      message,
+      user,
     });
   },
 
 
   /**
-  * recieves add members to particular group & dispatches it
+ * @description describes an action that informs
+ * store to search for a user
   *
-  * @param {object} group required group details of the particular group
+  * @param {object} keyword keyword for the searched users
   *
-  * @returns {action} action type and payload
+  * @returns {Object} action type and the keyword
   */
-  recieveCreateGroups(group) {
-    PostItDispatcher.handleViewAction({
-      actionType: PostItConstants.RECIEVE_ADD_MEMBERS_TO_GROUP,
-      group,
-    });
-  },
-  
-  /**
-  * recieves add members to particular group & dispatches it
-  *
-  * @param {object} group required group details of the particular group
-  *
-  * @returns {action} action type and payload
-  */
-  searchUsers(users) {
+  searchUsers(keyword) {
     PostItDispatcher.handleViewAction({
       actionType: PostItConstants.SEARCH_USERS,
-      users,
+      keyword,
     });
   },
 
-   /**
-  * recieves add members to particular group & dispatches it
+
+/**
+  * @description recieves clear search users and dispatches in the store
   *
-  * @param {object} group required group details of the particular group
-  *
-  * @returns {action} action type and payload
-  */
+  * @returns {Object} action type
+*/
   clearSearch() {
     PostItDispatcher.handleViewAction({
       actionType: PostItConstants.CLEAR_SEARCH,
