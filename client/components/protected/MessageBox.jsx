@@ -132,7 +132,7 @@ class MessageBox extends React.Component {
                 onClick={this.onClick}
                 className="btn btn-primary btn-block sendButton"
               >
-                Send Message
+                Send
               </button>
             </div>
           </div>

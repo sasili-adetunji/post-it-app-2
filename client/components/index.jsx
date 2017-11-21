@@ -6,6 +6,7 @@ import Register from './Register';
 import MessageBoard from './protected/MessageBoard';
 import MessageList from './protected/MessageList';
 import ForgotPassword from './ForgotPassword';
+import NavBar from './NavBar';
 
 
  /**
@@ -114,6 +115,7 @@ class App extends Component {
   render() {
     return (
       <div>
+        <NavBar />
         <Switch>
           <PublicRoute path="/" exact component={Login} />
           <PublicRoute
