@@ -17,23 +17,26 @@ const NavBar = () => {
     PostItActions.signOutUser();
   };
   return (
-    <nav className="navbar navbar-default" id="navigation">
-      <div className="container-fluid">
+    <nav className="navbar navbar-inverse">
         <div className="navbar-header">
-          <a className="navbar-brand" id="navigationText">POST IT</a>
+          <button type="button" className="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+            <span className="icon-bar" />
+            <span className="icon-bar" />
+            <span className="icon-bar" />
+          </button>
+          <p className="navbar-brand"> POST IT</p>
         </div>
-        <div className="collapse navbar-collapse">
+        <div className="collapse navbar-collapse myNavbar" id="myNavbar">
           <ul className="nav navbar-nav navbar-right">
-            { (localStorage.jwtToken) ?
+            {(localStorage.jwtToken) ?
               <button
                 className="btn btn-primary button"
                 onClick={handleSignOut}
                 id="navigationText"
               > Sign Out </button> : ''
-                }
+            }
           </ul>
         </div>
-      </div>
     </nav>
   );
 };

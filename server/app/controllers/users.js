@@ -1,4 +1,5 @@
 import firebase from 'firebase';
+import 'babel-polyfill';
 import { serverError, createToken, serverAuthError } from '../helpers/serverHelper';
 
 

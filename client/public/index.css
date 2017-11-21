@@ -1,15 +1,21 @@
-
-.login-container {
-  border: 1px solid #ccc;
-  width: 550px;
-  margin: 0 auto;
-  padding: 20px 40px 60px;
-}
 .clear {
   padding-top: 5px;
   padding-bottom: 5px;
 }
+body {
+background-color: #E0F2F1
+}
+.input-group .form-control {
+  position: relative;
+  z-index: 2;
+  float: left;
+  width: 96.3%;
 
+}
+.form-group {
+  padding-left: 15px;
+  width: 96.3%;
+}
 #navigation {
   background-color: #008975;
 }
@@ -29,10 +35,6 @@
 .list {
   background-color: #E0F7FA;
   }
-
-.messageBoard {
-  background-color: #E0F2F1;
-}
 
 div.createGroupBtn {
   margin-bottom: 20px;
@@ -115,10 +117,10 @@ div.message {
   background-color: #008975;
 }
 .btn-primary {
-  background-color: #008975;
+  background-color: #008975 !important;
   border: 0!important;
-  margin-top: 10px!important;
-  border-radius: 0;
+  margin-top: 10px !important;
+  border-radius: 0 !important; 
 }
 
 .addMember {
@@ -150,3 +152,77 @@ div.message {
 .list-group-item:first-child {
   border-radius: 0;
 }
+
+@-webkit-keyframes spin {
+  0% {
+      -webkit-transform: rotate(0deg);
+  }
+  100% {
+      -webkit-transform: rotate(360deg);
+  }
+}
+
+@keyframes spin {
+  0% {
+      transform: rotate(0deg);
+  }
+  100% {
+      transform: rotate(360deg);
+  }
+}
+
+.navbar-inverse {
+  margin-bottom: -10px !important;
+}
+
+
+#myNavbar {background-color: #008975;}
+p.navbar-brand  {color: white !important;}
+
+/* Large Devices, Wide Screens */
+@media only screen and (max-width : 1200px) {
+#myNavbar {background-color: #008975;}
+.navbar-inverse .navbar-brand > { color: white !important;}
+p.navbar-brand  {color: white !important;}
+#myNavbar {background-color: #008975;}
+
+}
+
+/* Medium Devices, Desktops */
+@media only screen and (max-width : 992px) {
+#myNavbar {background-color: green;}
+div.navbar-header  {background-color: #008975;}
+.navbar-inverse .navbar-brand  { color: white !important;
+margin-bottom: -10px;}
+p.navbar-brand  {color: white !important;}
+#myNavbar {background-color: #008975;}
+
+/* Small Devices, Tablets */
+@media only screen and (max-width : 768px) {
+#myNavbar {background-color: green;}
+div.navbar-header  {background-color: #008975;}
+.navbar-inverse .navbar-brand > { color: white !important;
+margin-bottom: -10px;}
+p.navbar-brand  {color: white !important;}
+#myNavbar {background-color: #008975;}
+
+}
+
+/* Extra Small Devices, Phones */ 
+@media only screen and (max-width : 480px) {
+#myNavbar {background-color: green;}
+div.navbar-header  {background-color: #008975;}
+.navbar-inverse .navbar-brand { color: white !important;}
+p.navbar-brand  {color: white !important;}
+#myNavbar {background-color: #008975;}
+}
+
+/* Custom, iPhone Retina */ 
+@media only screen and (max-width : 320px) {
+#myNavbar {background-color: green;}
+div.navbar-header  {background-color: #008975;}
+.navbar-inverse .navbar-brand { color: white !important;}
+p.navbar-brand  {color: white !important;}
+#myNavbar{background-color: #008975;}
+}
+};
