@@ -8,10 +8,10 @@ export default {
    * @description: Send mesage to a particular group
    * Route: POST: /message
    *
-   * @param {any} req incoming request from the client
-   * @param {any} res response sent back to client
+   * @param {Object} req incoming request from the client
+   * @param {Object} res response sent back to client
    *
-   * @returns {response} response object
+   * @return {Object} response containing the posted message
    */
   postMessage(req, res) {
     const { message, groupId, priorityLevel, date } = req.body;
@@ -80,10 +80,10 @@ export default {
    * @description: fetches messages of a particular group
    * Route: GET: /group/:groupId/messages
    *
-   * @param {any} req incoming request from the client
-   * @param {any} res response sent back to client
+   * @param {Object} req incoming request from the client
+   * @param {Object} res response sent back to client
    *
-   * @returns {response} rresponse containing all messages in a particular group
+   * @returns {Object} response containing all messages in a particular group
    */
   getUserMessages(req, res) {
     const userData = req.decoded.data;
@@ -124,13 +124,13 @@ export default {
       });
   },
    /**
-   * @description: fetches mthe users that read a particular message
+   * @description: fetches the users that read a particular message
    * Route: GET: /group/:messageId/readUsers
    *
-   * @param {any} req incoming request from the client
-   * @param {any} res response sent back to client
+   * @param {Object} req incoming request from the client
+   * @param {Object} res response sent back to client
    *
-   * @returns {response} rresponse containing all messages in a particular group
+   * @returns {Object} response containing all messages in a particular group
    */
   getReadusers(req, res) {
     const readUsers = [];

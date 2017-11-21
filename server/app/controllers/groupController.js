@@ -7,10 +7,10 @@ export default {
  * @description: creates broadcast group
  * Route: POST: /group
  *
- * @param {any} req incoming request from the client
- * @param {any} res response sent back to client
+ * @param {Object} req incoming request from the client
+ * @param {Object} res response sent back to client
  *
- * @returns {response} response containing the created group
+ * @returns {Object} response containing the created group
  */
   createGroup(req, res) {
     const groups = [];
@@ -53,10 +53,10 @@ export default {
    * @description: adds a particular user to a group
    * route POST: /group/:groupId/user
    *
-   * @param {any} req incoming request from the client
-   * @param {any} res response sent back to client
+   * @param {Object} req incoming request from the client
+   * @param {Object} res response sent back to client
    *
-   * @returns {response} response indicating a user successfully added
+   * @returns {Object} response containing the added user
    */
   addMemberToGroup(req, res) {
     const { groupId, userId, userName } = req.body;
@@ -100,10 +100,10 @@ export default {
  * @description: fetches all users in  particular group
  * route GET: /group/:groupId/users
  *
- * @param {any} req incoming request from the client
- * @param {any} res response sent back to client
+ * @param {Object} req incoming request from the client
+ * @param {Object} res response sent back to client
  *
- * @returns {response} response containing list of all users in a group
+ * @returns {Object} response containing list of all users in a group
 */
   getUsersInGroups(req, res) {
       // create an empty array to hold the users
@@ -132,8 +132,8 @@ export default {
  * @description: fetches retrieves all groups a particular user
  * route GET: /user/groups
  *
- * @param {Object} req request object
- * @param {Object} res response object
+ * @param {Object} req incoming request from the client
+ * @param {Object} res response sent back to client
  *
  * @return {Object} response containing list of all groups of a particular user
 */

@@ -1,5 +1,14 @@
 import React from 'react';
 
+/**
+ * @description Displays a list of users in a group
+ *
+ * @function Message
+ *
+ * @param {Object} message message details as props
+ *
+   * @returns {ReactElement}  Message markup  Components
+ */
 const Message = ({ message }) => (
   <div className="message">
     <div className="row">

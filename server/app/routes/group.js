@@ -1,14 +1,17 @@
-import groupControllers from '../controllers/groups';
+import groupController from '../controllers/groupController';
 import tokenAuth from '../middlewares/tokenAuth';
 import * as Validate from '../helpers/inputValidate';
 
 
 export default (app) => {
   app.post('/group', Validate.createGroup, tokenAuth,
-  groupControllers.createGroup);
+  groupController.createGroup);
+
   app.post('/group/:groupId/user', Validate.addMemberToGroup,
-   tokenAuth, groupControllers.addMemberToGroup);
+   tokenAuth, groupController.addMemberToGroup);
+
   app.get('/group/:groupId/users', tokenAuth,
-  groupControllers.getUsersInGroups);
-  app.get('/user/groups', tokenAuth, groupControllers.getUserGroups);
+  groupController.getUsersInGroups);
+
+  app.get('/user/groups', tokenAuth, groupController.getUserGroups);
 };

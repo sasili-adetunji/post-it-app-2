@@ -2,13 +2,15 @@ import React from 'react';
 
 
 /**
- * @description Displays a list of users in a group
+ * @description the header on the dashboard
  *
  * @function WelcomeHeader
  *
+ * @extends {Component}
+ *
  * @param {Object} user user details as props
  *
- * @returns {JSX} list of a users in a group
+ * @return { ReactElement } rendered WelcomeHeader markup
  */
 
 const WelcomeHeader = ({ user }) =>

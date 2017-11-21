@@ -4,8 +4,8 @@ import toastr from 'toastr';
 import PostItActions from '../actions/PostItActions';
 import config from '../../server/app/config/database';
 
+
 /**
- *
  * @description gets user data and login a user
  *
  * @export
@@ -16,8 +16,15 @@ import config from '../../server/app/config/database';
  *
  * @extends {Component}
  */
-
 class Login extends React.Component {
+  /**
+  * @description Creates an instance of Login.
+  * bind methods and set initial state.
+  *
+  * @memberof Login
+  *
+  * @param {object} props
+  */
   constructor(props) {
     super(props);
     this.state = {
@@ -37,7 +44,7 @@ class Login extends React.Component {
    *
    * @memberof Login
    *
-   * @param {object} event
+   * @param {SyntheticEvent} event
    *
    * @returns {void}
    */
@@ -50,7 +57,7 @@ class Login extends React.Component {
   /**
    * @description Makes an action call to Sign in a user with email and password
    *
-   * @param {object} event
+   * @param {SyntheticEvent} event
    *
    * @returns {void}
    *
@@ -79,9 +86,12 @@ class Login extends React.Component {
   }
   /**
     * @description Makes an action call to Sign in a user with with google
-    * @param {object} event
+    *
+    * @param {SyntheticEvent} event
+    *
     * @returns {void}
-    * @memberof Lofin
+    *
+    * @memberof Login
  */
   onClickGoogle(event) {
     event.preventDefault();
@@ -90,7 +100,7 @@ class Login extends React.Component {
     provider.addScope('https://www.googleapis.com/auth/plus.login');
     firebase.auth().signInWithPopup(provider)
       .then((result) => {
-        PostItActions.googleLogin(result);
+        PostItActions.googleLogin(result.credential.idToken);
         this.setState({
           isLoading: true
         });
@@ -99,14 +109,14 @@ class Login extends React.Component {
 
 
   /**
+  * @description Render react component
+  *
   * @method render
-  * Render react component
   *
-  * @returns {String} The HTML markup for the Register
+	 * @return { ReactElement } rendered Login page markup
   *
-  * @memberof Register
+  * @memberof Login
   */
-
   render() {
     const isLoading = () => {
       const loading = (

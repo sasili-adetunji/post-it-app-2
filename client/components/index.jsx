@@ -3,61 +3,63 @@ import { Route, Redirect, Switch } from 'react-router-dom';
 import PostItStore from '../stores/PostItStore';
 import Login from './Login';
 import Register from './Register';
-import MessageBoard from './protected/MessageBoard';
+import Dashboard from './protected/Dashboard';
 import MessageList from './protected/MessageList';
 import ForgotPassword from './ForgotPassword';
 import NavBar from './NavBar';
 
 
- /**
- * @description function that returns private routes
+/**
+ * @description Create a Route for users who have been authenticated
  *
- * @param {any} { component: Component, isAuthenticated, ...rest }
+ * @param {any} {component: Component, isAuthenticated, ...rest}
  *
- * @returns {void}
+ * @returns {void} void
  */
 
-function PrivateRoute({ component: Component, isAuthenticated, ...rest }) {
-  return (
-    <Route
-      {...rest}
-      render={props => isAuthenticated === true
+const PrivateRoute = ({ component: Component, isAuthenticated, ...rest }) => (
+  <Route
+    {...rest}
+    render={props => isAuthenticated === true
         ? <Component {...props} />
-        : <Redirect to={{ pathname: '/signin', state: { from: props.location }
-        }}
-        />}
-    />
+        : <Redirect to="/signin" />}
+  />
   );
-}
 
 
 /**
- * @description function that returns piblic routes
+ * @description Create a Route for users who are not authenticated
  *
- * @param {any} { component: Component, isAuthenticated, ...rest }
+ * @param {any} {component: Component, isAuthenticated, ...rest}
  *
- * @returns {void}
+ * @returns {void} void
  */
-function PublicRoute({ component: Component, isAuthenticated, ...rest }) {
-  return (
-    <Route
-      {...rest}
-      render={props => isAuthenticated === false
+const PublicRoute = ({ component: Component, isAuthenticated, ...rest }) => (
+  <Route
+    {...rest}
+    render={props => isAuthenticated === false
         ? <Component {...props} />
         : <Redirect to="/messageboard" />}
-    />
+  />
   );
-}
 
 
 /**
- * @description create the app componets
+ * @description Route for rendering componets in the main App
  *
  * @class App
  *
  * @extends {Component}
  */
 class App extends Component {
+  /**
+   * @description Creates an instance of App.
+   * bind methods and set initial state.
+   *
+   * @memberof App
+   *
+   * @param {object} props
+   */
   constructor(props) {
     super(props);
     this.state = {
@@ -68,36 +70,42 @@ class App extends Component {
 
 
    /**
-   * @method componentDidUnmount
+   * @method componentDidMount
    *
-   * @description adds event Listener from the Store
+   * @description Adds an event Listener to the Store and fires
+   * when the component is fully mounted.
+   *
+   * @return {void}
    *
    * @memberof App
-  */
+   */
   componentDidMount() {
     PostItStore.addChangeListener(this.onChange);
   }
 
 
  /**
-   * @method componentWillUnmount
-   *
-   * @description Removes event Listener from the Store
-   *
-   * @memberof App
+  * @method componentWillUnmount
+  *
+  * @return {void}
+  *
+  * @description Removes event Listener from the Store
+  *
+  * @memberof App
   */
   componentWillUnmount() {
     PostItStore.removeChangeListener(this.onChange);
   }
 
-
-   /**
-    * @method onChange
-    * @description Monitors changes in the components and change the state
-    * @memberof App
-    * @param {object}
-    * @returns {void}
-    */
+/**
+  * @method onChange
+  *
+  * @return {void}
+  *
+  * @description Monitors changes in the components and change the state
+  *
+  * @memberof App
+  */
 
   onChange() {
     this.setState({
@@ -106,12 +114,10 @@ class App extends Component {
   }
 
   /**
-  * @description Route for rendering componets in the main App
-  *
-  * @class App
-  *
-  * @extends {Component}
-  * */
+   * @memberof App
+   *
+	 * @return { ReactElement } rendered markup
+   */
   render() {
     return (
       <div>
@@ -136,7 +142,7 @@ class App extends Component {
           <PrivateRoute
             isAuthenticated={this.state.isAuthenticated}
             path="/messageboard"
-            component={MessageBoard}
+            component={Dashboard}
           />
           <PrivateRoute
             isAuthenticated={this.state.isAuthenticated}
@@ -149,4 +155,5 @@ class App extends Component {
     );
   }
 }
+
 export default App;

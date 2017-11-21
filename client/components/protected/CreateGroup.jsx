@@ -11,7 +11,13 @@ import * as API from '../../Api';
  * @extends {React.Component}
  */
 class CreateGroup extends React.Component {
-
+/**
+  * Creates an instance of CreateGroup
+  *
+  * @param {object} props
+  *
+  * @memberof CreateGroup
+*/
   constructor(props) {
     super(props);
     this.state = {
@@ -29,7 +35,7 @@ class CreateGroup extends React.Component {
   *
   * @memberof CreateGroup
   *
-  * @param {object}
+  * @param {SyntheticEvent} event
   *
   * @returns {void}
   */
@@ -42,7 +48,7 @@ class CreateGroup extends React.Component {
 
 
 /**
- * @description Makes an action call to create a group
+ * @description creates a group if groupname is not empty
  *
  * @param {object} event
  *
@@ -75,7 +81,7 @@ class CreateGroup extends React.Component {
    *
    * Render react component
    *
-   * @returns {String} The HTML markup for the CreateGroup Components
+   * @returns {ReactElement} Create Group markup for the CreateGroup Components
    *
    * @memberof CreateGroup
    */

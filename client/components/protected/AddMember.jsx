@@ -4,13 +4,21 @@ import PostItActions from '../../actions/PostItActions';
 
 
 /**
- * creates addmember components
+ * displays addmember components
  *
  * @class AddMember
  *
  * @extends {React.Component}
  */
 class AddMember extends React.Component {
+/**
+  * Creates an instance of AddMember
+  *
+  * @param {object} props
+  *
+  * @memberof AddMember
+*/
+
   constructor(props) {
     super(props);
     this.state = {
@@ -31,10 +39,10 @@ class AddMember extends React.Component {
     *
     * @memberof AddMember
     *
-    * @param {object}
+    * @param {SyntheticEvent} event
     *
     * @returns {void}
-    */
+  */
   onChange(event) {
     if (event.target.value !== '') {
       this.setState({
@@ -59,16 +67,18 @@ class AddMember extends React.Component {
       });
     }
   }
-   /**
-     * @description Makes an action call to add a member to a group
-     *
-     * @param {object} event
-     *
-     * @returns {void}
-     *
-     * @memberof AddMember
-  */
 
+
+/**
+ * @description add a member to a group if a group is selected and
+ * username is not empty
+ *
+ * @param {SyntheticEvent} event
+ *
+ * @returns {void}
+ *
+ * @memberof AddMember
+*/
   onClick(event) {
     event.preventDefault();
     if (!PostItStore.getOpenedGroup()[0]) {
@@ -97,15 +107,15 @@ class AddMember extends React.Component {
   }
 
 
- /**
-   * @method render
-   *
-   * Render addmember component
-   *
-   * @returns {String} The HTML markup for the AddMember Components
-   *
-   * @memberof AddMember
-   */
+/**
+ * @method render
+ *
+ * Render addmember component
+ *
+ * @returns {ReactElement} AddMember markup
+ *
+ * @memberof AddMember
+ */
   render() {
     return (
       <div className="panel-body">
@@ -116,7 +126,7 @@ class AddMember extends React.Component {
             <input
               type="text"
               className="form-control"
-              placeholder="Search member"
+              placeholder="Add member"
               name="userName"
               onChange={this.onChange}
               value={this.state.userName}

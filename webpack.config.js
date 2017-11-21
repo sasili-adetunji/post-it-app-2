@@ -8,7 +8,7 @@ const Dotenv = require('dotenv-webpack');
 
 const config = {
   devtool: 'eval',
-  entry: './client/index.js',
+  entry: './client/index.jsx',
   output: {
     path: path.join(__dirname, 'client/public'),
     publicPath: '/',

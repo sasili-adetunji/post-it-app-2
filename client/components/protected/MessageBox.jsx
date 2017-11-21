@@ -12,6 +12,14 @@ import PostItStore from '../../stores/PostItStore';
  * @extends {React.Component}
  */
 class MessageBox extends React.Component {
+ /**
+  * @description Creates an instance of MessageBox.
+  * bind methods and set initial state.
+  *
+  * @memberof MessageBox
+  *
+  * @param {object} props
+  */
   constructor(props) {
     super(props);
     this.state = {
@@ -31,7 +39,7 @@ class MessageBox extends React.Component {
 *
 * @memberof MessageBox
 *
-* @param {object} event
+* @param {SyntheticEvent} event
 *
 * @returns {void}
 */
@@ -43,9 +51,10 @@ class MessageBox extends React.Component {
 
 
 /**
- * @description Makes an action call to post message to a group
+ * @description Posts a message to the database if a group exists and message
+ * is not empty
  *
- * @param {object} event
+ * @param {SyntheticEvent} event
  *
  * @returns {void}
  *
@@ -81,16 +90,17 @@ class MessageBox extends React.Component {
       });
     }
   }
+
+
  /**
    * @method render
    *
    * Render MessageBox component
    *
-   * @returns {String} The HTML markup for the MessageBox Components
+   * @returns {ReactElement} MessageBox markup
    *
    * @memberof MessageBox
    */
-
   render() {
     return (
       <div className="messageForm">

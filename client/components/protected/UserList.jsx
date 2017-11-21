@@ -6,7 +6,7 @@ import User from './User';
  *
  * @function UserList
  *
- * @returns {JSX} list of a users in a group
+ * @return { ReactElement } rendered UserList page markup
  */
 
 const UserList = ({ users }) => {

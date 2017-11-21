@@ -4,11 +4,14 @@ import React from 'react';
 /**
  * @description Displays a list of users in a group
  *
+ * @param  {object} user store user data passed to the component
+ *
  * @function User
  *
- * @returns {JSX} each users in a group
+ * @extends {Component}
+ *
+ * @returns {ReactElement} User markup
  */
-
 const User = ({ user }) =>
   (
     <div className="list-group-item">
