@@ -6,7 +6,6 @@ import chaiHttp from 'chai-http';
 import app from '../server';
 
 chai.use(require('chai-things'));
-const expect = chai.expect;
 chai.should();
 chai.use(chaiHttp);
 

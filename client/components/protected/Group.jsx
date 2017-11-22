@@ -24,7 +24,7 @@ const Group = ({ group }) => {
   return (
     <div className="list-group-item" id="groupList">
       <li className="item" onClick={onClick}>
-        { group.groupName }
+        {group.groupName}
       </li>
     </div>
   );

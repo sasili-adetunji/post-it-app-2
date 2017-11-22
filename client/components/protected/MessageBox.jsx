@@ -12,14 +12,14 @@ import PostItStore from '../../stores/PostItStore';
  * @extends {React.Component}
  */
 class MessageBox extends React.Component {
- /**
-  * @description Creates an instance of MessageBox.
-  * bind methods and set initial state.
-  *
-  * @memberof MessageBox
-  *
-  * @param {object} props
-  */
+  /**
+   * @description Creates an instance of MessageBox.
+   * bind methods and set initial state.
+   *
+   * @memberof MessageBox
+   *
+   * @param {object} props
+   */
   constructor(props) {
     super(props);
     this.state = {
@@ -32,17 +32,17 @@ class MessageBox extends React.Component {
   }
 
 
-/**
-* @method onChange
-*
-* @description Monitors changes in the components and change the state
-*
-* @memberof MessageBox
-*
-* @param {SyntheticEvent} event
-*
-* @returns {void}
-*/
+  /**
+  * @method onChange
+  *
+  * @description Monitors changes in the components and change the state
+  *
+  * @memberof MessageBox
+  *
+  * @param {SyntheticEvent} event
+  *
+  * @returns {void}
+  */
   onChange(event) {
     this.setState({
       [event.target.name]: event.target.value
@@ -50,16 +50,16 @@ class MessageBox extends React.Component {
   }
 
 
-/**
- * @description Posts a message to the database if a group exists and message
- * is not empty
- *
- * @param {SyntheticEvent} event
- *
- * @returns {void}
- *
- * @memberof MessageBox
-*/
+  /**
+   * @description Posts a message to the database if a group exists and message
+   * is not empty
+   *
+   * @param {SyntheticEvent} event
+   *
+   * @returns {void}
+   *
+   * @memberof MessageBox
+  */
   onClick(event) {
     event.preventDefault();
     if (!PostItStore.getOpenedGroup()[0]) {
@@ -92,15 +92,15 @@ class MessageBox extends React.Component {
   }
 
 
- /**
-   * @method render
-   *
-   * Render MessageBox component
-   *
-   * @returns {ReactElement} MessageBox markup
-   *
-   * @memberof MessageBox
-   */
+  /**
+    * @method render
+    *
+    * Render MessageBox component
+    *
+    * @returns {ReactElement} MessageBox markup
+    *
+    * @memberof MessageBox
+    */
   render() {
     return (
       <div className="messageForm">

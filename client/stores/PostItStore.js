@@ -467,6 +467,7 @@ PostItDispatcher.register((payload) => {
 
     case PostItConstants.SIGNOUT_USER:
       Api.signoutUser();
+      location.reload();
       PostItStore.signOutUser();
       PostItStore.emitChange('change');
       break;

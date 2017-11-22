@@ -31,34 +31,34 @@ class MessageList extends React.Component {
     this.openModal = this.openModal.bind(this);
   }
 
- /**
-   * Handles close Modal event
-   *
-   * @param {SyntheticEvent} event
-   *
-   * @returns {void} void
-   */
+  /**
+    * Handles close Modal event
+    *
+    * @param {SyntheticEvent} event
+    *
+    * @returns {void} void
+    */
   closeModal() {
     this.setState({ isOpen: false });
   }
 
- /**
-   * Handles Open Modal event
-   *
-   * @param {SyntheticEvent} event
-   *
-   * @returns {void} void
-   */
+  /**
+    * Handles Open Modal event
+    *
+    * @param {SyntheticEvent} event
+    *
+    * @returns {void} void
+    */
   openModal(event) {
     event.preventDefault();
     this.setState({ isOpen: true });
   }
 
- /**
-   * Renders MessageList componet
-   *
-   * @returns {ReactElement} MessageList markup
-   */
+  /**
+    * Renders MessageList componet
+    *
+    * @returns {ReactElement} MessageList markup
+    */
   render() {
     let messageNodes = null;
     let groupName = null;
@@ -70,7 +70,7 @@ class MessageList extends React.Component {
         </h2> </div>);
     } else {
       groupName = (<div> <h4> Group | &nbsp;
-        { PostItStore.getOpenedGroup()[0].groupName}
+        {PostItStore.getOpenedGroup()[0].groupName}
       </h4> </div>);
       messageNodes = PostItStore.getGroupsMessages().map((message, i) => (
         <Message
@@ -79,7 +79,7 @@ class MessageList extends React.Component {
           MessageId={PostItStore.getGroupsMessages()[0]}
           readUser={PostItStore.getReadUsers()}
         />
-        ));
+      ));
     }
     return (
       <div>

@@ -12,12 +12,12 @@ import User from './User';
 const UserList = ({ users }) => {
   const userNodes = users.map((user, i) => (
     <User user={user} key={i} />
-    ));
+  ));
   const header = (<div> <h4 className="card-header"> Group Members </h4>
   </div>);
   return (
     <div className="groupMembers">
-      <h4> { header } </h4>
+      <h4> {header} </h4>
       <div className="groupList">
         {userNodes}
       </div>

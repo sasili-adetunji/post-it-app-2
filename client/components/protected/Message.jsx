@@ -7,7 +7,7 @@ import React from 'react';
  *
  * @param {Object} message message details as props
  *
-   * @returns {ReactElement}  Message markup  Components
+ * @returns {ReactElement}  Message markup  Components
  */
 const Message = ({ message }) => (
   <div className="message">
@@ -31,5 +31,5 @@ const Message = ({ message }) => (
       <div className="col-md-2" />
     </div>
   </div>
-    );
+);
 export default Message;

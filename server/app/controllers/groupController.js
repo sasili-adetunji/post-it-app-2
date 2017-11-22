@@ -49,6 +49,7 @@ export default {
       });
   },
 
+
   /**
    * @description: adds a particular user to a group
    * route POST: /group/:groupId/user
@@ -96,6 +97,8 @@ export default {
         }
       });
   },
+
+
 /**
  * @description: fetches all users in  particular group
  * route GET: /group/:groupId/users
@@ -127,6 +130,7 @@ export default {
         serverError(res);
       });
   },
+
 
 /**
  * @description: fetches retrieves all groups a particular user

@@ -39,6 +39,8 @@ export default {
         serverAuthError(errorCode, res);
       });
   },
+
+
  /**
    * @description:  singns in a user
    * Route: POST: /user/signin
@@ -63,6 +65,8 @@ export default {
         serverAuthError(errorCode, res);
       });
   },
+
+
  /**
    * @description: sign out a user
    * Route: POST: /user/signout
@@ -84,6 +88,7 @@ export default {
         serverAuthError(errorCode, res);
       });
   },
+
 
  /**
    * @description: reset a user password

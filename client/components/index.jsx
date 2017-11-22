@@ -21,10 +21,10 @@ const PrivateRoute = ({ component: Component, isAuthenticated, ...rest }) => (
   <Route
     {...rest}
     render={props => isAuthenticated === true
-        ? <Component {...props} />
-        : <Redirect to="/signin" />}
+      ? <Component {...props} />
+      : <Redirect to="/signin" />}
   />
-  );
+);
 
 
 /**
@@ -38,10 +38,10 @@ const PublicRoute = ({ component: Component, isAuthenticated, ...rest }) => (
   <Route
     {...rest}
     render={props => isAuthenticated === false
-        ? <Component {...props} />
-        : <Redirect to="/messageboard" />}
+      ? <Component {...props} />
+      : <Redirect to="/messageboard" />}
   />
-  );
+);
 
 
 /**
@@ -69,43 +69,43 @@ class App extends Component {
   }
 
 
-   /**
-   * @method componentDidMount
-   *
-   * @description Adds an event Listener to the Store and fires
-   * when the component is fully mounted.
-   *
-   * @return {void}
-   *
-   * @memberof App
-   */
+  /**
+  * @method componentDidMount
+  *
+  * @description Adds an event Listener to the Store and fires
+  * when the component is fully mounted.
+  *
+  * @return {void}
+  *
+  * @memberof App
+  */
   componentDidMount() {
     PostItStore.addChangeListener(this.onChange);
   }
 
 
- /**
-  * @method componentWillUnmount
-  *
-  * @return {void}
-  *
-  * @description Removes event Listener from the Store
-  *
-  * @memberof App
-  */
+  /**
+   * @method componentWillUnmount
+   *
+   * @return {void}
+   *
+   * @description Removes event Listener from the Store
+   *
+   * @memberof App
+   */
   componentWillUnmount() {
     PostItStore.removeChangeListener(this.onChange);
   }
 
-/**
-  * @method onChange
-  *
-  * @return {void}
-  *
-  * @description Monitors changes in the components and change the state
-  *
-  * @memberof App
-  */
+  /**
+    * @method onChange
+    *
+    * @return {void}
+    *
+    * @description Monitors changes in the components and change the state
+    *
+    * @memberof App
+    */
 
   onChange() {
     this.setState({

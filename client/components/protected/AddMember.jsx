@@ -11,13 +11,13 @@ import PostItActions from '../../actions/PostItActions';
  * @extends {React.Component}
  */
 class AddMember extends React.Component {
-/**
-  * Creates an instance of AddMember
-  *
-  * @param {object} props
-  *
-  * @memberof AddMember
-*/
+	/**
+		* Creates an instance of AddMember
+		*
+		* @param {object} props
+		*
+		* @memberof AddMember
+	*/
 
   constructor(props) {
     super(props);
@@ -69,16 +69,16 @@ class AddMember extends React.Component {
   }
 
 
-/**
- * @description add a member to a group if a group is selected and
- * username is not empty
- *
- * @param {SyntheticEvent} event
- *
- * @returns {void}
- *
- * @memberof AddMember
-*/
+	/**
+	 * @description add a member to a group if a group is selected and
+	 * username is not empty
+	 *
+	 * @param {SyntheticEvent} event
+	 *
+	 * @returns {void}
+	 *
+	 * @memberof AddMember
+	*/
   onClick(event) {
     event.preventDefault();
     if (!PostItStore.getOpenedGroup()[0]) {
@@ -107,15 +107,15 @@ class AddMember extends React.Component {
   }
 
 
-/**
- * @method render
- *
- * Render addmember component
- *
- * @returns {ReactElement} AddMember markup
- *
- * @memberof AddMember
- */
+	/**
+	 * @method render
+	 *
+	 * Render addmember component
+	 *
+	 * @returns {ReactElement} AddMember markup
+	 *
+	 * @memberof AddMember
+	 */
   render() {
     return (
       <div className="panel-body">

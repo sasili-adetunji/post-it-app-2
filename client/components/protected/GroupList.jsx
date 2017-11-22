@@ -4,14 +4,14 @@ import PostItStore from '../../stores/PostItStore';
 import Group from './Group';
 import CreateGroup from './CreateGroup';
 
- /**
-  * A collection of group that displays the auser's groups
-  * on the message board
-  *
-  * @class GroupList
-  *
-  * @extends {React.Component}
-  */
+/**
+ * A collection of group that displays the auser's groups
+ * on the message board
+ *
+ * @class GroupList
+ *
+ * @extends {React.Component}
+ */
 class GroupList extends React.Component {
   /**
   * @description Creates an instance of GroupList.
@@ -30,37 +30,37 @@ class GroupList extends React.Component {
     this.openModal = this.openModal.bind(this);
   }
 
- /**
-   * Handles close Modal event
-   *
-   * @param {SyntheticEvent} event
-   *
-   * @returns {void} null
-   */
+  /**
+    * Handles close Modal event
+    *
+    * @param {SyntheticEvent} event
+    *
+    * @returns {void} null
+    */
   closeModal() {
     this.setState({ isOpen: false });
   }
 
-   /**
-   * Handles open Modal event
-   *
-   * @param {SyntheticEvent} event
-   *
-   * @returns {void} null
-   */
+  /**
+  * Handles open Modal event
+  *
+  * @param {SyntheticEvent} event
+  *
+  * @returns {void} null
+  */
   openModal() {
     this.setState({ isOpen: true });
   }
 
-/**
- * @method render
- *
- * Render grouplist component
- *
- * @returns {ReactElement} Grouplist markup
- *
- * @memberof GroupList
- */
+  /**
+   * @method render
+   *
+   * Render grouplist component
+   *
+   * @returns {ReactElement} Grouplist markup
+   *
+   * @memberof GroupList
+   */
   render() {
     let header = null;
     if (PostItStore.getGroupsUser().length < 1) {
@@ -70,7 +70,7 @@ class GroupList extends React.Component {
     }
     const groupNodes = PostItStore.getGroupsUser().map((group, i) => (
       <Group group={group} key={i} />
-      ));
+    ));
     return (
       <div>
         <div className="createGroupBtn">

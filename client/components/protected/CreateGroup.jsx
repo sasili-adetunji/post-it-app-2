@@ -11,13 +11,13 @@ import * as API from '../../Api';
  * @extends {React.Component}
  */
 class CreateGroup extends React.Component {
-/**
-  * Creates an instance of CreateGroup
-  *
-  * @param {object} props
-  *
-  * @memberof CreateGroup
-*/
+  /**
+    * Creates an instance of CreateGroup
+    *
+    * @param {object} props
+    *
+    * @memberof CreateGroup
+  */
   constructor(props) {
     super(props);
     this.state = {
@@ -47,15 +47,15 @@ class CreateGroup extends React.Component {
   }
 
 
-/**
- * @description creates a group if groupname is not empty
- *
- * @param {object} event
- *
- * @returns {void}
- *
- * @memberof CreateGroup
-*/
+  /**
+   * @description creates a group if groupname is not empty
+   *
+   * @param {object} event
+   *
+   * @returns {void}
+   *
+   * @memberof CreateGroup
+  */
   onClick(event) {
     event.preventDefault();
     const group = {

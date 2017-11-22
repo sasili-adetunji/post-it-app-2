@@ -54,7 +54,7 @@ const PostItActions = {
   },
 
 
-  /**
+/**
  * @description describes an action that recieves error messages and
  * informs the store
  *
@@ -70,7 +70,7 @@ const PostItActions = {
   },
 
 
-  /**
+/**
  * @description describes an action that recieves success messages and
  * informs the store
  *

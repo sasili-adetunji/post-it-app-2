@@ -1,7 +1,6 @@
 import React from 'react';
 import * as Api from '../../Api';
 import PostItStore from '../../stores/PostItStore';
-import PostItActions from '../../actions/PostItActions';
 import MessageList from './MessageList';
 import GroupList from './GroupList';
 import UserList from './UserList';
@@ -16,14 +15,14 @@ import WelcomeHeader from './WelcomeHeader';
  * @extends {React.Component}
  */
 class Dashboard extends React.Component {
- /**
-  * @description Creates an instance of Dashboard.
-  * bind methods and set initial state.
-  *
-  * @memberof Dashboard
-  *
-  * @param {object} props
-  */
+  /**
+   * @description Creates an instance of Dashboard.
+   * bind methods and set initial state.
+   *
+   * @memberof Dashboard
+   *
+   * @param {object} props
+   */
   constructor(props) {
     super(props);
     this.state = {

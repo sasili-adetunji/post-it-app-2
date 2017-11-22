@@ -34,17 +34,17 @@ class Register extends React.Component {
   }
 
 
- /**
-   * @method onChange
-   *
-   * @description Monitors changes in the components and change the state
-   *
-   * @memberof Register
-   *
-   * @param {SyntheticEvent} event
-   *
-   * @returns {void}
-   */
+  /**
+    * @method onChange
+    *
+    * @description Monitors changes in the components and change the state
+    *
+    * @memberof Register
+    *
+    * @param {SyntheticEvent} event
+    *
+    * @returns {void}
+    */
   onChange(event) {
     this.setState({
       [event.target.name]: event.target.value,

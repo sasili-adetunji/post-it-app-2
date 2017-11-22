@@ -12,9 +12,9 @@ class LocalStorageMock {
      * @memberOf LocalStorageMock
      */
   constructor() {
-      /** @type {Object} */
     this.store = {};
   }
+
 
     /**
      * @description clears the store
@@ -27,6 +27,7 @@ class LocalStorageMock {
     this.store = {};
   }
 
+
     /**
      * @description returns the value stored on the supplied key
      *
@@ -37,6 +38,7 @@ class LocalStorageMock {
   getItem(key) {
     return this.store[key] || null;
   }
+
 
     /**
      * @description sets the store with the supplied key
@@ -49,6 +51,7 @@ class LocalStorageMock {
   setItem(key, value) {
     this.store[key] = value;
   }
+
 
     /**
      * @description removes the item from the store corresponding to the key

@@ -76,6 +76,8 @@ export default {
         serverError(res);
       });
   },
+
+
   /**
    * @description: fetches messages of a particular group
    * Route: GET: /group/:groupId/messages
@@ -123,6 +125,8 @@ export default {
         serverError(res);
       });
   },
+
+
    /**
    * @description: fetches the users that read a particular message
    * Route: GET: /group/:messageId/readUsers
