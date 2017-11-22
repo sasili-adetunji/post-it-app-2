@@ -18,8 +18,11 @@ if (localStorage.jwtToken) {
 
 if (localStorage.selectedGroupId) {
   const groupDetails = localStorage.selectedGroupId;
+  PostItActions.groupOpened(JSON.parse(groupDetails));
   PostItActions.getUserMessages(JSON.parse(groupDetails));
   PostItActions.recieveUsersInGroups(JSON.parse(groupDetails));
+  Api.getUsersInGroup(JSON.parse(groupDetails));
+  Api.getMessages(JSON.parse(groupDetails));
 }
 
 ReactDOM.render(
