@@ -26,7 +26,7 @@ describe('Group components', () => {
   it('should render without throwing an error', () => {
     expect(component.find('li').length).toEqual(1);
   });
-  it('should call function on click of login submit button', () => {
+  it('should call function on click of a group', () => {
     const groupSpy = jest.spyOn(PostItActions, 'groupOpened');
     component.find('li').simulate('click');
     expect(groupSpy).toBeCalledWith(group);

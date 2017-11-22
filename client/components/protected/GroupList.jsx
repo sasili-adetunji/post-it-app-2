@@ -77,6 +77,7 @@ class GroupList extends React.Component {
           <button
             onClick={this.openModal}
             type="button"
+            id="createNewGroup"
             className="btn btn-primary btn-block createGroup"
           >  Create a Group
           </button>

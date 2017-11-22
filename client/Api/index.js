@@ -110,9 +110,7 @@ export const googleLogin = (result) => {
  * and message
  */
 export const createNewGroup = (group) => {
-  axios.post('/group', {
-    groupName: group.groupName,
-  })
+  axios.post('/group', group)
   .then((response) => {
     PostItStore.addGroups(response.data.groups);
     toastr.success(response.data.message);
@@ -274,9 +272,7 @@ export const getUserReadUsers = (message) => {
  * @returns {Object} returns which contains a success or error message
  */
 export const resetPassword = (email) => {
-  axios.post('/user/reset', {
-    email: email.email,
-  })
+  axios.post('/user/reset', email)
   .then((response) => {
     toastr.success(response.data.message);
   })

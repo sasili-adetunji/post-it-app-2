@@ -1,34 +1,16 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
-import PostItActions from '../../actions/PostItActions';
+import { mount } from 'enzyme';
 import MessageBox from '../../components/protected/MessageBox.jsx';
 require('../setup');
 
 
-function setup() {
-  const props = {
-    onClick: () => {},
-    onChange: () => {},
-  };
-  return shallow(<MessageBox {...props} />);
-}
-
 describe('MessageBox components', () => {
-  let submitSpy;
-
-  beforeEach(() => {
-    submitSpy = jest.spyOn(PostItActions, 'addMessage');
-  });
-  const shallowComponent = setup();
   const component = mount(<MessageBox />);
   it('should render', () => {
-    expect(shallow).toBeDefined();
+    expect(component).toBeDefined();
   });
   it('Should contain eight div', () => {
-    expect(shallowComponent.find('div').length).toEqual(8);
-  });
-  it('should recieve props', () => {
-    expect(Object.keys(shallowComponent.props()).length).toBeGreaterThan(0);
+    expect(component.find('div').length).toEqual(8);
   });
   it('should have an empty initial state', () => {
     expect(component.state().message).toEqual('');
@@ -39,11 +21,7 @@ describe('MessageBox components', () => {
     expect(component.nodes[0].onChange).toBeDefined();
     expect(component.nodes[0].onClick).toBeDefined();
   });
-  it('should not  a user on click of button', () => {
-    component.find('form').simulate('submit');
-    expect(component.find('form').simulate('submit')).toBeDefined();
-  });
-  it('should thow an error when submittinga message without select group',
+  it('should thow an error when submitting a message without select group',
   () => {
     const preventDefault = jest.fn();
     component.state().message = 'Hello there';

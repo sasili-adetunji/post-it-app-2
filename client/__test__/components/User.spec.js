@@ -22,4 +22,8 @@ describe('User components', () => {
   it('should render without throwing an error', () => {
     expect(component.contains(user.userName)).toBe(true);
   });
+  it('should find all component rendered element', () => {
+    expect(component.find('li').length).toBe(1);
+    expect(component.find('span').length).toBe(1);
+  });
 });

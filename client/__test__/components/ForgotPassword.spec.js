@@ -20,15 +20,6 @@ describe('Register', () => {
     }
     return mountedComponent;
   };
-
-  beforeEach(() => {
-    props = {
-      onChange: () => {},
-    };
-    mountedComponent = mount(
-      <ForgotPassword {...props} />
-      );
-  });
   it('should always render', () => {
     expect(forgotPassword()).toBeDefined();
   });

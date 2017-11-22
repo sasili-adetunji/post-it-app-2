@@ -477,7 +477,6 @@ PostItDispatcher.register((payload) => {
       break;
     case PostItConstants.RECEIVE_READ_USERS:
       Api.getUserReadUsers(action.message);
-      PostItStore.setReadUsers(action.user);
       PostItStore.emitChange('change');
       break;
     case PostItConstants.RECIEVE_USERS_IN_GROUPS:

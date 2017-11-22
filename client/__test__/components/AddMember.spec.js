@@ -1,34 +1,19 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import PostItActions from '../../actions/PostItActions';
 import AddMember from '../../components/protected/AddMember.jsx';
 
 require('../setup');
 
 describe('AddMember', () => {
-  let props;
   let mountedComponent;
   const addMember = () => {
     if (!mountedComponent) {
       mountedComponent = mount(
-        <AddMember {...props} />
+        <AddMember />
       );
     }
     return mountedComponent;
   };
-
-  beforeEach(() => {
-    props = {
-      selected: [{ groupId: '-Kxmsgit2a21Qf7y25hF', groupName: 'creatGro' }],
-      usern: undefined,
-      onClick: () => {},
-      onChange: () => {},
-      changeToUserid: () => {},
-    };
-    mountedComponent = mount(
-      <AddMember {...props} />
-      );
-  });
   it('always renders a div', () => {
     const divs = addMember().find('div');
     expect(divs.length).toBeGreaterThan(0);
@@ -55,11 +40,12 @@ describe('AddMember', () => {
       } });
       expect(addMember().state().userName).toEqual('programmer');
     });
-    it('should change state when button is click', () => {
-      const preventDefault = jest.fn();
-      addMember().find('button').simulate('click', { preventDefault });
-      const postMessageSpy = jest.spyOn(PostItActions, 'addUserToGroup');
-      expect(postMessageSpy).toBeCalled;
+    it('should update state on when onchange method is called', () => {
+      const event = {
+        target: { name: 'name', value: 'value' }
+      };
+      addMember().instance().onChange(event);
+      expect(addMember().state().userName).toEqual('value');
     });
   });
 });
