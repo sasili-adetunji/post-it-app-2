@@ -1,6 +1,7 @@
 import React from 'react';
 import * as Api from '../../Api';
 import PostItStore from '../../stores/PostItStore';
+import PostItActions from '../../actions/PostItActions';
 import MessageList from './MessageList';
 import GroupList from './GroupList';
 import UserList from './UserList';
@@ -26,7 +27,6 @@ class Dashboard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      loggedInUser: PostItStore.getLoggedInUser(),
       groups: PostItStore.getGroupsUser(),
       users: PostItStore.getUsersInGroup(),
       selectedGroup: PostItStore.getOpenedGroup(),

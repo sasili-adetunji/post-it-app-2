@@ -1,33 +1,20 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import PostItActions from '../../actions/PostItActions';
 import CreateGroup from '../../components/protected/CreateGroup.jsx';
 
 
 require('../setup');
 
 describe('AddMember', () => {
-  let props;
   let mountedComponent;
   const createGroup = () => {
     if (!mountedComponent) {
       mountedComponent = mount(
-        <CreateGroup {...props} />
+        <CreateGroup />
       );
     }
     return mountedComponent;
   };
-
-  beforeEach(() => {
-    props = {
-      userName: { displayName: 'Adetunji' },
-      onClick: () => {},
-      onChange: () => {},
-    };
-    mountedComponent = mount(
-      <CreateGroup {...props} />
-      );
-  });
   it('always renders a div', () => {
     const divs = createGroup().find('div');
     expect(divs.length).toBeGreaterThan(0);
@@ -56,11 +43,11 @@ describe('AddMember', () => {
       } });
       expect(createGroup().state().groupName).toEqual('programmer');
     });
-    it('should change state when button is click', () => {
+    it('should thow an error when signing up with empty group name', () => {
       const preventDefault = jest.fn();
+      createGroup().state().groupName = '';
       createGroup().find('button').simulate('click', { preventDefault });
-      const postMessageSpy = jest.spyOn(PostItActions, 'createGroup');
-      expect(postMessageSpy).toBeCalled;
+      expect(createGroup().state().error).toEqual('Group Name is Required');
     });
   });
 });

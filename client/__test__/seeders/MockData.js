@@ -7,10 +7,8 @@ const mockData = {
     action: {
       actionType: PostItConstants.SEARCH_USERS,
       payload: {
-        usersDetails: [
-          { userId: 'AKFnhd92XHNvMGHmUSHJ2CGt1Au1',
-            userNames: 'West' }
-        ]
+        user: {
+          userNames: 'w' }
       }
     }
   },
@@ -19,9 +17,9 @@ const mockData = {
     source: 'VIEW_ACTION',
     action: {
       actionType: PostItConstants.RECIEVE_CREATE_GROUP,
-      group: [
-        { groupName: 'West' }
-      ]
+      group: {
+        groupName: 'West'
+      }
     }
   },
 
@@ -49,13 +47,27 @@ const mockData = {
     }
   },
 
+  signOut: {
+    action: {
+      actionType: PostItConstants.SIGNOUT_USER,
+    }
+  },
+
   usersInGroups: {
     source: 'VIEW_ACTION',
     action: {
       actionType: PostItConstants.RECIEVE_USERS_IN_GROUPS,
       group: {
-        groupId: 'GKLQ;CGL987'
+        groupId: 'GKLQMLSDF256432KFREGCGL987'
       }
+    }
+  },
+
+  recieveLogin: {
+    source: 'VIEW_ACTION',
+    action: {
+      actionType: PostItConstants.RECEIVE_LOGIN_SUCCESS,
+      token: 'AOHIVLP8Y7UOL3;08YLHAJLCKIG43'
     }
   },
 
@@ -72,9 +84,7 @@ const mockData = {
     source: 'VIEW_ACTION',
     action: {
       actionType: PostItConstants.RESET_PASSWORD,
-      email: {
-        email: 'sas@gmail.com'
-      }
+      email: 'sas@gmail.com',
     }
   },
 
@@ -87,6 +97,132 @@ const mockData = {
       { userId: 'N.SLJLPWE84UHN', userName: 'sas' },
       ]
     }
+  },
+
+  addMemberToGroup: {
+    source: 'VIEW_ACTION',
+    action: {
+      actionType: PostItConstants.RECIEVE_ADD_MEMBERS_TO_GROUP,
+      user: {
+        userId: 'JHDSKAODCIO9',
+        userName: 'sas@email.com'
+      }
+    }
+  },
+
+  clearSearch: {
+    source: 'VIEW_ACTION',
+    action: {
+      actionType: PostItConstants.CLEAR_SEARCH,
+    }
+  },
+
+  googleLogin: {
+    source: 'VIEW_ACTION',
+    action: {
+      actionType: PostItConstants.GOOGLE_LOGIN,
+      idToken: 'AWLSHFGJHJKWLL8799KLJK'
+    }
+  },
+
+  login: {
+    source: 'VIEW_ACTION',
+    action: {
+      actionType: PostItConstants.LOGIN_USER,
+      user: {
+        email: 'sas@gmail.com',
+        password: 'ADEOLA212'
+      }
+    }
+  },
+
+  registerUser: {
+    source: 'VIEW_ACTION',
+    action: {
+      actionType: PostItConstants.REGISTER_USER,
+      user: {
+        email: 'sas@gmail.com',
+        password: 'ADEOLA212',
+        phoneNumber: '2348037817325',
+        userName: 'sas'
+      }
+    }
+  },
+
+  userMessages: {
+    source: 'VIEW_ACTION',
+    action: {
+      actionType: PostItConstants.GET_USER_MESSAGES,
+      groups: {
+        groupId: 'AJDSLIOEO32870WKJH',
+      }
+    }
+  },
+
+  readUsers: {
+    source: 'VIEW_ACTION',
+    action: {
+      actionType: PostItConstants.RECEIVE_READ_USERS,
+      message: {
+        messageId: 'ASOLVHUKJH',
+      }
+    }
+  },
+
+  loginUser: {
+    email: 'testemail@email.com',
+    password: 'testpassword',
+  },
+
+  regiserUser: {
+    email: 'testemail@email.com',
+    password: 'testpassword',
+    phoneNumber: '2348037821732',
+    userName: 'sas'
+  },
+
+  googleUser: {
+    idToken: 'WL78348347KFHWLJKPUR34',
+  },
+
+  errorMessage: {
+    message: 'There is an error',
+  },
+
+  successMessage: {
+    message: 'Success! ',
+  },
+
+  readMessage: {
+    messageId: '-KuL3gft2t6lpxeJDjwX',
+  },
+
+  groupCreate: {
+    groupName: 'first test group',
+    groupId: 'KHJVKLFGUIRHLEGUL8',
+  },
+
+  addUser: {
+    userName: 'Eloka',
+    userId: 'K39DAS8220Hffu76393',
+  },
+
+  postMessage: {
+    groupId: 'KD884D24bkslutx630Cv0',
+    author: 'wash',
+    date: '017-09-18T17:39:27.704Z',
+    messageId: '-KuL3gft2t6lpxeJDjwX',
+    messageText: 'is it workin',
+    priorityLevel: '',
+    status: 'Read',
+  },
+
+  resetEmail: {
+    email: 'sas@gmail.com'
+  },
+
+  recieveUsersInGroup: {
+    groupId: 'LDKLDHO837SLK9089',
   }
 };
 

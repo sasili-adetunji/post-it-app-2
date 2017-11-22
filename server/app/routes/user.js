@@ -15,6 +15,7 @@ module.exports = (app) => {
   userController.resetPassword);
 
   app.get('/user/users', tokenAuth, userController.getUsersList);
+
   app.post('/user/google', userController.googleLogin);
 
   app.get('/user/search?:user', tokenAuth, userController.searchUsers);

@@ -20,7 +20,7 @@ describe('Group Route:', () => {
       });
   });
   describe('Create Group route', () => {
-    it('should return status 400 for an empty group name', (done) => {
+    it('should return validation error group name is empty', (done) => {
       const groupName = '';
       chai.request(app)
         .post('/group')
@@ -34,7 +34,7 @@ describe('Group Route:', () => {
           done();
         });
     });
-    it('should return status 401 when no token is provided', (done) => {
+    it('should return status 401 when user is not logged in (no token is provided)', (done) => {
       const groupName = 'Andela';
       chai.request(app)
         .post('/group')
@@ -48,7 +48,7 @@ describe('Group Route:', () => {
           done();
         });
     });
-    it('should return status 201 if a group is successfully created',
+    it('should successfully create group if token and group name are provided',
     (done) => {
       const group = { groupName: 'JS Developers' };
       chai.request(app)
@@ -66,7 +66,7 @@ describe('Group Route:', () => {
     });
   });
   describe('Add Group route', () => {
-    it('should return status 400 for an empty username', (done) => {
+    it('should return validation errror for an empty username', (done) => {
       const group = {
         groupName: 'Andela Programmers',
         userName: '',
@@ -85,7 +85,7 @@ describe('Group Route:', () => {
           done();
         });
     });
-    it('should return status 201 after successfully adding a member to group',
+    it('should successfully add a member and return the added member',
     (done) => {
       const group = {
         groupName: 'JS Developers',
@@ -128,7 +128,7 @@ describe('Group Route:', () => {
     });
   });
   describe('Groups list route', () => {
-    it('should return status 200 if a user is signed in', (done) => {
+    it('should return list of groups of a user when token is provided', (done) => {
       chai.request(app)
       .get('/user/groups')
       .set('x-access-token', token)
@@ -141,8 +141,8 @@ describe('Group Route:', () => {
       });
     });
   });
-  describe('Users in Groups route', () => {
-    it('should return status 200 if a user is signed in', (done) => {
+  describe('Users in Groups route:', () => {
+    it('should return list of users in a group when token is provided', (done) => {
       chai.request(app)
       .get('/group/-Kz55De8W2kkUP150B8l/users')
       .set('x-access-token', token)

@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import MessageBoard from '../../components/protected/MessageBoard.jsx';
+import Dashboard from '../../components/protected/Dashboard.jsx';
 import GroupList from '../../components/protected/GroupList.jsx';
 import MessageList from '../../components/protected/MessageList.jsx';
 
@@ -13,7 +13,7 @@ describe('MessageBoard', () => {
     userId: 'UTsUlauteS5nb34huOP6SpvcuocX9vA1',
     email: 'sas@email.com'
   };
-  const messageBoard = shallow(<MessageBoard userName={data} />);
+  const messageBoard = shallow(<Dashboard userName={data} />);
   it('always renders a div', () => {
     const divs = messageBoard.find('div');
     expect(divs.length).toBeGreaterThan(0);

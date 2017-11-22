@@ -5,6 +5,7 @@ import chaiHttp from 'chai-http';
 import app from '../server';
 
 chai.should();
+chai.use(require('chai-things'));
 chai.expect();
 chai.use(chaiHttp);
 
@@ -19,8 +20,8 @@ describe('Message Route: ', () => {
         done();
       });
   });
-  describe('Post message route', () => {
-    it('should return status 400 when for an empty group', (done) => {
+  describe('Post message route: ', () => {
+    it('should return validation error when the groupId is empty', (done) => {
       const message = 'Andela';
       chai.request(app)
         .post('/message')
@@ -34,7 +35,25 @@ describe('Message Route: ', () => {
           done();
         });
     });
-    it('should return status 201 if a message is successfully sent',
+    it('should return validation error when the proirity level is empty', (done) => {
+      const message = {
+        message: 'Andela',
+        groupId: '-Kz55De8W2kkUP150B8l'
+      };
+      chai.request(app)
+        .post('/message')
+        .set('x-access-token', token)
+        .send(message)
+        .end((err, res) => {
+          assert.equal('Priority level is required',
+          res.body.errorMessage);
+          res.should.have.status(400);
+          res.body.should.be.a('object');
+          done();
+        });
+    });
+  });
+  it('should successfully sent a message to group and return the message',
     (done) => {
       const message = {
         message: 'How u dey??',
@@ -49,6 +68,8 @@ describe('Message Route: ', () => {
           .end((err, res) => {
             assert.equal('How u dey??',
           res.body.messages[0].messageText);
+            assert.equal('normal',
+          res.body.messages[0].priorityLevel);
             assert.equal('Message Sent successfully to Group',
           res.body.message);
             res.should.have.status(201);
@@ -57,9 +78,8 @@ describe('Message Route: ', () => {
             done();
           });
     });
-  });
-  describe('User message route', () => {
-    it('should return status 200 when retrieving groups messages',
+  describe('User message route: ', () => {
+    it('should successfully return messages in a group',
     (done) => {
       chai.request(app)
         .get('/group/-Kz55De8W2kkUP150B8l/messages')
@@ -68,18 +88,22 @@ describe('Message Route: ', () => {
           res.should.have.status(200);
           assert.equal('How u dey??',
           res.body.messages[0].messageText);
+          assert.equal('normal',
+          res.body.messages[0].priorityLevel);
           res.body.messages.should.be.a('array');
           res.body.messages.should.be.an.instanceOf(Object);
           done();
         });
     });
   });
-  describe('Read users route', () => {
-    it('should return status 200 when retrieving read users', (done) => {
+  describe('Read users route: ', () => {
+    it('should return the username of readusers of a particular messages',
+    (done) => {
       chai.request(app)
-        .get('/group/-Kyl9quus5upr81c26r3/readUsers')
+        .get('/group/-Kz3seSl38cDRsuS-J1g/readUsers')
         .set('x-access-token', token)
         .end((err, res) => {
+          res.body.readUsers.should.include.something.that.deep.equals({ userName: 'wash' });
           res.should.have.status(200);
           res.body.readUsers.should.be.a('array');
           res.body.readUsers.should.be.an.instanceOf(Object);

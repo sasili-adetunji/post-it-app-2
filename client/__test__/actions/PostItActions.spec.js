@@ -1,7 +1,7 @@
 import PostItDispatcher from '../../dispatcher/PostItDispatcher';
 import PostItActions from '../../actions/PostItActions';
 import PostItConstants from '../../constants/PostItConstants';
-import PostItStore from '../../stores/PostItStore';
+import mockData from '../seeders/mockData';
 
 
 describe('PostIt Actions: ', () => {
@@ -12,253 +12,193 @@ describe('PostIt Actions: ', () => {
   });
 
   describe('Login Action', () => {
-    it('should dispatch to login after successful sign in ', () => {
-      const user = {
-        email: 'testemail@email.com',
-        password: 'testpassword' };
-      PostItActions.login(user);
-      const payload = {
+    it('should dispatch a view action of type LOGIN_USER', () => {
+      PostItActions.login(mockData.loginUser);
+      expect(spyOnDispatcher).toHaveBeenCalledWith({
         actionType: PostItConstants.LOGIN_USER,
-        user,
-      };
-      expect(spyOnDispatcher).toHaveBeenCalledWith(payload);
+        user: {
+          email: 'testemail@email.com',
+          password: 'testpassword',
+        }
+      });
     });
   });
+
   describe('Register Action', () => {
-    it('should dispatch to register', () => {
-      const user = {
-        email: 'testemail@email.com',
-        password: 'testpassword',
-        userName: 'tester',
-        phoneNumber: '2348037817325',
-      };
-      PostItActions.registerUser(user);
-      const payload = {
+    it('should dispatch a view action of type REGISTER_USER', () => {
+      PostItActions.registerUser(mockData.regiserUser);
+      expect(spyOnDispatcher).toHaveBeenCalledWith({
         actionType: PostItConstants.REGISTER_USER,
-        user,
-      };
-      expect(spyOnDispatcher).toHaveBeenCalledWith(payload);
+        user: {
+          email: 'testemail@email.com',
+          password: 'testpassword',
+          phoneNumber: '2348037821732',
+          userName: 'sas'
+        }
+      });
     });
   });
+
   describe('Google Action', () => {
-    it('should dispatch to google login', () => {
-      PostItActions.googleLogin();
-      const payload = {
+    it('should dispatch a view action of type GOOGLE_LOGIN', () => {
+      PostItActions.googleLogin(mockData.googleUser);
+      expect(spyOnDispatcher).toHaveBeenCalledWith({
         actionType: PostItConstants.GOOGLE_LOGIN,
-      };
-      expect(spyOnDispatcher).toHaveBeenCalledWith(payload);
+        idToken: {
+          idToken: 'WL78348347KFHWLJKPUR34'
+        }
+      });
     });
   });
+
   describe('Recieve Errors actions', () => {
-    it('should dispatch to recieve errors', () => {
-      PostItActions.receiveErrors();
-      const payload = {
+    it('should dispatch a view action of type RECEIVE_ERRORS', () => {
+      PostItActions.receiveErrors(mockData.errorMessage);
+      expect(spyOnDispatcher).toHaveBeenCalledWith({
         actionType: PostItConstants.RECEIVE_ERRORS,
-      };
-      expect(spyOnDispatcher).toHaveBeenCalledWith(payload);
+        errors: {
+          message: 'There is an error'
+        }
+      });
     });
   });
+
   describe('Recieve success actions', () => {
-    it('should dispatch to recieve success', () => {
-      PostItActions.receiveSuccess();
-      const payload = {
+    it('should dispatch a view action of type RECEIVE_SUCCESS', () => {
+      PostItActions.receiveSuccess(mockData.successMessage);
+      expect(spyOnDispatcher).toHaveBeenCalledWith({
         actionType: PostItConstants.RECEIVE_SUCCESS,
-      };
-      expect(spyOnDispatcher).toHaveBeenCalledWith(payload);
+        message: {
+          message: 'Success! '
+        }
+      });
     });
   });
+
   describe('Read users actions', () => {
-    it('should dispatch to recieve read users', () => {
-      const message = {
-        author: 'wash',
-        date: '017-09-18T17:39:27.704Z',
-        messageId: '-KuL3gft2t6lpxeJDjwX',
-        messageText: 'is it workin',
-        priorityLevel: '',
-        status: 'Read',
-      };
-      PostItActions.receiveReadUsers(message);
-      const payload = {
+    it('should dispatch a view action of type RECEIVE_READ_USERS', () => {
+      PostItActions.receiveReadUsers(mockData.readMessage);
+      expect(spyOnDispatcher).toHaveBeenCalledWith({
         actionType: PostItConstants.RECEIVE_READ_USERS,
-        message,
-      };
-      expect(spyOnDispatcher).toHaveBeenCalledWith(payload);
+        message: {
+          messageId: '-KuL3gft2t6lpxeJDjwX',
+        }
+      });
     });
   });
+
   describe('Create group actions', () => {
-    it('should dispatch to recieve create group', () => {
-      const group = {
-        groupName: 'first test group',
-        userName: 'tester',
-      };
-      PostItActions.createGroup(group);
-      const payload = {
+    it('should dispatch a view action of type CREATE_GROUP', () => {
+      PostItActions.createGroup(mockData.groupCreate);
+      expect(spyOnDispatcher).toHaveBeenCalledWith({
         actionType: PostItConstants.CREATE_GROUP,
-        group,
-      };
-      expect(spyOnDispatcher).toHaveBeenCalledWith(payload);
+        group: {
+          groupName: 'first test group',
+          groupId: 'KHJVKLFGUIRHLEGUL8',
+        }
+      });
     });
   });
+
   describe('Add user to group actions', () => {
-    it('should dispatch to create group', () => {
-      const user = {
-        userId: 'K39DAS8220Hffu76393',
-      };
-      PostItActions.addUserToGroup(user);
-      const payload = {
+    it('should dispatch a view action of type ADDUSER_GROUP', () => {
+      PostItActions.addUserToGroup(mockData.addUser);
+      expect(spyOnDispatcher).toHaveBeenCalledWith({
         actionType: PostItConstants.ADDUSER_GROUP,
-        user,
-      };
-      expect(spyOnDispatcher).toHaveBeenCalledWith(payload);
+        user: {
+          userName: 'Eloka',
+          userId: 'K39DAS8220Hffu76393',
+        }
+      });
     });
   });
+
   describe('Add message actions', () => {
-    it('should dispatch to post message', () => {
-      const message = {
-        groupId: 'KD884D24bkslutx630Cv0',
-        author: 'wash',
-        date: '017-09-18T17:39:27.704Z',
-        messageId: '-KuL3gft2t6lpxeJDjwX',
-        messageText: 'is it workin',
-        priorityLevel: '',
-        status: 'Read',
-      };
-      PostItActions.addMessage(message);
-      const payload = {
+    it('should dispatch a view action of type ADD_MESSAGE', () => {
+      PostItActions.addMessage(mockData.postMessage);
+      expect(spyOnDispatcher).toHaveBeenCalledWith({
         actionType: PostItConstants.ADD_MESSAGE,
-        message,
-      };
-      expect(spyOnDispatcher).toHaveBeenCalledWith(payload);
+        message: {
+          groupId: 'KD884D24bkslutx630Cv0',
+          author: 'wash',
+          date: '017-09-18T17:39:27.704Z',
+          messageId: '-KuL3gft2t6lpxeJDjwX',
+          messageText: 'is it workin',
+          priorityLevel: '',
+          status: 'Read',
+        }
+      });
     });
   });
+
   describe('Reset password actions', () => {
-    const email = {
-      email: 'sasil@gmail.com',
-    };
-    it('should dispatch to reset password', () => {
-      PostItActions.resetPassword(email);
-      const payload = {
+    it('should dispatch a view action of type RESET_PASSWORD', () => {
+      PostItActions.resetPassword(mockData.resetEmail);
+      expect(spyOnDispatcher).toHaveBeenCalledWith({
         actionType: PostItConstants.RESET_PASSWORD,
-        email,
-      };
-      expect(spyOnDispatcher).toHaveBeenCalledWith(payload);
+        email: {
+          email: 'sas@gmail.com'
+        }
+      });
     });
   });
+
   describe('Sign out actions', () => {
-    it('should dispatch to sign out', () => {
+    it('should dispatch a view action of type SIGNOUT_USER', () => {
       PostItActions.signOutUser();
-      const payload = {
+      expect(spyOnDispatcher).toHaveBeenCalledWith({
         actionType: PostItConstants.SIGNOUT_USER,
-      };
-      expect(spyOnDispatcher).toHaveBeenCalledWith(payload);
+      });
     });
   });
+
   describe('Recieve user groups actions', () => {
-    it('should dispatch to recieve users groups', () => {
-      const spyOnStore = jest.spyOn(PostItStore, 'setUserGroups');
+    it('should dispatch a view action of type RECEIVE_USER_GROUPS', () => {
       PostItActions.receiveUserGroups();
-      const payload = {
+      expect(spyOnDispatcher).toHaveBeenCalledWith({
         actionType: PostItConstants.RECEIVE_USER_GROUPS,
-      };
-      expect(spyOnDispatcher).toHaveBeenCalledWith(payload);
-      expect(spyOnStore).toHaveBeenCalled();
+      });
     });
   });
+
   describe('Recieve users actions', () => {
-    it('should dispatch to recieve users', () => {
-      const spyOnStore = jest.spyOn(PostItStore, 'setUsers');
+    it('should dispatch a view action of type RECEIVE_USERS', () => {
       PostItActions.receiveUsers();
-      const payload = {
+      expect(spyOnDispatcher).toHaveBeenCalledWith({
         actionType: PostItConstants.RECEIVE_USERS,
-      };
-      expect(spyOnDispatcher).toHaveBeenCalledWith(payload);
-      expect(spyOnStore).toHaveBeenCalled();
+      });
     });
   });
-  describe('Recieve authenticated users actions', () => {
-    it('should dispatch to recieve authenticated users', () => {
-      PostItActions.receiveAuthenticatedUser();
-      const payload = {
-        actionType: PostItConstants.RECEIVE_AUTHENTICATED_USER,
-      };
-      expect(spyOnDispatcher).toHaveBeenCalledWith(payload);
-    });
-  });
+
   describe('Group opened actions', () => {
-    it('should dispatch to group opened', () => {
+    it('should dispatch a view action of type GROUP_OPENED', () => {
       PostItActions.groupOpened();
-      const payload = {
+      expect(spyOnDispatcher).toHaveBeenCalledWith({
         actionType: PostItConstants.GROUP_OPENED,
-      };
-      expect(spyOnDispatcher).toHaveBeenCalledWith(payload);
+      });
     });
   });
+
   describe('Recieve users in groups actions', () => {
-    it('should dispatch to recieve users in groups', () => {
-      const group = {
-        groupId: 'LDKLDHO837SLK9089',
-      };
-      PostItActions.recieveUsersInGroups(group);
-      const payload = {
+    it('should dispatch a view action of type RECIEVE_USERS_IN_GROUPS', () => {
+      PostItActions.recieveUsersInGroups(mockData.recieveUsersInGroup);
+      expect(spyOnDispatcher).toHaveBeenCalledWith({
         actionType: PostItConstants.RECIEVE_USERS_IN_GROUPS,
-        group
-      };
-      expect(spyOnDispatcher).toHaveBeenCalledWith(payload);
+        group: {
+          groupId: 'LDKLDHO837SLK9089'
+        }
+      });
     });
   });
+
   describe('Recieve login sucecess actions', () => {
-    it('should dispatch to login success', () => {
-      const token = 'JF;JHUILOFSJFDLHGLIO84';
-      const spyOnStore = jest.spyOn(PostItStore, 'setIsAuthenticated');
+    it('should dispatch a view action of type RECEIVE_LOGIN_SUCCESS', () => {
+      const token = 'JFJHUILOFSJFDLHGLIO84';
       PostItActions.receiveLoginSuccess(token);
-      const payload = {
+      expect(spyOnDispatcher).toHaveBeenCalledWith({
         actionType: PostItConstants.RECEIVE_LOGIN_SUCCESS,
-        token,
-      };
-      expect(spyOnDispatcher).toHaveBeenCalledWith(payload);
-      expect(spyOnStore).toHaveBeenCalledWith(true);
-    });
-  });
-  describe('Recieve get user messages actions', () => {
-    it('should dispatch to get user messages', () => {
-      const messages = {
-        groupId: '-KwkoJ66ItRxv_UFr5xX',
-        groupName: 'diggy',
-      };
-      PostItActions.getUserMessages(messages);
-      const payload = {
-        actionType: PostItConstants.GET_USER_MESSAGES,
-        messages,
-      };
-      expect(spyOnDispatcher).toHaveBeenCalled();
-    });
-  });
-  describe('Recieve get user messages actions', () => {
-    it('should dispatch to get user messages', () => {
-      const message = {
-        userId: '-KwkoJ66ItRxv_UFr5xX',
-        UserName: 'diggy',
-      };
-      PostItActions.recieveAddMembersToGroups(message);
-      const payload = {
-        actionType: PostItConstants.RECIEVE_ADD_MEMBERS_TO_GROUP,
-        message,
-      };
-      expect(spyOnDispatcher).toHaveBeenCalled();
-    });
-  });
-  describe('Recieve get user messages actions', () => {
-    it('should dispatch to get user messages', () => {
-      const group = {
-        groupId: '-KwkoJ66ItRxv_UFr5xX',
-        groupName: 'diggy',
-      };
-      PostItActions.recieveCreateGroups(group);
-      const payload = {
-        actionType: PostItConstants.RECIEVE_ADD_MEMBERS_TO_GROUP,
-        group,
-      };
-      expect(spyOnDispatcher).toHaveBeenCalled();
+        token: 'JFJHUILOFSJFDLHGLIO84'
+      });
     });
   });
 });
