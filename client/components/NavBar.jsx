@@ -1,5 +1,5 @@
 import React from 'react';
-import PostItActions from '../actions/PostItActions';
+import AppActions from '../actions/AppActions';
 
 /**
  * @description Navigation Component gives shows the logo and signout button
@@ -20,7 +20,7 @@ const NavBar = () => {
   */
   const handleSignOut = (event) => {
     event.preventDefault();
-    PostItActions.signOutUser();
+    AppActions.signOutUser();
   };
   return (
     <nav className="navbar navbar-inverse">

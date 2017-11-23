@@ -1,43 +1,43 @@
-import PostItDispatcher from '../../dispatcher/PostItDispatcher';
-import PostItStore from '../../stores/PostItStore';
-import * as Api from '../../Api';
+import AppDispatcher from '../../dispatcher/AppDispatcher';
+import AppStore from '../../stores/AppStore';
+import * as Api from '../../api';
 
 import mockData from '../seeders/mockData';
 
-jest.mock('../../Api');
-jest.mock('../../dispatcher/PostItDispatcher');
-jest.dontMock('../../stores/PostItStore');
+jest.mock('../../api');
+jest.mock('../../dispatcher/AppDispatcher');
+jest.dontMock('../../stores/AppStore');
 
-const callback = PostItDispatcher.register.mock.calls[0][0];
+const callback = AppDispatcher.register.mock.calls[0][0];
 
 
 describe('Post Message Store', () => {
   it('should update the users message store when the ADD_MESSAGE Action has been dispatched', () => {
-    const spyOnStore = jest.spyOn(PostItStore, 'addMessage');
-    callback(mockData.addMessage);
+    const spyOnStore = jest.spyOn(AppStore, 'addMessage');
+    callback(mockData.addMessageAction);
     const emitChange = jest.fn();
     emitChange();
     expect(spyOnStore).toHaveBeenCalled();
-    expect(PostItStore.getGroupsMessages()).toEqual([{
+    expect(AppStore.getGroupsMessages()).toEqual([{
       groupId: 'KJJH772SLJKHDLAI8',
       message: 'HOW U DEY?',
       priorityLevel: 'normal',
       date: '17th Nov, 2017',
     }]);
-    expect(PostItDispatcher.register.mock.calls.length).toBe(1);
+    expect(AppDispatcher.register.mock.calls.length).toBe(1);
   });
 });
 
 describe('Get users Action', () => {
   it('should initialize with empty users list', () => {
-    expect((PostItStore.getUsers())).toEqual([]);
+    expect((AppStore.getUsers())).toEqual([]);
   });
   it('should update the users store when the RECEIVE_USERS Action has been dispatched should', () => {
-    const spyOnStore = jest.spyOn(PostItStore, 'setUsers');
-    callback(mockData.usersList);
+    const spyOnStore = jest.spyOn(AppStore, 'setUsers');
+    callback(mockData.usersListAction);
     const emitChange = jest.fn();
     emitChange();
-    expect(PostItStore.getUsers()).toEqual([
+    expect(AppStore.getUsers()).toEqual([
       { userId: 'KJJH772SLJKHDLAI8', userName: 'wash' },
       { userId: 'N.SLJLPWE84UHN', userName: 'sas' }
     ]);
@@ -47,14 +47,14 @@ describe('Get users Action', () => {
 
 describe('Get users groups Action', () => {
   it('should have an empty initial array for groups user', () => {
-    expect(PostItStore.getGroupsUser.length).toEqual(0);
+    expect(AppStore.getGroupsUser.length).toEqual(0);
   });
   it('should update the users group store when the RECEIVE_USER_GROUPS Action has been dispatched', () => {
-    const spyOnStore = jest.spyOn(PostItStore, 'setUserGroups');
-    callback(mockData.userGroups);
+    const spyOnStore = jest.spyOn(AppStore, 'setUserGroups');
+    callback(mockData.userGroupsAction);
     const emitChange = jest.fn();
     emitChange();
-    expect(PostItStore.getGroupsUser()).toEqual({
+    expect(AppStore.getGroupsUser()).toEqual({
       groupId: 'KJJH772SLJKHDLAI8',
     });
     expect(spyOnStore).toHaveBeenCalled();
@@ -62,9 +62,9 @@ describe('Get users groups Action', () => {
 });
 
 describe('Sign out user Action', () => {
-  callback(mockData.signOut);
+  callback(mockData.signOutAction);
   const emitChange = jest.fn();
-  const spyOnStore = jest.spyOn(PostItStore, 'signOutUser');
+  const spyOnStore = jest.spyOn(AppStore, 'signOutUser');
   spyOnStore();
   const spyOnApi = jest.spyOn(Api, 'signoutUser');
   spyOnApi();
@@ -74,15 +74,15 @@ describe('Sign out user Action', () => {
     expect(spyOnStore).toHaveBeenCalled();
   });
   it('should set authentication to false', () => {
-    expect(PostItStore.getIsAuthenticated()).toEqual(false);
+    expect(AppStore.getIsAuthenticated()).toEqual(false);
   });
   it('should clear the loggedin user in store', () => {
-    expect(PostItStore.getLoggedInUser().length).toEqual(0);
+    expect(AppStore.getLoggedInUser().length).toEqual(0);
   });
 });
 
 describe('Google Login Action', () => {
-  callback(mockData.googleLogin);
+  callback(mockData.googleLoginAction);
   const emitChange = jest.fn();
   const spyOnStore = jest.spyOn(Api, 'googleLogin');
   spyOnStore();
@@ -94,9 +94,10 @@ describe('Google Login Action', () => {
 });
 
 describe('Login Action', () => {
-  callback(mockData.login);
+  callback(mockData.loginAction);
   const emitChange = jest.fn();
   const spyOnStore = jest.spyOn(Api, 'signinUser');
+  spyOnStore();
   emitChange();
   it('should call signinUser api method with the email and password when LOGIN_USER Action is fired', () => {
     expect(spyOnStore).toHaveBeenCalledWith({
@@ -108,9 +109,10 @@ describe('Login Action', () => {
 });
 
 describe('Register Action', () => {
-  callback(mockData.registerUser);
+  callback(mockData.registerUserAction);
   const emitChange = jest.fn();
   const spyOnApi = jest.spyOn(Api, 'registerNewUser');
+  spyOnApi();
   emitChange();
   it('should call registerNewUser api method with user object when REGISTER_USER Action is fired', () => {
     expect(spyOnApi).toHaveBeenCalledWith({
@@ -124,7 +126,7 @@ describe('Register Action', () => {
 });
 
 describe('Get User Messages Action', () => {
-  callback(mockData.userMessages);
+  callback(mockData.userMessagesAction);
   const emitChange = jest.fn();
   const spyOnApi = jest.spyOn(Api, 'getMessages');
   emitChange();
@@ -135,7 +137,7 @@ describe('Get User Messages Action', () => {
 });
 
 describe('Read User Action', () => {
-  callback(mockData.readUsers);
+  callback(mockData.readUsersAction);
   const emitChange = jest.fn();
   const spyOnApi = jest.spyOn(Api, 'getUserReadUsers');
   emitChange();
@@ -150,7 +152,8 @@ describe('Read User Action', () => {
 describe('Add User group Action', () => {
   it('should call addUserToGroup api method when ADDUSER_GROUP Action is fired', () => {
     const spyOnApi = jest.spyOn(Api, 'addUserToGroup');
-    callback(mockData.addMember);
+    spyOnApi();
+    callback(mockData.addMemberAction);
     const emitChange = jest.fn();
     emitChange();
     expect(spyOnApi).toHaveBeenCalled();
@@ -160,7 +163,7 @@ describe('Add User group Action', () => {
 
 describe('Get users in groups Action', () => {
   it('should call getUserGroups api method when RECIEVE_USERS_IN_GROUPS Action is fired', () => {
-    callback(mockData.usersInGroups);
+    callback(mockData.usersInGroupsAction);
     const emitChange = jest.fn();
     const spyOnApi = jest.spyOn(Api, 'getUserGroups');
     spyOnApi();
@@ -172,10 +175,10 @@ describe('Get users in groups Action', () => {
 
 describe('reset Password Store', () => {
   it('should call resetPassword api method with email when RESET_PASSWORD Action is fired ', () => {
-    callback(mockData.resetPassword);
+    callback(mockData.resetPasswordAction);
     const emitChange = jest.fn();
     const spyOnApi = jest.spyOn(Api, 'resetPassword');
-    spyOnApi();
+    // spyOnApi();
     emitChange();
     expect(spyOnApi).toHaveBeenCalledWith('sas@gmail.com');
     expect(emitChange).toHaveBeenCalled();
@@ -183,9 +186,9 @@ describe('reset Password Store', () => {
 });
 
 describe('recieve add members to group Store', () => {
-  callback(mockData.addMemberToGroup);
+  callback(mockData.addMemberToGroupAction);
   const emitChange = jest.fn();
-  const spyOnStore = jest.spyOn(PostItStore, 'addUserToGroup');
+  const spyOnStore = jest.spyOn(AppStore, 'addUserToGroup');
   spyOnStore();
   emitChange();
   it('should call addUserToGroup method when RECIEVE_ADD_MEMBERS_TO_GROUP Action is fired', () => {
@@ -193,13 +196,13 @@ describe('recieve add members to group Store', () => {
     expect(emitChange).toHaveBeenCalled();
   });
   it('should call update the users groupin store method', () => {
-    expect(PostItStore.getUsersInGroup()[0].userName).toEqual('sas@email.com');
-    expect(PostItStore.getUsersInGroup()[0].userId).toEqual('JHDSKAODCIO9');
+    expect(AppStore.getUsersInGroup()[0].userName).toEqual('sas@email.com');
+    expect(AppStore.getUsersInGroup()[0].userId).toEqual('JHDSKAODCIO9');
   });
 });
 
 describe('Create Group Action', () => {
-  callback(mockData.creategroup);
+  callback(mockData.creategroupActions);
   const emitChange = jest.fn();
   const spyOnStore = jest.spyOn(Api, 'createNewGroup');
   spyOnStore();
@@ -211,9 +214,9 @@ describe('Create Group Action', () => {
 });
 
 describe('Clear Search Action', () => {
-  callback(mockData.clearSearch);
+  callback(mockData.clearSearchAction);
   const emitChange = jest.fn();
-  const spyOnStore = jest.spyOn(PostItStore, 'clearSearchedUsers');
+  const spyOnStore = jest.spyOn(AppStore, 'clearSearchedUsers');
   spyOnStore();
   emitChange();
   it('should call addUserToGroup method when the CLEAR_SEARCH Action  ', () => {
@@ -221,13 +224,13 @@ describe('Clear Search Action', () => {
     expect(emitChange).toHaveBeenCalled();
   });
   it('should call clear the searched users in the store', () => {
-    expect(PostItStore.getSearchedUsers()).toEqual('');
+    expect(AppStore.getSearchedUsers()).toEqual('');
   });
 });
 
 describe('Search User Action', () => {
   it('should call searchuser Api method SEARCH_USER Action is dispatched', () => {
-    callback(mockData.searchedUsers);
+    callback(mockData.searchedUsersAction);
     const spyOnApi = jest.spyOn(Api, 'searchUsers');
     const emitChange = jest.fn();
     emitChange();

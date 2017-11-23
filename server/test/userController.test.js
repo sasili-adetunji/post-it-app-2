@@ -143,7 +143,7 @@ describe('Signup route: ', () => {
         done();
       });
   });
-  it('sshould not create a user with an existing email', (done) => {
+  it('should not create a user with an existing email', (done) => {
     const newUser = {
       userName: 'wash',
       password: 'wash@email.com',
@@ -157,6 +157,25 @@ describe('Signup route: ', () => {
       .end((err, res) => {
         res.body.message.should.be
         .eql('email already in use');
+        res.should.have.status(409);
+        res.body.should.be.a('object');
+        done();
+      });
+  });
+  it('should not create a user when the username exist', (done) => {
+    const newUser = {
+      userName: 'wash',
+      password: 'wash@email.com',
+      email: 'wash@email.com',
+      phoneNumber: '08037817325',
+    };
+    chai.request(app)
+      .post('/user/signup')
+      .send(newUser)
+      .set('Accept', 'application/json')
+      .end((err, res) => {
+        res.body.message.should.be
+        .eql('Username already exist');
         res.should.have.status(409);
         res.body.should.be.a('object');
         done();

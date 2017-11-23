@@ -2,25 +2,25 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import jwt from 'jsonwebtoken';
 import { BrowserRouter } from 'react-router-dom';
-import PostItStore from './stores/PostItStore';
+import AppStore from './stores/AppStore';
 import * as Api from './Api';
-import PostItActions from './actions/PostItActions';
+import AppActions from './actions/AppActions';
 import setAuthorizationToken from './utils/setAuthorizationToken';
-import App from './components';
+import App from './components/App';
 require('../node_modules/toastr/build/toastr.min.css');
 
 
 if (localStorage.jwtToken) {
-  PostItStore.setLoggedInUser(jwt.decode(localStorage.jwtToken));
+  AppStore.setLoggedInUser(jwt.decode(localStorage.jwtToken));
   setAuthorizationToken(localStorage.jwtToken);
-  PostItStore.setIsAuthenticated(true);
+  AppStore.setIsAuthenticated(true);
 }
 
 if (localStorage.selectedGroupId) {
   const groupDetails = localStorage.selectedGroupId;
-  PostItActions.groupOpened(JSON.parse(groupDetails));
-  PostItActions.getUserMessages(JSON.parse(groupDetails));
-  PostItActions.recieveUsersInGroups(JSON.parse(groupDetails));
+  AppActions.groupOpened(JSON.parse(groupDetails));
+  AppActions.getUserMessages(JSON.parse(groupDetails));
+  AppActions.recieveUsersInGroups(JSON.parse(groupDetails));
   Api.getUsersInGroup(JSON.parse(groupDetails));
   Api.getMessages(JSON.parse(groupDetails));
 }

@@ -1,11 +1,11 @@
-import PostItConstants from '../../constants/PostItConstants';
+import AppConstants from '../../constants/AppConstants';
 
 
 const mockData = {
-  searchedUsers: {
+  searchedUsersAction: {
     source: 'VIEW_ACTION',
     action: {
-      actionType: PostItConstants.SEARCH_USERS,
+      actionType: AppConstants.SEARCH_USERS,
       payload: {
         user: {
           userNames: 'w' }
@@ -13,20 +13,20 @@ const mockData = {
     }
   },
 
-  creategroup: {
+  creategroupActions: {
     source: 'VIEW_ACTION',
     action: {
-      actionType: PostItConstants.RECIEVE_CREATE_GROUP,
+      actionType: AppConstants.RECIEVE_CREATE_GROUP,
       group: {
         groupName: 'West'
       }
     }
   },
 
-  addMember: {
+  addMemberAction: {
     source: 'VIEW_ACTION',
     action: {
-      actionType: PostItConstants.ADDUSER_GROUP,
+      actionType: AppConstants.ADDUSER_GROUP,
       user: {
         userId: '44JKLSK.5H049',
         groupId: 'JKV.L;/SJFKHE487Y8T ',
@@ -35,9 +35,9 @@ const mockData = {
     }
   },
 
-  addMessage: {
+  addMessageAction: {
     action: {
-      actionType: PostItConstants.ADD_MESSAGE,
+      actionType: AppConstants.ADD_MESSAGE,
       message: {
         groupId: 'KJJH772SLJKHDLAI8',
         message: 'HOW U DEY?',
@@ -47,51 +47,51 @@ const mockData = {
     }
   },
 
-  signOut: {
+  signOutAction: {
     action: {
-      actionType: PostItConstants.SIGNOUT_USER,
+      actionType: AppConstants.SIGNOUT_USER,
     }
   },
 
-  usersInGroups: {
+  usersInGroupsAction: {
     source: 'VIEW_ACTION',
     action: {
-      actionType: PostItConstants.RECIEVE_USERS_IN_GROUPS,
+      actionType: AppConstants.RECIEVE_USERS_IN_GROUPS,
       group: {
         groupId: 'GKLQMLSDF256432KFREGCGL987'
       }
     }
   },
 
-  recieveLogin: {
+  recieveLoginAction: {
     source: 'VIEW_ACTION',
     action: {
-      actionType: PostItConstants.RECEIVE_LOGIN_SUCCESS,
+      actionType: AppConstants.RECEIVE_LOGIN_SUCCESS,
       token: 'AOHIVLP8Y7UOL3;08YLHAJLCKIG43'
     }
   },
 
-  userGroups: {
+  userGroupsAction: {
     action: {
-      actionType: PostItConstants.RECEIVE_USER_GROUPS,
+      actionType: AppConstants.RECEIVE_USER_GROUPS,
       groups: {
         groupId: 'KJJH772SLJKHDLAI8',
       }
     }
   },
 
-  resetPassword: {
+  resetPasswordAction: {
     source: 'VIEW_ACTION',
     action: {
-      actionType: PostItConstants.RESET_PASSWORD,
+      actionType: AppConstants.RESET_PASSWORD,
       email: 'sas@gmail.com',
     }
   },
 
-  usersList: {
+  usersListAction: {
     source: 'VIEW_ACTION',
     action: {
-      actionType: PostItConstants.RECEIVE_USERS,
+      actionType: AppConstants.RECEIVE_USERS,
       users: [
       { userId: 'KJJH772SLJKHDLAI8', userName: 'wash' },
       { userId: 'N.SLJLPWE84UHN', userName: 'sas' },
@@ -99,10 +99,10 @@ const mockData = {
     }
   },
 
-  addMemberToGroup: {
+  addMemberToGroupAction: {
     source: 'VIEW_ACTION',
     action: {
-      actionType: PostItConstants.RECIEVE_ADD_MEMBERS_TO_GROUP,
+      actionType: AppConstants.RECIEVE_ADD_MEMBERS_TO_GROUP,
       user: {
         userId: 'JHDSKAODCIO9',
         userName: 'sas@email.com'
@@ -110,25 +110,25 @@ const mockData = {
     }
   },
 
-  clearSearch: {
+  clearSearchAction: {
     source: 'VIEW_ACTION',
     action: {
-      actionType: PostItConstants.CLEAR_SEARCH,
+      actionType: AppConstants.CLEAR_SEARCH,
     }
   },
 
-  googleLogin: {
+  googleLoginAction: {
     source: 'VIEW_ACTION',
     action: {
-      actionType: PostItConstants.GOOGLE_LOGIN,
+      actionType: AppConstants.GOOGLE_LOGIN,
       idToken: 'AWLSHFGJHJKWLL8799KLJK'
     }
   },
 
-  login: {
+  loginAction: {
     source: 'VIEW_ACTION',
     action: {
-      actionType: PostItConstants.LOGIN_USER,
+      actionType: AppConstants.LOGIN_USER,
       user: {
         email: 'sas@gmail.com',
         password: 'ADEOLA212'
@@ -136,10 +136,10 @@ const mockData = {
     }
   },
 
-  registerUser: {
+  registerUserAction: {
     source: 'VIEW_ACTION',
     action: {
-      actionType: PostItConstants.REGISTER_USER,
+      actionType: AppConstants.REGISTER_USER,
       user: {
         email: 'sas@gmail.com',
         password: 'ADEOLA212',
@@ -149,20 +149,20 @@ const mockData = {
     }
   },
 
-  userMessages: {
+  userMessagesAction: {
     source: 'VIEW_ACTION',
     action: {
-      actionType: PostItConstants.GET_USER_MESSAGES,
+      actionType: AppConstants.GET_USER_MESSAGES,
       groups: {
         groupId: 'AJDSLIOEO32870WKJH',
       }
     }
   },
 
-  readUsers: {
+  readUsersAction: {
     source: 'VIEW_ACTION',
     action: {
-      actionType: PostItConstants.RECEIVE_READ_USERS,
+      actionType: AppConstants.RECEIVE_READ_USERS,
       message: {
         messageId: 'ASOLVHUKJH',
       }
@@ -174,7 +174,7 @@ const mockData = {
     password: 'testpassword',
   },
 
-  regiserUser: {
+  registerUser: {
     email: 'testemail@email.com',
     password: 'testpassword',
     phoneNumber: '2348037821732',

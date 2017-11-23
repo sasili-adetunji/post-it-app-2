@@ -1,6 +1,6 @@
 import React from 'react';
 import { Modal } from 'react-bootstrap';
-import PostItStore from '../../stores/PostItStore';
+import AppStore from '../../stores/AppStore';
 import Group from './Group';
 import CreateGroup from './CreateGroup';
 
@@ -63,12 +63,12 @@ class GroupList extends React.Component {
    */
   render() {
     let header = null;
-    if (PostItStore.getGroupsUser().length < 1) {
+    if (AppStore.getGroupsUser().length < 1) {
       header = (<div> <h4 className="card-header"> No Group yet </h4> </div>);
     } else {
       header = (<div> <h4 className="card-header"> My Groups </h4> </div>);
     }
-    const groupNodes = PostItStore.getGroupsUser().map((group, i) => (
+    const groupNodes = AppStore.getGroupsUser().map((group, i) => (
       <Group group={group} key={i} />
     ));
     return (
@@ -79,7 +79,7 @@ class GroupList extends React.Component {
             type="button"
             id="createNewGroup"
             className="btn btn-primary btn-block createGroup"
-          >  Create a Group
+          >Create a Group
           </button>
           <Modal show={this.state.isOpen} onHide={this.closeModal}>
             <Modal.Body>

@@ -3,7 +3,7 @@ import { Modal } from 'react-bootstrap';
 import MessageBox from './MessageBox';
 import AddMember from './AddMember';
 import Message from './Message';
-import PostItStore from '../../stores/PostItStore';
+import AppStore from '../../stores/AppStore';
 
 /**
   * A collection of message that displays the available messages
@@ -62,22 +62,22 @@ class MessageList extends React.Component {
   render() {
     let messageNodes = null;
     let groupName = null;
-    if (PostItStore.getOpenedGroup().length === 0) {
+    if (AppStore.getOpenedGroup().length === 0) {
       messageNodes = (<div> <h2 className="messageHeader"> No Group Selected
          </h2> </div>);
-    } else if (PostItStore.getGroupsMessages().length === 0) {
+    } else if (AppStore.getGroupsMessages().length === 0) {
       messageNodes = (<div> <h2 className="messageHeader"> No Message in Group
         </h2> </div>);
     } else {
       groupName = (<div> <h4> Group | &nbsp;
-        {PostItStore.getOpenedGroup()[0].groupName}
+        {AppStore.getOpenedGroup()[0].groupName}
       </h4> </div>);
-      messageNodes = PostItStore.getGroupsMessages().map((message, i) => (
+      messageNodes = AppStore.getGroupsMessages().map((message, i) => (
         <Message
           message={message}
           key={i}
-          MessageId={PostItStore.getGroupsMessages()[0]}
-          readUser={PostItStore.getReadUsers()}
+          MessageId={AppStore.getGroupsMessages()[0]}
+          readUser={AppStore.getReadUsers()}
         />
       ));
     }

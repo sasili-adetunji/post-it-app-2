@@ -1,5 +1,5 @@
 import React from 'react';
-import PostItActions from '../actions/PostItActions';
+import AppActions from '../actions/AppActions';
 
 
 /**
@@ -79,7 +79,7 @@ class Register extends React.Component {
     } else if (!user.userName) {
       this.setState({ errors: { userName: 'userName is required' } });
     } else {
-      PostItActions.registerUser(user);
+      AppActions.registerUser(user);
 
       // clears the state
 

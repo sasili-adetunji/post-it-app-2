@@ -1,6 +1,6 @@
-import PostItDispatcher from '../../dispatcher/PostItDispatcher';
-import PostItActions from '../../actions/PostItActions';
-import PostItConstants from '../../constants/PostItConstants';
+import AppDispatcher from '../../dispatcher/AppDispatcher';
+import AppActions from '../../actions/AppActions';
+import AppConstants from '../../constants/AppConstants';
 import mockData from '../seeders/mockData';
 
 
@@ -8,14 +8,14 @@ describe('PostIt Actions: ', () => {
   let spyOnDispatcher;
 
   beforeEach(() => {
-    spyOnDispatcher = jest.spyOn(PostItDispatcher, 'handleViewAction');
+    spyOnDispatcher = jest.spyOn(AppDispatcher, 'handleViewAction');
   });
 
   describe('Login Action', () => {
     it('should dispatch a view action of type LOGIN_USER', () => {
-      PostItActions.login(mockData.loginUser);
+      AppActions.login(mockData.loginUser);
       expect(spyOnDispatcher).toHaveBeenCalledWith({
-        actionType: PostItConstants.LOGIN_USER,
+        actionType: AppConstants.LOGIN_USER,
         user: {
           email: 'testemail@email.com',
           password: 'testpassword',
@@ -26,9 +26,9 @@ describe('PostIt Actions: ', () => {
 
   describe('Register Action', () => {
     it('should dispatch a view action of type REGISTER_USER', () => {
-      PostItActions.registerUser(mockData.regiserUser);
+      AppActions.registerUser(mockData.registerUser);
       expect(spyOnDispatcher).toHaveBeenCalledWith({
-        actionType: PostItConstants.REGISTER_USER,
+        actionType: AppConstants.REGISTER_USER,
         user: {
           email: 'testemail@email.com',
           password: 'testpassword',
@@ -41,9 +41,9 @@ describe('PostIt Actions: ', () => {
 
   describe('Google Action', () => {
     it('should dispatch a view action of type GOOGLE_LOGIN', () => {
-      PostItActions.googleLogin(mockData.googleUser);
+      AppActions.googleLogin(mockData.googleUser);
       expect(spyOnDispatcher).toHaveBeenCalledWith({
-        actionType: PostItConstants.GOOGLE_LOGIN,
+        actionType: AppConstants.GOOGLE_LOGIN,
         idToken: {
           idToken: 'WL78348347KFHWLJKPUR34'
         }
@@ -53,9 +53,9 @@ describe('PostIt Actions: ', () => {
 
   describe('Recieve Errors actions', () => {
     it('should dispatch a view action of type RECEIVE_ERRORS', () => {
-      PostItActions.receiveErrors(mockData.errorMessage);
+      AppActions.receiveErrors(mockData.errorMessage);
       expect(spyOnDispatcher).toHaveBeenCalledWith({
-        actionType: PostItConstants.RECEIVE_ERRORS,
+        actionType: AppConstants.RECEIVE_ERRORS,
         errors: {
           message: 'There is an error'
         }
@@ -65,9 +65,9 @@ describe('PostIt Actions: ', () => {
 
   describe('Recieve success actions', () => {
     it('should dispatch a view action of type RECEIVE_SUCCESS', () => {
-      PostItActions.receiveSuccess(mockData.successMessage);
+      AppActions.receiveSuccess(mockData.successMessage);
       expect(spyOnDispatcher).toHaveBeenCalledWith({
-        actionType: PostItConstants.RECEIVE_SUCCESS,
+        actionType: AppConstants.RECEIVE_SUCCESS,
         message: {
           message: 'Success! '
         }
@@ -77,9 +77,9 @@ describe('PostIt Actions: ', () => {
 
   describe('Read users actions', () => {
     it('should dispatch a view action of type RECEIVE_READ_USERS', () => {
-      PostItActions.receiveReadUsers(mockData.readMessage);
+      AppActions.receiveReadUsers(mockData.readMessage);
       expect(spyOnDispatcher).toHaveBeenCalledWith({
-        actionType: PostItConstants.RECEIVE_READ_USERS,
+        actionType: AppConstants.RECEIVE_READ_USERS,
         message: {
           messageId: '-KuL3gft2t6lpxeJDjwX',
         }
@@ -89,9 +89,9 @@ describe('PostIt Actions: ', () => {
 
   describe('Create group actions', () => {
     it('should dispatch a view action of type CREATE_GROUP', () => {
-      PostItActions.createGroup(mockData.groupCreate);
+      AppActions.createGroup(mockData.groupCreate);
       expect(spyOnDispatcher).toHaveBeenCalledWith({
-        actionType: PostItConstants.CREATE_GROUP,
+        actionType: AppConstants.CREATE_GROUP,
         group: {
           groupName: 'first test group',
           groupId: 'KHJVKLFGUIRHLEGUL8',
@@ -102,9 +102,9 @@ describe('PostIt Actions: ', () => {
 
   describe('Add user to group actions', () => {
     it('should dispatch a view action of type ADDUSER_GROUP', () => {
-      PostItActions.addUserToGroup(mockData.addUser);
+      AppActions.addUserToGroup(mockData.addUser);
       expect(spyOnDispatcher).toHaveBeenCalledWith({
-        actionType: PostItConstants.ADDUSER_GROUP,
+        actionType: AppConstants.ADDUSER_GROUP,
         user: {
           userName: 'Eloka',
           userId: 'K39DAS8220Hffu76393',
@@ -115,9 +115,9 @@ describe('PostIt Actions: ', () => {
 
   describe('Add message actions', () => {
     it('should dispatch a view action of type ADD_MESSAGE', () => {
-      PostItActions.addMessage(mockData.postMessage);
+      AppActions.addMessage(mockData.postMessage);
       expect(spyOnDispatcher).toHaveBeenCalledWith({
-        actionType: PostItConstants.ADD_MESSAGE,
+        actionType: AppConstants.ADD_MESSAGE,
         message: {
           groupId: 'KD884D24bkslutx630Cv0',
           author: 'wash',
@@ -133,9 +133,9 @@ describe('PostIt Actions: ', () => {
 
   describe('Reset password actions', () => {
     it('should dispatch a view action of type RESET_PASSWORD', () => {
-      PostItActions.resetPassword(mockData.resetEmail);
+      AppActions.resetPassword(mockData.resetEmail);
       expect(spyOnDispatcher).toHaveBeenCalledWith({
-        actionType: PostItConstants.RESET_PASSWORD,
+        actionType: AppConstants.RESET_PASSWORD,
         email: {
           email: 'sas@gmail.com'
         }
@@ -145,45 +145,45 @@ describe('PostIt Actions: ', () => {
 
   describe('Sign out actions', () => {
     it('should dispatch a view action of type SIGNOUT_USER', () => {
-      PostItActions.signOutUser();
+      AppActions.signOutUser();
       expect(spyOnDispatcher).toHaveBeenCalledWith({
-        actionType: PostItConstants.SIGNOUT_USER,
+        actionType: AppConstants.SIGNOUT_USER,
       });
     });
   });
 
   describe('Recieve user groups actions', () => {
     it('should dispatch a view action of type RECEIVE_USER_GROUPS', () => {
-      PostItActions.receiveUserGroups();
+      AppActions.receiveUserGroups();
       expect(spyOnDispatcher).toHaveBeenCalledWith({
-        actionType: PostItConstants.RECEIVE_USER_GROUPS,
+        actionType: AppConstants.RECEIVE_USER_GROUPS,
       });
     });
   });
 
   describe('Recieve users actions', () => {
     it('should dispatch a view action of type RECEIVE_USERS', () => {
-      PostItActions.receiveUsers();
+      AppActions.receiveUsers();
       expect(spyOnDispatcher).toHaveBeenCalledWith({
-        actionType: PostItConstants.RECEIVE_USERS,
+        actionType: AppConstants.RECEIVE_USERS,
       });
     });
   });
 
   describe('Group opened actions', () => {
     it('should dispatch a view action of type GROUP_OPENED', () => {
-      PostItActions.groupOpened();
+      AppActions.groupOpened();
       expect(spyOnDispatcher).toHaveBeenCalledWith({
-        actionType: PostItConstants.GROUP_OPENED,
+        actionType: AppConstants.GROUP_OPENED,
       });
     });
   });
 
   describe('Recieve users in groups actions', () => {
     it('should dispatch a view action of type RECIEVE_USERS_IN_GROUPS', () => {
-      PostItActions.recieveUsersInGroups(mockData.recieveUsersInGroup);
+      AppActions.recieveUsersInGroups(mockData.recieveUsersInGroup);
       expect(spyOnDispatcher).toHaveBeenCalledWith({
-        actionType: PostItConstants.RECIEVE_USERS_IN_GROUPS,
+        actionType: AppConstants.RECIEVE_USERS_IN_GROUPS,
         group: {
           groupId: 'LDKLDHO837SLK9089'
         }
@@ -194,9 +194,9 @@ describe('PostIt Actions: ', () => {
   describe('Recieve login sucecess actions', () => {
     it('should dispatch a view action of type RECEIVE_LOGIN_SUCCESS', () => {
       const token = 'JFJHUILOFSJFDLHGLIO84';
-      PostItActions.receiveLoginSuccess(token);
+      AppActions.receiveLoginSuccess(token);
       expect(spyOnDispatcher).toHaveBeenCalledWith({
-        actionType: PostItConstants.RECEIVE_LOGIN_SUCCESS,
+        actionType: AppConstants.RECEIVE_LOGIN_SUCCESS,
         token: 'JFJHUILOFSJFDLHGLIO84'
       });
     });

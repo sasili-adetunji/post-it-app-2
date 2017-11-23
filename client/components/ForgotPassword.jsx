@@ -1,5 +1,5 @@
 import React from 'react';
-import PostItActions from '../actions/PostItActions';
+import AppActions from '../actions/AppActions';
 
 /**
  * @description Resets the password of a user
@@ -64,7 +64,7 @@ class ForgotPassword extends React.Component {
     if (!email.email) {
       this.setState({ error: 'Email is required' });
     } else {
-      PostItActions.resetPassword(email);
+      AppActions.resetPassword(email);
       this.setState({ errors: '', email: '' });
     }
   }

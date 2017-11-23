@@ -3,7 +3,8 @@ import 'babel-polyfill';
 import {
   serverError,
   createToken,
-  serverAuthError } from '../helpers/serverHelper';
+  serverAuthError, checkUser
+} from '../helpers/serverHelper';
 
 
 export default {
@@ -18,38 +19,46 @@ export default {
    */
   signup(req, res) {
     const { email, password, userName, phoneNumber } = req.body;
-    firebase.auth().createUserWithEmailAndPassword(email, password)
-      .then((user) => {
-        user.updateProfile({
-          displayName: userName,
-        });
-        firebase.database().ref(`users/${user.uid}`)
-        .set({
-          userName,
-          email,
-          phoneNumber,
-        });
-        const uid = user.uid;
-        const token = createToken(uid, userName, email);
-        res.status(201).json({
-          message: 'Signup was successful', token });
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        serverAuthError(errorCode, res);
+    checkUser(userName)
+      .then((response) => {
+        if (response === true) {
+          return res.status(409).json({
+            message: 'Username already exist'
+          });
+        }
+        firebase.auth().createUserWithEmailAndPassword(email, password)
+          .then((user) => {
+            user.updateProfile({
+              displayName: userName,
+            });
+            firebase.database().ref(`users/${user.uid}`)
+              .set({
+                userName,
+                email,
+                phoneNumber,
+              });
+            const token = createToken(user.uid, userName, email);
+            res.status(201).json({
+              message: 'Signup was successful', token
+            });
+          })
+          .catch((error) => {
+            const errorCode = error.code;
+            serverAuthError(errorCode, res);
+          });
       });
   },
 
 
- /**
-   * @description:  singns in a user
-   * Route: POST: /user/signin
-   *
-   * @param {Object} req request from the client
-   * @param {Object} res response back to the client
-   *
-   * @returns {Object} response containing authentication token
-   */
+  /**
+    * @description:  singns in a user
+    * Route: POST: /user/signin
+    *
+    * @param {Object} req request from the client
+    * @param {Object} res response back to the client
+    *
+    * @returns {Object} response containing authentication token
+    */
   signin(req, res) {
     const { email, password } = req.body;
     firebase.auth().signInWithEmailAndPassword(email, password)
@@ -58,7 +67,8 @@ export default {
         const userName = user.displayName;
         const token = createToken(uid, userName, email);
         res.status(200).json({
-          message: 'Success: you have successfuly signed in.', token });
+          message: 'Success: you have successfuly signed in.', token
+        });
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -67,15 +77,15 @@ export default {
   },
 
 
- /**
-   * @description: sign out a user
-   * Route: POST: /user/signout
-   *
-   * @param {Object} req incoming request from the client
-   * @param {Object} res response sent back to client
-   *
-   * @returns {Object} response  that you have been signed out
-   */
+  /**
+    * @description: sign out a user
+    * Route: POST: /user/signout
+    *
+    * @param {Object} req incoming request from the client
+    * @param {Object} res response sent back to client
+    *
+    * @returns {Object} response  that you have been signed out
+    */
   signout(req, res) {
     firebase.auth().signOut()
       .then(() => {
@@ -90,15 +100,15 @@ export default {
   },
 
 
- /**
-   * @description: reset a user password
-   * Route: POST: /user/reset
-   *
-   * @param {Object} req incoming request from the client
-   * @param {Object} res response sent back to client
-   *
-   * @returns {Object} response  that a password have been reset
-   */
+  /**
+    * @description: reset a user password
+    * Route: POST: /user/reset
+    *
+    * @param {Object} req incoming request from the client
+    * @param {Object} res response sent back to client
+    *
+    * @returns {Object} response  that a password have been reset
+    */
   resetPassword(req, res) {
     const { email } = req.body;
     firebase.auth().sendPasswordResetEmail(email)
@@ -124,7 +134,7 @@ export default {
    * @returns {Object} response containing all users in the app
    */
   getUsersList(req, res) {
-      // create an empty array to hold the users
+    // create an empty array to hold the users
     const users = [];
     firebase.database().ref('users/').once('value', (msg) => {
       msg.forEach((snapshot) => {
@@ -158,29 +168,31 @@ export default {
   googleLogin(req, res) {
     const { result } = req.body;
     const credential = firebase.auth.GoogleAuthProvider
-    .credential(result);
+      .credential(result);
     firebase.auth().signInWithCredential(credential)
-    .then((user) => {
-      const uid = user.uid;
-      const userName = user.displayName;
-      const email = user.email;
-      const token = createToken(uid, userName, email);
-      firebase.database()
-      .ref('users').child(user.uid).once('value', (snapshot) => {
-        if (!snapshot.exists()) {
-          firebase.database().ref(`users/${user.uid}`)
-          .set({
-            userName: user.displayName,
-            email: user.email,
-            phoneNumber: user.phoneNumber
+      .then((user) => {
+        const uid = user.uid;
+        const userName = user.displayName;
+        const email = user.email;
+        const token = createToken(uid, userName, email);
+        firebase.database()
+          .ref('users').child(user.uid).once('value', (snapshot) => {
+            if (!snapshot.exists()) {
+              firebase.database().ref(`users/${user.uid}`)
+                .set({
+                  userName: user.displayName,
+                  email: user.email,
+                  phoneNumber: user.phoneNumber
+                });
+              return res.status(201).send({
+                message: 'You have successfully signed', token
+              });
+            }
+            return res.status(200).send({
+              message: 'You have successfully signed', token
+            });
           });
-          return res.status(201).send({
-            message: 'You have successfully signed', token });
-        }
-        return res.status(200).send({
-          message: 'You have successfully signed', token });
       });
-    });
   },
 
 
@@ -193,7 +205,7 @@ export default {
    *
    * @returns {Object} response containing the searched user
    */
-  searchUsers (req, res) {
+  searchUsers(req, res) {
     const userName = req.query.user;
     const user = {};
     if (!userName) {

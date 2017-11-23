@@ -1,7 +1,7 @@
-import PostItDispatcher from '../dispatcher/PostItDispatcher';
-import PostItConstants from '../constants/PostItConstants';
+import AppDispatcher from '../dispatcher/AppDispatcher';
+import AppConstants from '../constants/AppConstants';
 
-const PostItActions = {
+const AppActions = {
 
 /**
  * @description describes an action that informs
@@ -13,8 +13,8 @@ const PostItActions = {
  * @returns {object} the action type and user details
  */
   login(user) {
-    PostItDispatcher.handleViewAction({
-      actionType: PostItConstants.LOGIN_USER,
+    AppDispatcher.handleViewAction({
+      actionType: AppConstants.LOGIN_USER,
       user,
     });
   },
@@ -30,8 +30,8 @@ const PostItActions = {
  * @returns {object} action type and the idToken
  */
   googleLogin(idToken) {
-    PostItDispatcher.handleViewAction({
-      actionType: PostItConstants.GOOGLE_LOGIN,
+    AppDispatcher.handleViewAction({
+      actionType: AppConstants.GOOGLE_LOGIN,
       idToken,
     });
   },
@@ -47,8 +47,8 @@ const PostItActions = {
  * @returns {object} the action type and user details of the user
  */
   registerUser(user) {
-    PostItDispatcher.handleViewAction({
-      actionType: PostItConstants.REGISTER_USER,
+    AppDispatcher.handleViewAction({
+      actionType: AppConstants.REGISTER_USER,
       user,
     });
   },
@@ -63,8 +63,8 @@ const PostItActions = {
  * @returns {object} the action type and error message
  */
   receiveErrors(errors) {
-    PostItDispatcher.handleViewAction({
-      actionType: PostItConstants.RECEIVE_ERRORS,
+    AppDispatcher.handleViewAction({
+      actionType: AppConstants.RECEIVE_ERRORS,
       errors,
     });
   },
@@ -79,8 +79,8 @@ const PostItActions = {
  * @returns {object} the action type and succes message
  */
   receiveSuccess(message) {
-    PostItDispatcher.handleViewAction({
-      actionType: PostItConstants.RECEIVE_SUCCESS,
+    AppDispatcher.handleViewAction({
+      actionType: AppConstants.RECEIVE_SUCCESS,
       message,
     });
   },
@@ -95,8 +95,8 @@ const PostItActions = {
  * @returns {object} the action type and idToken
  */
   receiveLoginSuccess(token) {
-    PostItDispatcher.handleViewAction({
-      actionType: PostItConstants.RECEIVE_LOGIN_SUCCESS,
+    AppDispatcher.handleViewAction({
+      actionType: AppConstants.RECEIVE_LOGIN_SUCCESS,
       token,
     });
   },
@@ -111,8 +111,8 @@ const PostItActions = {
  * @returns {object} the action type and read users of the message
  */
   receiveReadUsers(message) {
-    PostItDispatcher.handleViewAction({
-      actionType: PostItConstants.RECEIVE_READ_USERS,
+    AppDispatcher.handleViewAction({
+      actionType: AppConstants.RECEIVE_READ_USERS,
       message,
     });
   },
@@ -127,8 +127,8 @@ const PostItActions = {
  * @returns {object} the action type and group details
  */
   createGroup(group) {
-    PostItDispatcher.handleViewAction({
-      actionType: PostItConstants.CREATE_GROUP,
+    AppDispatcher.handleViewAction({
+      actionType: AppConstants.CREATE_GROUP,
       group,
     });
   },
@@ -143,8 +143,8 @@ const PostItActions = {
  * @returns {object} the action type and user details
  */
   addUserToGroup(user) {
-    PostItDispatcher.handleViewAction({
-      actionType: PostItConstants.ADDUSER_GROUP,
+    AppDispatcher.handleViewAction({
+      actionType: AppConstants.ADDUSER_GROUP,
       user,
     });
   },
@@ -159,8 +159,8 @@ const PostItActions = {
  * @returns {object} the action type and message details
  */
   addMessage(message) {
-    PostItDispatcher.handleViewAction({
-      actionType: PostItConstants.ADD_MESSAGE,
+    AppDispatcher.handleViewAction({
+      actionType: AppConstants.ADD_MESSAGE,
       message,
     });
   },
@@ -174,8 +174,8 @@ const PostItActions = {
  * @returns {object} the action type and email
  */
   resetPassword(email) {
-    PostItDispatcher.handleViewAction({
-      actionType: PostItConstants.RESET_PASSWORD,
+    AppDispatcher.handleViewAction({
+      actionType: AppConstants.RESET_PASSWORD,
       email,
     });
   },
@@ -188,8 +188,8 @@ const PostItActions = {
  * @returns {object} the action type
  */
   signOutUser() {
-    PostItDispatcher.handleViewAction({
-      actionType: PostItConstants.SIGNOUT_USER,
+    AppDispatcher.handleViewAction({
+      actionType: AppConstants.SIGNOUT_USER,
     });
   },
 
@@ -204,8 +204,8 @@ const PostItActions = {
  * @returns {object} the action type and group details
  */
   getUserMessages(groups) {
-    PostItDispatcher.handleViewAction({
-      actionType: PostItConstants.GET_USER_MESSAGES,
+    AppDispatcher.handleViewAction({
+      actionType: AppConstants.GET_USER_MESSAGES,
       groups,
     });
   },
@@ -219,8 +219,8 @@ const PostItActions = {
  * @returns {object} the action type and group details
  */
   receiveUserGroups(groups) {
-    PostItDispatcher.handleViewAction({
-      actionType: PostItConstants.RECEIVE_USER_GROUPS,
+    AppDispatcher.handleViewAction({
+      actionType: AppConstants.RECEIVE_USER_GROUPS,
       groups,
     });
   },
@@ -234,8 +234,8 @@ const PostItActions = {
  * @returns {object} the action type and users details
  */
   receiveUsers(users) {
-    PostItDispatcher.handleViewAction({
-      actionType: PostItConstants.RECEIVE_USERS,
+    AppDispatcher.handleViewAction({
+      actionType: AppConstants.RECEIVE_USERS,
       users,
     });
   },
@@ -249,8 +249,8 @@ const PostItActions = {
   * @returns {Object} action type and selctedGroup details
   */
   groupOpened(selectedGroup) {
-    PostItDispatcher.handleViewAction({
-      actionType: PostItConstants.GROUP_OPENED,
+    AppDispatcher.handleViewAction({
+      actionType: AppConstants.GROUP_OPENED,
       selectedGroup,
     });
   },
@@ -265,8 +265,8 @@ const PostItActions = {
   * @returns {action} action type and payload
   */
   recieveUsersInGroups(group) {
-    PostItDispatcher.handleViewAction({
-      actionType: PostItConstants.RECIEVE_USERS_IN_GROUPS,
+    AppDispatcher.handleViewAction({
+      actionType: AppConstants.RECIEVE_USERS_IN_GROUPS,
       group,
     });
   },
@@ -281,8 +281,8 @@ const PostItActions = {
   * @returns {Object} action type and and the user details
   */
   recieveAddMembersToGroups(user) {
-    PostItDispatcher.handleViewAction({
-      actionType: PostItConstants.RECIEVE_ADD_MEMBERS_TO_GROUP,
+    AppDispatcher.handleViewAction({
+      actionType: AppConstants.RECIEVE_ADD_MEMBERS_TO_GROUP,
       user,
     });
   },
@@ -297,8 +297,8 @@ const PostItActions = {
   * @returns {Object} action type and the keyword
   */
   searchUsers(keyword) {
-    PostItDispatcher.handleViewAction({
-      actionType: PostItConstants.SEARCH_USERS,
+    AppDispatcher.handleViewAction({
+      actionType: AppConstants.SEARCH_USERS,
       keyword,
     });
   },
@@ -310,10 +310,10 @@ const PostItActions = {
   * @returns {Object} action type
 */
   clearSearch() {
-    PostItDispatcher.handleViewAction({
-      actionType: PostItConstants.CLEAR_SEARCH,
+    AppDispatcher.handleViewAction({
+      actionType: AppConstants.CLEAR_SEARCH,
     });
   },
 };
 
-export default PostItActions;
+export default AppActions;

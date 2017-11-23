@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Route, Redirect, Switch } from 'react-router-dom';
-import PostItStore from '../stores/PostItStore';
+import AppStore from '../stores/AppStore';
 import Login from './Login';
 import Register from './Register';
 import Dashboard from './protected/Dashboard';
@@ -63,7 +63,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isAuthenticated: PostItStore.getIsAuthenticated(),
+      isAuthenticated: AppStore.getIsAuthenticated(),
     };
     this.onChange = this.onChange.bind(this);
   }
@@ -80,7 +80,7 @@ class App extends Component {
   * @memberof App
   */
   componentDidMount() {
-    PostItStore.addChangeListener(this.onChange);
+    AppStore.addChangeListener(this.onChange);
   }
 
 
@@ -94,7 +94,7 @@ class App extends Component {
    * @memberof App
    */
   componentWillUnmount() {
-    PostItStore.removeChangeListener(this.onChange);
+    AppStore.removeChangeListener(this.onChange);
   }
 
   /**
@@ -109,7 +109,7 @@ class App extends Component {
 
   onChange() {
     this.setState({
-      isAuthenticated: PostItStore.getIsAuthenticated(),
+      isAuthenticated: AppStore.getIsAuthenticated(),
     });
   }
 

@@ -16,6 +16,20 @@ describe('Message', () => {
     }
     return mountedComponent;
   };
+  beforeEach(() => {
+    props = {
+      message: {
+        messageText: 'sasil',
+        date: '',
+        status: 'Read',
+        author: 'Wash',
+      },
+      readUser: ['sasil', 'qudus']
+    };
+    mountedComponent = mount(
+      <Message {...props} />
+      );
+  });
   it('always renders a div', () => {
     const divs = message().find('div');
     expect(divs.length).toBeGreaterThan(0);

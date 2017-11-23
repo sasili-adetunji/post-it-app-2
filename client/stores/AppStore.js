@@ -1,9 +1,9 @@
 import { EventEmitter } from 'events';
 import jwt from 'jsonwebtoken';
 import assign from 'object-assign';
-import PostItConstants from '../constants/PostItConstants';
-import PostItDispatcher from '../dispatcher/PostItDispatcher';
-import * as Api from '../Api';
+import AppConstants from '../constants/AppConstants';
+import AppDispatcher from '../dispatcher/AppDispatcher';
+import * as Api from '../api';
 
 
 let usersInGroup = [];
@@ -20,7 +20,7 @@ let isAuthenticated = false;
 let searchedUsers = '';
 
 
-const PostItStore = assign({}, EventEmitter.prototype, {
+const AppStore = assign({}, EventEmitter.prototype, {
 
   /**
  * @description describes a function that set searched users
@@ -390,7 +390,7 @@ const PostItStore = assign({}, EventEmitter.prototype, {
   },
 
 /**
- * @description PostItStore emit event change
+ * @description AppStore emit event change
  *
  * @method emitChange
  *
@@ -402,7 +402,7 @@ const PostItStore = assign({}, EventEmitter.prototype, {
 
 
 /**
- * @description add PostItStore change listener
+ * @description add AppStore change listener
  *
  * @param { Object } callback
  *
@@ -417,7 +417,7 @@ const PostItStore = assign({}, EventEmitter.prototype, {
 
 
 /**
- * @description Remove PostItStore change listener
+ * @description Remove AppStore change listener
  *
  * @param { Object } callback
  *
@@ -431,115 +431,115 @@ const PostItStore = assign({}, EventEmitter.prototype, {
   },
 });
 
-PostItDispatcher.register((payload) => {
+AppDispatcher.register((payload) => {
   const action = payload.action;
   switch (action.actionType) {
-    case PostItConstants.REGISTER_USER:
+    case AppConstants.REGISTER_USER:
       Api.registerNewUser(action.user);
-      PostItStore.emitChange('change');
+      AppStore.emitChange('change');
       break;
 
-    case PostItConstants.LOGIN_USER:
+    case AppConstants.LOGIN_USER:
       Api.signinUser(action.user);
-      PostItStore.emitChange('change');
+      AppStore.emitChange('change');
       break;
 
-    case PostItConstants.CREATE_GROUP:
+    case AppConstants.CREATE_GROUP:
       Api.createNewGroup(action.group);
-      PostItStore.emitChange('change');
+      AppStore.emitChange('change');
       break;
 
-    case PostItConstants.GOOGLE_LOGIN:
+    case AppConstants.GOOGLE_LOGIN:
       Api.googleLogin(action.idToken);
-      PostItStore.emitChange('change');
+      AppStore.emitChange('change');
       break;
 
-    case PostItConstants.ADDUSER_GROUP:
+    case AppConstants.ADDUSER_GROUP:
       Api.addUserToGroup(action.user);
-      PostItStore.emitChange('change');
+      AppStore.emitChange('change');
       break;
 
-    case PostItConstants.ADD_MESSAGE:
-      PostItStore.addMessage(action.message);
+    case AppConstants.ADD_MESSAGE:
+      AppStore.addMessage(action.message);
       Api.postMessage(action.message);
-      PostItStore.emitChange('change');
+      AppStore.emitChange('change');
       break;
 
-    case PostItConstants.SIGNOUT_USER:
+    case AppConstants.SIGNOUT_USER:
       Api.signoutUser();
       location.reload();
-      PostItStore.signOutUser();
-      PostItStore.emitChange('change');
+      AppStore.signOutUser();
+      AppStore.emitChange('change');
       break;
 
-    case PostItConstants.GET_USER_MESSAGES:
+    case AppConstants.GET_USER_MESSAGES:
       Api.getMessages(action.groups);
-      PostItStore.emitChange('change');
+      AppStore.emitChange('change');
       break;
-    case PostItConstants.RECEIVE_READ_USERS:
+    case AppConstants.RECEIVE_READ_USERS:
       Api.getUserReadUsers(action.message);
-      PostItStore.emitChange('change');
+      AppStore.emitChange('change');
       break;
-    case PostItConstants.RECIEVE_USERS_IN_GROUPS:
+    case AppConstants.RECIEVE_USERS_IN_GROUPS:
       Api.getUsersInGroup(action.group);
-      PostItStore.emitChange('change');
+      AppStore.emitChange('change');
       break;
 
-    case PostItConstants.RECEIVE_USER_GROUPS:
+    case AppConstants.RECEIVE_USER_GROUPS:
       Api.getUserGroups();
-      PostItStore.setUserGroups(action.groups);
-      PostItStore.emitChange('change');
+      AppStore.setUserGroups(action.groups);
+      AppStore.emitChange('change');
       break;
 
-    case PostItConstants.RECEIVE_USERS:
-      PostItStore.setUsers(action.users);
-      PostItStore.emitChange('change');
+    case AppConstants.RECEIVE_USERS:
+      AppStore.setUsers(action.users);
+      AppStore.emitChange('change');
       break;
 
-    case PostItConstants.RESET_PASSWORD:
+    case AppConstants.RESET_PASSWORD:
       Api.resetPassword(action.email);
-      PostItStore.emitChange('change');
+      AppStore.emitChange('change');
       break;
 
-    case PostItConstants.GROUP_OPENED:
-      PostItStore.setOpenedGroup(action.selectedGroup);
-      PostItStore.emitChange('change');
+    case AppConstants.GROUP_OPENED:
+      AppStore.setOpenedGroup(action.selectedGroup);
+      AppStore.emitChange('change');
       break;
 
-    case PostItConstants.RECEIVE_SUCCESS:
-      PostItStore.receiveSuccess(action.message);
-      PostItStore.emitChange('change');
+    case AppConstants.RECEIVE_SUCCESS:
+      AppStore.receiveSuccess(action.message);
+      AppStore.emitChange('change');
       break;
 
-    case PostItConstants.RECEIVE_LOGIN_SUCCESS:
-      PostItStore.setIsAuthenticated(true);
-      PostItStore.setLoggedInUser(jwt.decode(localStorage.jwtToken));
-      PostItStore.emitChange('change');
+    case AppConstants.RECEIVE_LOGIN_SUCCESS:
+      AppStore.setIsAuthenticated(true);
+      AppStore.setLoggedInUser(jwt.decode(localStorage.jwtToken));
+      AppStore.emitChange('change');
       break;
 
-    case PostItConstants.RECEIVE_ERRORS:
-      PostItStore.receiveErrors(action.errors);
-      PostItStore.emitChange('change');
+    case AppConstants.RECEIVE_ERRORS:
+      AppStore.receiveErrors(action.errors);
+      AppStore.emitChange('change');
       break;
 
-    case PostItConstants.RECIEVE_ADD_MEMBERS_TO_GROUP:
-      PostItStore.addUserToGroup(action.user);
-      PostItStore.emitChange('change');
+    case AppConstants.RECIEVE_ADD_MEMBERS_TO_GROUP:
+      AppStore.addUserToGroup(action.user);
+      AppStore.emitChange('change');
       break;
 
-    case PostItConstants.RECIEVE_CREATE_GROUP:
-      PostItStore.addGroups(action.group);
-      PostItStore.emitChange('change');
+    case AppConstants.RECIEVE_CREATE_GROUP:
+      AppStore.addGroups(action.group);
+      AppStore.emitChange('change');
       break;
 
-    case PostItConstants.SEARCH_USERS:
+    case AppConstants.SEARCH_USERS:
       Api.searchUsers(action.keyword);
-      PostItStore.emitChange('change');
+      AppStore.emitChange('change');
       break;
 
-    case PostItConstants.CLEAR_SEARCH:
-      PostItStore.clearSearchedUsers();
-      PostItStore.emitChange('change');
+    case AppConstants.CLEAR_SEARCH:
+      AppStore.clearSearchedUsers();
+      AppStore.emitChange('change');
       break;
 
     default:
@@ -547,4 +547,4 @@ PostItDispatcher.register((payload) => {
   return true;
 });
 
-export default PostItStore;
+export default AppStore;

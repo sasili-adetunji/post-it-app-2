@@ -111,7 +111,7 @@
     "eslint-plugin-react": "^7.0.1",
     "extract-text-webpack-plugin": "^2.1.0",
     "jest": "^21.2.1",
-    "jsdom": "^11.3.0",
+    "jsdom": "^11.4.0",
     "nodemon": "^1.11.0",
     "react-addons-test-utils": "^15.6.0",
     "react-dom": "^15.6.2",
@@ -131,7 +131,7 @@
     ],
     "collectCoverage": true,
     "setupFiles": [
-      "<rootDir>/mock/localStorage"
+      "<rootDir>/mock/LocalStorageMock"
     ],
     "testPathIgnorePatterns": [
       "/node_modules/",

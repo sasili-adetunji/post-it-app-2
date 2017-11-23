@@ -1,8 +1,8 @@
 import React from 'react';
 import firebase from 'firebase';
 import toastr from 'toastr';
-import PostItActions from '../actions/PostItActions';
-import config from '../../server/app/config/database';
+import AppActions from '../actions/AppActions';
+import config from '../utils/firebase';
 
 
 /**
@@ -74,7 +74,7 @@ class Login extends React.Component {
     } else if (!user.password) {
       this.setState({ errors: { password: 'Password is required' } });
     } else {
-      PostItActions.login(user);
+      AppActions.login(user);
       this.setState({
         email: '',
         password: '',
@@ -100,7 +100,7 @@ class Login extends React.Component {
     provider.addScope('https://www.googleapis.com/auth/plus.login');
     firebase.auth().signInWithPopup(provider)
       .then((result) => {
-        PostItActions.googleLogin(result.credential.idToken);
+        AppActions.googleLogin(result.credential.idToken);
         this.setState({
           isLoading: true
         });

@@ -1,7 +1,7 @@
 import React from 'react';
 import moment from 'moment';
-import PostItActions from '../../actions/PostItActions';
-import PostItStore from '../../stores/PostItStore';
+import AppActions from '../../actions/AppActions';
+import AppStore from '../../stores/AppStore';
 
 
 /**
@@ -62,7 +62,7 @@ class MessageBox extends React.Component {
   */
   onClick(event) {
     event.preventDefault();
-    if (!PostItStore.getOpenedGroup()[0]) {
+    if (!AppStore.getOpenedGroup()[0]) {
       this.setState({
         error: { group: 'Please kindly select a group first' },
         message: ''
@@ -78,12 +78,12 @@ class MessageBox extends React.Component {
     } else {
       const message = {
         messageText: this.state.message,
-        groupId: PostItStore.getOpenedGroup()[0].groupId,
+        groupId: AppStore.getOpenedGroup()[0].groupId,
         priorityLevel: this.state.priorityLevel,
         date: moment().format('MMMM Do YYYY, h:mm:ss a'),
-        author: PostItStore.getLoggedInUser().data.userName
+        author: AppStore.getLoggedInUser().data.userName
       };
-      PostItActions.addMessage(message);
+      AppActions.addMessage(message);
       this.setState({
         error: '',
         message: ''

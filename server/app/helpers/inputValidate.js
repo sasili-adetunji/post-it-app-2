@@ -109,7 +109,6 @@
  */
   export const addMemberToGroup = (req, res, next) => {
     req.check('groupId', 'Group Id is required').notEmpty();
-    req.check('userId', 'User Id is required').notEmpty();
     req.check('userName', 'User name is required').notEmpty();
     const errors = req.validationErrors();
     if (errors) {

@@ -1,8 +1,8 @@
 import axios from 'axios';
 import toastr from 'toastr';
 import setAuthorizationToken from '../utils/setAuthorizationToken';
-import PostItActions from '../actions/PostItActions';
-import PostItStore from '../stores/PostItStore';
+import AppActions from '../actions/AppActions';
+import AppStore from '../stores/AppStore';
 
 
   /**
@@ -25,7 +25,7 @@ export const registerNewUser = (user) => {
   .then((response) => {
     setAuthorizationToken(response.data.token);
     localStorage.setItem('jwtToken', response.data.token);
-    PostItActions.receiveLoginSuccess(response.data.token);
+    AppActions.receiveLoginSuccess(response.data.token);
     toastr.success(response.data.message);
   })
   .catch((error) => {
@@ -52,7 +52,7 @@ export const signinUser = (user) => {
   .then((response) => {
     setAuthorizationToken(response.data.token);
     localStorage.setItem('jwtToken', response.data.token);
-    PostItActions.receiveLoginSuccess(response.data.token);
+    AppActions.receiveLoginSuccess(response.data.token);
     toastr.success(response.data.message);
   })
   .catch((error) => {
@@ -91,7 +91,7 @@ export const googleLogin = (result) => {
   .then((response) => {
     setAuthorizationToken(response.data.token);
     localStorage.setItem('jwtToken', response.data.token);
-    PostItActions.receiveLoginSuccess(response.data.token);
+    AppActions.receiveLoginSuccess(response.data.token);
     toastr.success(response.data.message);
   })
   .catch((error) => {
@@ -112,7 +112,7 @@ export const googleLogin = (result) => {
 export const createNewGroup = (group) => {
   axios.post('/group', group)
   .then((response) => {
-    PostItStore.addGroups(response.data.groups);
+    AppStore.addGroups(response.data.groups);
     toastr.success(response.data.message);
   })
   .catch((error) => {
@@ -132,10 +132,10 @@ export const createNewGroup = (group) => {
 export const getMessages = (group) => {
   axios.get(`/group/${group.groupId}/messages`)
   .then((response) => {
-    PostItStore.setMessages(response.data.messages);
+    AppStore.setMessages(response.data.messages);
   })
   .catch((error) => {
-    PostItActions.receiveErrors(error.message);
+    AppActions.receiveErrors(error.message);
   });
 };
 
@@ -154,7 +154,7 @@ export const addUserToGroup = (user) => {
     userName: user.userName,
   })
   .then((response) => {
-    PostItActions.recieveAddMembersToGroups(response.data.user);
+    AppActions.recieveAddMembersToGroups(response.data.user);
     toastr.success(response.data.message);
   })
   .catch((error) => {
@@ -196,10 +196,10 @@ export const postMessage = (message) => {
 export const getUserGroups = () => {
   axios.get('user/groups')
   .then((response) => {
-    PostItStore.setUserGroups(response.data.groups);
+    AppStore.setUserGroups(response.data.groups);
   })
   .catch((error) => {
-    PostItActions.receiveErrors(error.message);
+    AppActions.receiveErrors(error.message);
   });
 };
 
@@ -215,11 +215,11 @@ export const getUserGroups = () => {
 export const getUsersInGroup = (group) => {
   axios.get(`/group/${group.groupId}/users`)
   .then((response) => {
-    PostItActions.receiveSuccess(response.message);
-    PostItStore.setUsersInGroup(response.data.users);
+    AppActions.receiveSuccess(response.message);
+    AppStore.setUsersInGroup(response.data.users);
   })
   .catch((error) => {
-    PostItActions.receiveErrors(error.message);
+    AppActions.receiveErrors(error.message);
   });
 };
 
@@ -233,10 +233,10 @@ export const getUsersInGroup = (group) => {
 export const getUsers = () => {
   axios.get('user/users')
   .then((response) => {
-    PostItActions.receiveUsers(response.data.users);
+    AppActions.receiveUsers(response.data.users);
   })
   .catch((error) => {
-    PostItActions.receiveErrors(error.message);
+    AppActions.receiveErrors(error.message);
   });
 };
 
@@ -253,11 +253,11 @@ export const getUsers = () => {
 export const getUserReadUsers = (message) => {
   axios.get(`/group/${message.messageId}/readUsers`)
   .then((response) => {
-    PostItActions.receiveSuccess(response.message);
-    PostItStore.setReadUsers(response.data.readUsers);
+    AppActions.receiveSuccess(response.message);
+    AppStore.setReadUsers(response.data.readUsers);
   })
   .catch((error) => {
-    PostItActions.receiveErrors(error.message);
+    AppActions.receiveErrors(error.message);
   });
 };
 
@@ -293,9 +293,9 @@ export const resetPassword = (email) => {
 export const searchUsers = (keyword) => {
   axios.get(`/user/search?user=${keyword}`)
   .then((response) => {
-    PostItStore.setSearchedUsers(response.data.user);
+    AppStore.setSearchedUsers(response.data.user);
   })
   .catch((error) => {
-    PostItActions.receiveErrors(error.message);
+    AppActions.receiveErrors(error.message);
   });
 };

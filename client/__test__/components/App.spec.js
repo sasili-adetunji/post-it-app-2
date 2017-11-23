@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import App from '../../components/index.jsx';
+import App from '../../components/App.jsx';
 import NavBar from '../../components/NavBar.jsx';
 
 require('../setup');

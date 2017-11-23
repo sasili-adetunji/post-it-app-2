@@ -1,6 +1,6 @@
 import React from 'react';
-import * as Api from '../../Api';
-import PostItStore from '../../stores/PostItStore';
+import * as Api from '../../api';
+import AppStore from '../../stores/AppStore';
 import MessageList from './MessageList';
 import GroupList from './GroupList';
 import UserList from './UserList';
@@ -26,13 +26,13 @@ class Dashboard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      groups: PostItStore.getGroupsUser(),
-      users: PostItStore.getUsersInGroup(),
-      selectedGroup: PostItStore.getOpenedGroup(),
-      readUsers: PostItStore.getReadUsers(),
-      message: PostItStore.getGroupsMessages(),
-      userName: PostItStore.getLoggedInUser(),
-      user: PostItStore.getUsers(),
+      groups: AppStore.getGroupsUser(),
+      users: AppStore.getUsersInGroup(),
+      selectedGroup: AppStore.getOpenedGroup(),
+      readUsers: AppStore.getReadUsers(),
+      message: AppStore.getGroupsMessages(),
+      userName: AppStore.getLoggedInUser(),
+      user: AppStore.getUsers(),
     };
     this.onChange = this.onChange.bind(this);
   }
@@ -48,7 +48,7 @@ class Dashboard extends React.Component {
   componentDidMount() {
     Api.getUserGroups();
     Api.getUsers();
-    PostItStore.addChangeListener(this.onChange);
+    AppStore.addChangeListener(this.onChange);
   }
 
 
@@ -60,7 +60,7 @@ class Dashboard extends React.Component {
    * @memberof Dashboard
   */
   componentWillUnmount() {
-    PostItStore.removeChangeListener(this.onChange);
+    AppStore.removeChangeListener(this.onChange);
   }
 
   /**
@@ -76,13 +76,13 @@ class Dashboard extends React.Component {
   */
   onChange() {
     this.setState({
-      groups: PostItStore.getGroupsUser(),
-      users: PostItStore.getUsersInGroup(),
-      selectedGroup: PostItStore.getOpenedGroup(),
-      readUsers: PostItStore.getReadUsers(),
-      message: PostItStore.getGroupsMessages(),
-      userName: PostItStore.getLoggedInUser(),
-      user: PostItStore.getUsers(),
+      groups: AppStore.getGroupsUser(),
+      users: AppStore.getUsersInGroup(),
+      selectedGroup: AppStore.getOpenedGroup(),
+      readUsers: AppStore.getReadUsers(),
+      message: AppStore.getGroupsMessages(),
+      userName: AppStore.getLoggedInUser(),
+      user: AppStore.getUsers(),
     });
   }
 
@@ -107,12 +107,12 @@ class Dashboard extends React.Component {
             <div className="col-md-2 col-xs-12">
               <GroupList />
               <UserList
-                groupName={PostItStore.getOpenedGroup()[0]}
-                users={PostItStore.getUsersInGroup()}
+                groupName={AppStore.getOpenedGroup()[0]}
+                users={AppStore.getUsersInGroup()}
               />
             </div>
             <div className="col-md-10 col-xs-12">
-              <MessageList groupName={PostItStore.getOpenedGroup()[0]} />
+              <MessageList groupName={AppStore.getOpenedGroup()[0]} />
             </div>
           </div>
         </div>

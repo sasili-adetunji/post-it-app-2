@@ -1,6 +1,6 @@
 import React from 'react';
-import PostItStore from '../../stores/PostItStore';
-import PostItActions from '../../actions/PostItActions';
+import AppStore from '../../stores/AppStore';
+import AppActions from '../../actions/AppActions';
 
 
 /**
@@ -50,12 +50,12 @@ class AddMember extends React.Component {
         userName: event.target.value,
       });
       if (this.state.userName !== '') {
-        PostItActions.searchUsers(this.state.userName);
+        AppActions.searchUsers(this.state.userName);
         this.setState({
-          searchUser: PostItStore.getSearchedUsers().userName
+          searchUser: AppStore.getSearchedUsers().userName
         });
       } else {
-        PostItActions.clearSearch();
+        AppActions.clearSearch();
         this.setState({
           searchUser: 'No user found'
         });
@@ -81,7 +81,7 @@ class AddMember extends React.Component {
 	*/
   onClick(event) {
     event.preventDefault();
-    if (!PostItStore.getOpenedGroup()[0]) {
+    if (!AppStore.getOpenedGroup()[0]) {
       this.setState({
         error: 'Kindly select a group first',
         userName: '',
@@ -89,16 +89,16 @@ class AddMember extends React.Component {
       return true;
     }
     const user = {
-      userName: PostItStore.getSearchedUsers().userName,
-      groupId: PostItStore.getOpenedGroup()[0].groupId,
-      userId: PostItStore.getSearchedUsers().userId,
+      userName: AppStore.getSearchedUsers().userName || this.state.userName,
+      groupId: AppStore.getOpenedGroup()[0].groupId,
+      userId: AppStore.getSearchedUsers().userId,
     };
     if (!this.state.userName) {
       this.setState({
         error: 'user name is required',
       });
     } else {
-      PostItActions.addUserToGroup(user);
+      AppActions.addUserToGroup(user);
       this.setState({
         error: '',
         userName: '',
@@ -139,9 +139,9 @@ class AddMember extends React.Component {
           <button
             onClick={this.onClick}
             type="submit"
-            className="btn btn-default addMember"
+            className="btn btn-primary addMember"
           >
-            <span className="glyphicon glyphicon-plus" /></button>
+            Submit </button>
         </form>
         <br />
       </div>

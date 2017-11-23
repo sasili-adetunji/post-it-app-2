@@ -5,7 +5,7 @@ dotenv.config();
 const jwtSecret = process.env.TOKEN_SECRET;
 
 
-export default function (req, res, next) {
+export default (req, res, next) => {
   const token = req.headers.authorization || req.headers['x-access-token'];
   if (!token) {
     return res.status(401).json({ error: 'No valid token provided' });
@@ -20,4 +20,4 @@ export default function (req, res, next) {
     req.decoded = decoded;
     next();
   });
-}
+};

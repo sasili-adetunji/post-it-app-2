@@ -1,6 +1,6 @@
 import React from 'react';
-import PostItActions from '../../actions/PostItActions';
-import * as API from '../../Api';
+import AppActions from '../../actions/AppActions';
+import * as Api from '../../api';
 
 
 /**
@@ -66,8 +66,8 @@ class CreateGroup extends React.Component {
         error: 'Group Name is Required'
       });
     } else {
-      PostItActions.createGroup(group);
-      API.getUserGroups();
+      AppActions.createGroup(group);
+      Api.getUserGroups();
       this.setState({
         groupName: '',
         error: ''
@@ -104,9 +104,8 @@ class CreateGroup extends React.Component {
             onClick={this.onClick}
             type="submit"
             id="submit"
-            className="btn btn-default "
-          >
-            <span className="glyphicon glyphicon-plus" /></button>
+            className="btn btn-primary addMember"
+          > Submit </button>
         </form>
       </div>
     );

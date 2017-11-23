@@ -1,11 +1,11 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import PostItActions from '../../actions/PostItActions';
+import AppActions from '../../actions/AppActions';
 import Register from '../../components/Register.jsx';
 require('../setup');
 
 
-jest.mock('../../actions/PostItActions');
+jest.mock('../../actions/AppActions');
 
 describe('Register', () => {
   const wrapper = mount(<Register />);
@@ -92,7 +92,7 @@ describe('Register', () => {
     expect(wrapper.state().errors).toEqual(errors);
   });
   it('should fire register actions when all fields are set', () => {
-    const registerUserSpy = jest.spyOn(PostItActions, 'registerUser');
+    const registerUserSpy = jest.spyOn(AppActions, 'registerUser');
     const preventDefault = jest.fn();
     wrapper.state().email = 'sas@gmail.com';
     wrapper.state().password = 'sas';

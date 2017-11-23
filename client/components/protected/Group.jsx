@@ -1,6 +1,6 @@
 import React from 'react';
-import PostItActions from '../../actions/PostItActions';
-import * as Api from '../../Api';
+import AppActions from '../../actions/AppActions';
+import * as Api from '../../api';
 
 
 /**
@@ -14,9 +14,9 @@ import * as Api from '../../Api';
  */
 const Group = ({ group }) => {
   const onClick = () => {
-    PostItActions.groupOpened(group);
-    PostItActions.getUserMessages(group);
-    PostItActions.recieveUsersInGroups(group);
+    AppActions.groupOpened(group);
+    AppActions.getUserMessages(group);
+    AppActions.recieveUsersInGroups(group);
     localStorage.setItem('selectedGroupId', JSON.stringify(group));
     Api.getUsersInGroup(group);
     Api.getMessages(group);

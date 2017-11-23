@@ -1,4 +1,6 @@
 import jwt from 'jsonwebtoken';
+import dbConfig from '../config/database';
+
 require('dotenv').config();
 
 /**
@@ -57,4 +59,28 @@ export const serverAuthError = (errorCode, res) => {
     default:
       return res.status(500).json({ message: 'There is a network error' });
   }
+};
+
+/**
+ * @description: function that return check for existing username
+ *
+ * @param {String} userName the userName to check
+ *
+ * @return {Promise} return a promise
+ */
+export const checkUser = (userName) => {
+  return new Promise((resolve) => {
+    dbConfig.database().ref('users/').orderByChild('userName/')
+      .startAt(userName)
+      .endAt(`${userName}\uf8ff`)
+      .once('value', (snapshot) => {
+        let response;
+        if (snapshot.val()) {
+          response = true;
+        } else {
+          response = false;
+        }
+        resolve(response);
+      });
+  });
 };

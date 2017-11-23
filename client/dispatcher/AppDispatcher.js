@@ -1,7 +1,7 @@
 import { Dispatcher } from 'flux';
 import assign from 'object-assign';
 
-const PostItDispatcher = assign(new Dispatcher(), {
+const AppDispatcher = assign(new Dispatcher(), {
   handleViewAction(action) {
     const payload = {
       source: 'VIEW_ACTION',
@@ -10,4 +10,4 @@ const PostItDispatcher = assign(new Dispatcher(), {
     this.dispatch(payload);
   },
 });
-export default PostItDispatcher;
+export default AppDispatcher;

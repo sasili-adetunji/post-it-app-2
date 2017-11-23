@@ -1,5 +1,5 @@
 import firebase from 'firebase';
-import { serverError } from '../helpers/serverHelper';
+import { serverError, checkUser } from '../helpers/serverHelper';
 
 
 export default {
@@ -65,7 +65,14 @@ export default {
       userId,
       userName
     };
-    firebase.database().ref(`groups/${groupId}/users/${userId}/`)
+    checkUser(userName)
+      .then((response) => {
+        if (response === false) {
+          return res.status(404).json({
+            message: 'The user does not exist'
+          });
+        }
+        firebase.database().ref(`groups/${groupId}/users/${userId}/`)
       .orderByKey().once('value', (snapshot) => {
         if (snapshot.exists()) {
           res.status(409).json({
@@ -96,6 +103,7 @@ export default {
         });
         }
       });
+      });
   },
 
 
@@ -113,6 +121,11 @@ export default {
     const users = [];
     firebase.database().ref(`/groups/${req.params.groupId}/users`)
       .once('value', (msg) => {
+        if (!msg.exists()) {
+          return res.status(404).json({
+            message: 'No group found'
+          });
+        }
         msg.forEach((snapshot) => {
           const userDetails = {
             userId: snapshot.val().userId,
