@@ -66,6 +66,9 @@ class MessageList extends React.Component {
       messageNodes = (<div> <h2 className="messageHeader"> No Group Selected
          </h2> </div>);
     } else if (AppStore.getGroupsMessages().length === 0) {
+      groupName = (<div> <h4> Group | &nbsp;
+        {AppStore.getOpenedGroup()[0].groupName}
+      </h4> </div>);
       messageNodes = (<div> <h2 className="messageHeader"> No Message in Group
         </h2> </div>);
     } else {

@@ -93,11 +93,6 @@ export default {
     const messageRef = firebase.database()
     .ref(`users/${userData.uid}/groups/${req.params.groupId}/messages/`);
     messageRef.once('value', (snapshot) => {
-      if (!snapshot.exists()) {
-        return res.status(404).json({
-          message: 'No message found'
-        });
-      }
       snapshot.forEach((childSnapShot) => {
         const message = {
           messageText: childSnapShot.val().message,
