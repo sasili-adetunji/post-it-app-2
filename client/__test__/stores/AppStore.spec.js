@@ -1,10 +1,10 @@
 import AppDispatcher from '../../dispatcher/AppDispatcher';
 import AppStore from '../../stores/AppStore';
-import * as Api from '../../api';
+import * as Api from '../../api/AppApi';
 
 import mockData from '../seeders/mockData';
 
-jest.mock('../../api');
+jest.mock('../../api/AppApi');
 jest.mock('../../dispatcher/AppDispatcher');
 jest.dontMock('../../stores/AppStore');
 

@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken';
 import assign from 'object-assign';
 import AppConstants from '../constants/AppConstants';
 import AppDispatcher from '../dispatcher/AppDispatcher';
-import * as Api from '../api';
+import * as Api from '../api/AppApi';
 
 
 let usersInGroup = [];

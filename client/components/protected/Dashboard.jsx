@@ -1,5 +1,5 @@
 import React from 'react';
-import * as Api from '../../api';
+import * as Api from '../../api/AppApi';
 import AppStore from '../../stores/AppStore';
 import MessageList from './MessageList';
 import GroupList from './GroupList';

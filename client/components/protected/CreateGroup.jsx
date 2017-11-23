@@ -1,6 +1,6 @@
 import React from 'react';
 import AppActions from '../../actions/AppActions';
-import * as Api from '../../api';
+import * as Api from '../../api/AppApi';
 
 
 /**
