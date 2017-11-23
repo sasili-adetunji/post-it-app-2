@@ -7,7 +7,6 @@ require('../setup');
 jest.mock('../../actions/AppActions');
 
 describe('NavBar', () => {
-  const wrapper = mount(<NavBar />);
   let props;
   let mountedComponent;
   const navbar = () => {

@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import jwt from 'jsonwebtoken';
 import { BrowserRouter } from 'react-router-dom';
 import AppStore from './stores/AppStore';
-import * as Api from './Api/AppApi';
 import AppActions from './actions/AppActions';
 import setAuthorizationToken from './utils/setAuthorizationToken';
 import App from './components/App';
@@ -21,8 +20,6 @@ if (localStorage.selectedGroupId) {
   AppActions.groupOpened(JSON.parse(groupDetails));
   AppActions.getUserMessages(JSON.parse(groupDetails));
   AppActions.recieveUsersInGroups(JSON.parse(groupDetails));
-  Api.getUsersInGroup(JSON.parse(groupDetails));
-  Api.getMessages(JSON.parse(groupDetails));
 }
 
 ReactDOM.render(

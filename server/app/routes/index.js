@@ -1,4 +1,3 @@
-// import firebase from 'firebase';
 import user from './user';
 import message from './message';
 import group from './group';
