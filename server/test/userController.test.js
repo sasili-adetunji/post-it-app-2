@@ -145,7 +145,7 @@ describe('Signup route: ', () => {
   });
   it('should not create a user with an existing email', (done) => {
     const newUser = {
-      userName: 'wash',
+      userName: 'amaka',
       password: 'wash@email.com',
       email: 'wash@email.com',
       phoneNumber: '08037817325',
@@ -165,8 +165,8 @@ describe('Signup route: ', () => {
   it('should not create a user when the username exist', (done) => {
     const newUser = {
       userName: 'wash',
-      password: 'wash@email.com',
-      email: 'wash@email.com',
+      password: 'chima@email.com',
+      email: 'chima@email.com',
       phoneNumber: '08037817325',
     };
     chai.request(app)
