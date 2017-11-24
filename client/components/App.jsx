@@ -52,14 +52,14 @@ const PublicRoute = ({ component: Component, isAuthenticated, ...rest }) => (
  * @extends {Component}
  */
 class App extends Component {
-  /**
-   * @description Creates an instance of App.
-   * bind methods and set initial state.
-   *
-   * @memberof App
-   *
-   * @param {object} props
-   */
+/**
+ * @description Creates an instance of App.
+ * bind methods and set initial state.
+ *
+ * @memberof App
+ *
+ * @param {object} props
+ */
   constructor(props) {
     super(props);
     this.state = {
@@ -69,43 +69,43 @@ class App extends Component {
   }
 
 
-  /**
-  * @method componentDidMount
-  *
-  * @description Adds an event Listener to the Store and fires
-  * when the component is fully mounted.
-  *
-  * @return {void}
-  *
-  * @memberof App
-  */
+/**
+* @method componentDidMount
+*
+* @description Adds an event Listener to the Store and fires
+* when the component is fully mounted.
+*
+* @return {void}
+*
+* @memberof App
+*/
   componentDidMount() {
     AppStore.addChangeListener(this.onChange);
   }
 
 
-  /**
-   * @method componentWillUnmount
-   *
-   * @return {void}
-   *
-   * @description Removes event Listener from the Store
-   *
-   * @memberof App
-   */
+/**
+ * @method componentWillUnmount
+ *
+ * @return {void}
+ *
+ * @description Removes event Listener from the Store
+ *
+ * @memberof App
+ */
   componentWillUnmount() {
     AppStore.removeChangeListener(this.onChange);
   }
 
-  /**
-    * @method onChange
-    *
-    * @return {void}
-    *
-    * @description Monitors changes in the components and change the state
-    *
-    * @memberof App
-    */
+/**
+* @method onChange
+*
+* @return {void}
+*
+* @description Monitors changes in the components and change the state
+*
+* @memberof App
+*/
 
   onChange() {
     this.setState({
@@ -113,11 +113,11 @@ class App extends Component {
     });
   }
 
-  /**
-   * @memberof App
-   *
-	 * @return { ReactElement } rendered markup
-   */
+/**
+ * @memberof App
+ *
+ * @return { ReactElement } rendered markup
+ */
   render() {
     return (
       <div>

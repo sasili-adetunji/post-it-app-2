@@ -2,17 +2,6 @@ import AppConstants from '../../constants/AppConstants';
 
 
 const mockData = {
-  searchedUsersAction: {
-    source: 'VIEW_ACTION',
-    action: {
-      actionType: AppConstants.SEARCH_USERS,
-      payload: {
-        user: {
-          userNames: 'w' }
-      }
-    }
-  },
-
   creategroupActions: {
     source: 'VIEW_ACTION',
     action: {
@@ -107,13 +96,6 @@ const mockData = {
         userId: 'JHDSKAODCIO9',
         userName: 'sas@email.com'
       }
-    }
-  },
-
-  clearSearchAction: {
-    source: 'VIEW_ACTION',
-    action: {
-      actionType: AppConstants.CLEAR_SEARCH,
     }
   },
 

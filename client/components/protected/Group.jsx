@@ -10,7 +10,7 @@ import * as Api from '../../api/AppApi';
  *
  * @param {Object} group group details as props
  *
-   * @returns {ReactElement}  Group markup  Components
+ * @returns {ReactElement}  Group markup  Components
  */
 const Group = ({ group }) => {
   const onClick = () => {

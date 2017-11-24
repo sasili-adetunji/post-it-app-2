@@ -17,46 +17,10 @@ let loginSuccess = '';
 let loggedInUser = [];
 const selectedGroup = [];
 let isAuthenticated = false;
-let searchedUsers = '';
 
 
 const AppStore = assign({}, EventEmitter.prototype, {
 
-  /**
- * @description describes a function that set searched users
- *
- * @param { String } user
- *
- * @method setSearchedUsers
- *
- * @returns { void } void
- */
-
-  setSearchedUsers(user) {
-    searchedUsers = user;
-  },
-
- /**
- * @description describes a function that return searched users
- *
- * @method getSearchedUsers
- *
- * @returns { String } searched users
- */
-  getSearchedUsers() {
-    return searchedUsers;
-  },
-
- /**
- * @description describes a function that cler the store of searched users
- *
- * @method clearSearchedUsers
- *
- * @returns { void }
- */
-  clearSearchedUsers() {
-    searchedUsers = '';
-  },
 
  /**
  * @description describes a function that add user to group
@@ -529,16 +493,6 @@ AppDispatcher.register((payload) => {
 
     case AppConstants.RECIEVE_CREATE_GROUP:
       AppStore.addGroups(action.group);
-      AppStore.emitChange('change');
-      break;
-
-    case AppConstants.SEARCH_USERS:
-      Api.searchUsers(action.keyword);
-      AppStore.emitChange('change');
-      break;
-
-    case AppConstants.CLEAR_SEARCH:
-      AppStore.clearSearchedUsers();
       AppStore.emitChange('change');
       break;
 

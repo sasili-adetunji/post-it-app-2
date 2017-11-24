@@ -9,15 +9,15 @@ import AppActions from '../actions/AppActions';
  */
 
 const NavBar = () => {
-  /**
-   * @description Makes an action call to signout a user
-   *
-   * @param {SyntheticEvent} event
-   *
-   * @returns {void}
-   *
-   * @memberof NavBar
-  */
+/**
+ * @description Makes an action call to signout a user
+ *
+ * @param {SyntheticEvent} event
+ *
+ * @returns {void}
+ *
+ * @memberof NavBar
+*/
   const handleSignOut = (event) => {
     event.preventDefault();
     AppActions.signOutUser();

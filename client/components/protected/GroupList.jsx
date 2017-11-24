@@ -13,14 +13,14 @@ import CreateGroup from './CreateGroup';
  * @extends {React.Component}
  */
 class GroupList extends React.Component {
-  /**
-  * @description Creates an instance of GroupList.
-  * bind methods and set initial state.
-  *
-  * @memberof GroupList
-  *
-  * @param {object} props
-  */
+/**
+* @description Creates an instance of GroupList.
+* bind methods and set initial state.
+*
+* @memberof GroupList
+*
+* @param {object} props
+*/
   constructor(props) {
     super(props);
     this.state = {
@@ -30,37 +30,37 @@ class GroupList extends React.Component {
     this.openModal = this.openModal.bind(this);
   }
 
-  /**
-    * Handles close Modal event
-    *
-    * @param {SyntheticEvent} event
-    *
-    * @returns {void} null
-    */
+/**
+* Handles close Modal event
+*
+* @param {SyntheticEvent} event
+*
+* @returns {void} null
+*/
   closeModal() {
     this.setState({ isOpen: false });
   }
 
-  /**
-  * Handles open Modal event
-  *
-  * @param {SyntheticEvent} event
-  *
-  * @returns {void} null
-  */
+/**
+* Handles open Modal event
+*
+* @param {SyntheticEvent} event
+*
+* @returns {void} null
+*/
   openModal() {
     this.setState({ isOpen: true });
   }
 
-  /**
-   * @method render
-   *
-   * Render grouplist component
-   *
-   * @returns {ReactElement} Grouplist markup
-   *
-   * @memberof GroupList
-   */
+/**
+ * @method render
+ *
+ * Render grouplist component
+ *
+ * @returns {ReactElement} Grouplist markup
+ *
+ * @memberof GroupList
+ */
   render() {
     let header = null;
     if (AppStore.getGroupsUser().length < 1) {

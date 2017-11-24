@@ -213,28 +213,3 @@ describe('Create Group Action', () => {
   });
 });
 
-describe('Clear Search Action', () => {
-  callback(mockData.clearSearchAction);
-  const emitChange = jest.fn();
-  const spyOnStore = jest.spyOn(AppStore, 'clearSearchedUsers');
-  spyOnStore();
-  emitChange();
-  it('should call addUserToGroup method when the CLEAR_SEARCH Action  ', () => {
-    expect(spyOnStore).toHaveBeenCalled();
-    expect(emitChange).toHaveBeenCalled();
-  });
-  it('should call clear the searched users in the store', () => {
-    expect(AppStore.getSearchedUsers()).toEqual('');
-  });
-});
-
-describe('Search User Action', () => {
-  it('should call searchuser Api method SEARCH_USER Action is dispatched', () => {
-    callback(mockData.searchedUsersAction);
-    const spyOnApi = jest.spyOn(Api, 'searchUsers');
-    const emitChange = jest.fn();
-    emitChange();
-    expect(spyOnApi).toHaveBeenCalledTimes(1);
-    expect(emitChange).toHaveBeenCalled();
-  });
-});

@@ -280,22 +280,3 @@ export const resetPassword = (email) => {
     toastr.error(error.response.data.message);
   });
 };
-
-
-/**
- * @description describes an API call to the server for a get request
- * to search a particular user
- *
- * @param {Object} keyword an object that contains the keyword
- *
- * @returns {Object} returns which contains the user details of thesearched user
- */
-export const searchUsers = (keyword) => {
-  axios.get(`/user/search?user=${keyword}`)
-  .then((response) => {
-    AppStore.setSearchedUsers(response.data.user);
-  })
-  .catch((error) => {
-    AppActions.receiveErrors(error.message);
-  });
-};

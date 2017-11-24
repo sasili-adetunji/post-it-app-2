@@ -286,34 +286,6 @@ const AppActions = {
       user,
     });
   },
-
-
-  /**
- * @description describes an action that informs
- * store to search for a user
-  *
-  * @param {object} keyword keyword for the searched users
-  *
-  * @returns {Object} action type and the keyword
-  */
-  searchUsers(keyword) {
-    AppDispatcher.handleViewAction({
-      actionType: AppConstants.SEARCH_USERS,
-      keyword,
-    });
-  },
-
-
-/**
-  * @description recieves clear search users and dispatches in the store
-  *
-  * @returns {Object} action type
-*/
-  clearSearch() {
-    AppDispatcher.handleViewAction({
-      actionType: AppConstants.CLEAR_SEARCH,
-    });
-  },
 };
 
 export default AppActions;

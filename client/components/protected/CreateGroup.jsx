@@ -61,9 +61,9 @@ class CreateGroup extends React.Component {
     const group = {
       groupName: this.state.groupName,
     };
-    if (!this.state.groupName) {
+    if ((!this.state.groupName) || (!this.state.groupName.trim())) {
       this.setState({
-        error: 'Group Name is Required'
+        error: 'Please enter a valid group name'
       });
     } else {
       AppActions.createGroup(group);

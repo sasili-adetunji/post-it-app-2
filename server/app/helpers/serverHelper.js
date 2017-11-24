@@ -68,9 +68,8 @@ export const serverAuthError = (errorCode, res) => {
  *
  * @return {Promise} return a promise
  */
-export const checkUser = (userName) => {
-  return new Promise((resolve) => {
-    dbConfig.database().ref('users/').orderByChild('userName/')
+export const checkUser = userName => new Promise((resolve) => {
+  dbConfig.database().ref('users/').orderByChild('userName/')
       .startAt(userName)
       .endAt(`${userName}\uf8ff`)
       .once('value', (snapshot) => {
@@ -82,5 +81,4 @@ export const checkUser = (userName) => {
         }
         resolve(response);
       });
-  });
-};
+});

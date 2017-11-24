@@ -215,7 +215,7 @@ describe('Signin route:', () => {
     .send(user)
     .end((err, res) => {
       res.body.message.should.be
-        .eql('Email is required');
+        .eql('The email or password you entered is incorrect');
       res.should.have.status(400);
       res.body.should.be.a('object');
       done();
@@ -231,7 +231,7 @@ describe('Signin route:', () => {
       .send(newUser)
       .end((err, res) => {
         res.body.message.should.be
-        .eql('Password is required');
+        .eql('The email or password you entered is incorrect');
         res.should.have.status(400);
         res.body.should.be.a('object');
         done();
@@ -247,7 +247,7 @@ describe('Signin route:', () => {
       .send(newUser)
       .end((err, res) => {
         res.body.message.should.be
-        .eql('Please put a valid email');
+        .eql('The email or password you entered is incorrect');
         res.should.have.status(400);
         res.body.should.be.a('object');
         done();
@@ -263,7 +263,7 @@ describe('Signin route:', () => {
       .send(newUser)
       .end((err, res) => {
         res.body.message.should.be
-        .eql('Password must be between 6 and 50 characters');
+        .eql('The email or password you entered is incorrect');
         res.should.have.status(400);
         res.body.should.be.a('object');
         done();
@@ -376,64 +376,6 @@ describe('Reset Password route:', () => {
           res.body.message);
         res.should.have.status(200);
         res.body.should.be.a('object');
-        done();
-      });
-  });
-});
-
-describe('Search Users Route: ', () => {
-  let token = '';
-  before((done) => {
-    chai.request(app)
-    .post('/user/signin')
-    .send({ password: 'wash@email.com', email: 'wash@email.com', })
-    .end((err, res) => {
-      token = res.body.token;
-      done();
-    });
-  });
-  it('should fail to search and return status 401 if no token', (done) => {
-    const keyword = 'w';
-    chai.request(app)
-    .get(`/user/search?user=${keyword}`)
-    .end((err, res) => {
-      res.body.should.have.property('error')
-      .eql('No valid token provided');
-      res.body.should.be.a('object');
-      res.status.should.equal(401);
-      done();
-    });
-  });
-  it('should return validation error when search query is not provided', (done) => {
-    chai.request(app)
-      .get('/user/search?user=')
-      .set('x-access-token', token)
-      .end((err, res) => {
-        res.body.message.should.be
-        .eql('Please input something');
-        res.status.should.equal(400);
-        res.body.should.be.a('object');
-        done();
-      });
-  });
-  it('should return status 200 and an object of the user', (done) => {
-    const users = {
-      email: 'wash@email.com',
-      userName: 'wash',
-      userId: 'Ztj2rsYZF4gvBeb59EmRyv4qupp2'
-    };
-    const userName = 'wa';
-    chai.request(app)
-      .get(`/user/search?user=${userName}`)
-      .set('x-access-token', token)
-      .end((err, res) => {
-        res.should.have.status(200);
-        assert.equal('Ztj2rsYZF4gvBeb59EmRyv4qupp2',
-        res.body.user.userId);
-        res.body.user.userName.should.eql('wash');
-        res.body.user.email.should.eql('wash@email.com');
-        res.body.user.should.deep.equals(users);
-        res.body.user.should.be.an.instanceOf(Object);
         done();
       });
   });

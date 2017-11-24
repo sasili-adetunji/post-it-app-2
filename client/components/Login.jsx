@@ -8,8 +8,6 @@ import config from '../utils/firebase';
 /**
  * @description gets user data and login a user
  *
- * @export
- *
  * @param {object} props
  *
  * @class Login
@@ -17,14 +15,14 @@ import config from '../utils/firebase';
  * @extends {Component}
  */
 class Login extends React.Component {
-  /**
-  * @description Creates an instance of Login.
-  * bind methods and set initial state.
-  *
-  * @memberof Login
-  *
-  * @param {object} props
-  */
+/**
+* @description Creates an instance of Login.
+* bind methods and set initial state.
+*
+* @memberof Login
+*
+* @param {object} props
+*/
   constructor(props) {
     super(props);
     this.state = {
@@ -37,32 +35,33 @@ class Login extends React.Component {
     this.onClick = this.onClick.bind(this);
     this.onClickGoogle = this.onClickGoogle.bind(this);
   }
-  /**
-   * @method onChange
-   *
-   * @description Monitors changes in the components and change the state
-   *
-   * @memberof Login
-   *
-   * @param {SyntheticEvent} event
-   *
-   * @returns {void}
-   */
+
+/**
+ * @method onChange
+ *
+ * @description Monitors changes in the components and change the state
+ *
+ * @memberof Login
+ *
+ * @param {SyntheticEvent} event
+ *
+ * @returns {void}
+ */
   onChange(event) {
     this.setState({
       [event.target.name]: event.target.value
     });
   }
 
-  /**
-   * @description Makes an action call to Sign in a user with email and password
-   *
-   * @param {SyntheticEvent} event
-   *
-   * @returns {void}
-   *
-   * @memberof Login
-  */
+/**
+ * @description Makes an action call to Sign in a user with email and password
+ *
+ * @param {SyntheticEvent} event
+ *
+ * @returns {void}
+ *
+ * @memberof Login
+*/
   onClick(event) {
     event.preventDefault();
     const user = {
@@ -84,15 +83,16 @@ class Login extends React.Component {
       });
     }
   }
-  /**
-    * @description Makes an action call to Sign in a user with with google
-    *
-    * @param {SyntheticEvent} event
-    *
-    * @returns {void}
-    *
-    * @memberof Login
- */
+
+/**
+* @description Makes an action call to Sign in a user with with google
+*
+* @param {SyntheticEvent} event
+*
+* @returns {void}
+*
+* @memberof Login
+*/
   onClickGoogle(event) {
     event.preventDefault();
     firebase.initializeApp(config);
@@ -108,15 +108,15 @@ class Login extends React.Component {
   }
 
 
-  /**
-  * @description Render react component
-  *
-  * @method render
-  *
-	 * @return { ReactElement } rendered Login page markup
-  *
-  * @memberof Login
-  */
+/**
+* @description Render react component
+*
+* @method render
+*
+* @return { ReactElement } rendered Login page markup
+*
+* @memberof Login
+*/
   render() {
     const isLoading = () => {
       const loading = (

@@ -12,14 +12,14 @@ import AppStore from '../../stores/AppStore';
  * @extends {React.Component}
  */
 class MessageBox extends React.Component {
-  /**
-   * @description Creates an instance of MessageBox.
-   * bind methods and set initial state.
-   *
-   * @memberof MessageBox
-   *
-   * @param {object} props
-   */
+/**
+ * @description Creates an instance of MessageBox.
+ * bind methods and set initial state.
+ *
+ * @memberof MessageBox
+ *
+ * @param {object} props
+ */
   constructor(props) {
     super(props);
     this.state = {
@@ -50,16 +50,16 @@ class MessageBox extends React.Component {
   }
 
 
-  /**
-   * @description Posts a message to the database if a group exists and message
-   * is not empty
-   *
-   * @param {SyntheticEvent} event
-   *
-   * @returns {void}
-   *
-   * @memberof MessageBox
-  */
+/**
+ * @description Posts a message to the database if a group exists and message
+ * is not empty
+ *
+ * @param {SyntheticEvent} event
+ *
+ * @returns {void}
+ *
+ * @memberof MessageBox
+*/
   onClick(event) {
     event.preventDefault();
     if (!AppStore.getOpenedGroup()[0]) {
@@ -67,9 +67,9 @@ class MessageBox extends React.Component {
         error: { group: 'Please kindly select a group first' },
         message: ''
       });
-    } else if (!this.state.message) {
+    } else if ((!this.state.message) || (!this.state.message.trim())) {
       this.setState({
-        error: { message: 'Kindly type your message first' }
+        error: { message: 'Please enter a valid message' }
       });
     } else if (!this.state.priorityLevel) {
       this.setState({
@@ -119,6 +119,7 @@ class MessageBox extends React.Component {
                   value={this.state.message}
                   type="text"
                   className="form-control messageInput"
+                  required
                 />
               </div>
             </div>

@@ -6,22 +6,22 @@ import Message from './Message';
 import AppStore from '../../stores/AppStore';
 
 /**
-  * A collection of message that displays the available messages
-  * on the message board
-  *
-  * @class MessageList
-  *
-  * @extends {React.Component}
-  */
+* A collection of message that displays the available messages
+* on the message board
+*
+* @class MessageList
+*
+* @extends {React.Component}
+*/
 class MessageList extends React.Component {
-  /**
-  * @description Creates an instance of MessageBox.
-  * bind methods and set initial state.
-  *
-  * @memberof MessageBox
-  *
-  * @param {object} props
-  */
+/**
+* @description Creates an instance of MessageBox.
+* bind methods and set initial state.
+*
+* @memberof MessageBox
+*
+* @param {object} props
+*/
   constructor(props) {
     super(props);
     this.state = {
@@ -31,34 +31,34 @@ class MessageList extends React.Component {
     this.openModal = this.openModal.bind(this);
   }
 
-  /**
-    * Handles close Modal event
-    *
-    * @param {SyntheticEvent} event
-    *
-    * @returns {void} void
-    */
+/**
+* Handles close Modal event
+*
+* @param {SyntheticEvent} event
+*
+* @returns {void} void
+*/
   closeModal() {
     this.setState({ isOpen: false });
   }
 
-  /**
-    * Handles Open Modal event
-    *
-    * @param {SyntheticEvent} event
-    *
-    * @returns {void} void
-    */
+/**
+* Handles Open Modal event
+*
+* @param {SyntheticEvent} event
+*
+* @returns {void} void
+*/
   openModal(event) {
     event.preventDefault();
     this.setState({ isOpen: true });
   }
 
-  /**
-    * Renders MessageList componet
-    *
-    * @returns {ReactElement} MessageList markup
-    */
+/**
+* Renders MessageList componet
+*
+* @returns {ReactElement} MessageList markup
+*/
   render() {
     let messageNodes = null;
     let groupName = null;

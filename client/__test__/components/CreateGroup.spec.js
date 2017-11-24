@@ -47,7 +47,7 @@ describe('AddMember', () => {
       const preventDefault = jest.fn();
       createGroup().state().groupName = '';
       createGroup().find('button').simulate('click', { preventDefault });
-      expect(createGroup().state().error).toEqual('Group Name is Required');
+      expect(createGroup().state().error).toEqual('Please enter a valid group name');
     });
   });
 });

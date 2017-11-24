@@ -9,14 +9,14 @@ import AppActions from '../actions/AppActions';
  * @extends {Component}
  */
 class ForgotPassword extends React.Component {
-  /**
-  * @description Creates an instance of ForgotPassword.
-  * bind methods and set initial state.
-  *
-  * @memberof ForgotPassword
-  *
-  * @param {object} props
-  */
+/**
+* @description Creates an instance of ForgotPassword.
+* bind methods and set initial state.
+*
+* @memberof ForgotPassword
+*
+* @param {object} props
+*/
   constructor(props) {
     super(props);
     this.state = {
@@ -28,17 +28,17 @@ class ForgotPassword extends React.Component {
   }
 
 
-  /**
-  * @method onChange
-  *
-  * @description Monitors changes in the components and update the state
-  *
-  * @memberof ForgotPassword
-  *
-  * @param {SyntheticEvent} event
-  *
-  * @returns {void} void
-  */
+/**
+* @method onChange
+*
+* @description Monitors changes in the components and update the state
+*
+* @memberof ForgotPassword
+*
+* @param {SyntheticEvent} event
+*
+* @returns {void} void
+*/
   onChange(event) {
     this.setState({
       [event.target.name]: event.target.value,
@@ -46,15 +46,15 @@ class ForgotPassword extends React.Component {
   }
 
 
-  /**
-   * @description Makes an action call to Forgot Password
-   *
-   * @param {SyntheticEvent} event
-   *
-   * @returns {void}
-   *
-   * @memberof ForgotPassword
-  */
+/**
+ * @description Makes an action call to Forgot Password
+ *
+ * @param {SyntheticEvent} event
+ *
+ * @returns {void}
+ *
+ * @memberof ForgotPassword
+*/
   onClickReset(event) {
     event.preventDefault();
     const email =
@@ -70,13 +70,13 @@ class ForgotPassword extends React.Component {
   }
 
 
-  /**
-    * @description Render react component
-    *
-    * @memberof ForgotPassword
-    *
-    * @return { ReactElement } rendered ForgotPassword page markup
-    */
+/**
+* @description Render react component
+*
+* @memberof ForgotPassword
+*
+* @return { ReactElement } rendered ForgotPassword page markup
+*/
   render() {
     return (
       <div>

@@ -1,4 +1,5 @@
 import React from 'react';
+import lodash from 'lodash';
 import AppStore from '../../stores/AppStore';
 import AppActions from '../../actions/AppActions';
 
@@ -11,13 +12,13 @@ import AppActions from '../../actions/AppActions';
  * @extends {React.Component}
  */
 class AddMember extends React.Component {
-	/**
-		* Creates an instance of AddMember
-		*
-		* @param {object} props
-		*
-		* @memberof AddMember
-	*/
+/**
+* Creates an instance of AddMember
+*
+* @param {object} props
+*
+* @memberof AddMember
+*/
 
   constructor(props) {
     super(props);
@@ -25,60 +26,43 @@ class AddMember extends React.Component {
       userName: '',
       userId: '',
       error: '',
-      searchUser: ''
     };
     this.onChange = this.onChange.bind(this);
     this.onClick = this.onClick.bind(this);
+    this.changeToUserId = this.changeToUserId.bind(this);
   }
 
 
-  /**
-    * @method onChange
-    *
-    * @description Monitors changes in the components and change the state
-    *
-    * @memberof AddMember
-    *
-    * @param {SyntheticEvent} event
-    *
-    * @returns {void}
-  */
+/**
+* @method onChange
+*
+* @description Monitors changes in the components and change the state
+*
+* @memberof AddMember
+*
+* @param {SyntheticEvent} event
+*
+* @returns {void}
+*/
+
   onChange(event) {
-    if (event.target.value !== '') {
-      this.setState({
-        searchUser: '',
-        userName: event.target.value,
-      });
-      if (this.state.userName !== '') {
-        AppActions.searchUsers(this.state.userName);
-        this.setState({
-          searchUser: AppStore.getSearchedUsers().userName
-        });
-      } else {
-        AppActions.clearSearch();
-        this.setState({
-          searchUser: 'No user found'
-        });
-      }
-    } else {
-      this.setState({
-        searchUser: '',
-        userName: '',
-      });
-    }
+    this.setState({
+      userName: event.target.value,
+    });
   }
 
 
-	/**
-	 * @description add a member to a group if a group is selected and
-	 * username is not empty
-	 *
-	 * @param {SyntheticEvent} event
-	 *
-	 * @returns {void}
-	 *
-	 * @memberof AddMember
-	*/
+/**
+ * @description add a member to a group if a group is selected and
+ * username is not empty
+ *
+ * @param {SyntheticEvent} event
+ *
+ * @returns {void}
+ *
+ * @memberof AddMember
+*/
+
   onClick(event) {
     event.preventDefault();
     if (!AppStore.getOpenedGroup()[0]) {
@@ -89,13 +73,14 @@ class AddMember extends React.Component {
       return true;
     }
     const user = {
-      userName: AppStore.getSearchedUsers().userName || this.state.userName,
+      userId: this.changeToUserId(this.state.userName),
+      userName: this.state.userName,
       groupId: AppStore.getOpenedGroup()[0].groupId,
-      userId: AppStore.getSearchedUsers().userId,
     };
-    if (!this.state.userName) {
+    if (!user.userId) {
       this.setState({
-        error: 'user name is required',
+        error: 'This User does not exist',
+        userName: '',
       });
     } else {
       AppActions.addUserToGroup(user);
@@ -106,35 +91,50 @@ class AddMember extends React.Component {
     }
   }
 
-
-	/**
-	 * @method render
-	 *
-	 * Render addmember component
-	 *
-	 * @returns {ReactElement} AddMember markup
-	 *
-	 * @memberof AddMember
-	 */
+/**
+ * @description function that get userid from username
+ *
+ * @param {String} userName
+ *
+ * @returns {String}
+ *
+ * @memberof AddMember
+ */
+  changeToUserId(userName) {
+    let n;
+    lodash.map(AppStore.getUsers()).map((user) => {
+      if (userName === user.userName) {
+        n = user.userId;
+      } else {
+        return null;
+      }
+    });
+    return n;
+  }
+/**
+ * @method render
+ *
+ * Render addmember component
+ *
+ * @returns {ReactElement} AddMember markup
+ *
+ * @memberof AddMember
+ */
   render() {
     return (
       <div className="panel-body">
-        <h6> To add a member, search with username </h6>
+        <h6> To add a member, type the member username </h6>
         <div className="error"> {this.state.error} </div>
         <form className="navbar-form" role="search">
           <div className="form-group">
             <input
-              type="text"
-              className="form-control"
-              placeholder="Add member"
               name="userName"
               onChange={this.onChange}
               value={this.state.userName}
-              list="browsers"
+              type="text"
+              className="form-control"
+              placeholder="Add member"
             />
-            <datalist id="browsers">
-              <option value={this.state.searchUser} />
-            </datalist>
           </div>
           <button
             onClick={this.onClick}
