@@ -13,13 +13,10 @@ require('dotenv').config();
 export const sendEmail = (emailObject) => {
   const transporter = nodemailer.createTransport({
     service: 'gmail',
-    port: 25,
-    secure: false,
     auth: {
       user: process.env.user,
       pass: process.env.pass,
     },
-    tls: { rejectUnauthorized: false }
   });
   const mailOptions = {
     from: 'Post It App',
