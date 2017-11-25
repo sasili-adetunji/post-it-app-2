@@ -148,6 +148,8 @@ class Register extends React.Component {
                   name="phoneNumber"
                   onChange={this.onChange}
                   id="phoneNumber"
+                  pattern="[234][0-9]{12}"
+                  title="It will contain 13 numbers and must start with 234"
                   value={this.state.phoneNumber}
                   placeholder="234XXXXXXXXXX"
                 />
