@@ -29,7 +29,7 @@ class Register extends React.Component {
       phoneNumber: '',
       errors: {}
     };
-    this.onClick = this.onClick.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
     this.onChange = this.onChange.bind(this);
   }
 
@@ -62,7 +62,7 @@ class Register extends React.Component {
  *
  * @memberof Register
 */
-  onClick(event) {
+  handleSubmit(event) {
     event.preventDefault();
     const user = {
       email: this.state.email,
@@ -117,7 +117,7 @@ class Register extends React.Component {
               {this.state.errors.password} {this.state.errors.phoneNumber}
               {this.state.errors.userName}
             </div>
-            <form>
+            <form onSubmit={this.handleSubmit}>
               <div className="form-group">
                 <label htmlFor="email"> Email address</label>
                 <input
@@ -128,6 +128,7 @@ class Register extends React.Component {
                   onChange={this.onChange}
                   value={this.state.email}
                   placeholder="Email"
+                  required
                 />
               </div>
               <div className="form-group">
@@ -139,6 +140,7 @@ class Register extends React.Component {
                   onChange={this.onChange}
                   value={this.state.userName}
                   placeholder="Username"
+                  required
                 />
               </div>
               <div className="form-group">
@@ -152,6 +154,7 @@ class Register extends React.Component {
                   title="It will contain 13 numbers and must start with 234"
                   value={this.state.phoneNumber}
                   placeholder="234XXXXXXXXXX"
+                  required
                 />
               </div>
               <div className="form-group">
@@ -160,16 +163,18 @@ class Register extends React.Component {
                   type="password"
                   className="form-control"
                   name="password"
+                  pattern=".{6,}"
+                  title="Six or more characters"
                   onChange={this.onChange}
                   value={this.state.password}
                   id="password"
                   placeholder="Password"
+                  required
                 />
               </div>
               <button
                 type="submit"
                 className="btn btn-primary"
-                onClick={this.onClick}
               >Register</button>
             </form>
             <div className="clear" />
