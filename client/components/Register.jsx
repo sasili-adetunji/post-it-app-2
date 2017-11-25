@@ -149,7 +149,7 @@ class Register extends React.Component {
                   onChange={this.onChange}
                   id="phoneNumber"
                   value={this.state.phoneNumber}
-                  placeholder="Phone Number"
+                  placeholder="234XXXXXXXXXX"
                 />
               </div>
               <div className="form-group">

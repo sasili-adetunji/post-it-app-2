@@ -10,9 +10,9 @@
    * @return {Object} response containing the error message
    */
   export const signup = (req, res, next) => {
-    req.check('phoneNumber', 'phone number is required').notEmpty();
+    req.check('phoneNumber', 'phone number is required').notEmpty().matches(/\d/);
     req.check('password', 'Password is required').notEmpty();
-    req.check('userName', 'Username is required').notEmpty();
+    req.check('userName', 'Username is required').notEmpty().matches(/\w/);
     req.check('password', 'Password must be between 6 and 50 characters')
     .isLength(6, 50);
     req.check('email', 'Email Address is Required').notEmpty();
@@ -110,7 +110,7 @@
  */
   export const addMemberToGroup = (req, res, next) => {
     req.check('groupId', 'Group Id is required').notEmpty();
-    req.check('userName', 'User name is required').notEmpty();
+    req.check('userId', 'User Id is required').notEmpty();
     const errors = req.validationErrors();
     if (errors) {
       const message = errors[0].msg;
