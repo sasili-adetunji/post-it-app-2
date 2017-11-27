@@ -43,7 +43,7 @@ describe('Register', () => {
   });
   it('should have all the method defined', () => {
     expect(mountedComponent.node.onChange).toBeDefined();
-    expect(mountedComponent.node.onClick).toBeDefined();
+    expect(mountedComponent.node.handleSubmit).toBeDefined();
   });
   it('should update state on when onchange method is called', () => {
     const event = {
@@ -54,14 +54,14 @@ describe('Register', () => {
   });
   it('should sign up a user', () => {
     const preventDefault = jest.fn();
-    wrapper.find('button').simulate('click', { preventDefault });
+    wrapper.find('form').simulate('submit', { preventDefault });
     expect(preventDefault).toHaveBeenCalledTimes(1);
   });
   it('should thow an error when signing up with empty passwrod', () => {
     const preventDefault = jest.fn();
     wrapper.state().email = 'sas@gmail.com';
     wrapper.state().password = '';
-    wrapper.find('button').simulate('click', { preventDefault });
+    wrapper.find('form').simulate('submit', { preventDefault });
     const errors = {
       password: 'Password is required'
     };
@@ -73,7 +73,7 @@ describe('Register', () => {
     wrapper.state().password = 'sas';
     wrapper.state().phoneNumber = '';
 
-    wrapper.find('button').simulate('click', { preventDefault });
+    wrapper.find('form').simulate('submit', { preventDefault });
     const errors = {
       phoneNumber: 'Phone Number is required'
     };
@@ -85,7 +85,7 @@ describe('Register', () => {
     wrapper.state().password = 'sas';
     wrapper.state().phoneNumber = '2348037817325';
     wrapper.state().userName = '';
-    wrapper.find('button').simulate('click', { preventDefault });
+    wrapper.find('form').simulate('submit', { preventDefault });
     const errors = {
       userName: 'userName is required'
     };
@@ -98,7 +98,7 @@ describe('Register', () => {
     wrapper.state().password = 'sas';
     wrapper.state().phoneNumber = '2348037817325';
     wrapper.state().userName = 'sas';
-    wrapper.find('button').simulate('click', { preventDefault });
+    wrapper.find('form').simulate('submit', { preventDefault });
     expect(registerUserSpy).toHaveBeenCalled();
   });
   it('Should contain four input fields', () => {
