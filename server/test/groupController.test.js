@@ -69,8 +69,7 @@ describe('Group Route:', () => {
     it('should return validation errror for an empty username', (done) => {
       const group = {
         groupName: 'Andela Programmers',
-        userName: '',
-        userId: 'gGtY4BsjhCN9fmIMrosCO5cTSw63',
+        userId: '',
         groupId: '-Kykr12Wi3xjxm1jeARk'
       };
       chai.request(app)
@@ -78,7 +77,7 @@ describe('Group Route:', () => {
         .set('x-access-token', token)
         .send(group)
         .end((err, res) => {
-          assert.equal('User name is required',
+          assert.equal('User Id is required',
           res.body.message);
           res.should.have.status(400);
           res.body.should.be.a('object');
