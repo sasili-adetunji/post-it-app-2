@@ -220,6 +220,11 @@ export const getUsersInGroup = (group) => {
   })
   .catch((error) => {
     AppActions.receiveErrors(error.message);
+    if (error.response.data.error === 'Token has expired') {
+      localStorage.clear();
+      AppStore.setIsAuthenticated(false);
+      setAuthorizationToken(false);
+    }
   });
 };
 
@@ -236,6 +241,12 @@ export const getUsers = () => {
     AppActions.receiveUsers(response.data.users);
   })
   .catch((error) => {
+    if (error.response.data.error === 'Token has expired') {
+      localStorage.clear();
+      toastr.error('Your session has expired, Login again');
+      AppStore.setIsAuthenticated(false);
+      setAuthorizationToken(false);
+    }
     AppActions.receiveErrors(error.message);
   });
 };
