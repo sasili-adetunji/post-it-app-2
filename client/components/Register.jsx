@@ -84,10 +84,6 @@ class Register extends React.Component {
       // clears the state
 
       this.setState({
-        userName: '',
-        email: '',
-        password: '',
-        phoneNumber: '',
         errors: {}
       });
     }
@@ -109,7 +105,6 @@ class Register extends React.Component {
         <div className="container">
           <div className="row" />
           <div className="col-md-offset-3 col-md-6">
-
             <h1>Sign Up</h1>
             <p>To continue using PostIt, you need to sign up below</p>
             <div className="error">

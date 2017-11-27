@@ -65,7 +65,7 @@ class ForgotPassword extends React.Component {
       this.setState({ error: 'Email is required' });
     } else {
       AppActions.resetPassword(email);
-      this.setState({ errors: '', email: '' });
+      this.setState({ errors: '' });
     }
   }
 

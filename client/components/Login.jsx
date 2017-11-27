@@ -29,7 +29,6 @@ class Login extends React.Component {
       email: '',
       password: '',
       errors: {},
-      isLoading: false,
     };
     this.onChange = this.onChange.bind(this);
     this.onClick = this.onClick.bind(this);
@@ -75,11 +74,8 @@ class Login extends React.Component {
     } else {
       AppActions.login(user);
       this.setState({
-        email: '',
-        password: '',
         errors: '',
         success: '',
-        isLoading: true
       });
     }
   }
@@ -118,16 +114,9 @@ class Login extends React.Component {
 * @memberof Login
 */
   render() {
-    const isLoading = () => {
-      const loading = (
-        this.state.isLoading ? <div id="loader" /> : <span />
-      );
-      return loading;
-    };
     return (
       <div>
         <div className="container">
-          {isLoading()}
           <div className="row">
             <div className="col-md-offset-3 col-md-6">
               <h1>Login</h1>
