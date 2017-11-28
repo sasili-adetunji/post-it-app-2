@@ -1,4 +1,6 @@
-require('dotenv').config(); // eslint-disable-line
+import firebase from 'firebase';
+
+require('dotenv').config();
 
 const config = {
   apiKey: process.env.apiKey,
@@ -8,4 +10,7 @@ const config = {
   storageBucket: process.env.storageBucket,
   messagingSenderId: process.env.messagingSenderId,
 };
-export default config;
+
+const dbConfig = firebase.initializeApp(config);
+
+export default dbConfig;

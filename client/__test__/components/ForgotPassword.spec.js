@@ -1,12 +1,12 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import PostItActions from '../../actions/PostItActions';
+import AppActions from '../../actions/AppActions';
 import ForgotPassword from '../../components/ForgotPassword.jsx';
 
 require('../setup');
 
 
-jest.mock('../../actions/PostItActions');
+jest.mock('../../actions/AppActions');
 
 describe('Register', () => {
   const wrapper = mount(<ForgotPassword />);
@@ -20,15 +20,6 @@ describe('Register', () => {
     }
     return mountedComponent;
   };
-
-  beforeEach(() => {
-    props = {
-      onChange: () => {},
-    };
-    mountedComponent = mount(
-      <ForgotPassword {...props} />
-      );
-  });
   it('should always render', () => {
     expect(forgotPassword()).toBeDefined();
   });
@@ -47,7 +38,7 @@ describe('Register', () => {
     expect(wrapper.state().name).toEqual('value');
   });
   it('should fire register actions when all fields are set', () => {
-    const registerUserSpy = jest.spyOn(PostItActions, 'resetPassword');
+    const registerUserSpy = jest.spyOn(AppActions, 'resetPassword');
     const preventDefault = jest.fn();
     wrapper.state().email = 'sas@gmail.com';
     wrapper.find('button').simulate('click', { preventDefault });

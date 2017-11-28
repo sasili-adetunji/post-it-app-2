@@ -10,9 +10,9 @@
    * @return {Object} response containing the error message
    */
   export const signup = (req, res, next) => {
-    req.check('phoneNumber', 'phone number is required').notEmpty();
+    req.check('phoneNumber', 'phone number is required').notEmpty().matches(/\d/);
     req.check('password', 'Password is required').notEmpty();
-    req.check('userName', 'Username is required').notEmpty();
+    req.check('userName', 'Username is required').notEmpty().matches(/\w/);
     req.check('password', 'Password must be between 6 and 50 characters')
     .isLength(6, 50);
     req.check('email', 'Email Address is Required').notEmpty();
@@ -38,10 +38,11 @@
  * @return {Object} response containing the error message
  */
   export const signin = (req, res, next) => {
-    req.check('email', 'Email is required').notEmpty();
-    req.check('password', 'Password is required').notEmpty();
-    req.check('email', 'Please put a valid email').isEmail();
-    req.check('password', 'Password must be between 6 and 50 characters')
+    req.check('email', 'The email or password you entered is incorrect').notEmpty();
+    req.check('password', 'The email or password you entered is incorrect').notEmpty();
+    req.check('email', 'The email or password you entered is incorrect')
+    .isEmail();
+    req.check('password', 'The email or password you entered is incorrect')
     .isLength(6, 50);
 
     const errors = req.validationErrors();
@@ -86,8 +87,8 @@
  * @return {Object} response containing the error message
  */
   export const createGroup = (req, res, next) => {
-    req.check('groupName', 'Please enter a valid group name').notEmpty();
-
+    req.check('groupName', 'Please enter a valid group name')
+     .notEmpty().matches(/\w/);
     const errors = req.validationErrors();
     if (errors) {
       const message = errors[0].msg;
@@ -110,7 +111,6 @@
   export const addMemberToGroup = (req, res, next) => {
     req.check('groupId', 'Group Id is required').notEmpty();
     req.check('userId', 'User Id is required').notEmpty();
-    req.check('userName', 'User name is required').notEmpty();
     const errors = req.validationErrors();
     if (errors) {
       const message = errors[0].msg;
@@ -132,7 +132,8 @@
  */
   export const postMessage = (req, res, next) => {
     req.check('groupId', 'Group Id is required').notEmpty();
-    req.check('message', 'Please enter a valid message').notEmpty();
+    req.check('message', 'Please enter a valid message')
+    .notEmpty().matches(/\w/);
     req.check('priorityLevel', 'Priority level is required').notEmpty();
 
     const errors = req.validationErrors();

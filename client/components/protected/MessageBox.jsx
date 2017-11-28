@@ -1,7 +1,7 @@
 import React from 'react';
 import moment from 'moment';
-import PostItActions from '../../actions/PostItActions';
-import PostItStore from '../../stores/PostItStore';
+import AppActions from '../../actions/AppActions';
+import AppStore from '../../stores/AppStore';
 
 
 /**
@@ -12,6 +12,14 @@ import PostItStore from '../../stores/PostItStore';
  * @extends {React.Component}
  */
 class MessageBox extends React.Component {
+/**
+ * @description Creates an instance of MessageBox.
+ * bind methods and set initial state.
+ *
+ * @memberof MessageBox
+ *
+ * @param {object} props
+ */
   constructor(props) {
     super(props);
     this.state = {
@@ -31,7 +39,7 @@ class MessageBox extends React.Component {
 *
 * @memberof MessageBox
 *
-* @param {object} event
+* @param {SyntheticEvent} event
 *
 * @returns {void}
 */
@@ -43,9 +51,10 @@ class MessageBox extends React.Component {
 
 
 /**
- * @description Makes an action call to post message to a group
+ * @description Posts a message to the database if a group exists and message
+ * is not empty
  *
- * @param {object} event
+ * @param {SyntheticEvent} event
  *
  * @returns {void}
  *
@@ -53,14 +62,14 @@ class MessageBox extends React.Component {
 */
   onClick(event) {
     event.preventDefault();
-    if (!PostItStore.getOpenedGroup()[0]) {
+    if (!AppStore.getOpenedGroup()[0]) {
       this.setState({
         error: { group: 'Please kindly select a group first' },
         message: ''
       });
-    } else if (!this.state.message) {
+    } else if ((!this.state.message) || (!this.state.message.trim())) {
       this.setState({
-        error: { message: 'Kindly type your message first' }
+        error: { message: 'Please enter a valid message' }
       });
     } else if (!this.state.priorityLevel) {
       this.setState({
@@ -69,28 +78,29 @@ class MessageBox extends React.Component {
     } else {
       const message = {
         messageText: this.state.message,
-        groupId: PostItStore.getOpenedGroup()[0].groupId,
+        groupId: AppStore.getOpenedGroup()[0].groupId,
         priorityLevel: this.state.priorityLevel,
         date: moment().format('MMMM Do YYYY, h:mm:ss a'),
-        author: PostItStore.getLoggedInUser().data.userName
+        author: AppStore.getLoggedInUser().data.userName
       };
-      PostItActions.addMessage(message);
+      AppActions.addMessage(message);
       this.setState({
         error: '',
         message: ''
       });
     }
   }
- /**
-   * @method render
-   *
-   * Render MessageBox component
-   *
-   * @returns {String} The HTML markup for the MessageBox Components
-   *
-   * @memberof MessageBox
-   */
 
+
+/**
+* @method render
+*
+* Render MessageBox component
+*
+* @returns {ReactElement} MessageBox markup
+*
+* @memberof MessageBox
+*/
   render() {
     return (
       <div className="messageForm">
@@ -109,6 +119,7 @@ class MessageBox extends React.Component {
                   value={this.state.message}
                   type="text"
                   className="form-control messageInput"
+                  required
                 />
               </div>
             </div>
@@ -132,7 +143,7 @@ class MessageBox extends React.Component {
                 onClick={this.onClick}
                 className="btn btn-primary btn-block sendButton"
               >
-                Send Message
+                Send
               </button>
             </div>
           </div>

@@ -10,14 +10,15 @@ import routes from './app/routes/index';
 const app = express();
 const port = process.env.PORT || 8000;
 
-// use body parser to allow parsing of incoming request bodies
-// available under the req.body property.
-
+// parse incoming request data available ubder req.body property
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+
+// express validator to validate input
 app.use(expressValidator());
 app.use(express.static(path.join(__dirname, '../client/public')));
 
+// all the routes
 routes(app);
 
 app.listen(port, () => {

@@ -1,11 +1,11 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import PostItActions from '../../actions/PostItActions';
+import AppActions from '../../actions/AppActions';
 import Group from '../../components/protected/Group.jsx';
 
 require('../setup');
 
-jest.mock('../../actions/PostItActions');
+jest.mock('../../actions/AppActions');
 
 
 describe('Group components', () => {
@@ -26,8 +26,8 @@ describe('Group components', () => {
   it('should render without throwing an error', () => {
     expect(component.find('li').length).toEqual(1);
   });
-  it('should call function on click of login submit button', () => {
-    const groupSpy = jest.spyOn(PostItActions, 'groupOpened');
+  it('should call function on click of a group', () => {
+    const groupSpy = jest.spyOn(AppActions, 'groupOpened');
     component.find('li').simulate('click');
     expect(groupSpy).toBeCalledWith(group);
   });

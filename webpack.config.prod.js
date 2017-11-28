@@ -6,7 +6,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const config = {
   devtool: 'source-map',
-  entry: './client/index.js',
+  entry: './client/index.jsx',
   output: {
     path: path.join(__dirname, 'client/public'),
     publicPath: '/',
@@ -28,10 +28,9 @@ const config = {
       {
         test: /\.jsx?$/,
         exclude: /node_modules/,
-        loader: 'babel-loader',
-        query: {
-          presets: ['es2015', 'react', 'stage-0'],
-        },
+        loader: [
+          'babel-loader',
+        ]
       },
       {
         test: /\.css$/,

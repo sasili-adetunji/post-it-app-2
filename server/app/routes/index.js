@@ -1,13 +1,9 @@
-import firebase from 'firebase';
-import users from './users';
-import messages from './messages';
-import groups from './groups';
-import config from '../config/database';
-
-firebase.initializeApp(config);
+import user from './user';
+import message from './message';
+import group from './group';
 
 module.exports = (app) => {
-  users(app);
-  groups(app);
-  messages(app);
+  user(app);
+  group(app);
+  message(app);
 };

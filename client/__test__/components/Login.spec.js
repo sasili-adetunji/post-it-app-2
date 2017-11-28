@@ -1,12 +1,12 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import PostItActions from '../../actions/PostItActions';
+import AppActions from '../../actions/AppActions';
 import Login from '../../components/Login.jsx';
 
 require('../setup');
 
 
-jest.mock('../../actions/PostItActions');
+jest.mock('../../actions/AppActions');
 
 describe('Login', () => {
   const wrapper = mount(<Login />);
@@ -57,7 +57,7 @@ describe('Login', () => {
     expect(wrapper.state().errors).toEqual(errors);
   });
   it('should fire register actions when all fields are set', () => {
-    const registerUserSpy = jest.spyOn(PostItActions, 'login');
+    const registerUserSpy = jest.spyOn(AppActions, 'login');
     const preventDefault = jest.fn();
     wrapper.state().email = 'sas@gmail.com';
     wrapper.state().password = 'sas';

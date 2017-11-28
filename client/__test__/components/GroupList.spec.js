@@ -1,40 +1,36 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
+import { mount } from 'enzyme';
 import GroupList from '../../components/protected/GroupList.jsx';
-import PostItStore from '../../stores/PostItStore';     // eslint-disable-line
-
 
 require('../setup');
 
 
 describe('GroupList components', () => {
-  let props;
   let mountedComponent;
   const groupList = () => {
     if (!mountedComponent) {
       mountedComponent = mount(
-        <GroupList {...props} />
+        <GroupList />
       );
     }
     return mountedComponent;
   };
-
-  beforeEach(() => {
-    props = {
-      selected: [{ groupId: '-Kxmsgit2a21Qf7y25hF', groupName: 'creatGro' }],
-      onChange: () => {},
-    };
-    mountedComponent = mount(
-      <GroupList {...props} />
-      );
-  });
   it('should render', () => {
     expect(groupList()).toBeDefined();
   });
   it('Should contain five div', () => {
     expect(groupList().find('div').length).toEqual(5);
   });
-  it('should recieve props', () => {
-    expect(Object.keys(groupList().props()).length).toBeGreaterThan(0);
+  it('should not recieve props', () => {
+    expect(Object.keys(groupList().props()).length).toBe(0);
+  });
+  it('expects the following functions defined', () => {
+    const preventDefault = jest.fn();
+    groupList().instance().closeModal({ preventDefault });
+    groupList().instance().openModal({ preventDefault });
+    groupList().instance().handleSubmit({ preventDefault });
+  });
+  it('should render the button to create a new group', () => {
+    expect(groupList().find('#createNewGroup').text()).toBe('Create a Group');
   });
 });

@@ -4,10 +4,9 @@ import NavBar from '../../components/NavBar.jsx';
 
 require('../setup');
 
-jest.mock('../../actions/PostItActions');
+jest.mock('../../actions/AppActions');
 
 describe('NavBar', () => {
-  const wrapper = mount(<NavBar />);
   let props;
   let mountedComponent;
   const navbar = () => {

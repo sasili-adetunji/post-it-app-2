@@ -16,7 +16,6 @@ describe('Message', () => {
     }
     return mountedComponent;
   };
-
   beforeEach(() => {
     props = {
       message: {
