@@ -1,8 +1,7 @@
 import React from 'react';
-import { Modal } from 'react-bootstrap';
-import AppStore from '../../stores/AppStore';
 import Group from './Group';
-import CreateGroup from './CreateGroup';
+import AppActions from '../../actions/AppActions';
+import * as Api from '../../api/AppApi';
 
 /**
  * A collection of group that displays the auser's groups
@@ -25,32 +24,80 @@ class GroupList extends React.Component {
     super(props);
     this.state = {
       isOpen: false,
+      groupName: '',
+      error: ''
     };
-    this.closeModal = this.closeModal.bind(this);
-    this.openModal = this.openModal.bind(this);
+    this.openAddMemberModal = this.openAddMemberModal.bind(this);
+    this.onChange = this.onChange.bind(this);
+    this.onClick = this.onClick.bind(this);
   }
 
-/**
-* Handles close Modal event
-*
-* @param {SyntheticEvent} event
-*
-* @returns {void} null
-*/
-  closeModal() {
-    this.setState({ isOpen: false });
+
+ /**
+   * @description describes a function that dynamically
+   * controls the behaviour of a modal
+   *
+   * @param { string } event
+   *
+   * @return { void }
+   *
+   * @memberof GroupList
+   */
+  openAddMemberModal = (event) => {
+    event.preventDefault();
+    const $myModal = $('#myModal');
+    $myModal.modal();
   }
 
-/**
-* Handles open Modal event
-*
-* @param {SyntheticEvent} event
-*
-* @returns {void} null
-*/
-  openModal() {
-    this.setState({ isOpen: true });
+
+  /**
+  * @method onChange
+  *
+  * @description Monitors changes in the components and change the state
+  *
+  * @memberof CreateGroup
+  *
+  * @param {SyntheticEvent} event
+  *
+  * @returns {void}
+  */
+
+  onChange(event) {
+    this.setState({
+      groupName: event.target.value
+    });
   }
+
+
+
+    /**
+   * @description creates a group if groupname is not empty
+   *
+   * @param {object} event
+   *
+   * @returns {void}
+   *
+   * @memberof CreateGroup
+  */
+  onClick(event) {
+    event.preventDefault();
+    const group = {
+      groupName: this.state.groupName,
+    };
+    if ((!this.state.groupName) || (!this.state.groupName.trim())) {
+      this.setState({
+        error: 'Please enter a valid group name'
+      });
+    } else {
+      AppActions.createGroup(group);
+      Api.getUserGroups();
+      this.setState({
+        groupName: '',
+        error: ''
+      });
+    }
+  }
+
 
 /**
  * @method render
@@ -63,32 +110,72 @@ class GroupList extends React.Component {
  */
   render() {
     let header = null;
-    if (AppStore.getGroupsUser().length < 1) {
+    if (this.props.groups.length < 1) {
       header = (<div> <h4 className="card-header"> No Group yet </h4> </div>);
     } else {
       header = (<div> <h4 className="card-header"> My Groups </h4> </div>);
     }
-    const groupNodes = AppStore.getGroupsUser().map((group, i) => (
+    const groupNodes = this.props.groups.map((group, i) => (
       <Group group={group} key={i} />
     ));
     return (
       <div>
         <div className="createGroupBtn">
           <button
-            onClick={this.openModal}
+            onClick={this.openAddMemberModal}
             type="button"
             id="createNewGroup"
             className="btn btn-primary btn-block createGroup"
           >Create a Group
           </button>
-          <Modal show={this.state.isOpen} onHide={this.closeModal}>
-            <Modal.Body>
-              <CreateGroup />
-            </Modal.Body>
-            <Modal.Footer>
-              <a onClick={this.closeModal}> Close</a>
-            </Modal.Footer>
-          </Modal>
+          <div
+            className="modal fade modal2"
+            id="myModal"
+            role="dialog"
+          >
+            <div className="modal-dialog">
+              <div className="modal-content">
+                <div className="modal-header">
+                  <button
+                    type="button"
+                    className="close"
+                    data-dismiss="modal"
+                  >
+                    &times;
+                      </button>
+                  <h4 className="modal-title">
+                    Create Group
+                      </h4>
+                  <div className="error"> {this.state.error} </div>
+                </div>
+                <div className="modal-body">
+                  <input
+                    type="text"
+                    className="form-control"
+                    placeholder="Create Group"
+                    name="groupName"
+                    onChange={this.onChange}
+                    value={this.state.groupName}
+                  />
+                </div>
+                <div className="modal-footer">
+                  <button
+                    type="button"
+                    className="btn btn-danger"
+                    data-dismiss="modal"
+                  >
+                    Close
+                      </button>
+                  <button
+                    onClick={this.onClick}
+                    type="submit"
+                    id="submit"
+                    className="btn btn-success"
+                  > Submit </button>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
         <div className="allGroups">
           <h4> {header} </h4>

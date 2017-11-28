@@ -222,8 +222,8 @@ const AppStore = assign({}, EventEmitter.prototype, {
  *
  * @returns { Array }
  */
-  addGroups(groups) {
-    groupsUser.push(groups);
+  addGroups(group) {
+    groupsUser.push(group);
   },
 
 /**
@@ -410,6 +410,7 @@ AppDispatcher.register((payload) => {
 
     case AppConstants.CREATE_GROUP:
       Api.createNewGroup(action.group);
+      AppStore.addGroups(action.group);
       AppStore.emitChange('change');
       break;
 
@@ -492,7 +493,7 @@ AppDispatcher.register((payload) => {
       break;
 
     case AppConstants.RECIEVE_CREATE_GROUP:
-      AppStore.addGroups(action.group);
+      // AppStore.addGroups(action.group);
       AppStore.emitChange('change');
       break;
 

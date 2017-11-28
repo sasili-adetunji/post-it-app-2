@@ -105,7 +105,7 @@ class Dashboard extends React.Component {
         <div className="container">
           <div className="row">
             <div className="col-md-2 col-xs-12">
-              <GroupList />
+              <GroupList groups={AppStore.getGroupsUser()} />
               <UserList
                 groupName={AppStore.getOpenedGroup()[0]}
                 users={AppStore.getUsersInGroup()}

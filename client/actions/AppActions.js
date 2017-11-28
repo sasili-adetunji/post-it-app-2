@@ -286,6 +286,22 @@ const AppActions = {
       user,
     });
   },
+
+    /**
+  * @description describes an action that recieve the message after
+  * a group is created
+  *
+  * @param {Object} group group details of the group created
+  *
+  * @returns {Object} action type and and the group details
+  */
+  recieveCreateGroup(group) {
+    AppDispatcher.handleViewAction({
+      actionType: AppConstants.RECIEVE_CREATE_GROUP,
+      group,
+    });
+  },
+
 };
 
 export default AppActions;

@@ -112,8 +112,9 @@ export const googleLogin = (result) => {
 export const createNewGroup = (group) => {
   axios.post('/group', group)
   .then((response) => {
-    AppStore.addGroups(response.data.groups);
+    AppActions.recieveCreateGroup(response.data.groups);
     toastr.success(response.data.message);
+    $('#myModal').modal('hide');
   })
   .catch((error) => {
     toastr.error(error.response.data.message);
@@ -156,6 +157,7 @@ export const addUserToGroup = (user) => {
   .then((response) => {
     AppActions.recieveAddMembersToGroups(response.data.user);
     toastr.success(response.data.message);
+    $('#modal').modal('hide');
   })
   .catch((error) => {
     toastr.error(error.response.data.message);
