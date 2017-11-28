@@ -68,7 +68,6 @@ class AddMember extends React.Component {
     if (!AppStore.getOpenedGroup()[0]) {
       this.setState({
         error: 'Kindly select a group first',
-        userName: '',
       });
       return true;
     }
@@ -80,7 +79,6 @@ class AddMember extends React.Component {
     if (!user.userId) {
       this.setState({
         error: 'This User does not exist',
-        userName: '',
       });
     } else {
       AppActions.addUserToGroup(user);
@@ -101,15 +99,15 @@ class AddMember extends React.Component {
  * @memberof AddMember
  */
   changeToUserId(userName) {
-    let n;
+    let userId;
     lodash.map(AppStore.getUsers()).map((user) => {
       if (userName === user.userName) {
-        n = user.userId;
+        userId = user.userId;
       } else {
         return null;
       }
     });
-    return n;
+    return userId;
   }
 /**
  * @method render
