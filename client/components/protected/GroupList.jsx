@@ -2,9 +2,7 @@ import React from 'react';
 import { Modal } from 'react-bootstrap';
 import AppStore from '../../stores/AppStore';
 import Group from './Group';
-import AppActions from '../../actions/AppActions';
-import * as Api from '../../api/AppApi';
-
+import CreateGroup from './CreateGroup';
 
 /**
  * A collection of group that displays the auser's groups
@@ -27,77 +25,10 @@ class GroupList extends React.Component {
     super(props);
     this.state = {
       isOpen: false,
-      groupName: '',
-      error: ''
     };
-    this.onChange = this.onChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
     this.closeModal = this.closeModal.bind(this);
     this.openModal = this.openModal.bind(this);
   }
-
-
-/**
-* @method onChange
-*
-* @description Monitors changes in the components and change the state
-*
-* @memberof CreateGroup
-*
-* @param {SyntheticEvent} event
-*
-* @returns {void}
-*/
-  onChange(event) {
-    // event.preventDefault();
-    this.setState({
-      groupName: event.target.value
-    });
-  }
-
-
-/**
- * @description creates a group if groupname is not empty
- *
- * @param {object} event
- *
- * @returns {void}
- *
- * @memberof CreateGroup
-*/
-  handleSubmit(event) {
-    event.preventDefault();
-    const group = {
-      groupName: this.state.groupName,
-    };
-    if ((!this.state.groupName) || (!this.state.groupName.trim())) {
-      this.setState({
-        error: 'Please enter a valid group name'
-      });
-    } else {
-      AppActions.createGroup(group);
-      Api.getUserGroups();
-      this.setState({
-        groupName: '',
-        error: '',
-        isOpen: false
-      });
-    }
-  }
-
-
-/**
-* Handles open Modal event
-*
-* @param {SyntheticEvent} event
-*
-* @returns {void} null
-*/
-  openModal(event) {
-    event.preventDefault();
-    this.setState({ isOpen: true });
-  }
-
 
 /**
 * Handles close Modal event
@@ -106,9 +37,19 @@ class GroupList extends React.Component {
 *
 * @returns {void} null
 */
-  closeModal(event) {
-    event.preventDefault();
+  closeModal() {
     this.setState({ isOpen: false });
+  }
+
+/**
+* Handles open Modal event
+*
+* @param {SyntheticEvent} event
+*
+* @returns {void} null
+*/
+  openModal() {
+    this.setState({ isOpen: true });
   }
 
 /**
@@ -142,30 +83,7 @@ class GroupList extends React.Component {
           </button>
           <Modal show={this.state.isOpen} onHide={this.closeModal}>
             <Modal.Body>
-              <div className="panel-body">
-                <div className="error"> {this.state.error} </div>
-                <form
-                  onSubmit={this.handleSubmit}
-                  className="navbar-form"
-                  role="search"
-                >
-                  <div className="form-group">
-                    <input
-                      type="text"
-                      className="form-control"
-                      placeholder="Create Group"
-                      name="groupName"
-                      onChange={this.onChange}
-                      value={this.state.groupName}
-                    />
-                  </div>
-                  <button
-                    type="submit"
-                    id="submit"
-                    className="btn btn-primary addMember"
-                  > Submit </button>
-                </form>
-              </div>
+              <CreateGroup />
             </Modal.Body>
             <Modal.Footer>
               <a onClick={this.closeModal}> Close</a>
