@@ -493,7 +493,6 @@ AppDispatcher.register((payload) => {
       break;
 
     case AppConstants.RECIEVE_CREATE_GROUP:
-      // AppStore.addGroups(action.group);
       AppStore.emitChange('change');
       break;
 
