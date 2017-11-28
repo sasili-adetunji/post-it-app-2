@@ -80,9 +80,7 @@ class Register extends React.Component {
       this.setState({ errors: { userName: 'userName is required' } });
     } else {
       AppActions.registerUser(user);
-
       // clears the state
-
       this.setState({
         errors: {}
       });
