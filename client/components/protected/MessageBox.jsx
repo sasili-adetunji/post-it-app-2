@@ -32,17 +32,17 @@ class MessageBox extends React.Component {
   }
 
 
-  /**
-  * @method onChange
-  *
-  * @description Monitors changes in the components and change the state
-  *
-  * @memberof MessageBox
-  *
-  * @param {SyntheticEvent} event
-  *
-  * @returns {void}
-  */
+/**
+* @method onChange
+*
+* @description Monitors changes in the components and change the state
+*
+* @memberof MessageBox
+*
+* @param {SyntheticEvent} event
+*
+* @returns {void}
+*/
   onChange(event) {
     this.setState({
       [event.target.name]: event.target.value
@@ -92,15 +92,15 @@ class MessageBox extends React.Component {
   }
 
 
-  /**
-    * @method render
-    *
-    * Render MessageBox component
-    *
-    * @returns {ReactElement} MessageBox markup
-    *
-    * @memberof MessageBox
-    */
+/**
+* @method render
+*
+* Render MessageBox component
+*
+* @returns {ReactElement} MessageBox markup
+*
+* @memberof MessageBox
+*/
   render() {
     return (
       <div className="messageForm">

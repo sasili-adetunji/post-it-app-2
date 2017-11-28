@@ -25,8 +25,10 @@ describe('GroupList components', () => {
     expect(Object.keys(groupList().props()).length).toBe(0);
   });
   it('expects the following functions defined', () => {
-    groupList().instance().closeModal();
-    groupList().instance().openModal();
+    const preventDefault = jest.fn();
+    groupList().instance().closeModal({ preventDefault });
+    groupList().instance().openModal({ preventDefault });
+    groupList().instance().handleSubmit({ preventDefault });
   });
   it('should render the button to create a new group', () => {
     expect(groupList().find('#createNewGroup').text()).toBe('Create a Group');
