@@ -97,9 +97,6 @@ class Login extends React.Component {
     firebase.auth().signInWithPopup(provider)
       .then((result) => {
         AppActions.googleLogin(result.credential.idToken);
-        this.setState({
-          isLoading: true
-        });
       }).catch(error => toastr.error(error.message));
   }
 
